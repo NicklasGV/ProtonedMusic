@@ -17,5 +17,27 @@
         {
             return await _productService.GetAllProduct();
         }
+
+        [HttpDelete("id")]
+        public async Task<ActionResult> DeleteProductById(int id)
+        {
+            var product = await _productService.GetProductById(id);
+
+            if (product == null)
+            {
+                return NotFound(); // Returnerer 404 hvis produktet ikke findes.
+            }
+
+            await _productService.DeleteProductById(id);
+
+            return Ok();
+        }
+
+        [HttpGet("id")]
+        public async Task<ProductModel> GetProductById(int id)
+        {
+            return await _productService.GetProductById(id);
+        }
+
     }
 }

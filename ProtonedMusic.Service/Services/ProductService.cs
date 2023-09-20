@@ -4,7 +4,7 @@ namespace ProtonedMusic.Service.Services
 {
     public class ProductService : IProductService
     {
-        public IProductRepository _productRepository {  get; set; }
+        public IProductRepository _productRepository { get; set; }
 
         public ProductService(IProductRepository productRepository)
         {
@@ -14,6 +14,16 @@ namespace ProtonedMusic.Service.Services
         public async Task<List<ProductModel>> GetAllProduct()
         {
             return await _productRepository.GetAllProduct();
+        }
+
+        public async Task<ProductModel> GetProductById(int id)
+        {
+            return await _productRepository.GetProductById(id);
+        }
+
+        public async Task<ProductModel> DeleteProductById(int id)
+        {
+            return await _productRepository.DeleteProductById(id);
         }
     }
 }

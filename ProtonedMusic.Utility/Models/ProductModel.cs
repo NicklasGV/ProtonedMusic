@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusic.Utility.Models
+﻿
+
+namespace ProtonedMusic.Utility.Models
 {
     public class ProductModel
     {
@@ -11,6 +13,6 @@
         [Required]
         public int ProductPrice { get; set; } = 0;
         [Required]
-        public string ProductDescription { get; set; } = string.Empty;
+        public string ProductDescription { get; set; } = string.Empty;       
     }
 }

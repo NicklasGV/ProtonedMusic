@@ -18,7 +18,7 @@ namespace ProtonedMusic.Repository.Database
                     ProductName = "ProductTest1",
                     ProductCategory = "ProductCategory1",
                     ProductDescription = "ProductDescription1",
-                    ProductPrice = 200
+                    ProductPrice = 200,
                 },
                 new ProductModel
                 {
