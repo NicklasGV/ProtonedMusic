@@ -19,3 +19,11 @@
     top: -1%;
     left: 60%;
   }
+
+  .SumOfMoney{
+    font-size: 11px;
+  }
+  
+  .SumOfMoney:hover{
+    cursor:no;
+  }
