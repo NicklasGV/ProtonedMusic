@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,RouterModule],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  imports: [CommonModule, RouterModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   constructor() { }
 

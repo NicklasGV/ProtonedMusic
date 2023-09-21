@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule,RouterModule],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  imports: [CommonModule, RouterModule],
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class SignupComponent implements OnInit {
 
   constructor() { }
 
