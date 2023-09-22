@@ -1,0 +1,29 @@
+.navbar-dark .navbar-nav .nav-link.active-link{
+    color: var(--primary-color);
+  }
+  
+  .navbar-light .navbar-nav .nav-link{
+    color: var(--secondary-color);
+  }
+  
+  .navbar-dark .navbar-nav .nav-link:hover{
+    color: var(--primary-color);
+  }
+  
+  .btnImg {
+    border-style: none;
+    background-color: transparent;
+  }
+  
+  .mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -1%;
+    left: 60%;
+  }
+
+  .SumOfMoney{
+    font-size: 11px;
+  }
+  
+  .SumOfMoney:hover{
+    cursor:no;
+  }

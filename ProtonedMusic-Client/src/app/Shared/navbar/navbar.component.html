@@ -1,46 +1,48 @@
-<!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" [routerLink]="['']">PROTONED</a>
-  
-    <!--Toggle Button-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" data-bs-target="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">ProtonedMusic</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
-    <!--Collapsing Navbar-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto">
-        <li class="mr-5"></li>
-        <!-- Navbar routerlinks-->
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['']" routerLinkActive="router-link-active"  routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/news']" routerLinkActive="router-link-active"  routerLinkActive="active-link">News</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/events']" routerLinkActive="router-link-active"  routerLinkActive="active-link">Events</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/music']" routerLinkActive="router-link-active"  routerLinkActive="active-link">Music</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/upcoming']" routerLinkActive="router-link-active"  routerLinkActive="active-link">Upcoming</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/merchandise']" routerLinkActive="router-link-active"  routerLinkActive="active-link">Merchandise</a>
+          <a class="nav-link" [routerLink]="['']" routerLinkActive="router-link-active" routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{exact:true}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/news']" routerLinkActive="router-link-active"
+          routerLinkActive="active-link">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/events']" routerLinkActive="router-link-active"
+          routerLinkActive="active-link">Events</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/music']" routerLinkActive="router-link-active"
+          routerLinkActive="active-link">Music</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/upcoming']" routerLinkActive="router-link-active"
+          routerLinkActive="active-link">Upcoming</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/merchandise']" routerLinkActive="router-link-active"
+          routerLinkActive="active-link">Merchandise</a>
         </li>
       </ul>
-        <!--Navbar buttons-->
-        <form class="d-flex">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active" routerLinkActive="active-link" class="btn btn-outline-success mr-2" >Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="router-link-active" routerLinkActive="active-link"  class="btn btn-outline-success" >Signup</a>
-                </li>
-            </ul>
-          </form>
+      <form class="d-flex">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active"
+              routerLinkActive="active-link" class="btn btn-outline-success me-2">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="router-link-active"
+              routerLinkActive="active-link" class="btn btn-outline-success me-2">Signup</a>
+          </li>
+        </ul>
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>
