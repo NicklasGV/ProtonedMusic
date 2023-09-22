@@ -11,6 +11,7 @@ namespace ProtonedMusic.Repository.Database
 
         // DbSet til at repræsentere ProductModel i databasen
         public DbSet<ProductModel> Product { get; set; }
+        public DbSet<UserModel> User { get; set; }
 
         ////Hardcode
         //protected override void OnModelCreating(ModelBuilder modelBuilder)

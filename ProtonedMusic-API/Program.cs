@@ -14,8 +14,12 @@ namespace ProtonedMusic_API
 
             // Add services to the container.
             builder.Services.AddControllers();
+
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 
