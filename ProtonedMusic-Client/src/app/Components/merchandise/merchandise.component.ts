@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class MerchandiseComponent implements OnInit {
   products: ProductModel[] = []; // This is the array of products that will be displayed on the page.
+  
 
   constructor(private productService: ProductService) { }
   
