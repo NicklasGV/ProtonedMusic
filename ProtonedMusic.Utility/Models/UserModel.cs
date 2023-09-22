@@ -1,10 +1,8 @@
-﻿
-
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProtonedMusic.Utility.Models
 {
-    public class ProductModel
+    public class UserModel
     {
         [Key]
         public int Id { get; set; }
@@ -15,8 +13,8 @@ namespace ProtonedMusic.Utility.Models
         [ForeignKey("Login.Email")]
         [Required]
         public string Email { get; set; } = string.Empty;
-        [Required]
-        public Login login { get; set; } = string.Empty;
+        //[Required]
+        // public Login login { get; set; } = string.Empty;
         [Required]
         public string PhoneNumber { get; set; } = string.Empty;
         [Required]

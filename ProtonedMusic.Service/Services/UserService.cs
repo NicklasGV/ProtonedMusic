@@ -1,105 +1,48 @@
-﻿using Environ.API.Authorization;
-using Environ.API.DTO.LoginDTO;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.Net.Sockets;
 
-namespace Environ.API.Services
+namespace ProtonedMusic.Service.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IJwtUtils _jwtUtils;
+        // Repository til dataadgang
+        public IUserRepository _userRepository { get; set; }
 
-
-        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
+        // Konstruktør, der tager et IProductRepository som parameter
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _jwtUtils = jwtUtils;
         }
 
-        public static UserResponse MapUserToUserResponse(User user)
+        // Metode til at hente alle produkter
+        public async Task<List<UserModel>> GetAll()
         {
-            UserResponse response = new UserResponse
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Role = user.Role
-            };
-            if (user.Address != null)
-            {
-                response.Address = new UserAddressResponse
-                {
-                    Id = user.Address.Id,
-                    AddressLineOne = user.Address.AddressLineOne,
-                    AddressLineTwo = user.Address.AddressLineTwo,
-                    Country = user.Address.Country,
-                    City = user.Address.City,
-                    Postal = user.Address.Postal,
-                    State = user.Address.State,
-                };
-            }
-            return response;
+            // Kalder GetAllProduct-metoden i det underliggende repository for at hente produkter
+            return await _userRepository.GetAll();
         }
 
-        private static User MapUserRequestToUser(UserRequest userRequest)
+        // Metode til at hente et produkt efter ID
+        public async Task<UserModel> FindById(int userId)
         {
-            User user = new User
-            {
-                FirstName = userRequest.FirstName,
-                LastName = userRequest.LastName,
-                Email = userRequest.Email,
-                Password = userRequest.Password ?? string.Empty,
-                Role = userRequest.Role
-            };
-            return user;
+            // Kalder GetProductById-metoden i det underliggende repository for at hente et produkt efter ID
+            return await _userRepository.FindById(userId);
         }
 
-        public async Task<List<UserResponse>> GetAll()
+        // Metode til at slette et produkt efter ID
+        public async Task<UserModel> DeleteById(int userId)
         {
-            List<User> users = await _userRepository.GetAll();
-
-            if (users == null)
-            {
-                throw new ArgumentException();
-            }
-            return users.Select(user => MapUserToUserResponse(user)).ToList();
+            // Kalder DeleteProductById-metoden i det underliggende repository for at slette et produkt efter ID
+            return await _userRepository.DeleteById(userId);
         }
 
-        public async Task<UserResponse> FindById(int userId)
+        // Metode til at oprette et nyt produkt
+        public async Task<UserModel> CreateUser(UserModel newUser)
         {
-            var user = await _userRepository.FindById(userId);
-
-            if (user != null)
-            {
-                return MapUserToUserResponse(user);
-            }
-
-            return null;
+            // Kalder CreateProduct-metoden i det underliggende repository for at oprette et nyt produkt
+            return await _userRepository.CreateUser(newUser);
         }
 
-        public async Task<UserResponse> CreateUser(UserRequest newUser)
-        {
-            var user = await _userRepository.CreateUser(MapUserRequestToUser(newUser));
-            if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
-            return MapUserToUserResponse(user);
-        }
-
-        public async Task<UserResponse> DeleteById(int userId)
-        {
-            var user = await _userRepository.DeleteById(userId);
-
-            if(user != null)
-            {
-                return MapUserToUserResponse(user);
-            }
-            return null;
-        }
-
-        public async Task<UserResponse> UpdateById(int userId, UserRequest updateUser)
+        public async Task<UserModel> UpdateById(int userId, UserModel updateUser)
         {
             var user = MapUserRequestToUser(updateUser);
             var insertedUser = await _userRepository.UpdateById(userId, user);
@@ -112,26 +55,38 @@ namespace Environ.API.Services
             return null;
         }
 
-        public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
+        public static UserModel MapUserToUserResponse(UserModel user)
         {
-            User user = await _userRepository.FindByEmail(login.Email);
-            if (user == null)
+            UserModel response = new UserModel
             {
-                return null;
-            }
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+                City = user.City,
+                Postal = user.Postal,
+                Country = user.Country,
+                
+            };
+            return response;
+        }
 
-            if (user.Password == login.Password)
+        private static UserModel MapUserRequestToUser(UserModel userRequest)
+        {
+            UserModel user = new UserModel
             {
-                LoginResponse response = new()
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Role = user.Role,
-                    Token = _jwtUtils.GenerateJwtToken(user)
-                };
-                return response;
-            }
-            return null;
+                FirstName = userRequest.FirstName,
+                LastName = userRequest.LastName,
+                Email = userRequest.Email,
+                PhoneNumber = userRequest.PhoneNumber,
+                Address = userRequest.Address,
+                City = userRequest.City,
+                Postal = userRequest.Postal,
+                Country = userRequest.Country,
+            };
+            return user;
         }
     }
 }
