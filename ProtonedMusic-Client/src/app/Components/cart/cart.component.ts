@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-homepage',
+  selector: 'app-cart',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.css']
 })
-export class HomepageComponent implements OnInit {
+export class CartComponent implements OnInit {
 
   constructor() { }
 
