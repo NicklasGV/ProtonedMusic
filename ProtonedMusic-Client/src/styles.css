@@ -12,6 +12,9 @@ body {
 
 body{
   height: 100vh;
+  background-color: #292b2c;
+  color: #fff;
+  
 }
 
 .selector-for-some-widget {
