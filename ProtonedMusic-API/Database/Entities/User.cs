@@ -11,11 +11,11 @@ namespace ProtonedMusic_API.Database.Entities
         [Column(TypeName = "nvarchar(50)")]
         public string LastName { get; set; }
 
-        [ForeignKey("Login.Email")]
         [Column(TypeName = "nvarchar(50)")]
         public string Email { get; set; }
 
-        public Login login { get; set; }
+        [Column(TypeName = "nvarchar(50)")]
+        public string Password { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
         public string PhoneNumber { get; set; }

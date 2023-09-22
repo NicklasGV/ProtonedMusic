@@ -8,85 +8,60 @@ namespace ProtonedMusic.Service.Services
         // Repository til dataadgang
         public IUserRepository _userRepository { get; set; }
 
-        // Konstruktør, der tager et IProductRepository som parameter
+        // Konstruktør, der tager et IUserRepository som parameter
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        // Metode til at hente alle produkter
+        // Metode til at hente alle users
         public async Task<List<UserModel>> GetAll()
         {
-            // Kalder GetAllProduct-metoden i det underliggende repository for at hente produkter
+            // Kalder GetAllUser-metoden i det underliggende repository for at hente users
             return await _userRepository.GetAll();
         }
 
-        // Metode til at hente et produkt efter ID
+        // Metode til at hente en user efter ID
         public async Task<UserModel> FindById(int userId)
         {
-            // Kalder GetProductById-metoden i det underliggende repository for at hente et produkt efter ID
+            // Kalder GetUserById-metoden i det underliggende repository for at hente en user efter ID
             return await _userRepository.FindById(userId);
         }
 
-        // Metode til at slette et produkt efter ID
+        // Metode til at slette en user efter ID
         public async Task<UserModel> DeleteById(int userId)
         {
-            // Kalder DeleteProductById-metoden i det underliggende repository for at slette et produkt efter ID
+            // Kalder DeleteUserById-metoden i det underliggende repository for at slette en user efter ID
             return await _userRepository.DeleteById(userId);
         }
 
-        // Metode til at oprette et nyt produkt
+        // Metode til at oprette et nyt user
         public async Task<UserModel> CreateUser(UserModel newUser)
         {
-            // Kalder CreateProduct-metoden i det underliggende repository for at oprette et nyt produkt
+            // Kalder CreateUser-metoden i det underliggende repository for at oprette en ny user
             return await _userRepository.CreateUser(newUser);
         }
 
-        public async Task<UserModel> UpdateById(int userId, UserModel updateUser)
+        public async Task<UserModel> UpdateUser(UserModel updateUser)
         {
-            var user = MapUserRequestToUser(updateUser);
-            var insertedUser = await _userRepository.UpdateById(userId, user);
+            var user = await _userRepository.FindById(updateUser.Id);
 
-            if (insertedUser != null)
+            if (user is null)
             {
-                return MapUserToUserResponse(insertedUser);
+                return null;
             }
 
-            return null;
-        }
+            user.FirstName = updateUser.FirstName;
+            user.LastName = updateUser.LastName;
+            user.Email = updateUser.Email;
+            user.Password = updateUser.Password;
+            user.PhoneNumber = updateUser.PhoneNumber;
+            user.Address = updateUser.Address;
+            user.City = updateUser.City;
+            user.Postal = updateUser.Postal;
+            user.Country = updateUser.Country;
 
-        public static UserModel MapUserToUserResponse(UserModel user)
-        {
-            UserModel response = new UserModel
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                Address = user.Address,
-                City = user.City,
-                Postal = user.Postal,
-                Country = user.Country,
-                
-            };
-            return response;
-        }
-
-        private static UserModel MapUserRequestToUser(UserModel userRequest)
-        {
-            UserModel user = new UserModel
-            {
-                FirstName = userRequest.FirstName,
-                LastName = userRequest.LastName,
-                Email = userRequest.Email,
-                PhoneNumber = userRequest.PhoneNumber,
-                Address = userRequest.Address,
-                City = userRequest.City,
-                Postal = userRequest.Postal,
-                Country = userRequest.Country,
-            };
-            return user;
+            return await _userRepository.UpdateUser(user);
         }
     }
 }

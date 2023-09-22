@@ -18,6 +18,6 @@ namespace ProtonedMusic.Utility.Interface
         public Task<UserModel> CreateUser(UserModel newUser);
 
         // Metode til at updatere en user
-        public Task<UserModel?> UpdateById(int userId, UserModel updateUser);
+        public Task<UserModel?> UpdateUser(UserModel updateUser);
     }
 }
