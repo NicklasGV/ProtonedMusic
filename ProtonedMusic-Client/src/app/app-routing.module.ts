@@ -4,13 +4,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-{path: '', loadComponent: () =>
-import('./Components/homepage/homepage.component').then(it => it.HomepageComponent)},
-
-
   {path: '', loadComponent: () => 
-  import('./Components/homepage/homepage.component').then(it => it.HomepageComponent)},
-
+  import('./Components/home/home.component').then(it => it.HomepageComponent)},
   {path: 'login', loadComponent: () =>
   import('./Components/login/login.component').then(it => it.LoginComponent)},
 
@@ -19,6 +14,9 @@ import('./Components/homepage/homepage.component').then(it => it.HomepageCompone
 
   {path: 'merchandise', loadComponent: () =>
   import('./Components/merchandise/merchandise.component').then(it => it.MerchandiseComponent)},
+
+  {path: 'cart', loadComponent: () =>
+  import('./Components/cart/cart.component').then(it => it.CartComponent)},
   
 
   
