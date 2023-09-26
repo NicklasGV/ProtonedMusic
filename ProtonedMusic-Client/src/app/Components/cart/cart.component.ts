@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon'; */
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
+import { ProductModel } from 'src/app/Models/ProductModel';
 
 @Component({
   selector: 'app-cart',
@@ -19,17 +20,20 @@ import { AuthService } from '../../Services/auth.service';
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
+  products: ProductModel[] = [];
   amount: number = 1;
   constructor(public cartService: CartService, private authService:AuthService) { }
 
+
   ngOnInit(): void {
-    this.cartService.currentCart.subscribe(x => this.cartItems = x);
+    this.cartService.currentCart.subscribe(x => this.cartItems = x); 
+    console.log(this.cartItems);
   }
 
-  // OBS! this method belongs on productpage and other places where items can be placed in basket
-  addToCart(item?: CartItem): void {
-
+  removeFromCart(item?: CartItem): void {
+    this.cartService
   }
+
 
   clearCart(): void {
     if(confirm('Er du sikker på du vil tømme din kurv?'))

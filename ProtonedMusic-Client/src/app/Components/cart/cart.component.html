@@ -1,8 +1,6 @@
-
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <h1>Indkøbskurv</h1>
-    <table class="table table-striped table-hover">
-    
+    <table class="table table-striped table-hover">   
       <thead>
         <tr>
           <th style="width:80px;">Id</th>
@@ -13,7 +11,6 @@
           <th style="width:45px;"></th>
         </tr>
       </thead>
-    
       <tbody>
         <tr *ngFor="let item of cartItems">
           <td>{{item.id}}</td>
@@ -26,18 +23,55 @@
           <td class="text-end">{{ (item.price * item.quantity) | currency:'kr.'}}</td>
           <td><button (click)="removeItem(item)" class="btn btn-danger btn-sm">x</button></td>
         </tr>
-      </tbody> 
-    
+      </tbody>     
       <tfoot>
         <tr>
           <td colspan="4" class="text-end">Total: </td>
           <td class="text-end">{{ cartService.getCartTotal() | currency:'kr.'}}</td>
           <td></td>
         </tr>
-      </tfoot>
-    
+      </tfoot>    
     </table>
-    
-    <button (click)="clearCart()" class="btn btn-warning btn-sm me-2">Tøm kurv</button>
-    <button (click)="buyCartItems()" class="btn btn-success btn-sm">KØB</button>
+    <td>
+      <div class="d-flex justify-content-between">
+        <button (click)="clearCart()" class="btn btn-danger btn-sm">Remove</button>
+        <button (click)="clearCart()" class="btn btn-warning btn-sm">Tøm kurv</button>
+        <button (click)="buyCartItems()" class="btn btn-success btn-sm">KØB</button>
+      </div>
+</div> -->
+
+<div class="container mt-5">
+  <h1>INDKØBSKURV</h1>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th>Total</th>
+        <th></th>
+        <th>Update Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cart of cartItems">
+        <td><img [src]="" style="width: 50px;"></td>
+        <td>{{cart.name}}</td>
+        <td>{{cart.price | currency:'kr'}}</td>
+        <td>{{cart.quantity}}</td>
+        <td>{{cart.price * cart.quantity | currency: 'kr'}}</td>
+        <td></td>
+        <td>
+          <input [(ngModel)]="cart.quantity" (ngModelChange)="updateCart()"
+            type="number" min="1" style="width:55px;">
+        </td>
+        <td><button (click)="removeItem(cart)" class="btn btn-danger btn-sm">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+<div class="">
+  <button  class="btn btn-success btn-sm float-end">KØB</button>
+  <button (click)="clearCart()" class="btn btn-danger btn-sm float-end me-2">TØM KURV</button>
   </div>
