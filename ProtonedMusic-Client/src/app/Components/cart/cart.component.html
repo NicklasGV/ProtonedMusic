@@ -45,7 +45,7 @@
   <table class="table table-dark">
     <thead>
       <tr>
-        <th></th>
+        <th>Image</th>
         <th>Name</th>
         <th>Quantity</th>
         <th>Amount</th>
@@ -57,17 +57,17 @@
     </thead>
     <tbody>
       <tr *ngFor="let cart of cartItems">
-        <td><img [src]="" style="width: 50px;"></td>
-        <td>{{cart.name}}</td>
-        <td>{{cart.price | currency:'kr'}}</td>
-        <td>{{cart.quantity}}</td>
-        <td>{{cart.price * cart.quantity | currency: 'kr'}}</td>
+        <td class=""><img src="../../../assets/img/1.png" style="width: 25%;"></td>
+        <td class="align-middle">{{cart.name}}</td>
+        <td class="align-middle">{{cart.price | currency:'kr'}}</td>
+        <td class="align-middle">{{cart.quantity}}</td>
+        <td class="align-middle">{{cart.price * cart.quantity | currency: 'kr'}}</td>
         <td></td>
-        <td>
+        <td class="align-middle">
           <input [(ngModel)]="cart.quantity" (ngModelChange)="updateCart()"
             type="number" min="1" style="width:55px;">
         </td>
-        <td><button (click)="removeItem(cart)" class="btn btn-danger btn-sm">X</button></td>
+        <td class="align-middle"><button (click)="removeItem(cart)" class="btn btn-danger btn-sm">X</button></td>
       </tr>
     </tbody>
   </table>
