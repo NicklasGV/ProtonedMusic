@@ -6,8 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {path: '', loadComponent: () => 
   import('./Components/home/home.component').then(it => it.HomepageComponent)},
+
   {path: 'login', loadComponent: () =>
-  import('./Components/login/login.component').then(it => it.LoginComponent)},
+  import('./Components/login/loginsignup.component').then(it => it.LoginComponent)},
 
   {path: 'signup', loadComponent: () =>
   import('./Components/signup/signup.component').then(it => it.SignupComponent)},
