@@ -14,27 +14,27 @@
         </tr>
       </thead>
     
-      <!-- <tbody>
+      <tbody>
         <tr *ngFor="let item of cartItems">
           <td>{{item.id}}</td>
           <td>{{item.name}}</td>
           <td class="text-end">{{ item.price | currency:'kr.'}}</td>
           <td>
-            <input [(ngModel)]="item.amount" (ngModelChange)="updateCart()"
+            <input [(ngModel)]="item.quantity" (ngModelChange)="updateCart()"
               type="number" min="1" style="width:55px;">
           </td>
-          <td class="text-end">{{ (item.price * item.amount) | currency:'kr.'}}</td>
+          <td class="text-end">{{ (item.price * item.quantity) | currency:'kr.'}}</td>
           <td><button (click)="removeItem(item)" class="btn btn-danger btn-sm">x</button></td>
         </tr>
-      </tbody> -->
+      </tbody> 
     
-      <!-- <tfoot>
+      <tfoot>
         <tr>
           <td colspan="4" class="text-end">Total: </td>
-          <td class="text-end">{{ cartService.getBasketTotal() | currency:'kr.'}}</td>
+          <td class="text-end">{{ cartService.getCartTotal() | currency:'kr.'}}</td>
           <td></td>
         </tr>
-      </tfoot> -->
+      </tfoot>
     
     </table>
     
