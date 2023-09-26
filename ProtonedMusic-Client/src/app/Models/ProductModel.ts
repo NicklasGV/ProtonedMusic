@@ -4,4 +4,5 @@ export class ProductModel {
     productCategory: string = "";
     productPrice: number = 0;
     productDescription: string = "";
+    productImage: string = "";
 }
