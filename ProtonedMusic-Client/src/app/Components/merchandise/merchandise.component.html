@@ -23,7 +23,7 @@
                 </div>
                 <p>{{item.productDescription}}</p>
                 <p>{{item.productPrice | currency:'DKK ' }}</p>
-                <a type="button" class="btn btn-outline-success float-end btn-sm">Add to basket</a>
+                <a type="button" class="btn btn-outline-success float-end btn-sm" (click)="addToCart(item)">Add to basket</a>
                 <a type="button" class="btn btn-outline-success btn-sm">See More</a>
             </div>
         </div>
