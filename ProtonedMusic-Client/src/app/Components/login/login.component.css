@@ -1,3 +1,25 @@
-label {
-    color: lightgray;
-}
+p {
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  p:before,
+  p:after {
+    background-color: whitesmoke;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+  }
+  
+  p:before {
+    right: 0.5em;
+    margin-left: -50%;
+  }
+  
+  p:after {
+    left: 0.5em;
+    margin-right: -50%;
+  }

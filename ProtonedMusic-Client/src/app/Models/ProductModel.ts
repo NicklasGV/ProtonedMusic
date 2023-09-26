@@ -1,7 +1,7 @@
 export class ProductModel {
-    id: Number = 0;
-    productName: String = "";
-    productCategory: String = "";
-    productPrice: Number = 0;
-    productDescription: String = "";
+    id: number = 0;
+    productName: string = "";
+    productCategory: string = "";
+    productPrice: number = 0;
+    productDescription: string = "";
 }

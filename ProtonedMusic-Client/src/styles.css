@@ -3,15 +3,20 @@ html, body { height: 100%; }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif; }
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  height: 100vh;
+  background-color: #292b2c;
+  color: #fff;
+}
+
+h1, h2, h3, h4, h5 , h6, p {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #fff;
+}
 
 *{
   padding: 0;
   margin: 0;
-}
-
-body{
-  height: 100vh;
 }
 
 .selector-for-some-widget {
@@ -24,5 +29,5 @@ body{
 }
 
 
-html, body { height: 100%; }
-body{ margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
