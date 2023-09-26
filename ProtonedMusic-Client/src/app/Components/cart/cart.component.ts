@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
   constructor(public cartService: CartService, private authService:AuthService) { }
 
   ngOnInit(): void {
-    /* this.cartService.cart.subscribe(x => this.cartItems = x); */
+    this.cartService.currentCart.subscribe(x => this.cartItems = x);
   }
 
   // OBS! this method belongs on productpage and other places where items can be placed in basket
