@@ -16,7 +16,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 export class MerchandiseComponent implements OnInit {
   products: ProductModel[] = []; // This is the array of products that will be displayed on the page.
   cart: CartItem[] = [];
-
+  itemlength = 0;
   private _cart: Cart = { items: [] };
   itemsQuantity = 0;
 
@@ -43,6 +43,11 @@ export class MerchandiseComponent implements OnInit {
       // This is the call to the service to get all products.
       next: (result) => {
         this.products = result;
+        console.log( this.cart.length);
+        this.cart.forEach(element => {
+          this.itemlength += element.quantity;
+          
+        });
       }, // This is the callback function that will be executed when the service returns the data.
     });
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
@@ -59,7 +64,7 @@ export class MerchandiseComponent implements OnInit {
       quantity: 1,
       name: products.productName,
     } as CartItem;
-
     this.cartService.addToCart(item);
+    this.itemlength +=1;
   }
 }
