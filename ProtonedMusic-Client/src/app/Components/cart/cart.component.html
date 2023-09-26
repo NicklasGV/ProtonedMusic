@@ -1,22 +1,40 @@
 <div class="container mt-5">
-  <div class="display-3">INDKØBSKURV</div>
-  <table class="table table-dark">
-    <thead>
-      <tr>
-        <th scope="col">Product</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Total</th>
-        <th scope="col">Remove</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cartItems">
-        <td>{{item.name}}</td>
-        <td>{{item.price}}</td>
-        <td>{{item.quantity}}</td>
-        <td>{{item.price * item.quantity | currency: 'DKK'}}</td>
-      </tr>
+    <h1>Indkøbskurv</h1>
+    <table class="table table-striped table-hover">
+    
+      <thead>
+        <tr>
+          <th style="width:80px;">Id</th>
+          <th>Navn</th>
+          <th class="text-end" style="width:110px;">Stk Pris</th>
+          <th style="width:70px;">Antal</th>
+          <th class="text-end" style="width:110px;">Samlet Pris</th>
+          <th style="width:45px;"></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td class="text-end">{{ item.price | currency:'kr.'}}</td>
+          <td>
+            <input [(ngModel)]="item.quantity" (ngModelChange)="updateCart()"
+              type="number" min="1" style="width:55px;">
+          </td>
+          <td class="text-end">{{ (item.price * item.quantity) | currency:'kr.'}}</td>
+          <td><button (click)="removeItem(item)" class="btn btn-danger btn-sm">x</button></td>
+        </tr>
+      </tbody> 
+    
+      <tfoot>
+        <tr>
+          <td colspan="4" class="text-end">Total: </td>
+          <td class="text-end">{{ cartService.getCartTotal() | currency:'kr.'}}</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    
     </table>
     <td><button (click)="clearCart()" class="btn btn-danger btn-sm">Remove</button></td>
 

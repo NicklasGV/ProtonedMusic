@@ -42,6 +42,10 @@ export class CartComponent implements OnInit {
     }
   }
 
+  updateCart(): void {
+    this.cartService.saveCart(this.cartItems);
+  }
+
   buyCartItems(): void {
     /* if (this.authService.CurrentUserValue.mail == "")
     {
