@@ -1,12 +1,22 @@
-<div class="row row-cols-auto row-cols-lg-5 g-4 m-5">
-        <div class="card h-100 w-25 bg-dark" >
-            <img src="../../../assets/img/1.png">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <h1>{{products.id}}</h1>
-                    <p>{{products.productName}}</p>
-                    <p>{{products.productCategory}}</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-12"> <!-- Adjusted column widths for responsiveness -->
+            <div class="card bg-dark">
+                <div class="card-header text-center">
+                    <h1 class="display-6">{{ products.productName }}</h1>
+                </div>
+                <img class="card-img-top" src="../../../assets/img/1.png" alt="Product Image">
+                <div class="card-body">
+                    <hr class="border-success border-2">
+                    <p class="card-text">{{ products.productDescription }}</p>
+                    <p class="card-text">{{ products.productPrice | currency: 'DKK' }}</p>
+                    <hr class="border-success border-2">
+                </div>
+                <div class="card-footer">
+                    <a type="button" class="btn btn-outline-success float-start" [routerLink]="['/merchandise']">Back</a>
+                    <a type="button" class="btn btn-outline-success float-end" (click)="addToCart(products)">Add to basket</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
