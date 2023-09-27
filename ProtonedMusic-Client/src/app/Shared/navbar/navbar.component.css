@@ -1,0 +1,15 @@
+.navbar-dark .navbar-nav .nav-link.active-link{
+    color: var(--primary-color);
+  }
+  
+  .navbar-light .navbar-nav .nav-link{
+    color: var(--secondary-color);
+  }
+  
+  .navbar-dark .navbar-nav .nav-link:hover{
+    color: var(--primary-color);
+  }
+  
+
+  
+

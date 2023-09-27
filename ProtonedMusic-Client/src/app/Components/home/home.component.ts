@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-homepage',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomepageComponent implements OnInit {
 
