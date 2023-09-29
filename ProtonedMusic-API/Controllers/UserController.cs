@@ -17,23 +17,23 @@ namespace Environ.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            // Hent alle produkter fra ProductService
+            // Hent alle users fra UserService
             return Ok(await _userService.GetAll());
         }
 
         [HttpDelete("userId")]
         public async Task<IActionResult> DeleteById([FromRoute] int userId)
         {
-            // Hent produktet med det angivne ID fra ProductService
+            // Hent useren med det angivne ID fra UserService
             var user = await _userService.FindById(userId);
 
-            // Hvis produktet ikke findes, returner en 404 Not Found-response
+            // Hvis useren ikke findes, returner en 404 Not Found-response
             if (user == null)
             {
-                return NotFound(); // Returnerer 404 hvis produktet ikke findes..
+                return NotFound(); // Returnerer 404 hvis useren ikke findes..
             }
 
-            // Slet produktet med det angivne ID fra ProductService
+            // Slet useren med det angivne ID fra UserService
             await _userService.DeleteById(userId);
 
             // Returner en OK-response for at bekræfte, at sletningen er udført
@@ -43,7 +43,7 @@ namespace Environ.API.Controllers
         [HttpGet("userId")]
         public async Task<IActionResult> FindById([FromRoute] int userId)
         {
-            // Hent produktet med det angivne ID fra ProductService
+            // Hent useren med det angivne ID fra UserService
             return (IActionResult)await _userService.FindById(userId);
         }
 

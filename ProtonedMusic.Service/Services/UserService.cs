@@ -35,7 +35,7 @@ namespace ProtonedMusic.Service.Services
             return await _userRepository.DeleteById(userId);
         }
 
-        // Metode til at oprette et nyt user
+        // Metode til at oprette en ny user
         public async Task<UserModel> CreateUser(UserModel newUser)
         {
             // Kalder CreateUser-metoden i det underliggende repository for at oprette en ny user
