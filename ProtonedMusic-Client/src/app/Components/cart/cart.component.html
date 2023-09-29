@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <h1>INDKØBSKURV</h1>
+  <div class="table-responsive"> <!-- Added a responsive container for the table -->
+      <table class="table table-dark">
+          <thead>
+              <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Quantity</th>
+                  <th>Amount</th>
+                  <th>Total</th>
+                  <th></th>
+                  <th>Update Amount</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let cart of cartItems">
+                  <td class="">
+                      <img src="../../../assets/img/1.png" style="width: 25%" />
+                  </td>
+                  <td class="align-middle">{{ cart.name }}</td>
+                  <td class="align-middle">{{ cart.price | currency : "kr" }}</td>
+                  <td class="align-middle">{{ cart.quantity }}</td>
+                  <td class="align-middle">
+                      {{ cart.price * cart.quantity | currency : "kr" }}
+                  </td>
+                  <td></td>
+                  <td class="align-middle">
+                      <input [(ngModel)]="cart.quantity" (ngModelChange)="updateCart()" type="number" min="1" style="width: 55px" />
+                  </td>
+                  <td class="align-middle">
+                      <button (click)="removeItem(cart)" class="btn btn-danger btn-sm">
+                          X
+                      </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="">
+    <button class="btn btn-success btn-sm float-end">KØB</button>
+    <button (click)="clearCart()" class="btn btn-danger btn-sm float-end me-2">
+      TØM KURV
+    </button>
+  </div>
+</div>

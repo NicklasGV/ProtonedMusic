@@ -1,0 +1,35 @@
+<div class="m-5">
+    <div class="d-flex justify-content-around col-md-12">
+        <div class="display-6 mt-4">MERCHANDISE</div>
+        <div class="btnImg btn-group mt-2 flex-column align-items-center">
+            <span class="position-absolute start-50 translate-middle badge rounded-pill bg-danger mt-1 ms-4" 
+            style="font-size: 0.8rem;">{{itemlength}}</span>
+            <i class="bi bi-cart3" [routerLink]="['/cart']" style="font-size: 2.5rem;"></i>
+            <p class="Total fw-medium m-0">{{ CartTotal() | currency:'DKK ' }}</p>
+        </div>
+    </div>
+    <hr class="border-2 opacity-25">
+</div>
+
+<!--Products-->
+<div class="row row-cols-auto row-cols-lg-5 g-4 m-5">
+    <div *ngFor="let product of products">
+        <div class="card h-100 bg-dark" style="display: grid; grid-template-rows: 1fr auto;">
+            <img src="../../../assets/img/1.png" style="max-width: 100%; max-height: 100%;">
+            <div class="card-body">
+                <div>
+                    <p class="">{{product.productName}}</p>
+                    <p class="">{{product.productCategory}}</p>
+                </div>
+                <p>{{product.productDescription}}</p>
+                <p>{{product.productPrice | currency:'DKK ' }}</p>
+                <div>
+                    <a type="button" class="btn btn-outline-success float-end btn-sm" (click)="addToCart(product)">Add to basket</a>
+                    <a type="button" class="btn btn-outline-success btn-sm " [routerLink]="['/merchandiseProduct', product.id]">See More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
