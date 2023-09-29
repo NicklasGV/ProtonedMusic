@@ -399,3 +399,4 @@ FodyWeavers.xsd
 *.sln.iml
 /[Aa]ppsettings.json
 /ProtonedMusic-API/appsettings.json
+/ProtonedMusic-API/appsettings.Development.json
