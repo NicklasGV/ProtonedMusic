@@ -12,6 +12,5 @@
         public int ProductPrice { get; set; } = 0;
         [Required]
         public string ProductDescription { get; set; } = string.Empty;
-        //public PicturesModel? picture { get; set; }
     }
 }
