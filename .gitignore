@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*appsettings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -396,3 +397,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/[Aa]ppsettings.json
+/ProtonedMusic-API/appsettings.json
+/ProtonedMusic-API/appsettings.Development.json
