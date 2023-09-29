@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Environ.API.Controllers
 {
@@ -17,7 +18,7 @@ namespace Environ.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             // Hent alle produkter fra ProductService
-            return (IActionResult)await _userService.GetAll();
+            return Ok(await _userService.GetAll());
         }
 
         [HttpDelete("userId")]
@@ -65,24 +66,17 @@ namespace Environ.API.Controllers
         }
 
 
-        [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateById([FromRoute] int userId, [FromBody] UserModel updateUser)
+        [HttpPut("update/{usedId:int}"), Authorize]
+        public async Task<IActionResult> UpdateUser(UserModel updateUser)
         {
-            try
-            {
-                var userResponse = await _userService.UpdateById(userId, updateUser);
+            var user = await _userService.UpdateUser(updateUser);
 
-                if (userResponse == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(userResponse);
-            }
-            catch (Exception ex)
+            if (user is null)
             {
-                return Problem(ex.Message);
+                return NotFound($"Unable to find user with ID = {updateUser.Id}");
             }
+
+            return Ok(user);
         }
     }
 }
