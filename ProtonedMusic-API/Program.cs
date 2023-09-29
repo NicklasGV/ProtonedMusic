@@ -25,7 +25,7 @@ namespace ProtonedMusic_API
 
             builder.Services.AddDbContext<DatabaseContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("NiklasConnection"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));
             });
 
             //Hvis man har mange til mange relationer, kan den godt finde på at blive ved med at lave lister med data.
