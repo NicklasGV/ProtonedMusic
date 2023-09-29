@@ -62,5 +62,18 @@
             return CreatedAtAction(nameof(GetProductById), new {id = product.Id}, product);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ProductModel>> UpdateProduct(int id,ProductModel UpdateProduct)
+        {
+            var product = await _productService.UpdateProduct(UpdateProduct);
+
+            if (product is null)
+            {
+                return NotFound($"Unable to find user with ID = {UpdateProduct.Id}");
+            }
+
+            return Ok(product);
+        }
+
     }
 }
