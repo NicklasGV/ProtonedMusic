@@ -41,5 +41,21 @@ namespace ProtonedMusic.Service.Services
             return await _productRepository.CreateProduct(product);
         }
 
+        public async Task<ProductModel> UpdateProduct(ProductModel UpdateProduct)
+        {
+            var product = await _productRepository.UpdateProduct(UpdateProduct);
+
+            if (product is null)
+            {
+                return null;
+            }
+
+            product.ProductPrice = UpdateProduct.ProductPrice;
+            product.ProductName = UpdateProduct.ProductName;
+            product.ProductDescription = UpdateProduct.ProductDescription;
+            product.ProductCategory = UpdateProduct.ProductCategory;
+
+            return await _productRepository.UpdateProduct(product);
+        }
     }
 }
