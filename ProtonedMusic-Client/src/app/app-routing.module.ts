@@ -18,6 +18,9 @@ const routes: Routes = [
   
   {path: 'cart', loadComponent: () =>
   import('./Components/cart/cart.component').then(it => it.CartComponent)},
+
+  {path: 'admin/productpanel', loadComponent: () =>
+  import('./Components/Admin/product-panel/product-panel.component').then(it => it.ProductPanelComponent)},
   
   
 ];
