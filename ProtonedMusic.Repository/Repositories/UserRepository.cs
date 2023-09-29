@@ -54,20 +54,11 @@ namespace ProtonedMusic.Repository.Repositories
             return newUser;
         }
 
-        public async Task<UserModel> UpdateById(int userId, UserModel updateUser)
+        public async Task<UserModel> UpdateUser(UserModel updateUser)
         {
-            UserModel user = await FindById(userId);
-            if (user != null)
-            {
-                user.FirstName = updateUser.FirstName;
-                user.LastName = updateUser.LastName;
-                user.Email = updateUser.Email;
-
-                await _context.SaveChangesAsync();
-
-                user = await FindById(user.Id);
-            }
-            return user;
+            _context.Entry(updateUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return updateUser;
         }
     }
 }
