@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductService } from 'src/app/Services/Product.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-merchandise',
@@ -16,8 +16,8 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 export class MerchandiseComponent implements OnInit {
   products: ProductModel[] = []; // This is the array of products that will be displayed on the page.
   cart: CartItem[] = [];
-  itemlength = 0;
   private _cart: Cart = { items: [] };
+  itemlength = 0;
   itemsQuantity = 0;
 
   @Input()
@@ -32,10 +32,12 @@ export class MerchandiseComponent implements OnInit {
       .map((item) => item.quantity)
       .reduce((prev, current) => prev + current, 0);
   }
+  
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -67,4 +69,5 @@ export class MerchandiseComponent implements OnInit {
     this.cartService.addToCart(item);
     this.itemlength += 1;
   }
+
 }
