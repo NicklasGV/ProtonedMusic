@@ -40,5 +40,6 @@ namespace ProtonedMusic.Service.Services
             // Kalder CreateProduct-metoden i det underliggende repository for at oprette et nyt produkt
             return await _productRepository.CreateProduct(product);
         }
+
     }
 }

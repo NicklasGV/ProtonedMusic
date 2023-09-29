@@ -16,5 +16,8 @@ namespace ProtonedMusic.Utility.Interface
 
         // Metode til at oprette et nyt produkt
         public Task<ProductModel> CreateProduct(ProductModel product);
+
+        public Task<ProductModel> UpdateProduct(ProductModel UpdateProduct);
+
     }
 }

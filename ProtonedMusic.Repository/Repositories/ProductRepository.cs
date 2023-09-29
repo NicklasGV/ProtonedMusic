@@ -47,5 +47,12 @@ namespace ProtonedMusic.Repository.Repositories
 
             return product;
         }
+
+        public async Task<ProductModel> UpdateProduct(ProductModel product)
+        {
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return product;
+        }
     }
 }
