@@ -398,3 +398,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /[Aa]ppsettings.json
+/ProtonedMusic-API/appsettings.json
