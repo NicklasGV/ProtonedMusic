@@ -5,7 +5,6 @@ namespace ProtonedMusic.Utility.Models
     public class UserModel
     {
         [Key]
-        [JsonIgnore]
         public int Id { get; set; }
         [Required]
         public string FirstName { get; set; } = string.Empty;

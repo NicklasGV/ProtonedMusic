@@ -48,8 +48,8 @@ export class CartService {
     const index = basket.findIndex(item => item.id === productId);
     if (index !== -1) {
       basket.splice(index, 1);
-      this.saveCart(basket);
     }
+    this.saveCart(basket);
   }
 
   clearCart(): void {

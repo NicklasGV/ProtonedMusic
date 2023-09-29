@@ -41,5 +41,9 @@ namespace ProtonedMusic.Service.Services
             return await _productRepository.CreateProduct(product);
         }
 
+        public Task<ProductModel> UpdateProduct(ProductModel UpdateProduct)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
