@@ -35,10 +35,16 @@ namespace ProtonedMusic.Service.Services
             return await _userRepository.DeleteById(userId);
         }
 
-        // Metode til at oprette et nyt user
+        // Metode til at oprette en ny user
         public async Task<UserModel> CreateUser(UserModel newUser)
         {
-            // Kalder CreateUser-metoden i det underliggende repository for at oprette en ny user
+            // Hash the password before storing it
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+
+            // Set the hashed password in the user object
+            newUser.Password = hashedPassword;
+
+            // Call the repository to create the user
             return await _userRepository.CreateUser(newUser);
         }
 
@@ -54,14 +60,23 @@ namespace ProtonedMusic.Service.Services
             user.FirstName = updateUser.FirstName;
             user.LastName = updateUser.LastName;
             user.Email = updateUser.Email;
-            user.Password = updateUser.Password;
             user.PhoneNumber = updateUser.PhoneNumber;
             user.Address = updateUser.Address;
             user.City = updateUser.City;
             user.Postal = updateUser.Postal;
             user.Country = updateUser.Country;
 
+            // Check if the password is being updated and hash it if necessary
+            if (!string.IsNullOrWhiteSpace(updateUser.Password))
+            {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(updateUser.Password);
+            }
+
+            // Update other user properties as needed
+
             return await _userRepository.UpdateUser(user);
         }
+
     }
 }
+

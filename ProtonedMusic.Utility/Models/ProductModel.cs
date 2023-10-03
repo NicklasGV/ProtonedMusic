@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ProtonedMusic.Utility.Models
 {
@@ -17,5 +18,6 @@ namespace ProtonedMusic.Utility.Models
         public List<ProductCategoryModel> ProductCategories { get; set; } = new();
 
         //public PicturesModel? picture { get; set; }
+
     }
 }
