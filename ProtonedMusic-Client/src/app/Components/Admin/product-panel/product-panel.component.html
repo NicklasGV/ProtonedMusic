@@ -61,7 +61,7 @@
       <td>{{ product.productName }}</td>
       <td>{{ product.productPrice }}</td>
       <td class="text-truncate" style="max-width: 30px;">{{ product.productDescription }}</td>
-      <td *ngFor="let category of product.productCategory" class="p-0"><!-- {{category.ProductName}} --></td>
+      <td *ngFor="let category of product.categories" class="p-0">category.ProductName</td>
     </tr>
   </tbody>
 </table>

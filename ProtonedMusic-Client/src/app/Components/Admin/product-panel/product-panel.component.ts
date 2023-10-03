@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
+import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
 import { ProductService } from 'src/app/Services/Product.service';
 import { FormsModule } from '@angular/forms';
 
@@ -16,8 +17,8 @@ export class ProductPanelComponent implements OnInit {
   message: string = "";
   products: ProductModel[] = [];
   product: ProductModel = resetProducts();
-  /* category: Category = resetCategory();
-  categories: Category[] = []; */
+  category: CategoryModel = resetCategory();
+  categories: CategoryModel[] = [];
   selected: number[] = [];
   
   constructor(private productService: ProductService, /* private categoryService:CategoryService */) { }
@@ -42,8 +43,8 @@ export class ProductPanelComponent implements OnInit {
   
   
   editProduct(product: ProductModel): void {
-    /* this.selected = this.categories.filter(x => x.checked == true ? x.id : null).map(x => x.id);
-    this.product.categoryIds = this.selected; */
+    this.selected = this.categories.filter(x => x.checked == true ? x.id : null).map(x => x.id);
+    this.product.categoryIds = this.selected;
     Object.assign(this.product, product);
   }
   
@@ -57,20 +58,20 @@ export class ProductPanelComponent implements OnInit {
 
   cancel(): void {
     this.product = resetProducts();
-    /* this.category = resetCategory(); */
+    this.category = resetCategory();
   }
 
   save(): void {
     this.message = "";
     if (this.product.id == 0) {
       //create
-      /* this.product.categoryIds = this.selected; */
+      this.product.categoryIds = this.selected;
       this.productService.createProduct(this.product)
       .subscribe({
         next: (x) => {
           this.products.push(x);
           this.product = resetProducts();
-          /* this.category = resetCategory(); */
+          this.category = resetCategory();
         },
         error: (err) => {
           console.log(err);
