@@ -1,4 +1,5 @@
-﻿using ProtonedMusic.Utility.Models;
+﻿using ProtonedMusic.Utility.Helpers;
+using ProtonedMusic.Utility.Models;
 
 namespace ProtonedMusic.Repository.Database
 {
@@ -40,6 +41,37 @@ namespace ProtonedMusic.Repository.Database
                     ProductCategory = "ProductCategory3",
                     ProductDescription = "ProductDescription3",
                     ProductPrice = 600
+                });
+
+            modelBuilder.Entity<UserModel>().HasData(
+                new UserModel
+                {
+                    Id = 1,
+                    FirstName = "Joey",
+                    LastName = "Test",
+                    Email = "Testmail",
+                    Password = "passw0rd",
+                    Role = (CloudinaryDotNet.Actions.Role)Role.Admin,
+                    PhoneNumber = "1234567890",
+                    Address = "Test Vej 1",
+                    City = "Test By",
+                    Postal = "1234",
+                    Country = "Denmark"
+
+                },
+                new UserModel
+                {
+                    Id = 2,
+                    FirstName = "Børge",
+                    LastName = "Test",
+                    Email = "Testmail",
+                    Password = "password",
+                    Role = (CloudinaryDotNet.Actions.Role)Role.Customer,
+                    PhoneNumber = "1234567890",
+                    Address = "Test Vej 1",
+                    City = "Test By",
+                    Postal = "1234",
+                    Country = "Denmark"
                 });
         }
 

@@ -8,10 +8,13 @@ namespace Environ.API.Controllers
     public class UserController : ControllerBase
     {
         IUserService _userService { get; set; }
+        IAuthenticationService _authenticationService { get; set; }
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IAuthenticationService authenticationService)
         {
             _userService = userService;
+            _authenticationService = authenticationService;
+
         }
 
         [HttpGet]
@@ -77,6 +80,19 @@ namespace Environ.API.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            var auth = await _authenticationService.AuthenticateUser(email, password);
+
+            if (auth is null)
+            {
+                return Unauthorized("Bad login");
+            }
+
+            return Ok(auth);
         }
     }
 }

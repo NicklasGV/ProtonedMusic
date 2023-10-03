@@ -19,6 +19,9 @@ namespace ProtonedMusic.Utility.Models
         public string Password { get; set; }
 
         [Required]
+        public Role Role { get; set; }
+
+        [Required]
         public string PhoneNumber { get; set; } = string.Empty;
         [Required]
         public string Address { get; set; } = string.Empty;
@@ -28,5 +31,8 @@ namespace ProtonedMusic.Utility.Models
         public string Postal { get; set; } = string.Empty;
         [Required]
         public string Country { get; set; } = string.Empty;
+
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }

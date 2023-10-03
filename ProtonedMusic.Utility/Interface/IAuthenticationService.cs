@@ -5,6 +5,6 @@ namespace ProtonedMusic.Utility.Interface
     
     public interface IAuthenticationService
     {
-        Task<bool> AuthenticateUser(string username, string password);
+        Task<LoginModel> AuthenticateUser(string username, string password);
     }
 }
