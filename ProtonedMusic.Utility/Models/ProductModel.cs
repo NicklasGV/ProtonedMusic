@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusic.Utility.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProtonedMusic.Utility.Models
 {
     public class ProductModel
     {
@@ -7,11 +9,13 @@
         [Required]
         public string ProductName { get; set; } = string.Empty;
         [Required]
-        public string ProductCategory { get; set; } = string.Empty;
-        [Required]
-        public int ProductPrice { get; set; } = 0;
+        [Column(TypeName = "Decimal(8,2)")]
+        public decimal ProductPrice { get; set; } = 0;
         [Required]
         public string ProductDescription { get; set; } = string.Empty;
+
+        public List<ProductCategoryModel> ProductCategories { get; set; } = new();
+
         //public PicturesModel? picture { get; set; }
     }
 }
