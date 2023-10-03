@@ -1,7 +1,11 @@
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ProtonedMusic.Repository.Database;
 using ProtonedMusic.Repository.Repositories;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 
 namespace ProtonedMusic_API
@@ -11,6 +15,18 @@ namespace ProtonedMusic_API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAuthentication("YourAuthenticationScheme")
+            .AddScheme<AuthenticationSchemeOptions, CustomAuthenticationHandler>("YourAuthenticationScheme", options => { });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("YourPolicyName", policy =>
+                {
+                    policy.RequireAuthenticatedUser(); // Example policy requiring authentication
+                                                       // Add additional policy requirements as needed
+                });
+            });
 
             // Add services to the container.
             builder.Services.AddControllers();
@@ -60,6 +76,7 @@ namespace ProtonedMusic_API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseCors("policy");
@@ -67,6 +84,29 @@ namespace ProtonedMusic_API
             app.MapControllers();
 
             app.Run();
+        }
+    }
+
+    public class CustomAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
+    {
+        public CustomAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,
+            ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
+            : base(options, logger, encoder, clock)
+        {
+        }
+
+        protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
+        {
+            var claims = new List<Claim>
+            {
+                 new Claim(ClaimTypes.NameIdentifier, "123456"), // Unique identifier for the user
+            };
+
+            var identity = new ClaimsIdentity(claims, Scheme.Name);
+            var principal = new ClaimsPrincipal(identity);
+            var ticket = new AuthenticationTicket(principal, Scheme.Name);
+
+            return AuthenticateResult.Success(ticket);
         }
     }
 }
