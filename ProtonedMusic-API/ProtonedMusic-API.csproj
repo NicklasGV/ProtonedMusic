@@ -30,4 +30,8 @@
     <ProjectReference Include="..\ProtonedMusic.Utility\ProtonedMusic.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
