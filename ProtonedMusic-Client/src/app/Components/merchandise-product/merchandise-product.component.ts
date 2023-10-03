@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductModel } from 'src/app/Models/ProductModel';
+import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductService } from 'src/app/Services/Product.service';
 import { CartItem, } from 'src/app/Models/CartModel';
@@ -15,7 +15,7 @@ import { CartService } from 'src/app/Services/cart.service';
   styleUrls: ['./merchandise-product.component.css']
 })
 export class MerchandiseProductComponent implements OnInit {
-  products: ProductModel = new ProductModel();
+  products: ProductModel = resetProducts();
   itemlength = 0;
   itemsQuantity = 0;
 

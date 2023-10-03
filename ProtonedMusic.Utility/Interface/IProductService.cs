@@ -1,6 +1,4 @@
-﻿using ProtonedMusic.Utility.Models;
-
-namespace ProtonedMusic.Utility.Interface
+﻿namespace ProtonedMusic.Utility.Interface
 {
     // Grænseflade til tjenestelagets produktrelaterede operationer
     public interface IProductService

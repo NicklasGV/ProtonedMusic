@@ -53,7 +53,6 @@ namespace ProtonedMusic.Service.Services
             product.ProductPrice = UpdateProduct.ProductPrice;
             product.ProductName = UpdateProduct.ProductName;
             product.ProductDescription = UpdateProduct.ProductDescription;
-            product.ProductCategory = UpdateProduct.ProductCategory;
 
             return await _productRepository.UpdateProduct(product);
         }

@@ -8,16 +8,28 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ProductService {
-  private readonly apiUrl = environment.apiUrl;
+  private readonly url = environment.apiUrl + 'Product';
 
   constructor(private http: HttpClient) { }
 
   getAllProducts(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>(this.apiUrl + 'Product');
+    return this.http.get<ProductModel[]>(this.url);
   }
 
-  getProductById(id: number): Observable<ProductModel> {
-    return this.http.get<ProductModel>(this.apiUrl + 'Product/id?id=' + id);
+  getProductById(productId: number): Observable<ProductModel> {
+    return this.http.get<ProductModel>(this.url + '/' + productId);
+  }
+
+  createProduct(product: ProductModel): Observable<ProductModel> {
+    return this.http.post<ProductModel>(this.url, product);
+  }
+
+  updateProduct(productId:number, product:ProductModel): Observable<ProductModel> {
+    return this.http.put<ProductModel>(this.url + '/' + productId, product);
+  }
+
+  deleteProduct(productId:number): Observable<ProductModel> {
+    return this.http.delete<ProductModel>(this.url + '/' +'id?id='+ productId);
   }
 }
 
