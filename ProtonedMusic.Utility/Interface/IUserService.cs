@@ -17,5 +17,7 @@
 
         // Metode til at updatere en user
         public Task<UserModel?> UpdateUser(UserModel updateUser);
+
+        public Task<LoginModel> AuthenticateUser(string username, string password);
     }
 }
