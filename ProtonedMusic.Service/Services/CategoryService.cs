@@ -30,7 +30,8 @@
 
         public async Task<CategoryModel> CreateCategory(CategoryModel category)
         {
-            return await _categoryRepository.CreateCategory(category);
+            var newcategory = await _categoryRepository.CreateCategory(MapCategoryToCategoryModel(category));
+            return MapCategoryToCategoryModel(newcategory);
         }
 
         public async Task<CategoryModel> DeleteCategoryById(int id)
@@ -41,6 +42,10 @@
         public async Task<List<CategoryModel>> GetAllCategory()
         {
             List<CategoryModel> categories = await _categoryRepository.GetAllCategory();
+            if (categories is null)
+            {
+                throw new ArgumentNullException();
+            }
 
             return categories.Select(MapCategoryToCategoryModel).ToList();
         }
@@ -50,25 +55,11 @@
             return await _categoryRepository.GetCategoryById(id);
         }
 
-        public async Task<CategoryModel> UpdateCategory(CategoryModel updateCategory)
+        public async Task<CategoryModel> UpdateCategory(int categoryId,CategoryModel updateCategory)
         {
-            CategoryModel categoryProduct = new CategoryModel
-            {
-                Id = updateCategory.Id,
-                Name = updateCategory.Name,
-            };
-            if (updateCategory.ProductCategories.Count > 0)
-            {
-                categoryProduct.Products = updateCategory.ProductCategories.Select(x => new Categoryproduct
-                {
-                    Id = x.Product.Id,
-                    Name = x.Product.ProductName,
-                    Price = x.Product.ProductPrice,
-                    Description = x.Product.ProductDescription
-                }).ToList();
-            }
+            var category = await _categoryRepository.UpdateCategory(categoryId, MapCategoryToCategoryModel(updateCategory));
 
-            return await _categoryRepository.UpdateCategory(updateCategory);
+            return MapCategoryToCategoryModel(updateCategory);
         }
     }
 }

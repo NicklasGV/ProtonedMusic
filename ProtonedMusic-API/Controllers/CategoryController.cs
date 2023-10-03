@@ -58,7 +58,7 @@
         [HttpPut("{id}")]
         public async Task<ActionResult<ProductModel>> UpdateProduct(int id, CategoryModel UpdateCategory)
         {
-            var product = await _categoryService.UpdateCategory(UpdateCategory);
+            var product = await _categoryService.UpdateCategory(id, UpdateCategory);
 
             if (product is null)
             {

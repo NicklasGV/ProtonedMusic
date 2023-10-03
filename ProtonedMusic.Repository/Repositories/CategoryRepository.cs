@@ -48,7 +48,7 @@ namespace ProtonedMusic.Repository.Repositories
             return category;
         }
 
-        public async Task<CategoryModel> UpdateCategory(CategoryModel category)
+        public async Task<CategoryModel> UpdateCategory(int categoryId, CategoryModel category)
         {
             _context.Entry(category).State = EntityState.Modified;
             await _context.SaveChangesAsync();

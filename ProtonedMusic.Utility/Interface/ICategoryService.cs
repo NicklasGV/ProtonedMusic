@@ -13,6 +13,6 @@
         // Metode til at oprette et nyt produkt
         public Task<CategoryModel> CreateCategory(CategoryModel category);
 
-        public Task<CategoryModel> UpdateCategory(CategoryModel UpdateCategory);
+        public Task<CategoryModel> UpdateCategory(int categoryId, CategoryModel UpdateCategory);
     }
 }
