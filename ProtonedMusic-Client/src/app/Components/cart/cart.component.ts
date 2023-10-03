@@ -30,11 +30,6 @@ export class CartComponent implements OnInit {
     console.log(this.cartItems);
   }
 
-  removeFromCart(item?: CartItem): void {
-    this.cartService
-  }
-
-
   clearCart(): void {
     if(confirm('Er du sikker på du vil tømme din kurv?'))
     {
@@ -56,8 +51,8 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: CartItem): void {
-    if (confirm(`Er du sikker på du vil fjerne ${item.id} ${item.name}?`)) {
-      this.cartItems = this.cartItems.filter(x => x.id != item.id);
+    if (confirm(`Er du sikker på du vil fjerne ${item.name}?`)) {
+      this.cartService.removeItemFromCart(item.id);
     }
   }
 
