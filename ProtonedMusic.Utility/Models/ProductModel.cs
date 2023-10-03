@@ -1,4 +1,8 @@
-﻿namespace ProtonedMusic.Utility.Models
+﻿
+
+using System.Text.Json.Serialization;
+
+namespace ProtonedMusic.Utility.Models
 {
     public class ProductModel
     {
