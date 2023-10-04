@@ -1,4 +1,4 @@
-﻿namespace ProtonedMusicAPI.DTO.Product
+﻿namespace ProtonedMusicAPI.DTO.ProductDTO
 {
     public class ProductResponse
     {

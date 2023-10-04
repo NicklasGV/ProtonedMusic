@@ -1,4 +1,4 @@
-﻿namespace ProtonedMusicAPI.DTO.Category
+﻿namespace ProtonedMusicAPI.DTO.CategoryDTO
 {
     public class CategoryResponse
     {

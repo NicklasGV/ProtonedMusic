@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProtonedMusicAPI.DTO.Category
+﻿namespace ProtonedMusicAPI.DTO.CategoryDTO
 {
     public class CategoryRequest
     {

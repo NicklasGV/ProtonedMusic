@@ -5,10 +5,9 @@
         Task<List<UserResponse>> GetAll();
         Task<UserResponse?> FindById(int userId);
         Task<UserResponse> CreateUser(UserRequest newUser);
-        Task<UserResponse?> UpdateById(int userId, UserRequest updateUser);
+        Task<UserResponse?> UpdateUser(UserRequest updateUser);
         Task<UserResponse> DeleteById(int userId);
 
-        //Login
-        //Task<LoginResponse> AuthenticateUser(LoginRequest login);
+        public Task<LoginModel> AuthenticateUser(string username, string password);
     }
 }

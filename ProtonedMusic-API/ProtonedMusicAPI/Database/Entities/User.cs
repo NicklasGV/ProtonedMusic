@@ -14,7 +14,7 @@
         [Column(TypeName = "nvarchar(50)")]
         public string Email { get; set; }
 
-        [Column(TypeName = "nvarchar(50)")]
+        [Column(TypeName = "nvarchar(500)")]
         public string Password { get; set; }
 
         public Role Role { get; set; }
@@ -36,6 +36,9 @@
 
         [Column(TypeName = "nvarchar(50)")]
         public string Country { get; set; }
+
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
 
     }
 }

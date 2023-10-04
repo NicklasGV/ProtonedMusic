@@ -6,36 +6,26 @@
     {
         private readonly IUserService _userService;
         private readonly IUserRepository _userRepository;
-        //private readonly IJwtUtils _jwtUtils;
 
-        public UserController(IUserService userService/*, IJwtUtils jwtUtils*/, IUserRepository userRepository)
+        public UserController(IUserService userService, IUserRepository userRepository)
         {
             _userService = userService;
-            //_jwtUtils = jwtUtils;
             _userRepository = userRepository;
 
         }
 
-        //[AllowAnonymous]
-        //[HttpPost]
-        //[Route("authenticate")]
-        //public async Task<IActionResult> Authenticate([FromBody] LoginRequest login)
-        //{
-        //    try
-        //    {
-        //        LoginResponse user = await _userService.AuthenticateUser(login);
-        //        if (user == null)
-        //        {
-        //            return Unauthorized();
-        //        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            var auth = await _userService.AuthenticateUser(email, password);
 
-        //        return Ok(user);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
+            if (auth is null)
+            {
+                return Unauthorized("Bad login");
+            }
+
+            return Ok(auth);
+        }
 
 
         [HttpGet]
@@ -60,11 +50,11 @@
 
         [HttpPut]
         [Route("{userId}")]
-        public async Task<IActionResult> UpdateById([FromRoute] int userId, [FromBody] UserRequest updateUser)
+        public async Task<IActionResult> UpdateUser([FromBody] UserRequest updateUser)
         {
             try
             {
-                var userResponse = await _userService.UpdateById(userId, updateUser);
+                var userResponse = await _userService.UpdateUser(updateUser);
 
                 if (userResponse == null)
                 {

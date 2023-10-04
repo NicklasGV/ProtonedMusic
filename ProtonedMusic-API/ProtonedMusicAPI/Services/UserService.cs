@@ -1,14 +1,26 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace ProtonedMusicAPI.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
+        private readonly DatabaseContext _context;
         //private readonly IJwtUtils _jwtUtils;
 
 
-        public UserService(IUserRepository userRepository/*, IJwtUtils jwtUtils*/)
+        public UserService(IUserRepository userRepository, IConfiguration configuration, DatabaseContext context/*, IJwtUtils jwtUtils*/)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
+            _context = context;
             //_jwtUtils = jwtUtils;
         }
 
@@ -37,7 +49,7 @@
                 FirstName = userRequest.FirstName,
                 LastName = userRequest.LastName,
                 Email = userRequest.Email,
-                Password = userRequest.Password ?? string.Empty,
+                Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password) ?? string.Empty,
                 Role = userRequest.Role,
                 AddressLineOne = userRequest.AddressLineOne,
                 AddressLineTwo = userRequest.AddressLineTwo,
@@ -92,10 +104,10 @@
             return null;
         }
 
-        public async Task<UserResponse> UpdateById(int userId, UserRequest updateUser)
+        public async Task<UserResponse> UpdateUser(UserRequest updateUser)
         {
             var user = MapUserRequestToUser(updateUser);
-            var insertedUser = await _userRepository.UpdateById(userId, user);
+            var insertedUser = await _userRepository.UpdateUser(user);
 
             if (insertedUser != null)
             {
@@ -103,6 +115,67 @@
             }
 
             return null;
+        }
+
+        public async Task<LoginModel> AuthenticateUser(string email, string password)
+        {
+            var user = await _userRepository.FindByEmail(email);
+
+            if (user == null)
+            {
+                return null; // User not found
+            }
+
+            // Use BCrypt to verify the hashed password
+            bool passwordMatch = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+            if (BCrypt.Net.BCrypt.Verify(password, user.Password))
+            {
+                string newAccessToken = CreateJwtToken();
+                string newRefreshToken = CreateRefreshToken();
+                user.RefreshToken = newRefreshToken;
+                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+                await _userRepository.UpdateUser(user);
+
+                LoginModel model = new LoginModel()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Role = user.Role,
+                    AccessToken = newAccessToken,
+                    RefreshToken = newRefreshToken,
+                };
+                return model;
+            }
+            return null;
+        }
+
+        public string CreateJwtToken()
+        {
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+            var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var tokeOptions = new JwtSecurityToken(
+                claims: new List<Claim>(),
+                expires: DateTime.Now.AddMinutes(10),
+                signingCredentials: signInCredentials
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+        }
+
+        public string CreateRefreshToken()
+        {
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
+            var refreshToken = Convert.ToBase64String(tokenBytes);
+
+            // Check if token exists in the Database already.
+            var tokenInUser = _context.User.Any(u => u.RefreshToken == refreshToken);
+            if (tokenInUser)
+            {
+                // If token already exists then run the method again.
+                return CreateRefreshToken();
+            }
+            return refreshToken;
         }
 
         //public async Task<LoginResponse> AuthenticateUser(LoginRequest login)

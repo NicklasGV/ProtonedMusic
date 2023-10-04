@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProtonedMusicAPI.DTO.Product
+﻿namespace ProtonedMusicAPI.DTO.ProductDTO
 {
     public class ProductRequest
     {
