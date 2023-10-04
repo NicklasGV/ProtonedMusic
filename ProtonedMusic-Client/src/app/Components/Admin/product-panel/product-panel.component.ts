@@ -46,15 +46,19 @@ export class ProductPanelComponent implements OnInit {
     category.checked = false;
   });
   this.selected.splice(0, this.selected.length);
-  console.log("Selected", this.selected);
 }
 toggleCheckbox(category: { checked: boolean; }) {
   category.checked = !category.checked;
 }
   
   editProduct(product: ProductModel): void {
-    this.selected = this.categories.filter(x => x.checked == true ? x.id : null).map(x => x.id);
-    this.product.categoryIds = this.selected;
+    //this.resetCheckboxes();
+    this.product.categories.forEach(category => {
+      if (this.selected.indexOf(category.id) == -1) {
+        this.selected.push(category.id);
+        category.checked == true;
+        }
+    });
     Object.assign(this.product, product);
     console.log("Selected", this.selected);
   }

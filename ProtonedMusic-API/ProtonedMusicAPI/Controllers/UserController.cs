@@ -1,4 +1,5 @@
-﻿namespace ProtonedMusicAPI.Controllers
+﻿using AuthorizeAttribute = ProtonedMusicAPI.Authentication.AuthorizeAttribute;
+namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -14,10 +15,30 @@
 
         }
 
+        [AllowAnnonymous]
+        [HttpPost]
+        [Route("authenticate")]
+        public async Task<IActionResult> AuthenticateAsync([FromBody] LoginRequest login)
+        {
+            try
+            {
+                LoginResponse user = await _userService.AuthenticateUser(login);
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var auth = await _userService.AuthenticateUser(email, password);
+            var auth = await _userService.LoginUser(email, password);
 
             if (auth is null)
             {
@@ -27,7 +48,7 @@
             return Ok(auth);
         }
 
-
+        [Authorize(Role.Admin, Role.Customer)]
         [HttpGet]
         [Route("{userId}")]
         public async Task<IActionResult> FindById([FromRoute] int userId)
@@ -48,6 +69,7 @@
             }
         }
 
+        [Authorize(Role.Admin, Role.Customer)]
         [HttpPut]
         [Route("{userId}")]
         public async Task<IActionResult> UpdateUser([FromBody] UserRequest updateUser)
@@ -90,6 +112,7 @@
             }
         }
 
+        [Authorize(Role.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -109,7 +132,10 @@
             }
         }
 
+
+        [AllowAnnonymous]
         [HttpPost]
+        [Route("register")]
         public async Task<IActionResult> CreateUser([FromBody] UserRequest newUser)
         {
             try
