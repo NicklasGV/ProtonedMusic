@@ -51,14 +51,12 @@ export class ProductPanelComponent implements OnInit {
 toggleCheckbox(category: { checked: boolean; }) {
   category.checked = !category.checked;
 }
-
-
-  
   
   editProduct(product: ProductModel): void {
     this.selected = this.categories.filter(x => x.checked == true ? x.id : null).map(x => x.id);
     this.product.categoryIds = this.selected;
     Object.assign(this.product, product);
+    console.log("Selected", this.selected);
   }
   
   deleteProduct(product: ProductModel): void {
