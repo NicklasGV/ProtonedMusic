@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ProtonedMusicAPI.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -13,15 +14,15 @@ namespace ProtonedMusicAPI.Services
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
         private readonly DatabaseContext _context;
-        //private readonly IJwtUtils _jwtUtils;
+        private readonly IJwtUtils _jwtUtils;
 
 
-        public UserService(IUserRepository userRepository, IConfiguration configuration, DatabaseContext context/*, IJwtUtils jwtUtils*/)
+        public UserService(IUserRepository userRepository, IConfiguration configuration, DatabaseContext context, IJwtUtils jwtUtils)
         {
             _userRepository = userRepository;
             _configuration = configuration;
             _context = context;
-            //_jwtUtils = jwtUtils;
+            _jwtUtils = jwtUtils;
         }
 
         public static UserResponse MapUserToUserResponse(User user)
@@ -117,7 +118,7 @@ namespace ProtonedMusicAPI.Services
             return null;
         }
 
-        public async Task<LoginModel> AuthenticateUser(string email, string password)
+        public async Task<LoginModel> LoginUser(string email, string password)
         {
             var user = await _userRepository.FindByEmail(email);
 
@@ -178,26 +179,26 @@ namespace ProtonedMusicAPI.Services
             return refreshToken;
         }
 
-        //public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
-        //{
-        //    User user = await _userRepository.FindByEmail(login.Email);
-        //    if (user == null)
-        //    {
-        //        return null;
-        //    }
+        public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
+        {
+            User user = await _userRepository.FindByEmail(login.Email);
+            if (user == null)
+            {
+                return null;
+            }
 
-        //    if (user.Password == login.Password)
-        //    {
-        //        LoginResponse response = new()
-        //        {
-        //            Id = user.Id,
-        //            Email = user.Email,
-        //            Role = user.Role,
-        //            Token = _jwtUtils.GenerateJwtToken(user)
-        //        };
-        //        return response;
-        //    }
-        //    return null;
-        //}
+            if (BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
+            {
+                LoginResponse response = new()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Role = user.Role,
+                    Token = _jwtUtils.GenerateJwtToken(user)
+                };
+                return response;
+            }
+            return null;
+        }
     }
 }
