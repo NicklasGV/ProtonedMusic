@@ -10,23 +10,23 @@
 
         public async Task<List<User>> GetAll()
         {
-            return await _databaseContext.Users
+            return await _databaseContext.User
                 .ToListAsync();
         }
 
         public async Task<User> FindById(int userId)
         {
-            return await _databaseContext.Users.FirstOrDefaultAsync(s => s.Id == userId);
+            return await _databaseContext.User.FirstOrDefaultAsync(s => s.Id == userId);
         }
 
         public async Task<User> FindByEmail(string email)
         {
-            return await _databaseContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _databaseContext.User.FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<User> CreateUser(User newUser)
         {
-            _databaseContext.Users.Add(newUser);
+            _databaseContext.User.Add(newUser);
             await _databaseContext.SaveChangesAsync();
             return newUser;
         }
@@ -43,9 +43,9 @@
             return user;
         }
 
-        public async Task<User> UpdateById(int userId, User updateUser)
+        public async Task<User> UpdateUser(User updateUser)
         {
-            User user = await FindById(userId);
+            User user = await FindById(updateUser.Id);
             if (user != null)
             {
                 user.FirstName = updateUser.FirstName;
