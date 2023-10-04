@@ -4,6 +4,7 @@ import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
 import { ProductService } from 'src/app/Services/Product.service';
 import { FormsModule } from '@angular/forms';
+import { CategoryService } from 'src/app/Services/category.service';
 
 @Component({
   selector: 'app-product-panel',
@@ -21,12 +22,12 @@ export class ProductPanelComponent implements OnInit {
   categories: CategoryModel[] = [];
   selected: number[] = [];
   
-  constructor(private productService: ProductService, /* private categoryService:CategoryService */) { }
+  constructor(private productService: ProductService, private categoryService:CategoryService) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(x => this.products = x);
-    /* this.categoryService.getCategories().subscribe(x => this.categories = x);
-    this.selected = this.categories.filter(x => x.checked == true ? x.id : null).map(x => x.id); */
+    this.categoryService.getCategories().subscribe(x => this.categories = x);
+    this.selected = this.categories.filter(x => x.checked == true ? x.id : null).map(x => x.id);
   }
 
   marked(event: any) {
@@ -40,6 +41,16 @@ export class ProductPanelComponent implements OnInit {
     this.selected.sort((a, b) => a - b);
     console.log("Seleted IDs ", this.selected);
   }
+  resetCheckboxes() {
+  this.categories.forEach(category => {
+    category.checked = false;
+  });
+  this.selected.splice(0, this.selected.length);
+  console.log("Selected", this.selected);
+}
+toggleCheckbox(category: { checked: boolean; }) {
+  category.checked = !category.checked;
+}
   
   
   editProduct(product: ProductModel): void {
@@ -59,6 +70,7 @@ export class ProductPanelComponent implements OnInit {
   cancel(): void {
     this.product = resetProducts();
     this.category = resetCategory();
+    this.resetCheckboxes();
   }
 
   save(): void {
@@ -72,6 +84,7 @@ export class ProductPanelComponent implements OnInit {
           this.products.push(x);
           this.product = resetProducts();
           this.category = resetCategory();
+          this.resetCheckboxes();
         },
         error: (err) => {
           console.log(err);
@@ -88,6 +101,7 @@ export class ProductPanelComponent implements OnInit {
         complete: () => {
           this.productService.getAllProducts().subscribe(x => this.products = x);
           this.product = resetProducts();
+          this.resetCheckboxes();
         }
       });
     }
