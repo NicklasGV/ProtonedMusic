@@ -18,11 +18,11 @@
             <img src="../../../assets/img/1.png" style="max-width: 100%; max-height: 100%;">
             <div class="card-body">
                 <div>
-                    <p class="">{{product.productName}}</p>
+                    <p class="">{{product.name}}</p>
                     <p class="">{{product.categories}}</p>
                 </div>
-                <p>{{product.productDescription}}</p>
-                <p>{{product.productPrice | currency:'DKK ' }}</p>
+                <p>{{product.description}}</p>
+                <p>{{product.price | currency:'DKK ' }}</p>
                 <div>
                     <a type="button" class="btn btn-outline-success float-end btn-sm" (click)="addToCart(product)">Add to basket</a>
                     <a type="button" class="btn btn-outline-success btn-sm " [routerLink]="['/merchandiseProduct', product.id]">See More</a>

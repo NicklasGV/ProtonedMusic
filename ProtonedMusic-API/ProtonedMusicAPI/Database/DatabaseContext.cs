@@ -3,30 +3,111 @@
     public class DatabaseContext : DbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
 
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Product>()
-            //    .HasMany(p => p.ProductCategories)
-            //    .WithOne(pc => pc.Product)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.ProductCategories)
+                .WithOne(pc => pc.Product)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<Category>()
-            //    .HasMany(p => p.ProductCategories)
-            //    .WithOne(pc => pc.Category)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Category>()
+                .HasMany(p => p.ProductCategories)
+                .WithOne(pc => pc.Category)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            //modelBuilder.Entity<ProductCategory>()
-            //    .HasOne(pc => pc.Category)
-            //    .WithMany(p => p.ProductCategories)
-            //    .HasForeignKey(pc => pc.CategoryId);
+            modelBuilder.Entity<ProductCategory>()
+                .HasOne(pc => pc.Category)
+                .WithMany(p => p.ProductCategories)
+                .HasForeignKey(pc => pc.CategoryId);
 
-            //modelBuilder.Entity<ProductCategory>()
-            //    .HasOne(pc => pc.Product)
-            //    .WithMany(p => p.ProductCategories)
-            //    .HasForeignKey(pc => pc.ProductId);
+            modelBuilder.Entity<ProductCategory>()
+                .HasOne(pc => pc.Product)
+                .WithMany(p => p.ProductCategories)
+                .HasForeignKey(pc => pc.ProductId);
+
+            modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
+
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                Id = 1,
+                Name = "Testproduct-1",
+                Price = 399.95M,
+                Description = "Testproduct-1"
+            },
+            new Product
+            {
+                Id = 2,
+                Name = "Testproduct-2",
+                Price = 560,
+                Description = "Testproduct-2",
+            },
+            new Product
+            {
+                Id = 3,
+                Name = "Testproduct-3",
+                Price = 299.95M,
+                Description = "Today's video is sponsored by Raid Shadow Legends, one of the biggest mobile role-playing games of 2019 and it's totally free! Currently almost 10 million users have joined Raid over the last six months, and it's one of the most impressive games in its class with detailed models, environments and smooth 60 frames per second animations! All the champions in the game can be customized with unique gear that changes your strategic buffs and abilities! So what are you waiting for? Go to the video description! Good luck and I'll see you there!"
+            },
+            new Product
+            {
+                Id = 4,
+                Name = "Testproduct-4",
+                Price = 760,
+                Description = "Testproduct-4",
+            });
+
+            modelBuilder.Entity<Category>().HasData(new Category
+            {
+                Id = 1,
+                Name = "Pop"
+            },
+            new Category
+            {
+                Id = 2,
+                Name = "Metal"
+            },
+            new Category
+            {
+                Id = 3,
+                Name = "EDM"
+            },
+            new Category
+            {
+                Id = 4,
+                Name = "Rock"
+            });
+
+            modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
+            {
+                CategoryId = 1,
+                ProductId = 1,
+            }, new ProductCategory
+            {
+                CategoryId = 2,
+                ProductId = 1,
+            },
+            new ProductCategory
+            {
+                CategoryId = 1,
+                ProductId = 2
+            },
+            new ProductCategory
+            {
+                CategoryId = 3,
+                ProductId = 2,
+            },
+            new ProductCategory
+            {
+                CategoryId = 2,
+                ProductId = 4,
+            });
+
 
             modelBuilder.Entity<User>().HasData(
                 new User
