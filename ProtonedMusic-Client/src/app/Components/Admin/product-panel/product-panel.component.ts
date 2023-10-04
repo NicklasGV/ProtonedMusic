@@ -51,6 +51,8 @@ export class ProductPanelComponent implements OnInit {
 toggleCheckbox(category: { checked: boolean; }) {
   category.checked = !category.checked;
 }
+
+
   
   
   editProduct(product: ProductModel): void {

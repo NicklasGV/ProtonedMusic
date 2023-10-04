@@ -2,10 +2,10 @@ import { CategoryModel } from './CategoryModel';
 
 export interface ProductModel {
     id: number;
-    productName: string;
-    productPrice: number;
-    productDescription: string;
-    productImage: string;
+    name: string;
+    price: number;
+    description: string;
+    image: string;
     categories: CategoryModel[];
     categoryIds: number[];
 }
@@ -13,10 +13,10 @@ export interface ProductModel {
 export function resetProducts() {
     return {
         id: 0,
-        productName: '',
-        productPrice: 0,
-        productDescription: '',
-        productImage: '',
+        name: '',
+        price: 0,
+        description: '',
+        image: '',
         categories: [],
         categoryIds: [],
     }
