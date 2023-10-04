@@ -7,4 +7,11 @@ global using ProtonedMusicAPI.Interfaces;
 global using Microsoft.AspNetCore.Mvc;
 global using ProtonedMusicAPI.Repositories;
 global using ProtonedMusicAPI.Services;
-
+global using ProtonedMusicAPI.Database;
+global using ProtonedMusicAPI.Interfaces.IUser;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Mvc;
+global using ProtonedMusicAPI.DTO.UserDTO;
+global using ProtonedMusicAPI.Helper;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using System.ComponentModel.DataAnnotations;
