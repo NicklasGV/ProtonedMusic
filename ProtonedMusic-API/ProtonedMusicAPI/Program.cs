@@ -1,4 +1,7 @@
 
+using ProtonedMusicAPI.Repositories;
+using ProtonedMusicAPI.Services;
+
 namespace ProtonedMusicAPI
 {
     public class Program
@@ -8,6 +11,15 @@ namespace ProtonedMusicAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));
+            });
+
+            
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
