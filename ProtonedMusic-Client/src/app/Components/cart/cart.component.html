@@ -29,7 +29,7 @@
                     <button class="btn btn-sm"></button>
                   </td>
                   <td class="align-middle">
-                      <input [(ngModel)]="cart.quantity" (ngModelChange)="updateCart()" type="number" min="1" style="width: 55px" />
+                      <input [(ngModel)]="cart.quantity" (ngModelChange)="updateCart(cart)" type="number" min="0" style="width: 55px" />
                   </td>
                   <td class="align-middle">
                       <button (click)="removeItem(cart)" class="btn btn-danger btn-sm">X</button>
