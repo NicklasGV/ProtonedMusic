@@ -54,10 +54,8 @@ editProduct(product: ProductModel): void {
     if (existingCategory) {
       existingCategory.checked = true;
       this.selected.push(existingCategory.id);
-      console.log("selected", this.selected);
     }
   });
-  console.log('Selected IDs:', this.selected);
 }
   
   deleteProduct(product: ProductModel): void {
