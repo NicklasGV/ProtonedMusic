@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
@@ -22,7 +22,7 @@ export class ProductPanelComponent implements OnInit {
   categories: CategoryModel[] = [];
   selected: number[] = [];
   
-  constructor(private productService: ProductService, private categoryService:CategoryService) { }
+  constructor(private productService: ProductService, private categoryService:CategoryService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(x => this.products = x);
@@ -41,27 +41,24 @@ export class ProductPanelComponent implements OnInit {
     this.selected.sort((a, b) => a - b);
     console.log("Seleted IDs ", this.selected);
   }
-  resetCheckboxes() {
-  this.categories.forEach(category => {
-    category.checked = false;
-  });
-  this.selected.splice(0, this.selected.length);
-}
-toggleCheckbox(category: { checked: boolean; }) {
-  category.checked = !category.checked;
+  resetCheckboxes(): void {
+  this.categories.map(category => category.checked = false);
+  this.selected.length = 0;
 }
   
-  editProduct(product: ProductModel): void {
-    //this.resetCheckboxes();
-    this.product.categories.forEach(category => {
-      if (this.selected.indexOf(category.id) == -1) {
-        this.selected.push(category.id);
-        category.checked == true;
-        }
-    });
-    Object.assign(this.product, product);
-    console.log("Selected", this.selected);
-  }
+editProduct(product: ProductModel): void {
+  this.resetCheckboxes();
+  Object.assign(this.product, product);
+  this.product.categories.forEach(category => {
+    const existingCategory = this.categories.find(c => c.id === category.id);
+    if (existingCategory) {
+      existingCategory.checked = true;
+      this.selected.push(existingCategory.id);
+      console.log("selected", this.selected);
+    }
+  });
+  console.log('Selected IDs:', this.selected);
+}
   
   deleteProduct(product: ProductModel): void {
     if (confirm("Er du sikker på at du vil slette dette produkt?")) {
@@ -97,6 +94,7 @@ toggleCheckbox(category: { checked: boolean; }) {
       });
     } else {
       //update
+      this.product.categoryIds = this.selected;
       this.productService.updateProduct(this.product.id, this.product)
       .subscribe({
         error: (err) => {
