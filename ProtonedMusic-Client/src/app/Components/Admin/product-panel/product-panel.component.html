@@ -28,7 +28,7 @@
   <div class="col-sm-10">
     <ul class="list-group">
         <li class="list-group-item w-75" *ngFor="let category of categories">
-          <input class="form-check-input me-1" type="checkbox" (change)="marked($event)" (change)="toggleCheckbox(category)" [checked]="category.checked" [value]="category.id">
+          <input class="form-check-input me-1" type="checkbox" (change)="marked($event)" [(ngModel)]="category.checked" [value]="category.id">
           <label class="form-check-label">{{category.name}}</label>
         </li>
     </ul>
