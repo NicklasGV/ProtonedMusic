@@ -219,14 +219,14 @@ namespace ProtonedMusicAPI.Migrations
                             Address = "Test Vej 1",
                             City = "Test By",
                             Country = "Denmark",
-                            Email = "TestMail1",
+                            Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$Y8DS1Td5sutyBCk9V7Nr4ezDDJtxm3SDsqHVf3fenaPmVVeOIbSze",
+                            Password = "$2b$10$YrumajPIlv1qfW.34pWeIuxUOxW25.YiElxY6uci9BeldYeukUg3C",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Role = 0
+                            Role = 1
                         },
                         new
                         {
@@ -234,14 +234,14 @@ namespace ProtonedMusicAPI.Migrations
                             Address = "Test Vej 2",
                             City = "Test By",
                             Country = "Denmark",
-                            Email = "TestMail2",
+                            Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$8EP7VbJ8AisbwG6E0f7dOuS504WJV0ItfS3BzxuxcEivQT36fjsOG",
+                            Password = "$2b$10$yjntxuWzxQEK7FIuPrBd5.sgeNSU2rm.865ikcAA/5k/Ao1aBGNt6",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Role = 1
+                            Role = 0
                         });
                 });
 

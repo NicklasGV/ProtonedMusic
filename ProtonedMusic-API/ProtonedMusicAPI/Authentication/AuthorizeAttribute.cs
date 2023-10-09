@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Authentication
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace ProtonedMusicAPI.Authentication
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter

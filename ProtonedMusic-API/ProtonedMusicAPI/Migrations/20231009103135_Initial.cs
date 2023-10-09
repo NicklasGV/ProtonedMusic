@@ -116,8 +116,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "RefreshToken", "RefreshTokenExpiryTime", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "TestMail1", "Joey", "Test", "$2b$10$Y8DS1Td5sutyBCk9V7Nr4ezDDJtxm3SDsqHVf3fenaPmVVeOIbSze", 12345678, 1234, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "TestMail2", "Børge", "Jep", "$2b$10$8EP7VbJ8AisbwG6E0f7dOuS504WJV0ItfS3BzxuxcEivQT36fjsOG", 12345679, 1234, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$YrumajPIlv1qfW.34pWeIuxUOxW25.YiElxY6uci9BeldYeukUg3C", 12345678, 1234, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$yjntxuWzxQEK7FIuPrBd5.sgeNSU2rm.865ikcAA/5k/Ao1aBGNt6", 12345679, 1234, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 }
                 });
 
             migrationBuilder.InsertData(

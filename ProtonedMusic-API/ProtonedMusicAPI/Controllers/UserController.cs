@@ -1,5 +1,4 @@
-﻿using AuthorizeAttribute = ProtonedMusicAPI.Authentication.AuthorizeAttribute;
-namespace ProtonedMusicAPI.Controllers
+﻿namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -12,7 +11,6 @@ namespace ProtonedMusicAPI.Controllers
         {
             _userService = userService;
             _userRepository = userRepository;
-
         }
 
         [AllowAnnonymous]
@@ -33,19 +31,6 @@ namespace ProtonedMusicAPI.Controllers
             {
                 return Problem(ex.Message);
             }
-        }
-
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
-        {
-            var auth = await _userService.LoginUser(email, password);
-
-            if (auth is null)
-            {
-                return Unauthorized("Bad login");
-            }
-
-            return Ok(auth);
         }
 
         [Authorize(Role.Admin, Role.Customer)]
@@ -91,7 +76,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-
+        [Authorize(Role.Admin, Role.Customer)]
         [HttpDelete]
         [Route("{userId}")]
         public async Task<IActionResult> DeleteById([FromRoute] int userId)
@@ -120,6 +105,11 @@ namespace ProtonedMusicAPI.Controllers
             {
                 List<UserResponse> users = await _userService.GetAll();
 
+                if (users == null)
+                {
+                    return Problem("A problem occured the team is fixing it as we speak");
+                }
+
                 if (users.Count == 0)
                 {
                     return NoContent();
@@ -131,7 +121,6 @@ namespace ProtonedMusicAPI.Controllers
                 return Problem(ex.Message);
             }
         }
-
 
         [AllowAnnonymous]
         [HttpPost]

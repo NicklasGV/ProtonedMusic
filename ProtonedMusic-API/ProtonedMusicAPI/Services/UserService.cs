@@ -1,27 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using ProtonedMusicAPI.Authentication;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace ProtonedMusicAPI.Services
+﻿namespace ProtonedMusicAPI.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConfiguration _configuration;
-        private readonly DatabaseContext _context;
         private readonly IJwtUtils _jwtUtils;
 
 
-        public UserService(IUserRepository userRepository, IConfiguration configuration, DatabaseContext context, IJwtUtils jwtUtils)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
         {
             _userRepository = userRepository;
-            _configuration = configuration;
-            _context = context;
             _jwtUtils = jwtUtils;
         }
 
@@ -32,7 +19,7 @@ namespace ProtonedMusicAPI.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email,
+                Email = user.Email.ToLower(),
                 Role = user.Role,
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address,
@@ -49,7 +36,7 @@ namespace ProtonedMusicAPI.Services
             {
                 FirstName = userRequest.FirstName,
                 LastName = userRequest.LastName,
-                Email = userRequest.Email,
+                Email = userRequest.Email.ToLower(),
                 Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password) ?? string.Empty,
                 Role = userRequest.Role,
                 PhoneNumber = userRequest.PhoneNumber,
@@ -69,7 +56,7 @@ namespace ProtonedMusicAPI.Services
             {
                 throw new ArgumentException();
             }
-            return users.Select(user => MapUserToUserResponse(user)).ToList();
+            return users.Select(MapUserToUserResponse).ToList();
         }
 
         public async Task<UserResponse> FindById(int userId)
@@ -120,64 +107,64 @@ namespace ProtonedMusicAPI.Services
 
         public async Task<LoginModel> LoginUser(string email, string password)
         {
-            var user = await _userRepository.FindByEmail(email);
+        //    var user = await _userRepository.FindByEmail(email);
 
-            if (user == null)
-            {
-                return null; // User not found
-            }
+        //    if (user == null)
+        //    {
+        //        return null; // User not found
+        //    }
 
-            // Use BCrypt to verify the hashed password
-            bool passwordMatch = BCrypt.Net.BCrypt.Verify(password, user.Password);
+        //    // Use BCrypt to verify the hashed password
+        //    bool passwordMatch = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
-            if (BCrypt.Net.BCrypt.Verify(password, user.Password))
-            {
-                string newAccessToken = CreateJwtToken();
-                string newRefreshToken = CreateRefreshToken();
-                user.RefreshToken = newRefreshToken;
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
-                await _userRepository.UpdateUser(user);
+        //    if (BCrypt.Net.BCrypt.Verify(password, user.Password))
+        //    {
+        //        string newAccessToken = CreateJwtToken();
+        //        string newRefreshToken = CreateRefreshToken();
+        //        user.RefreshToken = newRefreshToken;
+        //        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+        //        await _userRepository.UpdateUser(user);
 
-                LoginModel model = new LoginModel()
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Role = user.Role,
-                    AccessToken = newAccessToken,
-                    RefreshToken = newRefreshToken,
-                };
-                return model;
-            }
+        //        LoginModel model = new LoginModel()
+        //        {
+        //            Id = user.Id,
+        //            Email = user.Email,
+        //            Role = user.Role,
+        //            AccessToken = newAccessToken,
+        //            RefreshToken = newRefreshToken,
+        //        };
+        //        return model;
+        //    }
             return null;
         }
 
-        public string CreateJwtToken()
-        {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-            var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var tokeOptions = new JwtSecurityToken(
-                claims: new List<Claim>(),
-                expires: DateTime.Now.AddMinutes(10),
-                signingCredentials: signInCredentials
-                );
+        //public string CreateJwtToken()
+        //{
+        //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+        //    var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+        //    var tokeOptions = new JwtSecurityToken(
+        //        claims: new List<Claim>(),
+        //        expires: DateTime.Now.AddMinutes(10),
+        //        signingCredentials: signInCredentials
+        //        );
 
-            return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-        }
+        //    return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+        //}
 
-        public string CreateRefreshToken()
-        {
-            var tokenBytes = RandomNumberGenerator.GetBytes(64);
-            var refreshToken = Convert.ToBase64String(tokenBytes);
+        //public string CreateRefreshToken()
+        //{
+        //    var tokenBytes = RandomNumberGenerator.GetBytes(64);
+        //    var refreshToken = Convert.ToBase64String(tokenBytes);
 
-            // Check if token exists in the Database already.
-            var tokenInUser = _context.User.Any(u => u.RefreshToken == refreshToken);
-            if (tokenInUser)
-            {
-                // If token already exists then run the method again.
-                return CreateRefreshToken();
-            }
-            return refreshToken;
-        }
+        //    // Check if token exists in the Database already.
+        //    var tokenInUser = _context.User.Any(u => u.RefreshToken == refreshToken);
+        //    if (tokenInUser)
+        //    {
+        //        // If token already exists then run the method again.
+        //        return CreateRefreshToken();
+        //    }
+        //    return refreshToken;
+        //}
 
         public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
         {
