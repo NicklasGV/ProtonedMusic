@@ -57,7 +57,7 @@ namespace ProtonedMusicAPI.Authentication
                 }, out SecurityToken validatedToken);
 
                 JwtSecurityToken jwtToken = (JwtSecurityToken)validatedToken;
-                int accountId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                int accountId = int.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value);
 
                 //return user id from JWT Token if Validation is succesful
                 return accountId;
