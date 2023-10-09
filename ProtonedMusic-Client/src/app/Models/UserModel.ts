@@ -2,14 +2,14 @@ import { Role } from "./role";
 
 export interface User {
   id: number;
-  username: string;
-  email: string;
   firstname: string;
   lastname: string;
-  phonenumber: string;
+  email: string;
+  password: string;
+  phonenumber: number;
   address: string;
   city: string;
-  postal: string;
+  postal: number;
   country: string;
   role?: Role;
   token?: string;
@@ -18,14 +18,14 @@ export interface User {
 export function resetUser() {
   return { 
     id: 0, 
-    username: '', 
-    email: '', 
     firstname: '', 
     lastname: '', 
+    email: '', 
+    password: 0, 
     phonenumber: '', 
     address: '', 
     city: '', 
-    postal: '', 
+    postal: 0, 
     country: '',
 };
 }
