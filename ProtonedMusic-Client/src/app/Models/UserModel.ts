@@ -1,4 +1,4 @@
-import { Role } from "./role";
+import { Role, constRoles } from "./role";
 
 export interface User {
   id: number;
@@ -6,7 +6,7 @@ export interface User {
   lastname: string;
   email: string;
   password: string;
-  phonenumber: number;
+  phoneNumber: number;
   address: string;
   city: string;
   postal: number;
@@ -21,11 +21,12 @@ export function resetUser() {
     firstname: '', 
     lastname: '', 
     email: '', 
-    password: 0, 
-    phonenumber: '', 
+    password: '', 
+    phoneNumber: 0, 
     address: '', 
     city: '', 
     postal: 0, 
     country: '',
+    role: constRoles[0]
 };
 }

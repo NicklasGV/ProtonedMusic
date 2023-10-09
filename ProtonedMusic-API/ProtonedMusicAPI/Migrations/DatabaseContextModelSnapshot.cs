@@ -165,11 +165,7 @@ namespace ProtonedMusicAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AddressLineOne")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("AddressLineTwo")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
@@ -220,34 +216,32 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            AddressLineOne = "Test Vej 1",
-                            AddressLineTwo = "",
+                            Address = "Test Vej 1",
                             City = "Test By",
                             Country = "Denmark",
                             Email = "TestMail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$BJWvPkN4KrC4O3SXVgtuceL/B2OG5.PMCxlhVoTAnPxhMH5ISEIs2",
+                            Password = "$2b$10$Y8DS1Td5sutyBCk9V7Nr4ezDDJtxm3SDsqHVf3fenaPmVVeOIbSze",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Role = 1
+                            Role = 0
                         },
                         new
                         {
                             Id = 2,
-                            AddressLineOne = "Test Vej 2",
-                            AddressLineTwo = "",
+                            Address = "Test Vej 2",
                             City = "Test By",
                             Country = "Denmark",
                             Email = "TestMail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$DFFhkOj9I6zFkxVkE/3UO.9Wwezglsgueavkt4yCqGcIE4nYQNOqW",
+                            Password = "$2b$10$8EP7VbJ8AisbwG6E0f7dOuS504WJV0ItfS3BzxuxcEivQT36fjsOG",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Role = 0
+                            Role = 1
                         });
                 });
 

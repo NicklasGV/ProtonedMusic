@@ -7,9 +7,6 @@ const routes: Routes = [
   {path: 'login', loadComponent: () =>
   import('./Components/login/login.component').then(it => it.LoginComponent)},
 
-  {path: 'signup', loadComponent: () =>
-  import('./Components/signup/signup.component').then(it => it.SignupComponent)},
-
   {path: 'merchandise', loadComponent: () =>
   import('./Components/merchandise/merchandise.component').then(it => it.MerchandiseComponent)},
   //KOM NU BIG MAN
@@ -21,6 +18,12 @@ const routes: Routes = [
 
   {path: 'admin/productpanel', loadComponent: () =>
   import('./Components/Admin/product-panel/product-panel.component').then(it => it.ProductPanelComponent)},
+
+  {path: 'admin/categorypanel', loadComponent: () =>
+  import('./Components/Admin/category-panel/category-panel.component').then(it => it.CategoryPanelComponent)},
+
+  {path: 'admin/userpanel', loadComponent: () =>
+  import('./Components/Admin/user-panel/user-panel.component').then(it => it.UserPanelComponent)},
   
   
 ];

@@ -34,8 +34,8 @@ namespace ProtonedMusicAPI.Services
                 LastName = user.LastName,
                 Email = user.Email,
                 Role = user.Role,
-                AddressLineOne = user.AddressLineOne,
-                AddressLineTwo = user.AddressLineTwo,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
                 Country = user.Country,
                 City = user.City,
                 Postal = user.Postal
@@ -52,8 +52,8 @@ namespace ProtonedMusicAPI.Services
                 Email = userRequest.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password) ?? string.Empty,
                 Role = userRequest.Role,
-                AddressLineOne = userRequest.AddressLineOne,
-                AddressLineTwo = userRequest.AddressLineTwo,
+                PhoneNumber = userRequest.PhoneNumber,
+                Address = userRequest.Address,
                 Country = userRequest.Country,
                 City = userRequest.City,
                 Postal = userRequest.Postal

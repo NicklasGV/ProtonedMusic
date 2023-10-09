@@ -38,9 +38,9 @@
             };
         }
 
-        public async Task<List<CategoryResponse>> GetAllAsync()
+        public async Task<List<CategoryResponse>> GetAll()
         {
-            List<Category> categories = await _categoryRepository.GetAllAsync();
+            List<Category> categories = await _categoryRepository.GetAll();
             if (categories == null)
             {
                 throw new ArgumentNullException();
@@ -48,9 +48,9 @@
             return categories.Select(MapCategoryToCategoryResponse).ToList();
         }
 
-        public async Task<CategoryResponse> CreateAsync(CategoryRequest newCategory)
+        public async Task<CategoryResponse> Create(CategoryRequest newCategory)
         {
-            var category = await _categoryRepository.CreateAsync(MapCategoryRequestToCategory(newCategory));
+            var category = await _categoryRepository.Create(MapCategoryRequestToCategory(newCategory));
 
             if (newCategory == null)
             {
@@ -59,9 +59,9 @@
             return MapCategoryToCategoryResponse(category);
         }
 
-        public async Task<CategoryResponse?> FindByIdAsync(int categoryId)
+        public async Task<CategoryResponse?> FindById(int categoryId)
         {
-            var category = await _categoryRepository.FindByIdAsync(categoryId);
+            var category = await _categoryRepository.FindById(categoryId);
 
             if (category != null)
             {
@@ -70,9 +70,9 @@
             return null;
         }
 
-        public async Task<CategoryResponse?> UpdateByIdAsync(int categoryId, CategoryRequest updateCategory)
+        public async Task<CategoryResponse?> UpdateById(int categoryId, CategoryRequest updateCategory)
         {
-            var category = await _categoryRepository.UpdateByIdAsync(categoryId, MapCategoryRequestToCategory(updateCategory));
+            var category = await _categoryRepository.UpdateById(categoryId, MapCategoryRequestToCategory(updateCategory));
 
             if (category != null)
             {
@@ -81,9 +81,9 @@
             return null;
         }
 
-        public async Task<CategoryResponse?> DeleteByIdAsync(int categoryId)
+        public async Task<CategoryResponse?> DeleteById(int categoryId)
         {
-            var category = await _categoryRepository.DeleteByIdAsync(categoryId);
+            var category = await _categoryRepository.DeleteById(categoryId);
 
             if (category != null)
             {

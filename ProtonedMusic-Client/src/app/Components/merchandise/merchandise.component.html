@@ -14,16 +14,22 @@
 <!--Products-->
 <div class="row row-cols-auto row-cols-lg-5 g-4 m-5">
     <div *ngFor="let product of products">
-        <div class="card h-100 bg-dark" style="display: grid; grid-template-rows: 1fr auto;">
+        <div class="card h-100 bg-dark" style="display: grid; grid-template-rows: auto 1fr;">
             <img src="../../../assets/img/1.png" style="max-width: 100%; max-height: 100%;">
-            <div class="card-body">
-                <div>
-                    <p class="">{{product.name}}</p>
-                    <p class="">{{product.categories}}</p>
+            <div class="card-body" style="display: flex; flex-direction: column;">
+                <!--Products-->
+                <div class="align-items-start">
+                    <div class="justify-content-between">
+                        <!-- Kategoriteksten i højre side -->
+                        <div class="float-end">
+                            <p class="text-success fw-bold" *ngFor="let category of product.categories">{{category.name}}</p>
+                        </div>
+                        <p>{{product.name}}</p>
+                    </div>
+                    <p class="text-truncate" style="max-width: 200px;">{{product.description}}</p>
+                    <p class="fw-bold">{{product.price | currency:'DKK ' }}</p>
                 </div>
-                <p>{{product.description}}</p>
-                <p>{{product.price | currency:'DKK ' }}</p>
-                <div>
+                <div class="mt-auto">
                     <a type="button" class="btn btn-outline-success float-end btn-sm" (click)="addToCart(product)">Add to basket</a>
                     <a type="button" class="btn btn-outline-success btn-sm " [routerLink]="['/merchandiseProduct', product.id]">See More</a>
                 </div>

@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Controllers
+﻿using ProtonedMusicAPI.Database.Entities;
+
+namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -11,11 +13,11 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                List<CategoryResponse> category = await _categoryService.GetAllAsync();
+                List<CategoryResponse> category = await _categoryService.GetAll();
 
                 if (category.Count == 0)
                 {
@@ -30,11 +32,11 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CategoryRequest newCategory)
+        public async Task<IActionResult> Create([FromBody] CategoryRequest newCategory)
         {
             try
             {
-                CategoryResponse categoryResponse = await _categoryService.CreateAsync(newCategory);
+                CategoryResponse categoryResponse = await _categoryService.Create(newCategory);
 
                 if (categoryResponse == null)
                 {
@@ -50,11 +52,11 @@
 
         [HttpGet]
         [Route("{categoryId}")]
-        public async Task<IActionResult> FindByIdAsync([FromRoute] int categoryId)
+        public async Task<IActionResult> FindById([FromRoute] int categoryId)
         {
             try
             {
-                var categoryResponse = await _categoryService.FindByIdAsync(categoryId);
+                var categoryResponse = await _categoryService.FindById(categoryId);
 
                 if (categoryResponse == null)
                 {
@@ -71,11 +73,11 @@
 
         [HttpPut]
         [Route("{categoryId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int categoryId, [FromBody] CategoryRequest updateCategory)
+        public async Task<IActionResult> UpdateById([FromRoute] int categoryId, [FromBody] CategoryRequest updateCategory)
         {
             try
             {
-                var categoryResponse = await _categoryService.UpdateByIdAsync(categoryId, updateCategory);
+                var categoryResponse = await _categoryService.UpdateById(categoryId, updateCategory);
 
                 if (categoryResponse == null)
                 {
@@ -85,6 +87,26 @@
             }
             catch (Exception ex)
             {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{categoryId}")]
+        public async Task<IActionResult> DeleteById([FromRoute] int categoryId)
+        {
+            try
+            {
+                var categoryResponse = await _categoryService.DeleteById(categoryId);
+                if (categoryResponse == null)
+                {
+                    return NotFound();
+                }
+                return Ok(categoryResponse);
+            }
+            catch (Exception ex)
+            {
+
                 return Problem(ex.Message);
             }
         }
