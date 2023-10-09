@@ -118,8 +118,7 @@
                     Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"),
                     Role = Role.Admin,
                     PhoneNumber = 12345678,
-                    AddressLineOne = "Test Vej 1",
-                    AddressLineTwo = "",
+                    Address = "Test Vej 1",
                     City = "Test By",
                     Postal = 1234,
                     Country = "Denmark"
@@ -133,8 +132,7 @@
                     Password = BCrypt.Net.BCrypt.HashPassword("Password"),
                     Role = Role.Customer,
                     PhoneNumber = 12345679,
-                    AddressLineOne = "Test Vej 2",
-                    AddressLineTwo = "",
+                    Address = "Test Vej 2",
                     City = "Test By",
                     Postal = 1234,
                     Country = "Denmark"

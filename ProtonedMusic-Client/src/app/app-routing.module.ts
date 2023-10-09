@@ -7,9 +7,6 @@ const routes: Routes = [
   {path: 'login', loadComponent: () =>
   import('./Components/login/login.component').then(it => it.LoginComponent)},
 
-  {path: 'signup', loadComponent: () =>
-  import('./Components/signup/signup.component').then(it => it.SignupComponent)},
-
   {path: 'merchandise', loadComponent: () =>
   import('./Components/merchandise/merchandise.component').then(it => it.MerchandiseComponent)},
   //KOM NU BIG MAN
