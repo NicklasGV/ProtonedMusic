@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { User, resetUser } from 'src/app/Models/UserModel';
+import { AuthService } from 'src/app/Services/auth.service';
+import { UserService } from 'src/app/Services/user.service';
+import { Role, constRoles } from '../../Models/role';
 
 @Component({
   selector: 'app-navbar',
@@ -10,10 +14,22 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  currentUser: User = resetUser();
+  roleCheck: any;
+  roleChecker: string = 'Admin';
 
-  constructor() { }
+  constructor(private router: Router, private authService:AuthService, private userService: UserService) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x);
+    if (this.currentUser != null) {
+      this.roleCheck = this.currentUser.role;
+    }
+  }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe(x => this.currentUser = x);
+    if (this.currentUser != null) {
+    this.roleCheck = this.currentUser.role;
+    }
   }
 
 }

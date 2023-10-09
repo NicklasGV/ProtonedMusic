@@ -30,6 +30,16 @@
         <a class="nav-link" [routerLink]="['/merchandise']" routerLinkActive="router-link-active"
           routerLinkActive="active-link">Merchandise</a>
         </li>
+        <li class="nav-item" *ngIf="currentUser != null && roleCheck == roleChecker">
+          <div class="dropdown">
+              <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">AdminPaneler</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" routerLink="/admin/productpanel">ProduktPanel</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/categorypanel">KategoriPanel</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/userpanel">BrugerPanel</a></li>
+              </ul>
+            </div>
+      </li>
       </ul>
       <form class="d-flex">
         <ul class="navbar-nav mx-auto">

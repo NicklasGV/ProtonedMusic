@@ -3,7 +3,6 @@ import {HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User, resetUser } from '../Models/UserModel';
-import { Role } from '../Models/role';
 
 @Injectable({
   providedIn: 'root'

@@ -2,8 +2,8 @@ import { Role, constRoles } from "./role";
 
 export interface User {
   id: number;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   phoneNumber: number;
@@ -18,8 +18,8 @@ export interface User {
 export function resetUser() {
   return { 
     id: 0, 
-    firstname: '', 
-    lastname: '', 
+    firstName: '', 
+    lastName: '', 
     email: '', 
     password: '', 
     phoneNumber: 0, 

@@ -1,31 +1,31 @@
-<!-- <h1>Bruger Administration</h1>
+<h1>Bruger Administration</h1>
 
 <div class="container-fluid">
 <div class="form-group row">
-  <label class="col-sm-2 col-form-label">Brugernavn</label>
+  <label class="col-sm-2 col-form-label">First name</label>
   <div class="col-sm-10">
-    <input [(ngModel)]="account.name" class="form-control w-75">
+    <input [(ngModel)]="user.firstName" class="form-control w-75">
   </div>
 </div>
 
 <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Mail Adresse</label>
+    <label class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10">
-      <input [(ngModel)]="account.mail" class="form-control w-75">
+      <input [(ngModel)]="user.email" class="form-control w-75">
     </div>
   </div>
 
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Adresse</label>
+    <label class="col-sm-2 col-form-label">Address</label>
     <div class="col-sm-10">
-      <input [(ngModel)]="account.adresse" class="form-control w-75">
+      <input [(ngModel)]="user.address" class="form-control w-75">
     </div>
   </div>
 
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Kodeord</label>
+    <label class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">
-      <input [(ngModel)]="account.password" class="form-control w-75">
+      <input [(ngModel)]="user.password" class="form-control w-75">
     </div>
   </div>
 
@@ -33,9 +33,9 @@
 
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">Roller</label>
-    <div class="col-sm-10">
-      <select [(ngModel)]="account.role" class="form-control w-75">
-        <option *ngFor="let role of keys" [value]="role">{{ role }}</option>
+    <div class="col-sm-10 ">
+      <select [(ngModel)]="user.role" class="form-control w-75">
+        <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
       </select>
     </div>
   </div>
@@ -50,22 +50,30 @@
       <th style="width:20px;">Actions</th>
       <th style="width:40px;">Id</th>
       <th style="width:100px;">Mail</th>
-      <th style="width:100px;">Navn</th>
-      <th style="width:100px;">Adresse</th>
+      <th style="width:100px;">First name</th>
+      <th style="width:100px;">Last name</th>
+      <th style="width:100px;">Address</th>
+      <th style="width:80px;">City</th>
+      <th style="width:40px;">Postal</th>
+      <th style="width:40px;">Country</th>
       <th style="width:40px;">Role</th>
     </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let account of accounts">
+    <tr *ngFor="let user of users">
       <td>
-        <button (click)="editAccount(account)" class="btn btn-sm btn-primary">Ret</button>
+        <button (click)="edit(user)" class="btn btn-sm btn-primary">Ret</button>
       </td>
-      <td>{{ account.id }}</td>
-      <td>{{ account.mail }}</td>
-      <td>{{ account.name }}</td>
-      <td>{{ account.adresse }}</td>
-      <td>{{ account.role }}</td>
+      <td>{{ user.id }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.address }}</td>
+      <td>{{ user.city }}</td>
+      <td>{{ user.postal}}</td>
+      <td>{{ user.country}}</td>
+      <td>{{ user.role }}</td>
     </tr>
   </tbody>
-</table> -->
+</table>
