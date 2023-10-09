@@ -37,8 +37,14 @@ export class CartComponent implements OnInit {
     }
   }
 
-  updateCart(): void {
+  updateCart(item: CartItem): void {
     this.cartService.saveCart(this.cartItems);
+    if(this.cartItems.length <= 0)
+    {
+      if (confirm(`Er du sikker på du vil fjerne ${item.name}?`)) {
+        this.cartService.removeItemFromCart(item.id);
+      }
+    }
   }
 
   buyCartItems(): void {

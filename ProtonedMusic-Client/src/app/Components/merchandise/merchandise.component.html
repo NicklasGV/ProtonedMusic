@@ -18,10 +18,11 @@
             <img src="../../../assets/img/1.png" style="max-width: 100%; max-height: 100%;">
             <div class="card-body">
                 <div>
-                    <p class="">{{product.name}}</p>
-                    <p class="">{{product.categories}}</p>
+                    <p>{{product.name}}</p>
+                    <p *ngFor="let category of product.categories">
+                        {{category.name}}</p>
                 </div>
-                <p>{{product.description}}</p>
+                <p class="text-truncate" style="max-width: 200px;">{{product.description}}</p>
                 <p>{{product.price | currency:'DKK ' }}</p>
                 <div>
                     <a type="button" class="btn btn-outline-success float-end btn-sm" (click)="addToCart(product)">Add to basket</a>
