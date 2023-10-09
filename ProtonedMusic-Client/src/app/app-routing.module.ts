@@ -21,6 +21,12 @@ const routes: Routes = [
 
   {path: 'admin/productpanel', loadComponent: () =>
   import('./Components/Admin/product-panel/product-panel.component').then(it => it.ProductPanelComponent)},
+
+  {path: 'admin/categorypanel', loadComponent: () =>
+  import('./Components/Admin/category-panel/category-panel.component').then(it => it.CategoryPanelComponent)},
+
+  {path: 'admin/userpanel', loadComponent: () =>
+  import('./Components/Admin/user-panel/user-panel.component').then(it => it.UserPanelComponent)},
   
   
 ];

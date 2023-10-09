@@ -11,7 +11,7 @@ import { CategoryService } from 'src/app/Services/category.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './product-panel.component.html',
-  styleUrls: ['./product-panel.component.css']
+  styles: []
 })
 export class ProductPanelComponent implements OnInit {
 
