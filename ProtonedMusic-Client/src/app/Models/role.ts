@@ -5,7 +5,7 @@ export interface Role {
   export const constRoles: Role[] = [
     {
       id: 0, 
-      name: "Costumer"
+      name: "Customer"
     },
     {
       id: 1,
