@@ -23,10 +23,7 @@
         public int PhoneNumber { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
-        public string AddressLineOne { get; set; }
-
-        [Column(TypeName = "nvarchar(50)")]
-        public string AddressLineTwo { get; set; }
+        public string Address { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
         public string City { get; set; }
@@ -36,9 +33,6 @@
 
         [Column(TypeName = "nvarchar(50)")]
         public string Country { get; set; }
-
-        public string? RefreshToken { get; set; }
-        public DateTime RefreshTokenExpiryTime { get; set; }
 
     }
 }

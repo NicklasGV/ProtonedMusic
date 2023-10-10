@@ -27,7 +27,7 @@ namespace ProtonedMusicAPI.Authentication
             byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new()
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("Id", user.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -57,10 +57,10 @@ namespace ProtonedMusicAPI.Authentication
                 }, out SecurityToken validatedToken);
 
                 JwtSecurityToken jwtToken = (JwtSecurityToken)validatedToken;
-                int accountId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                int userId = int.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value);
 
                 //return user id from JWT Token if Validation is succesful
-                return accountId;
+                return userId;
             }
             catch (Exception ex)
             {

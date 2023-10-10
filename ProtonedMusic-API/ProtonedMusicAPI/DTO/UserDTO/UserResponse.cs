@@ -8,13 +8,9 @@
         public string Email { get; set; }
         public Role Role { get; set; }
         public int PhoneNumber { get; set; }
-        public string AddressLineOne { get; set; }
-        public string AddressLineTwo { get; set; }
+        public string Address { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public int Postal { get; set; }
-
-        public string? RefreshToken { get; set; }
-        public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }

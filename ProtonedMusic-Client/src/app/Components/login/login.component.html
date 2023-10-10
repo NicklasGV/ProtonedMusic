@@ -5,14 +5,14 @@
             <div class="mt-5">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" placeholder="E-MAIL" class="form-control" id="Email">
+                    <input type="email" placeholder="E-MAIL" class="form-control" name="email" [(ngModel)]="email">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="Password">
+                    <input type="password" class="form-control" name="password" [(ngModel)]="password">
                 </div>
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-outline-success rounded-4">Login</button>
+                    <button type="submit" class="btn btn-outline-success rounded-4" (click)="login()">Login</button>
                 </div>
                 <div class="mt-3" style="clear: both;"></div>
                 <p>Not a member yet ?</p>
@@ -28,7 +28,7 @@
 </div>
 
 <!-- Modal -->
-<form>
+<form [formGroup]="userForm" (ngSubmit)="save()">
     <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-dark">
@@ -37,26 +37,64 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="firstName" class="form-control" id="firstName">
+                    <div class="formControl">
+                        <label class="label">Fornavn</label>
+                        <input type="text" formControlName="firstName">
+                        <span class="error" *ngIf="userForm.get('firstName')?.invalid
+           && userForm.get('firstName')?.touched">Udfyld!</span>
                     </div>
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="lastName" class="form-control" id="SignUplastName">
+                    <div class="formControl">
+                        <label class="label">Efternavn</label>
+                        <input type="text" formControlName="lastName">
+                        <span class="error" *ngIf="userForm.get('lastName')?.invalid
+            && userForm.get('lastName')?.touched">Udfyld!</span>
                     </div>
-                    <div class="mb-3">
-                        <label for="SignUpEmail" class="form-label">Email address</label>
-                        <input type="SignUpEmail" placeholder="E-mail" class="form-control" id="SignUpEmail">
+                    <div class="formControl">
+                        <label class="label">Email</label>
+                        <input type="text" formControlName="email">
+                        <span class="error" *ngIf="userForm.get('email')?.invalid
+            && userForm.get('email')?.touched">Udfyld!</span>
                     </div>
-                    <div class="mb-3">
-                        <label for="SignUpPassword" class="form-label">Password</label>
-                        <input type="SignUpPassword" placeholder="Password" class="form-control" id="SignUpPassword">
+                    <div class="formControl">
+                        <label class="label">Password</label>
+                        <input type="password" formControlName="password">
+                        <span class="error" *ngIf="userForm.get('password')?.invalid
+            && userForm.get('password')?.touched">Udfyld!</span>
                     </div>
+                    <div class="formControl">
+                      <label class="label">Phonenumber</label>
+                      <input type="text" formControlName="phoneNumber">
+                      <span class="error" *ngIf="userForm.get('phoneNumber')?.invalid
+          && userForm.get('phoneNumber')?.touched">Udfyld!</span>
+                  </div>
+                  <div class="formControl">
+                    <label class="label">Address</label>
+                    <input type="text" formControlName="address">
+                    <span class="error" *ngIf="userForm.get('address')?.invalid
+        && userForm.get('address')?.touched">Udfyld!</span>
+                </div>
+                <div class="formControl">
+                  <label class="label">City</label>
+                  <input type="text" formControlName="city">
+                  <span class="error" *ngIf="userForm.get('city')?.invalid
+      && userForm.get('city')?.touched">Udfyld!</span>
+              </div>
+              <div class="formControl">
+                <label class="label">Postal</label>
+                <input type="text" formControlName="postal">
+                <span class="error" *ngIf="userForm.get('postal')?.invalid
+    && userForm.get('postal')?.touched">Udfyld!</span>
+            </div>
+            <div class="formControl">
+              <label class="label">Country</label>
+              <input type="text" formControlName="country">
+              <span class="error" *ngIf="userForm.get('country')?.invalid
+  && userForm.get('country')?.touched">Udfyld!</span>
+          </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-outline-success">Sign up!</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancel()">Close</button>
+                    <button type="submit" class="btn btn-outline-success" [disabled]="!userForm.valid">Sign up!</button>
                 </div>
             </div>
         </div>

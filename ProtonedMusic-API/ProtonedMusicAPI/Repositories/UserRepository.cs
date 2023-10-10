@@ -53,8 +53,7 @@
                 user.Email = updateUser.Email;
                 user.Role = updateUser.Role;
                 user.PhoneNumber = updateUser.PhoneNumber;
-                user.AddressLineOne = updateUser.AddressLineOne;
-                user.AddressLineTwo = updateUser.AddressLineTwo;
+                user.Address = updateUser.Address;
                 user.City = updateUser.City;
                 user.Postal = updateUser.Postal;
                 user.Country = updateUser.Country;

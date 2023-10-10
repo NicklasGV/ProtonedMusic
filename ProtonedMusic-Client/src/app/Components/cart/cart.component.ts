@@ -16,7 +16,7 @@ import { ProductModel } from 'src/app/Models/ProductModel';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styles: []
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
@@ -38,13 +38,19 @@ export class CartComponent implements OnInit {
   }
 
   updateCart(item: CartItem): void {
-    this.cartService.saveCart(this.cartItems);
-    if(this.cartItems.length <= 0)
-    {
-      if (confirm(`Er du sikker på du vil fjerne ${item.name}?`)) {
-        this.cartService.removeItemFromCart(item.id);
+     const index = this.cartItems.findIndex(cartItem => cartItem.id === item.id);
+
+     if (index !== -1 && this.cartItems[index].quantity > 0) {
+        this.cartItems[index].quantity = item.quantity;
+        this.cartService.saveCart(this.cartItems);
+     }
+     else if (index !== -1 && this.cartItems[index].quantity === 0) {
+      if (confirm(`Er du sikker på du vil fjerne ${item.name}?`))
+      {
+        this.cartItems.splice(index, 1);
+        this.cartService.saveCart(this.cartItems);
       }
-    }
+     }
   }
 
   buyCartItems(): void {
@@ -61,6 +67,4 @@ export class CartComponent implements OnInit {
       this.cartService.removeItemFromCart(item.id);
     }
   }
-
-
 }

@@ -1,15 +1,15 @@
-import { Role } from "./role";
+import { Role, constRoles } from "./role";
 
 export interface User {
   id: number;
-  username: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  firstname: string;
-  lastname: string;
-  phonenumber: string;
+  password: string;
+  phoneNumber: number;
   address: string;
   city: string;
-  postal: string;
+  postal: number;
   country: string;
   role?: Role;
   token?: string;
@@ -18,14 +18,15 @@ export interface User {
 export function resetUser() {
   return { 
     id: 0, 
-    username: '', 
+    firstName: '', 
+    lastName: '', 
     email: '', 
-    firstname: '', 
-    lastname: '', 
-    phonenumber: '', 
+    password: '', 
+    phoneNumber: 0, 
     address: '', 
     city: '', 
-    postal: '', 
+    postal: 0, 
     country: '',
+    role: constRoles[0]
 };
 }

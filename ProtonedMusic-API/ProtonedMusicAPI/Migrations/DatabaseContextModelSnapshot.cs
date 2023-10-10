@@ -165,11 +165,7 @@ namespace ProtonedMusicAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AddressLineOne")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("AddressLineTwo")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
@@ -220,14 +216,13 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            AddressLineOne = "Test Vej 1",
-                            AddressLineTwo = "",
+                            Address = "Test Vej 1",
                             City = "Test By",
                             Country = "Denmark",
-                            Email = "TestMail1",
+                            Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$BJWvPkN4KrC4O3SXVgtuceL/B2OG5.PMCxlhVoTAnPxhMH5ISEIs2",
+                            Password = "$2b$10$YrumajPIlv1qfW.34pWeIuxUOxW25.YiElxY6uci9BeldYeukUg3C",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -236,14 +231,13 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            AddressLineOne = "Test Vej 2",
-                            AddressLineTwo = "",
+                            Address = "Test Vej 2",
                             City = "Test By",
                             Country = "Denmark",
-                            Email = "TestMail2",
+                            Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$DFFhkOj9I6zFkxVkE/3UO.9Wwezglsgueavkt4yCqGcIE4nYQNOqW",
+                            Password = "$2b$10$yjntxuWzxQEK7FIuPrBd5.sgeNSU2rm.865ikcAA/5k/Ao1aBGNt6",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

@@ -2,10 +2,10 @@
 {
     public interface ICategoryRepository
     {
-        Task<List<Category>> GetAllAsync();
-        Task<Category> CreateAsync(Category newCategory);
-        Task<Category?> FindByIdAsync(int categoryId);
-        Task<Category?> UpdateByIdAsync(int categoryId, Category updateCategory);
-        Task<Category?> DeleteByIdAsync(int categoryId);
+        Task<List<Category>> GetAll();
+        Task<Category> Create(Category newCategory);
+        Task<Category?> FindById(int categoryId);
+        Task<Category?> UpdateById(int categoryId, Category updateCategory);
+        Task<Category?> DeleteById(int categoryId);
     }
 }

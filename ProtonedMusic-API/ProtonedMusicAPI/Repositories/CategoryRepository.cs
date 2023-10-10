@@ -9,7 +9,7 @@
             _context = context;
         }
 
-        public async Task<List<Category>> GetAllAsync()
+        public async Task<List<Category>> GetAll()
         {
             return await _context.Category
                 .Include(p => p.ProductCategories)
@@ -17,16 +17,16 @@
                 .ToListAsync();
         }
 
-        public async Task<Category> CreateAsync(Category newCategory)
+        public async Task<Category> Create(Category newCategory)
         {
             _context.Category.Add(newCategory);
 
             await _context.SaveChangesAsync();
-            newCategory = await FindByIdAsync(newCategory.Id);
+            newCategory = await FindById(newCategory.Id);
             return newCategory;
         }
 
-        public async Task<Category?> FindByIdAsync(int categoryId)
+        public async Task<Category?> FindById(int categoryId)
         {
             return await _context.Category
                 .Include(p => p.ProductCategories)
@@ -34,9 +34,9 @@
                 .FirstOrDefaultAsync(c => c.Id == categoryId);
         }
 
-        public async Task<Category?> UpdateByIdAsync(int categoryId, Category updateCategory)
+        public async Task<Category?> UpdateById(int categoryId, Category updateCategory)
         {
-            var category = await FindByIdAsync(categoryId);
+            var category = await FindById(categoryId);
 
             if (category != null)
             {
@@ -47,9 +47,9 @@
             return category;
         }
 
-        public async Task<Category> DeleteByIdAsync(int categoryId)
+        public async Task<Category> DeleteById(int categoryId)
         {
-            var category = await FindByIdAsync(categoryId);
+            var category = await FindById(categoryId);
 
             if (category != null)
             {

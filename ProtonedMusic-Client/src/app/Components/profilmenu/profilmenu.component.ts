@@ -9,7 +9,7 @@ import { Router, ActivatedRoute, RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './profilmenu.component.html',
-  styleUrls: ['./profilmenu.component.css']
+  styles: []
 })
 export class ProfilmenuComponent implements OnInit {
   user: User = resetUser();

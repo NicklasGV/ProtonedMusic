@@ -11,7 +11,7 @@ import { CategoryService } from 'src/app/Services/category.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './product-panel.component.html',
-  styleUrls: ['./product-panel.component.css']
+  styles: []
 })
 export class ProductPanelComponent implements OnInit {
 
@@ -54,10 +54,8 @@ editProduct(product: ProductModel): void {
     if (existingCategory) {
       existingCategory.checked = true;
       this.selected.push(existingCategory.id);
-      console.log("selected", this.selected);
     }
   });
-  console.log('Selected IDs:', this.selected);
 }
   
   deleteProduct(product: ProductModel): void {
