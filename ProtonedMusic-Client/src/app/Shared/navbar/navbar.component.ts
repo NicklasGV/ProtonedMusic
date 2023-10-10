@@ -19,10 +19,6 @@ export class NavbarComponent implements OnInit {
   roleChecker: string = 'Admin';
 
   constructor(private router: Router, private authService:AuthService, private userService: UserService) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
-    if (this.currentUser != null) {
-      this.roleCheck = this.currentUser.role;
-    }
   }
 
   ngOnInit(): void {
@@ -30,6 +26,11 @@ export class NavbarComponent implements OnInit {
     if (this.currentUser != null) {
     this.roleCheck = this.currentUser.role;
     }
+    console.log('Bruger logger ind:', this.currentUser); 
+    if (this.currentUser != null) {
+      this.roleCheck = this.currentUser.role;
+    }
   }
+
 
 }
