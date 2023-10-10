@@ -1,79 +1,93 @@
-<h1>Bruger Administration</h1>
-
-<div class="container-fluid">
-<div class="form-group row">
-  <label class="col-sm-2 col-form-label">First name</label>
-  <div class="col-sm-10">
-    <input [(ngModel)]="user.firstName" class="form-control w-75">
-  </div>
+<div class="container">
+  <h1 class="m-2">User Administration</h1>
 </div>
 
-<div class="form-group row">
-    <label class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-10">
+<div class="container-fluid" data-bs-theme="dark">
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">First name</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="user.firstName" class="form-control w-75">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Email</label>
+    <div class="col-12 col-sm-6">
       <input [(ngModel)]="user.email" class="form-control w-75">
     </div>
   </div>
 
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Address</label>
-    <div class="col-sm-10">
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Address</label>
+    <div class="col-12 col-sm-6">
       <input [(ngModel)]="user.address" class="form-control w-75">
     </div>
   </div>
 
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Password</label>
+    <div class="col-12 col-sm-6">
       <input [(ngModel)]="user.password" class="form-control w-75">
     </div>
   </div>
 
-
-
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Roller</label>
-    <div class="col-sm-10 ">
-      <select [(ngModel)]="user.role" class="form-control w-75">
-        <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
-      </select>
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Role</label>
+    <div class="col-12 col-sm-6">
+      <div class="dropdown">
+        <select [(ngModel)]="user.role" class="form-control w-75">
+          <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
+        </select>
+      </div>
     </div>
   </div>
 
-<button (click)="save()" class="btn btn-sm btn-success">Gem</button>
-<button (click)="cancel()" class="btn btn-sm btn-default">Annuller</button>
+  <div class="d-flex mt-5 mx-0">
+    <button (click)="save()" class="btn btn-sm btn-success me-1">SAVE</button>
+    <button (click)="cancel()" class="btn btn-sm btn-danger">CANCEL</button>
+  </div>
 </div>
 
-<table class="table table-striped table-hover mt-5">
-  <thead>
-    <tr>
-      <th style="width:20px;">Actions</th>
-      <th style="width:40px;">Id</th>
-      <th style="width:100px;">Mail</th>
-      <th style="width:100px;">First name</th>
-      <th style="width:100px;">Last name</th>
-      <th style="width:100px;">Address</th>
-      <th style="width:80px;">City</th>
-      <th style="width:40px;">Postal</th>
-      <th style="width:40px;">Country</th>
-      <th style="width:40px;">Role</th>
-    </tr>
-  </thead>
+<div class="container mt-2 mb-2">
+</div>
 
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>
-        <button (click)="edit(user)" class="btn btn-sm btn-primary">Ret</button>
-      </td>
-      <td>{{ user.id }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td>{{ user.address }}</td>
-      <td>{{ user.city }}</td>
-      <td>{{ user.postal}}</td>
-      <td>{{ user.country}}</td>
-      <td>{{ user.role }}</td>
-    </tr>
-  </tbody>
-</table>
+
+<div class="container-fluid" data-bs-theme="dark">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Actions</th>
+            <th>Id</th>
+            <th>Mail</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Postal</th>
+            <th>Country</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>
+              <div class="d-flex justify-content-start">
+                <button (click)="edit(user)" class="btn btn-sm btn-success">Ret</button>
+              </div>
+            </td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.city }}</td>
+            <td>{{ user.postal}}</td>
+            <td>{{ user.country}}</td>
+            <td>{{ user.role }}</td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
