@@ -12,8 +12,6 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   currentUser: Observable<User>;
 
-  @Output() tt: EventEmitter<boolean> = new EventEmitter();
-
   constructor(private http: HttpClient) {
     // fake login useful when testing
     if (sessionStorage.getItem('currentUser') == null) {
@@ -51,8 +49,5 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  showpis(show: boolean){
-    this.tt.emit(show);
-  }
 
 }
