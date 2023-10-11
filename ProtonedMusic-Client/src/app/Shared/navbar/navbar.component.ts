@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
 
-    console.log('Bruger logger ind:', this.currentUser); 
+    console.log('Bruger logger ind:', this.authService.currentUserValue); 
   }
 
   roleCheck() : boolean
