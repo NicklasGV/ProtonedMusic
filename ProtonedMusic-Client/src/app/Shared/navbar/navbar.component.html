@@ -44,8 +44,8 @@
       <form class="d-flex">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active"
-              routerLinkActive="active-link" class="btn btn-outline-success me-2">LOGIN</a>
+            <a *ngIf="isLoggedIn"  class="btn btn-outline-danger me-2">LOG UD</a>
+            <a *ngIf="!isLoggedIn" (click)="logout()"[routerLink]="['/login']" routerLinkActive="router-link-active" routerLinkActive="active-link" class="btn btn-outline-success me-2">LOG IND</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="router-link-active"

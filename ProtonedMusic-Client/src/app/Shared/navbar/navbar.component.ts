@@ -14,22 +14,34 @@ import { AuthService } from 'src/app/Services/auth.service';
 export class NavbarComponent implements OnInit {
   currentUser: User = resetUser();
   roleChecker: string = 'Admin';
+  isLoggedIn: boolean = false;
 
   constructor(
     private authService: AuthService,
 
-  ) {}
-
-  ngOnInit(): void {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    console.log(this.currentUser.role);
-    console.log('Bruger logger ind:', this.authService.currentUserValue);
-  }
+    ) {
+      
+      this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    }
+    
+    ngOnInit(): void {
+      console.log(this.currentUser.role);
+      console.log('Bruger logger ind:', this.authService.currentUserValue);
+      this.authService.currentUser.subscribe((x) => {
+        this.currentUser = x;
+        this.isLoggedIn = !!x;
+      })
+    }
 
   roleCheck(): boolean {
     if (this.currentUser.role == this.roleChecker) {
       return true;
     }
     return false;
+  }
+
+    logout() {
+    this.authService.logout();
+    console.log('Bruger logger ud:', this.authService.currentUserValue);
   }
 }
