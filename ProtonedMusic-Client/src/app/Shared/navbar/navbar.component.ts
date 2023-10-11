@@ -16,34 +16,25 @@ export class NavbarComponent implements OnInit {
   roleChecker: string = 'Admin';
   isLoggedIn: boolean = false;
   testikler: boolean = false;
-  constructor(
-    private authService: AuthService,
+  constructor(private authService: AuthService) {
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+  }
 
-    ) {
-      
-      this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    }
-    
-    ngOnInit(): void {
-      console.log(this.currentUser.role);
-      console.log('Bruger logger ind:', this.authService.currentUserValue);
+  ngOnInit(): void {
+    console.log('Bruger logger ind:', this.authService.currentUserValue);
 
+    this.authService.currentUser.subscribe((x) => {
+      if (x != null) {
+        this.isLoggedIn = true;
+      }
+    });
+  }
 
-      this.authService.currentUser.subscribe((x) => {
-        
-        if (x != null) {
-          this.isLoggedIn = true;
-        }
-      })
-    }
-
-    ngAfterViewChecked(){
-      this.authService.pik.subscribe(emitted => {
-        this.isLoggedIn = emitted;
-       
-        
-      })
-    }
+  ngAfterViewChecked() {
+    this.authService.pik.subscribe((emitted) => {
+      this.isLoggedIn = emitted;
+    });
+  }
 
   roleCheck(): boolean {
     if (this.currentUser.role == this.roleChecker) {
@@ -52,9 +43,10 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-    logout() {
-    this.authService.logout();
+  logout() {
     console.log('Bruger logger ud:', this.authService.currentUserValue);
+    this.authService.logout();
     this.isLoggedIn = false;
+    window.location.reload();
   }
 }
