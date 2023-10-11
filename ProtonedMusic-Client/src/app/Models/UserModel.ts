@@ -11,7 +11,7 @@ export interface User {
   city: string;
   postal: number;
   country: string;
-  role: string;
+  role?: string;
   token?: string;
 }
 
@@ -27,6 +27,5 @@ export function resetUser() {
     city: '', 
     postal: 0, 
     country: '',
-    role: "Customer"
 };
 }

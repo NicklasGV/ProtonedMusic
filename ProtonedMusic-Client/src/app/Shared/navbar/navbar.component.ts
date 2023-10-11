@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   currentUser: User = resetUser();
   roleChecker: string = 'Admin';
   isLoggedIn: boolean = false;
-
+  testikler: boolean = false;
   constructor(
     private authService: AuthService,
 
@@ -27,9 +27,21 @@ export class NavbarComponent implements OnInit {
     ngOnInit(): void {
       console.log(this.currentUser.role);
       console.log('Bruger logger ind:', this.authService.currentUserValue);
+
+
       this.authService.currentUser.subscribe((x) => {
-        this.currentUser = x;
-        this.isLoggedIn = !!x;
+        
+        if (x != null) {
+          this.isLoggedIn = true;
+        }
+      })
+    }
+
+    ngAfterViewChecked(){
+      this.authService.pik.subscribe(emitted => {
+        this.isLoggedIn = emitted;
+       
+        
       })
     }
 
@@ -43,5 +55,6 @@ export class NavbarComponent implements OnInit {
     logout() {
     this.authService.logout();
     console.log('Bruger logger ud:', this.authService.currentUserValue);
+    this.isLoggedIn = false;
   }
 }

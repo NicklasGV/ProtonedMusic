@@ -42,9 +42,10 @@ export class LoginComponent implements OnInit {
     this.error  = '';
     this.authService.login(this.email, this.password)
     .subscribe({
-      next: () => {
+      next: () => {        
         //get return url from activatedRoute service or default to '/'
         let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        // this.authService.tt(true);
         this.router.navigate([returnUrl]);
       },
       error: err => {
@@ -56,6 +57,8 @@ export class LoginComponent implements OnInit {
         }
       }
     });
+    
+    
   }
 
   save(): void {

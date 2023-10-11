@@ -11,7 +11,7 @@ import { User, resetUser } from '../Models/UserModel';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   currentUser: Observable<User>;
-
+  @Output() pik: EventEmitter<boolean> = new EventEmitter();
   constructor(private http: HttpClient) {
     // fake login useful when testing
     if (sessionStorage.getItem('currentUser') == null) {
@@ -23,6 +23,10 @@ export class AuthService {
       JSON.parse(sessionStorage.getItem('currentUser') as string)
     );
     this.currentUser = this.currentUserSubject.asObservable();
+   }
+
+   tt(penis: boolean){
+    this.pik.emit(penis);
    }
 
    public get currentUserValue(): User {
