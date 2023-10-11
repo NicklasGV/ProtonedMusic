@@ -30,7 +30,7 @@
         <a class="nav-link" [routerLink]="['/merchandise']" routerLinkActive="router-link-active"
           routerLinkActive="active-link">Merchandise</a>
         </li>
-        <li class="nav-item" *ngIf="currentUser != null && roleCheck == roleChecker">
+        <li class="nav-item" *ngIf="currentUser != null && roleCheck()">
           <div class="dropdown" data-bs-theme="dark">
               <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >AdminPaneler</a>
               <ul class="dropdown-menu">

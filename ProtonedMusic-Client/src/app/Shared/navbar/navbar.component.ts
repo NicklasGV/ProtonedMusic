@@ -15,22 +15,27 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class NavbarComponent implements OnInit {
   currentUser: User = resetUser();
-  roleCheck: any;
   roleChecker: string = 'Admin';
+  tt: boolean = false;
 
   constructor(private router: Router, private authService:AuthService, private userService: UserService) {
+
   }
 
   ngOnInit(): void {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
-    if (this.currentUser != null) {
-    this.roleCheck = this.currentUser.role;
-    }
+
     console.log('Bruger logger ind:', this.currentUser); 
-    if (this.currentUser != null) {
-      this.roleCheck = this.currentUser.role;
-    }
   }
 
+  roleCheck() : boolean
+  {
+
+    if (this.currentUser.role == this.roleChecker)
+    {
+      return true;
+    }
+    return false;
+  }
 
 }
