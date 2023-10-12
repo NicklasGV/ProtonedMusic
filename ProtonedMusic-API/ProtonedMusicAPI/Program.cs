@@ -21,6 +21,9 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
+            builder.Services.AddScoped<IImageRepository, ImageRepository>();
+            builder.Services.AddScoped<IImageService, ImageService>();
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
