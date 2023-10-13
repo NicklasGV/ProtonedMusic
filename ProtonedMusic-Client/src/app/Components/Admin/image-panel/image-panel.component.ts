@@ -12,31 +12,12 @@ import { ImageModel} from 'src/app/Models/ImageModel';
   styles: []
 })
 export class ImagePanelComponent implements OnInit {
-  queryResult: any = [];
-  imageCount: any;
-  images: ImageModel[] = [];
-  imageBaseUrl: string = this.imageService.url;
-  query: any = {
-    pageSize: 6,
-  };
 
-  constructor(private imageService: ImageService) { }
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.imageService.getAll().subscribe(x => this.images = x);
-  }
 
-  delete(id: number) {
-    this.imageService.delete(id).subscribe({
-      next: (res: any) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
   }
-  
-  
 
 }

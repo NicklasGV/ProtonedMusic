@@ -1,16 +1,1 @@
-<div class="container mt-5" style="display: flex; flex-direction: column; align-items: center;">
-    <h1>Image Gallery</h1>
-
-  
-    <div class="gallery" style="display: flex; flex-wrap: wrap;">
-      <div style="margin: 10px; justify-content: center; display: flex; flex-direction: column;" *ngFor="let image of images">
-  
-        <img [src]="imageBaseUrl+image.fileName" alt="Image" width="150" height="150" style="margin: auto;"/>
-        <p style="font-weight: bold">Image Name: {{image.fileName}}</p>
-  
-        <div style="display: flex; flex-direction: row; justify-content: center;">
-          <a><button class="btn btn-danger mx-1 my-3" (click)="delete(image.id)">Delete</button></a>
-        </div>
-      </div>
-    </div>
-  </div>
+<h4>Works</h4>

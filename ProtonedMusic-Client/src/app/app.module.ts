@@ -7,7 +7,7 @@ import { NavbarComponent } from './Shared/navbar/navbar.component';
 import { FooterComponent } from './Shared/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './Services/Guard/jwt.interceptor';
-import { PaginationComponent } from './Shared/pagination/pagination.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { PaginationComponent } from './Shared/pagination/pagination.component';
     NavbarComponent,
     FooterComponent,
     HttpClientModule,
-    PaginationComponent
+
   ],
   providers: [
     {
