@@ -12,6 +12,24 @@ namespace ProtonedMusicAPI.Services
             _imageRepository = imageRepository;
         }
 
+        private static ImageResponse MapImageToImageResponse(Image image)
+        {
+            ImageResponse response = new ImageResponse
+            {
+                Id = image.Id,
+                FileName = image.FileName,
+                FilePath = image.FilePath,
+            };
+            return response;
+        }
+        private static Image MapImageRequestToImage(ImageRequest imageRequest)
+        {
+            return new Image
+            {
+                FileName = imageRequest.FileName,
+            };
+        }
+
         public Task<Image> CreateImage(Image createImage)
         {
             throw new NotImplementedException();
@@ -27,9 +45,14 @@ namespace ProtonedMusicAPI.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Image>> GetAll()
+        public async Task<List<ImageResponse>> GetAll()
         {
-            throw new NotImplementedException();
+            List<Image> images = await _imageRepository.GetAll();
+            if (images == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return images.Select(MapImageToImageResponse).ToList();
         }
 
         public Task<Image?> UpdateImage(Image updateImage)

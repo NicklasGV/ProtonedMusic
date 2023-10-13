@@ -24,6 +24,9 @@ const routes: Routes = [
 
   {path: 'admin/userpanel', loadComponent: () =>
   import('./Components/Admin/user-panel/user-panel.component').then(it => it.UserPanelComponent)},
+
+  {path: 'admin/imagepanel', loadComponent: () =>
+  import('./Components/Admin/image-panel/image-panel.component').then(it => it.ImagePanelComponent)},
   
   
 ];

@@ -41,5 +41,24 @@
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                List<ImageResponse> images = await _imageService.GetAll();
+
+                if (images.Count == 0)
+                {
+                    return NoContent();
+                }
+                return Ok(images);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
     }
 }

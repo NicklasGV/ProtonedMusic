@@ -2,11 +2,10 @@
 {
     public class ImageResponse
     {
-        public string Name { get; set; }
-
+        public int Id { get; set; }
         public string FileName { get; set; }
 
-        public string FilePatch { get; set; } = string.Empty;
+        public string FilePath { get; set; } = string.Empty;
 
     }
 }
