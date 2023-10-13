@@ -7,7 +7,7 @@
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class TestData : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -127,8 +127,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$sL.ftZ4j5JsLvZVw0PsWz.vqG49jfcJzLiEC1r5lB0opeDjQRGP.e", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$mTYmOGZFUjt6bAMiV3cDauPi6kFQ7mueJb7osmH9.PEArVdmAgtjS", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$4C/X7Y9.4sjS5Kh3wHTwueX73TC48C3iz7BYi4MPbptkBOYZrQNli", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$z0e3.nTqQRsF4B1gxU1sDexMqEJUNu3GJP.e9Dpwc38FCiMkcen8C", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(

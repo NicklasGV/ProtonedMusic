@@ -1,18 +1,14 @@
-﻿using ProtonedMusicAPI.DTO.ImageDTO;
-
-namespace ProtonedMusicAPI.Controllers
+﻿namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ImageController : ControllerBase
     {
-        private readonly ImageService _imageService;
+        private readonly IImageService _imageService;
 
-        public ImageController(IImageService imageRepository)
+        public ImageController(IImageService imageService)
         {
-            //FUCK FOREGÅR DER HER 
-            // Kan ikke finde variabel
-            // Dobbeltjek om du er en pesant 
+            _imageService = imageService;
         }
 
 
@@ -27,7 +23,7 @@ namespace ProtonedMusicAPI.Controllers
                     return BadRequest("No file uploaded.");
                 }
 
-                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" }; // Definer de tilladte filtyper
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".PNG", }; // Definer de tilladte filtyper
                 var fileExtension = Path.GetExtension(imageFile.FileName);
 
                 if (!allowedExtensions.Contains(fileExtension))
