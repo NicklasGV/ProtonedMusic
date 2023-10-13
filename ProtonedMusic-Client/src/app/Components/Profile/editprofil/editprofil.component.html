@@ -1,0 +1,59 @@
+<div class="container-fluid p-0" data-bs-theme="dark">
+    <div class="card border-0 h-100">
+        <div class="form-group row mx-2">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.email" class="form-control w-75">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Password</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.password" class="form-control w-75">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">First name</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.firstName" class="form-control w-75">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Last name</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.lastName" class="form-control w-75">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Adress</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.address" class="form-control w-75">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">City</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.city" class="form-control w-75">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Postal code</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.postal" class="form-control w-75">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Country</label>
+                <div class="col-sm-10">
+                  <input (keyup.enter)="save()" [(ngModel)]="user.country" class="form-control w-75">
+                </div>
+            </div>
+            <div class="mt-4">
+                <button (click)="save()" class="btn btn-sm btn-success">Gem</button>
+                <button [routerLink]="['../../../profilmenu', user.id]" class="btn btn-sm btn-default">Annuller</button>
+            </div>
+        </div>
+           
+    </div>
+</div>

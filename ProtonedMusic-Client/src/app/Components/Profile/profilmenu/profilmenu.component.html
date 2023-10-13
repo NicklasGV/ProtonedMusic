@@ -1,0 +1,16 @@
+<div class="container d-flex justify-content-center" data-bs-theme="dark">
+    <div class="card mb-3 border-0">
+        <div class="card-body">
+            <i class="bi-person-circle me-auto" style="font-size: 15rem; color: white;" id="Profile"></i> 
+        </div>
+        <div class="mx-lg-5">
+            <h2 type="name" class="form-control text-center" id="name" > {{msg}} {{user.firstName}}</h2>
+        </div>
+        <div class="mt-4">
+            <button type="email" class="form-control text-center" id="editprofil" [routerLink]="['editprofil']">Edit profile</button>
+        </div> 
+        <div class="mt-5">
+            <button type="password" class="form-control text-center" id="logud" (click)="Logout()">Log ud</button>
+        </div>    
+    </div>  
+</div>

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageService } from 'src/app/Services/image.service';
-import { PaginationComponent } from 'src/app/Shared/pagination/pagination.component';
 import { ImageModel} from 'src/app/Models/ImageModel';
 
 @Component({
   selector: 'app-image-panel',
   standalone: true,
-  imports: [CommonModule, PaginationComponent],
+  imports: [CommonModule],
   templateUrl: './image-panel.component.html',
   styles: []
 })
@@ -25,18 +24,5 @@ export class ImagePanelComponent implements OnInit {
   ngOnInit(): void {
     this.imageService.getAll().subscribe(x => this.images = x);
   }
-
-  delete(id: number) {
-    this.imageService.delete(id).subscribe({
-      next: (res: any) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  }
-  
-  
 
 }
