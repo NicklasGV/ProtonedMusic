@@ -1,45 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from 'src/app/Services/user.service';
+import { Role, constRoles } from 'src/app/Models/role';
+import { User, resetUser } from 'src/app/Models/UserModel';
 
 @Component({
   selector: 'app-user-panel',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './user-panel.component.html',
-  styles: []
+  styles: [
+  ]
 })
 export class UserPanelComponent implements OnInit {
-  /* message: string = "";
-  accounts: User[] = [];
-  account: User = resetUser();
-  roles = Role;
-  keys = Object.keys(this.roles); */
+  message: string = "";
+  users: User[] = [];
+  user: User = resetUser();
+  roles: Role[] = [];
   
-    constructor(/* private userService: UserService */) { }
+    constructor(private userService: UserService) { }
   
     ngOnInit(): void {
-      //this.accountService.getAll().subscribe(x => this.accounts = x);
+      this.userService.getAll().subscribe(x => this.users = x);
+      this.roles = constRoles;
     }
   
   
-    /* editAccount(account: User): void {
-      Object.assign(this.account, account);
+    edit(user: User): void {
+      Object.assign(this.user, user);
     }
   
     cancel(): void {
-      this.account = resetUser();
+      this.user = resetUser();
     }
   
     save(): void {
       this.message = "";
-      if (this.account.id == 0) {
+      if (this.user.id == 0) {
         //create
-        this.accountService.createAccount(this.account)
+        this.userService.create(this.user)
         .subscribe({
           next: (x) => {
-            this.accounts.push(x);
-            this.account = resetUser();
+            this.users.push(x);
+            this.user = resetUser();
           },
           error: (err) => {
             console.log(err);
@@ -48,17 +52,17 @@ export class UserPanelComponent implements OnInit {
         });
       } else {
         //update
-        this.accountService.updateAccount(this.account.id, this.account)
+        this.userService.update(this.user)
         .subscribe({
           error: (err) => {
             this.message = Object.values(err.error.errors).join(", ");
           },
           complete: () => {
-            this.accountService.getAll().subscribe(x => this.accounts = x);
-            this.account = resetUser();
+            this.userService.getAll().subscribe(x => this.users = x);
+            this.user = resetUser();
           }
         });
       }
-      this.account = resetUser();
-    } */
+      this.user = resetUser();
+    }
 }

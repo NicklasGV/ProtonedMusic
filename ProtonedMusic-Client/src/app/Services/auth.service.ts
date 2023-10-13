@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User, resetUser } from '../Models/UserModel';
-import { Role } from '../Models/role';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,7 @@ import { Role } from '../Models/role';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   currentUser: Observable<User>;
-
-
+  @Output() pik: EventEmitter<boolean> = new EventEmitter();
   constructor(private http: HttpClient) {
     // fake login useful when testing
     if (sessionStorage.getItem('currentUser') == null) {
@@ -24,6 +23,10 @@ export class AuthService {
       JSON.parse(sessionStorage.getItem('currentUser') as string)
     );
     this.currentUser = this.currentUserSubject.asObservable();
+   }
+
+   tt(penis: boolean){
+    this.pik.emit(penis);
    }
 
    public get currentUserValue(): User {
@@ -49,5 +52,6 @@ export class AuthService {
     // reset CurrentUser to the resat UserSubject, as an obserable
     this.currentUser = this.currentUserSubject.asObservable();
   }
+
 
 }

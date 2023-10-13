@@ -7,8 +7,7 @@
         Task<UserResponse> CreateUser(UserRequest newUser);
         Task<UserResponse?> UpdateUser(UserRequest updateUser);
         Task<UserResponse> DeleteById(int userId);
-
-        public Task<LoginModel> LoginUser(string username, string password);
-        public Task<LoginResponse> AuthenticateUser(LoginRequest login);
+        Task<LoginModel> LoginUser(string username, string password);
+        Task<LoginResponse> AuthenticateUser(LoginRequest login);
     }
 }

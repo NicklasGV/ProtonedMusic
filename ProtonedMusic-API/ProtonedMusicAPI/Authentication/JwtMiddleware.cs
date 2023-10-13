@@ -9,15 +9,15 @@
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IUserRepository accountRepository, IJwtUtils jwtUtils)
+        public async Task Invoke(HttpContext context, IUserRepository userRepository, IJwtUtils jwtUtils)
         {
             string token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            int? accountId = jwtUtils.ValidateJwtToken(token);
-            if (accountId is not null)
+            int? userId = jwtUtils.ValidateJwtToken(token);
+            if (userId is not null)
             {
                 //Attach account to context on succesful jwt validation
-                var account = await accountRepository.FindById(accountId.Value);
-                context.Items["User"] = UserService.MapUserToUserResponse(account);
+                var user = await userRepository.FindById(userId.Value);
+                context.Items["User"] = UserService.MapUserToUserResponse(user);
             }
 
             await _next(context);

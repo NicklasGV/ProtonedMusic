@@ -2,8 +2,8 @@ import { Role, constRoles } from "./role";
 
 export interface User {
   id: number;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   phoneNumber: number;
@@ -11,15 +11,15 @@ export interface User {
   city: string;
   postal: number;
   country: string;
-  role?: Role;
+  role?: string;
   token?: string;
 }
 
 export function resetUser() {
   return { 
     id: 0, 
-    firstname: '', 
-    lastname: '', 
+    firstName: '', 
+    lastName: '', 
     email: '', 
     password: '', 
     phoneNumber: 0, 
@@ -27,6 +27,5 @@ export function resetUser() {
     city: '', 
     postal: 0, 
     country: '',
-    role: constRoles[0]
 };
 }

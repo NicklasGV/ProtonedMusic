@@ -7,6 +7,7 @@
         public DbSet<Category> Category { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -114,7 +115,7 @@
                     Id = 1,
                     FirstName = "Joey",
                     LastName = "Test",
-                    Email = "TestMail1",
+                    Email = "testmail1",
                     Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"),
                     Role = Role.Admin,
                     PhoneNumber = 12345678,
@@ -128,7 +129,7 @@
                     Id = 2,
                     FirstName = "Børge",
                     LastName = "Jep",
-                    Email = "TestMail2",
+                    Email = "testmail2",
                     Password = BCrypt.Net.BCrypt.HashPassword("Password"),
                     Role = Role.Customer,
                     PhoneNumber = 12345679,

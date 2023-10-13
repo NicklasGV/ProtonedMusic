@@ -16,9 +16,6 @@ import { Role, constRoles } from 'src/app/Models/role';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  resetUser(): User {
-    throw new Error('Method not implemented.');
-  }
   email: string = '';
   password: string = '';
   error = '';
@@ -36,30 +33,32 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // redirect to home if already logged in
-    /* if (this.authService.currentUserValue != null && this.authService.currentUserValue.id > 0) {
+    if (this.authService.currentUserValue != null && this.authService.currentUserValue.id > 0) {
       this.router.navigate(['/']);
-    } */
-    //this.userService.getAll().subscribe(x => this.users = x);
+    }
   }
 
   login(): void {
-    this.error = '';
+    this.error  = '';
     this.authService.login(this.email, this.password)
-      .subscribe({
-        next: () => {
-          // get return url from route parameters or default to '/'
-          let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          this.router.navigate([returnUrl]);
-        },
-        error: err => {
-          if (err.error?.status == 400 || err.error?.status == 401 || err.error?.status == 500) {
-            this.error = 'Forkert brugernavn eller kodeord';
-          }
-          else {
-            this.error = err.error.title;
-          }
+    .subscribe({
+      next: () => {        
+        //get return url from activatedRoute service or default to '/'
+        let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        // this.authService.tt(true);
+        this.router.navigate([returnUrl]);
+      },
+      error: err => {
+        if (err.error?.status == 400 || err.error?.status == 401 || err.error?.status == 500) {
+          this.error = 'Forkert brugernavn eller adgangskode';
         }
-      });
+        else {
+          this.error = err.error.title;
+        }
+      }
+    });
+    
+    
   }
 
   save(): void {

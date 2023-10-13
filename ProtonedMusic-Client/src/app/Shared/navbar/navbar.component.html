@@ -30,12 +30,22 @@
         <a class="nav-link" [routerLink]="['/merchandise']" routerLinkActive="router-link-active"
           routerLinkActive="active-link">Merchandise</a>
         </li>
+        <li class="nav-item" *ngIf="currentUser != null && roleCheck()">
+          <div class="dropdown" data-bs-theme="dark">
+              <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >AdminPaneler</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" routerLink="/admin/productpanel">ProduktPanel</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/categorypanel">KategoriPanel</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/userpanel">BrugerPanel</a></li>
+              </ul>
+            </div>
+      </li>
       </ul>
       <form class="d-flex">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active"
-              routerLinkActive="active-link" class="btn btn-outline-success me-2">LOGIN</a>
+            <a *ngIf="currentUser.role != null" (click)="logout()"  class="btn btn-outline-danger me-2">LOG UD</a>
+            <a *ngIf="currentUser.role == null" [routerLink]="['/login']" class="btn btn-outline-success me-2">LOG IND</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="router-link-active"

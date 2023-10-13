@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class TestData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +23,20 @@ namespace ProtonedMusicAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,9 +69,7 @@ namespace ProtonedMusicAPI.Migrations
                     Address = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Postal = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Country = table.Column<string>(type: "nvarchar(50)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,11 +124,11 @@ namespace ProtonedMusicAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "RefreshToken", "RefreshTokenExpiryTime", "Role" },
+                columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "TestMail1", "Joey", "Test", "$2b$10$Y8DS1Td5sutyBCk9V7Nr4ezDDJtxm3SDsqHVf3fenaPmVVeOIbSze", 12345678, 1234, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "TestMail2", "Børge", "Jep", "$2b$10$8EP7VbJ8AisbwG6E0f7dOuS504WJV0ItfS3BzxuxcEivQT36fjsOG", 12345679, 1234, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$sL.ftZ4j5JsLvZVw0PsWz.vqG49jfcJzLiEC1r5lB0opeDjQRGP.e", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$mTYmOGZFUjt6bAMiV3cDauPi6kFQ7mueJb7osmH9.PEArVdmAgtjS", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -141,6 +152,9 @@ namespace ProtonedMusicAPI.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Images");
+
             migrationBuilder.DropTable(
                 name: "ProductCategories");
 
