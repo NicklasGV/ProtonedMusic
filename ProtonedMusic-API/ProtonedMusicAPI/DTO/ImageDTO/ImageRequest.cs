@@ -3,13 +3,12 @@
     public class ImageRequest
     {
         [Required]
-        [StringLength(20, ErrorMessage = "Product Name cannot be longer than 20 characters")]
+        [StringLength(20, ErrorMessage = "Name cannot be longer than 20 characters")]
         public string Name { get; set; }
             
         [Required]
+        [StringLength(50, ErrorMessage = "Filename cannot be longer than 50 characters")]
         public string FileName { get; set; }
-        [Required]
-        public string FilePatch { get; set; }
         
 
 

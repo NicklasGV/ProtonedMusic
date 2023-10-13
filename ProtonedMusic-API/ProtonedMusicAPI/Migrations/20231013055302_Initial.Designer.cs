@@ -11,8 +11,8 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231012105129_TestData")]
-    partial class TestData
+    [Migration("20231013055302_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,7 +239,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$sL.ftZ4j5JsLvZVw0PsWz.vqG49jfcJzLiEC1r5lB0opeDjQRGP.e",
+                            Password = "$2b$10$4C/X7Y9.4sjS5Kh3wHTwueX73TC48C3iz7BYi4MPbptkBOYZrQNli",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -253,7 +253,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$mTYmOGZFUjt6bAMiV3cDauPi6kFQ7mueJb7osmH9.PEArVdmAgtjS",
+                            Password = "$2b$10$z0e3.nTqQRsF4B1gxU1sDexMqEJUNu3GJP.e9Dpwc38FCiMkcen8C",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

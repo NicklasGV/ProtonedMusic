@@ -6,7 +6,7 @@
 
         public string FileName { get; set; }
 
-        public string FilePatch { get; set; }
+        public string FilePatch { get; set; } = string.Empty;
 
     }
 }
