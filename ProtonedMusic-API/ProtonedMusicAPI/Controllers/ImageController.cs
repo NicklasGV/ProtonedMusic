@@ -23,7 +23,7 @@
                     return BadRequest("No file uploaded.");
                 }
 
-                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".PNG", }; // Definer de tilladte filtyper
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".PNG", ".GIF", }; // Definer de tilladte filtyper
                 var fileExtension = Path.GetExtension(imageFile.FileName);
 
                 if (!allowedExtensions.Contains(fileExtension))
