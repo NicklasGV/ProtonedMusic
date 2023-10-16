@@ -1,13 +1,13 @@
-<div class="container d-flex justify-content-center" data-bs-theme="dark">
-    <div class="card mb-3 border-0">
+<div class="container-fluid" data-bs-theme="dark">
+    <div class="mb-3">
         <div class="card-body text-center">
             <i class="bi-person-circle me-auto text-center" style="font-size: 15rem; color: white;" id="Profile"></i> 
         </div>
-        <div class="mx-lg-5">
+        <div class="mx-lg-5 text-center">
             <h2 type="name" class="text-center mb-3" id="name" > {{msg}} {{user.firstName}}</h2>
         </div>
         <div class="mt-4">
-            <button type="email" class="form-control text-center" id="editprofil" [routerLink]="['editprofil']">Edit profile</button>
+            <button class="form-control text-center" id="editprofil" [routerLink]="['editprofil']">Edit profile</button>
         </div> 
         <div class="mt-5">
             <button type="password" class="form-control text-center" id="logud" (click)="Logout()">Log ud</button>
