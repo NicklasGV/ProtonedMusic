@@ -11,8 +11,8 @@
   </div>
 
   <div class="d-flex mt-5 mx-0">
-    <button (click)="save()" class="btn btn-sm btn-success me-1">SAVE</button>
-    <button (click)="cancel()" class="btn btn-sm btn-danger">CANCEL</button>
+    <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+    <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
   </div>
 </div>
 
@@ -34,8 +34,8 @@
           <tr *ngFor="let category of categories">
             <td>
               <div class="d-flex justify-content-start">
-                <button (click)="editCategory(category)" class="btn btn-sm btn-success me-1">Ret</button>
-                <button (click)="deleteCategory(category)" class="btn btn-sm btn-danger">Slet</button>
+                <button (click)="editCategory(category)" class="btn bi-gear-fill btn-sm btn-success me-1"> Ret</button>
+                <button (click)="deleteCategory(category)" class="btn bi-trash-fill btn-sm btn-danger"> Slet</button>
               </div>
             </td>
             <td>{{ category.id }}</td>
