@@ -49,6 +49,7 @@ export class ProfilmenuComponent implements OnInit {
   Logout(): void {
     console.log('Bruger logger ud:', this.authService.currentUserValue);
     this.authService.logout();
+    this.router.navigate(['/']);
     window.location.reload();
   } 
 
