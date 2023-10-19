@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
@@ -50,15 +50,13 @@ export class LoginComponent implements OnInit {
       },
       error: err => {
         if (err.error?.status == 400 || err.error?.status == 401 || err.error?.status == 500) {
-          this.error = 'Forkert brugernavn eller adgangskode';
+          this.error = 'Wrong mail or password, please try again';
         }
         else {
           this.error = err.error.title;
         }
       }
     });
-    
-    
   }
 
   save(): void {
