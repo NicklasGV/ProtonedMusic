@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/Services/auth.service';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
@@ -23,13 +23,20 @@ export class LoginComponent implements OnInit {
   userForm: FormGroup = this.resetForm();
   user: User = resetUser();
   roles:Role[] = []
+  loginForm: FormGroup;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
-  ) { }
+    private formBuilder: FormBuilder
+  ) { 
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     // redirect to home if already logged in
