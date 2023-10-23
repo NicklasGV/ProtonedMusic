@@ -12,6 +12,7 @@ global using ProtonedMusicAPI.DTO.LoginDTO;
 global using ProtonedMusicAPI.Helper;
 global using ProtonedMusicAPI.Authentication;
 global using ProtonedMusicAPI.DTO.ImageDTO;
+global using ProtonedMusicAPI.DTO.NewsDTO;
 
 //Microsoft
 global using Microsoft.EntityFrameworkCore;

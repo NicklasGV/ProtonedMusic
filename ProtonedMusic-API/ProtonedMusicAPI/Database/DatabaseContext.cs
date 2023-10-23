@@ -8,6 +8,7 @@
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<News> News { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
