@@ -14,7 +14,6 @@ import { CategoryService } from 'src/app/Services/category.service';
   styles: []
 })
 export class ProductPanelComponent implements OnInit {
-
   message: string = "";
   products: ProductModel[] = [];
   product: ProductModel = resetProducts();
