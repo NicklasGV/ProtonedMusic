@@ -59,7 +59,7 @@
                 user.Country = updateUser.Country;
 
                 await _databaseContext.SaveChangesAsync();
-                // incase the team was changed, get the hero and the correct team
+
                 user = await FindById(user.Id);
             }
             return user;
