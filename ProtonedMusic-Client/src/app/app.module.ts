@@ -8,6 +8,7 @@ import { FooterComponent } from './Shared/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './Services/Guard/jwt.interceptor';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,8 +18,8 @@ import { JwtInterceptor } from './Services/Guard/jwt.interceptor';
     AppRoutingModule,
     NavbarComponent,
     FooterComponent,
-    HttpClientModule
-    
+    HttpClientModule,
+
   ],
   providers: [
     {

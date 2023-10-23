@@ -23,7 +23,7 @@
                     return BadRequest("No file uploaded.");
                 }
 
-                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".PNG", }; // Definer de tilladte filtyper
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".PNG", ".GIF", }; // Definer de tilladte filtyper
                 var fileExtension = Path.GetExtension(imageFile.FileName);
 
                 if (!allowedExtensions.Contains(fileExtension))
@@ -34,6 +34,25 @@
                 var uploadedImage = await _imageService.UploadImage(imageRequest, imageFile);
 
                 return Ok(uploadedImage);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                List<ImageResponse> images = await _imageService.GetAll();
+
+                if (images.Count == 0)
+                {
+                    return NoContent();
+                }
+                return Ok(images);
             }
             catch (Exception ex)
             {
