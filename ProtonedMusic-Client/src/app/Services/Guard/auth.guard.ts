@@ -1,5 +1,6 @@
-import { ComponentFactoryResolver, Injectable, Renderer2, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Injectable({
@@ -9,14 +10,17 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private authService: AuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot) {
-   const currentUser = this.authService.currentUserValue;
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser) {
+      if ( route.data['roles'] && route.data['roles'].indexOf(currentUser.role) === -1) {
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        return false;
+      }
+      return true;
+    }
 
-  if (currentUser && currentUser.role == 'Admin') {
-    return true;
-  } else {
-    console.error("Access denied");
-    this.router.navigate(['/']);
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
-}
+  
 }

@@ -1,28 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from 'src/app/Shared/pagination/pagination.component';
+import { HttpClient } from '@angular/common/http';
 import { ImageService } from 'src/app/Services/image.service';
-import { ImageModel} from 'src/app/Models/ImageModel';
+import { ImageModel } from 'src/app/Models/ImageModel';
+
 
 @Component({
   selector: 'app-image-panel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PaginationComponent],
   templateUrl: './image-panel.component.html',
   styles: []
 })
 export class ImagePanelComponent implements OnInit {
-  queryResult: any = [];
-  imageCount: any;
-  images: ImageModel[] = [];
-  imageBaseUrl: string = this.imageService.url;
-  query: any = {
-    pageSize: 6,
-  };
+  image : ImageModel[] = [];
 
-  constructor(private imageService: ImageService) { }
+  constructor(
+    private http: HttpClient,
+    private imageservice: ImageService,
+    ) { 
 
-  ngOnInit(): void {
-    this.imageService.getAll().subscribe(x => this.images = x);
   }
+  ngOnInit(): void {
+    this.imageservice.getImages().subscribe(x => this.image = x);
+  }
+
+
 
 }

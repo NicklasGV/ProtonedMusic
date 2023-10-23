@@ -7,8 +7,7 @@ import { NavbarComponent } from './Shared/navbar/navbar.component';
 import { FooterComponent } from './Shared/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './Services/Guard/jwt.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -20,8 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NavbarComponent,
     FooterComponent,
     HttpClientModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
+
   ],
   providers: [
     {

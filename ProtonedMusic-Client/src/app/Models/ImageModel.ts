@@ -1,5 +1,5 @@
-export interface ImageModel{
-    id: number,
-    fileName: string,
-    filePath: File | any
-  }
+export interface ImageModel {
+    id : number;
+    fileName : string;
+    filePath : string;
+}
