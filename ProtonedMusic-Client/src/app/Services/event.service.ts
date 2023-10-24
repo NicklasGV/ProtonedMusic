@@ -8,7 +8,7 @@ import { EventModel } from '../Models/EventModel';
   providedIn: 'root'
 })
 export class EventService {
-  private readonly url = environment.apiUrl + 'Events';
+  private readonly url = environment.apiUrl + 'Event';
 
   constructor(private http: HttpClient) { }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,23 @@ namespace ProtonedMusicAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(80)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(600)", nullable: false),
+                    Created = table.Column<DateTime>(type: "Date", nullable: false),
+                    TimeofEvent = table.Column<DateTime>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,6 +145,15 @@ namespace ProtonedMusicAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Events",
+                columns: new[] { "Id", "Created", "Description", "Price", "TimeofEvent", "Title" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4499), "Test", 249.95m, new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4500), "Test" },
+                    { 2, new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4504), "Test2", 546.95m, new DateTime(2023, 10, 24, 0, 0, 0, 0, DateTimeKind.Local), "Test2" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "News",
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
@@ -152,8 +178,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$RwXyZvjc8cbzzGMrZxgt3uvIsQ247ZQfa3ukPu.OCZ/t3zT4jIiDW", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$MySGnwzGRjbkt738oFg06OlTmlsN4htH6Tfotzagn28nJqunmjhBW", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$5wV1rCjc5pGS.LyIKHGdzuCd0ewcAd2/0cYoIeDULaGDkWtJ7uvNG", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$ZYtAfh47pSpesIvv.JRoQ.RE3O4VFDCDTTVKSnXr9Gxi889bnT.GG", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -177,6 +203,9 @@ namespace ProtonedMusicAPI.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Events");
+
             migrationBuilder.DropTable(
                 name: "Images");
 

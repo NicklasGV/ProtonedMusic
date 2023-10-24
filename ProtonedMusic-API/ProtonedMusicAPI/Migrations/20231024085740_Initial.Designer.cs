@@ -12,8 +12,8 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231024062154_data")]
-    partial class data
+    [Migration("20231024085740_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,56 @@ namespace ProtonedMusicAPI.Migrations
                         {
                             Id = 4,
                             Name = "Rock"
+                        });
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(600)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<DateTime>("TimeofEvent")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4499),
+                            Description = "Test",
+                            Price = 249.95m,
+                            TimeofEvent = new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4500),
+                            Title = "Test"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4504),
+                            Description = "Test2",
+                            Price = 546.95m,
+                            TimeofEvent = new DateTime(2023, 10, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Title = "Test2"
                         });
                 });
 
@@ -280,7 +330,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$RwXyZvjc8cbzzGMrZxgt3uvIsQ247ZQfa3ukPu.OCZ/t3zT4jIiDW",
+                            Password = "$2b$10$5wV1rCjc5pGS.LyIKHGdzuCd0ewcAd2/0cYoIeDULaGDkWtJ7uvNG",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -294,7 +344,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$MySGnwzGRjbkt738oFg06OlTmlsN4htH6Tfotzagn28nJqunmjhBW",
+                            Password = "$2b$10$ZYtAfh47pSpesIvv.JRoQ.RE3O4VFDCDTTVKSnXr9Gxi889bnT.GG",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

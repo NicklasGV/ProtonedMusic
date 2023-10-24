@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Database
+﻿using Microsoft.VisualBasic;
+
+namespace ProtonedMusicAPI.Database
 {
     public class DatabaseContext : DbContext
     {
@@ -118,7 +120,7 @@
                     Description = "Test",
                     Price = 249.95M,
                     Created = DateTime.Now,
-                    TimeofEvent = DateTime.Today,
+                    TimeofEvent = DateTime.Now,
                 },
                 new Event
                 {
