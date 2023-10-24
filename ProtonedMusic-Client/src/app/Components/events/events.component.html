@@ -6,22 +6,20 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Price</th>
                 <th>Description</th>
-                <th>Buy</th>
+                <th class="d-flex justify-content-end">Buy</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let event of events;">
                 <td>{{ event.id }}</td>
                 <td>{{ event.title }}</td>
-                <td>{{ event.price | currency: 'DKK ' }}</td>
-                <td class="text-truncate" style="max-width: 150px;">{{ event.description }}</td>
+                <td class="text-truncate " style="max-width: 400px;">{{ event.description }}</td>
                 <td>
-                  <div class="d-flex justify-content-start">
-                    <button class="btn bi-gear-fill btn-sm btn-success me-1"> EDIT</button>
-                    <button class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
-                  </div>
+                    <div class="d-flex justify-content-end">
+                        <td>{{ event.price | currency: 'DKK '}}</td>
+                        <button class="btn bi-bag-check btn-sm btn-success me-1 mx-3"> Purchase</button>
+                    </div>
                 </td>
             </tr>
           </tbody>

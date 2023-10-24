@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/Services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './admin-panel.component.html',
-  styles: []
+  styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
   user: User = resetUser();

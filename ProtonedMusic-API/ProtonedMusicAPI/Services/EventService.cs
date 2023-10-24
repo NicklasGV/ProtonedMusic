@@ -36,7 +36,7 @@
 
         public async Task<EventResponse> CreateEvent(EventRequest newEvent)
         {
-            var events = await _eventRepository.CreateEvent(MapEventToEventResponse(newEvent));
+            var events = await _eventRepository.CreateEvent(MapEventRequestToEvent(newEvent));
             
             if (events == null)
             {

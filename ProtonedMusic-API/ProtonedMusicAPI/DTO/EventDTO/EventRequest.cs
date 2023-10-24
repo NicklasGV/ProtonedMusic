@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.DTO.EventDTO
+﻿using Microsoft.VisualBasic;
+
+namespace ProtonedMusicAPI.DTO.EventDTO
 {
     public class EventRequest
     {
