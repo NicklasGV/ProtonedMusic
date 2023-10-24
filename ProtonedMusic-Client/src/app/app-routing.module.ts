@@ -9,8 +9,17 @@ const routes: Routes = [
   {path: 'login', loadComponent: () =>
   import('./Components/login/login.component').then(it => it.LoginComponent)},
 
+  {path: 'music', loadComponent: () =>
+  import('./Components/musicplayer/musicplayer.component').then(it => it.MusicplayerComponent)},
+
   {path: 'merchandise', loadComponent: () =>
   import('./Components/merchandise/merchandise.component').then(it => it.MerchandiseComponent)},
+
+  {path: 'cart', loadComponent: () =>
+  import('./Components/cart/cart.component').then(it => it.CartComponent)},
+
+  {path: 'events', loadComponent: () =>
+  import('./Components/events/events.component').then(it => it.EventsComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
@@ -20,9 +29,6 @@ const routes: Routes = [
 
   {path: 'profilmenu/:id/editprofil', loadComponent: ()=> 
   import('./Components/Profile/editprofile/editprofile.component').then( it => it.EditprofilComponent)},
-
-  {path: 'cart', loadComponent: () =>
-  import('./Components/cart/cart.component').then(it => it.CartComponent)},
 
   {path: 'admin', loadComponent: () =>
   import('./Components/Admin/admin-panel/admin-panel.component').then(it => it.AdminPanelComponent), canActivate: [AuthGuard]},
