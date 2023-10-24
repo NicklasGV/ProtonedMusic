@@ -62,7 +62,6 @@ editNews(anews: NewsModel): void {
 
   save(): void {
     this.message = "";
-    console.log(this.anews.dateTime);
     if (this.anews.id == 0) {
       //create
       this.anews.dateTime = this.anews.dateTime.toISOString();
@@ -92,7 +91,6 @@ editNews(anews: NewsModel): void {
         }
       });
     }
-    console.log(this.anews);
     this.anews = resetNews();
   }
 
