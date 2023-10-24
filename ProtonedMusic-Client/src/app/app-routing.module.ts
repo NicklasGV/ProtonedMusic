@@ -38,6 +38,9 @@ const routes: Routes = [
 
   {path: 'admin/imagepanel', loadComponent: () =>
   import('./Components/Admin/image-panel/image-panel.component').then(it => it.ImagePanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/newspanel', loadComponent: () =>
+  import('./Components/Admin/news-panel/news-panel.component').then(it => it.NewsPanelComponent), canActivate: [AuthGuard]},
 ];
 
 @NgModule({
