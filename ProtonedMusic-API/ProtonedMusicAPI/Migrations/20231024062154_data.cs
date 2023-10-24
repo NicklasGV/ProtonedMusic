@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -37,6 +38,21 @@ namespace ProtonedMusicAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Images", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "News",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(80)", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(600)", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_News", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,6 +128,15 @@ namespace ProtonedMusicAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "News",
+                columns: new[] { "Id", "DateTime", "Text", "Title" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
+                    { 2, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "Description", "Name", "Price" },
                 values: new object[,]
@@ -127,8 +152,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$Kxf7H0HzP.7ZKwstviRgUuOwf92T0d0EaFUugvSo8SJEkkA20n4Ve", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$9ELrb0d31I3F5rBOvYfn1Oh4Lsy3SRy.UAM.w78aNHp6mNcR9Bo2m", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$RwXyZvjc8cbzzGMrZxgt3uvIsQ247ZQfa3ukPu.OCZ/t3zT4jIiDW", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$MySGnwzGRjbkt738oFg06OlTmlsN4htH6Tfotzagn28nJqunmjhBW", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -154,6 +179,9 @@ namespace ProtonedMusicAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "News");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");

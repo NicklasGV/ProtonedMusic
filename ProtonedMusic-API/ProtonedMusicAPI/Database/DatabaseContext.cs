@@ -140,6 +140,21 @@
                     Country = "Denmark"
                 }
                 );
+
+            modelBuilder.Entity<News>().HasData(new News
+            {
+                Id = 1,
+                Title = "Website Running!",
+                Text = "So ProtonedMusic's website is now up and running!",
+                DateTime = new DateTime(2022, 01, 01),
+            },
+            new News
+            {
+                Id = 2,
+                Title = "NEW SONG OUT",
+                Text = "Check out my new song in merchandise",
+                DateTime = new DateTime(2023, 08, 12),
+            });
         }
     }
 }
