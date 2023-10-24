@@ -47,6 +47,10 @@ const routes: Routes = [
 
   {path: 'admin/eventpanel', loadComponent: () =>
   import('./Components/Admin/event-panel/event-panel.component').then(it => it.EventPanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/newspanel', loadComponent: () =>
+  import('./Components/Admin/news-panel/news-panel.component').then(it => it.NewsPanelComponent), canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({
