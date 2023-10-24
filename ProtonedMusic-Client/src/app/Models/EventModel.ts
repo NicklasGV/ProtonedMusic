@@ -4,6 +4,7 @@ export interface EventModel {
     description: string,
     price: number,
     timeofEvent: any,
+    dateofEvent: any,
     created: Date,
 }
 
@@ -14,6 +15,7 @@ export function resetEvent() {
         description: '',
         price: 0,
         timeofEvent: new Date(),
+        dateofEvent: new Date(),
         created: new Date(),
     }
 }

@@ -19,8 +19,10 @@ namespace ProtonedMusicAPI.DTO.EventDTO
         [DataType(DataType.Date)]
         public DateTime Created { get; set; } = DateTime.Now;
 
-        [Required]
-        [DataType (DataType.Date)]
-        public DateTime TimeofEvent {  get; set; }
+        public DateTime TimeofEvent { get; set; }
+
+        ////public TimeOnly TimeofEvent { get; set; } = TimeOnly.FromDateTime(DateTime.Now);
+
+        ////public DateOnly DateofEvent { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     }
 }

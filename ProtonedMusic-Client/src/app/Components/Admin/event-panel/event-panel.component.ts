@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import * as moment from 'moment';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { duration } from 'moment';
 
 @Component({
   selector: 'app-event-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule],
+  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatSnackBarModule],
   templateUrl: './event-panel.component.html',
   styles: []
 })
@@ -19,8 +20,12 @@ export class EventPanelComponent implements OnInit {
   message: string = "";
   events: EventModel[] = [];
   event: EventModel = resetEvent();
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {duration: 8000});
+  }
   
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(x => this.events = x);
@@ -51,10 +56,12 @@ editProduct(event: EventModel): void {
         next: (x) => {
           this.events.push(x);
           this.event = resetEvent();
+          this.openSnackBar("Event created", "Close");
         },
         error: (err) => {
           console.log(err);
           this.message = Object.values(err.error.errors).join(", ");
+          this.openSnackBar(this.message, "Close");
         }
       });
     } else {
@@ -63,10 +70,12 @@ editProduct(event: EventModel): void {
       .subscribe({
         error: (err) => {
           this.message = Object.values(err.error.errors).join(", ");
+          this.openSnackBar(this.message, "Close");
         },
         complete: () => {
           this.eventService.getAllEvents().subscribe(x => this.events = x);
           this.event = resetEvent();
+          this.openSnackBar("Event updated", "Close");
         }
       });
     }

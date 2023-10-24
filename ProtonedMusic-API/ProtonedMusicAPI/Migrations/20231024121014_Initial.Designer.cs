@@ -12,7 +12,7 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231024105402_Initial")]
+    [Migration("20231024121014_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -97,19 +97,19 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 10, 24, 12, 54, 2, 593, DateTimeKind.Local).AddTicks(19),
+                            Created = new DateTime(2023, 10, 24, 14, 10, 14, 322, DateTimeKind.Local).AddTicks(90),
                             Description = "Test",
                             Price = 249.95m,
-                            TimeofEvent = new DateTime(2023, 10, 24, 12, 54, 2, 593, DateTimeKind.Local).AddTicks(20),
+                            TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
                             Title = "Test"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 10, 24, 12, 54, 2, 593, DateTimeKind.Local).AddTicks(34),
+                            Created = new DateTime(2023, 10, 24, 14, 10, 14, 322, DateTimeKind.Local).AddTicks(100),
                             Description = "Test2",
                             Price = 546.95m,
-                            TimeofEvent = new DateTime(2023, 10, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
                             Title = "Test2"
                         });
                 });
@@ -330,7 +330,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$UBjUViwlznEZxj80xM0MuuNA6ldNcKnKRZROfESlEMX26no8ck8V.",
+                            Password = "$2b$10$Hwxv6vmtu6by20bAn5DfAeNvjKgkE.KbjQ2myLsmnrxiF0yaayXL2",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -344,7 +344,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$lUa5RF4ajIVK96H3EVBfg.K5Jvjcz0CNTR9R5Yu2EoMvrJnMTqcQ.",
+                            Password = "$2b$10$qRGF4IBUjB05eipmmvsNpOqf65h7LlSDInXstPEOsH2v.3iJ.r4w.",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

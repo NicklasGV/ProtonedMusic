@@ -122,7 +122,7 @@ namespace ProtonedMusicAPI.Database
                     Description = "Test",
                     Price = 249.95M,
                     Created = DateTime.Now,
-                    TimeofEvent = DateTime.Now,
+                    TimeofEvent = new DateTime(2023,5,2,23,23,00),
                 },
                 new Event
                 {
@@ -131,8 +131,8 @@ namespace ProtonedMusicAPI.Database
                     Description = "Test2",
                     Price = 546.95M,
                     Created = DateTime.Now,
-                    TimeofEvent = DateTime.Now,
-                });
+                    TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 00),
+                }); ;
 
 
             modelBuilder.Entity<User>().HasData(
