@@ -29,9 +29,9 @@
     <div class="form-group row mb-3">
       <label for="datepicker" class="col-12 col-sm-1 col-form-label">Event Date</label>
       <div class="col-12 col-sm-6">
-        <input matInput [matDatepicker]="picker" [(ngModel)]="event.timeofEvent">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <input type="datetime-local" [matDatepicker]="picker" [(ngModel)]="event.timeofEvent" class="form-control">
         <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       </div>
     </div>
   
@@ -71,7 +71,7 @@
               <td>{{ event.title }}</td>
               <td class="text-truncate" style="max-width: 300px;">{{ event.description }}</td>
               <td>{{ event.price | currency: 'DKK ' }}</td>
-              <td>{{event.timeofEvent | date:'short'}}</td>
+              <td>{{event.timeofEvent}}</td>
             </tr>
           </tbody>
         </table>

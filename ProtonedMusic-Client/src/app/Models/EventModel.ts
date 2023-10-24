@@ -3,7 +3,7 @@ export interface EventModel {
     title: string,
     description: string,
     price: number,
-    timeofEvent: Date,
+    timeofEvent: any,
     created: Date,
 }
 

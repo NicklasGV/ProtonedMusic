@@ -5,11 +5,13 @@ import { EventService } from 'src/app/Services/event.service';
 import { FormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-event-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule],
+  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule],
   templateUrl: './event-panel.component.html',
   styles: []
 })

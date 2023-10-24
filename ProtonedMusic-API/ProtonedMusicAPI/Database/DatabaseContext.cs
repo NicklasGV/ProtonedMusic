@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.VisualBasic;
+using System.ComponentModel;
 
 namespace ProtonedMusicAPI.Database
 {
@@ -129,7 +131,7 @@ namespace ProtonedMusicAPI.Database
                     Description = "Test2",
                     Price = 546.95M,
                     Created = DateTime.Now,
-                    TimeofEvent = DateTime.Today,
+                    TimeofEvent = DateTime.Now,
                 });
 
 

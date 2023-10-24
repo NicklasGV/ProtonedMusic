@@ -35,8 +35,8 @@ namespace ProtonedMusicAPI.Migrations
                     Title = table.Column<string>(type: "nvarchar(80)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(600)", nullable: false),
-                    Created = table.Column<DateTime>(type: "Date", nullable: false),
-                    TimeofEvent = table.Column<DateTime>(type: "Date", nullable: false)
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TimeofEvent = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,8 +149,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4499), "Test", 249.95m, new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4500), "Test" },
-                    { 2, new DateTime(2023, 10, 24, 10, 57, 40, 223, DateTimeKind.Local).AddTicks(4504), "Test2", 546.95m, new DateTime(2023, 10, 24, 0, 0, 0, 0, DateTimeKind.Local), "Test2" }
+                    { 1, new DateTime(2023, 10, 24, 12, 54, 2, 593, DateTimeKind.Local).AddTicks(19), "Test", 249.95m, new DateTime(2023, 10, 24, 12, 54, 2, 593, DateTimeKind.Local).AddTicks(20), "Test" },
+                    { 2, new DateTime(2023, 10, 24, 12, 54, 2, 593, DateTimeKind.Local).AddTicks(34), "Test2", 546.95m, new DateTime(2023, 10, 24, 0, 0, 0, 0, DateTimeKind.Local), "Test2" }
                 });
 
             migrationBuilder.InsertData(
@@ -178,8 +178,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$5wV1rCjc5pGS.LyIKHGdzuCd0ewcAd2/0cYoIeDULaGDkWtJ7uvNG", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$ZYtAfh47pSpesIvv.JRoQ.RE3O4VFDCDTTVKSnXr9Gxi889bnT.GG", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$UBjUViwlznEZxj80xM0MuuNA6ldNcKnKRZROfESlEMX26no8ck8V.", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$lUa5RF4ajIVK96H3EVBfg.K5Jvjcz0CNTR9R5Yu2EoMvrJnMTqcQ.", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(
