@@ -35,11 +35,11 @@
 
         [HttpPut]
         [Route("{newsId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromBody] NewsRequest updateNews)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int newsId, [FromBody] NewsRequest updateNews)
         {
             try
             {
-                var newsResponse = await _newsService.UpdateByIdAsync(updateNews);
+                var newsResponse = await _newsService.UpdateByIdAsync(newsId, updateNews);
 
                 if (newsResponse == null)
                 {

@@ -80,10 +80,10 @@ namespace ProtonedMusicAPI.Services
             return null;
         }
 
-        public async Task<NewsResponse> UpdateByIdAsync(NewsRequest updateNews)
+        public async Task<NewsResponse> UpdateByIdAsync(int newsId, NewsRequest updateNews)
         {
             var news = MapNewsRequestToNews(updateNews);
-            var insertedNews = await _newsRepository.UpdateByIdAsync(news);
+            var insertedNews = await _newsRepository.UpdateByIdAsync(newsId, news);
 
             if (insertedNews != null)
             {

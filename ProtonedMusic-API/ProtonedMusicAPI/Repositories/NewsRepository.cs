@@ -38,9 +38,9 @@
             return news;
         }
 
-        public async Task<News> UpdateByIdAsync(News updateNews)
+        public async Task<News> UpdateByIdAsync(int newsId, News updateNews)
         {
-            News news = await FindByIdAsync(updateNews.Id);
+            News news = await FindByIdAsync(newsId);
             if (news != null)
             {
                 news.Title = updateNews.Title;

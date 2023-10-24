@@ -92,10 +92,10 @@
             return null;
         }
 
-        public async Task<UserResponse> UpdateUser(UserRequest updateUser)
+        public async Task<UserResponse> UpdateUser(int userId, UserRequest updateUser)
         {
             var user = MapUserRequestToUser(updateUser);
-            var insertedUser = await _userRepository.UpdateUser(user);
+            var insertedUser = await _userRepository.UpdateUser(userId, user);
 
             if (insertedUser != null)
             {
