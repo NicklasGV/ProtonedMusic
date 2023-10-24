@@ -108,12 +108,6 @@ namespace ProtonedMusicAPI.Controllers
         {
             try
             {
-
-                if (DateTime.TryParse(newNews.DateTime, out DateTime result))
-                {
-                    // Parsing was successful, 'result' contains the DateTime value
-                    Console.WriteLine(result);
-                }
                 NewsResponse newsResponse = await _newsService.CreateAsync(newNews);
                 return Ok(newsResponse);
             }
