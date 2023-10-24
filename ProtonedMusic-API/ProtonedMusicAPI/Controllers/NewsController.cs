@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Controllers
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -106,6 +108,12 @@
         {
             try
             {
+
+                if (DateTime.TryParse(newNews.DateTime, out DateTime result))
+                {
+                    // Parsing was successful, 'result' contains the DateTime value
+                    Console.WriteLine(result);
+                }
                 NewsResponse newsResponse = await _newsService.CreateAsync(newNews);
                 return Ok(newsResponse);
             }
