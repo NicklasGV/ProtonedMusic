@@ -8,6 +8,7 @@
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -107,6 +108,26 @@
                 CategoryId = 2,
                 ProductId = 4,
             });
+
+            modelBuilder.Entity<Event>().HasData(
+                new Event
+                {
+                    Id = 1,
+                    Title = "Test",
+                    Description = "Test",
+                    Price = 249.95M,
+                    Created = DateTime.Now,
+                    TimeofEvent = DateTime.Today,
+                },
+                new Event
+                {
+                    Id = 2,
+                    Title = "Test2",
+                    Description = "Test2",
+                    Price = 546.95M,
+                    Created = DateTime.Now,
+                    TimeofEvent = DateTime.Today,
+                });
 
 
             modelBuilder.Entity<User>().HasData(
