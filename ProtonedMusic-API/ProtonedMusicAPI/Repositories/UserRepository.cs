@@ -43,9 +43,9 @@
             return user;
         }
 
-        public async Task<User> UpdateUser(User updateUser)
+        public async Task<User> UpdateUser(int userId, User updateUser)
         {
-            User user = await FindById(updateUser.Id);
+            User user = await FindById(userId);
             if (user != null)
             {
                 user.FirstName = updateUser.FirstName;
@@ -59,7 +59,7 @@
                 user.Country = updateUser.Country;
 
                 await _databaseContext.SaveChangesAsync();
-                // incase the team was changed, get the hero and the correct team
+
                 user = await FindById(user.Id);
             }
             return user;

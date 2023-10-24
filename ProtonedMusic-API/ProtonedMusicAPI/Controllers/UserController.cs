@@ -57,11 +57,11 @@
         [Authorize(Role.Admin, Role.Customer)]
         [HttpPut]
         [Route("{userId}")]
-        public async Task<IActionResult> UpdateUser([FromBody] UserRequest updateUser)
+        public async Task<IActionResult> UpdateUser([FromRoute] int userId, [FromBody] UserRequest updateUser)
         {
             try
             {
-                var userResponse = await _userService.UpdateUser(updateUser);
+                var userResponse = await _userService.UpdateUser(userId, updateUser);
 
                 if (userResponse == null)
                 {
