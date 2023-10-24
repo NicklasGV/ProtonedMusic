@@ -5,11 +5,13 @@ import { NewsService } from 'src/app/Services/news.service';
 import { FormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-news-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule],
+  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule],
   templateUrl: './news-panel.component.html',
   styles: []
 })
@@ -60,8 +62,10 @@ editNews(anews: NewsModel): void {
 
   save(): void {
     this.message = "";
+    console.log(this.anews.dateTime);
     if (this.anews.id == 0) {
       //create
+      this.anews.dateTime = this.anews.dateTime.toISOString();
       this.newsService.createNews(this.anews)
       .subscribe({
         next: (x) => {
@@ -88,11 +92,12 @@ editNews(anews: NewsModel): void {
         }
       });
     }
+    console.log(this.anews);
     this.anews = resetNews();
   }
 
-  log_console() {
+  log_console(anews: NewsModel) {
     console.log
-        (this.anews.dateTime);
+        (anews.dateTime);
 }
 }

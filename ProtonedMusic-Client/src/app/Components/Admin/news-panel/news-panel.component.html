@@ -11,11 +11,16 @@
     </div>
   
     <div class="form-group row mb-3">
-      <label class="col-12 col-sm-1 col-form-label">Date</label>
-      <div class="col-12 col-sm-6">
-        <input type="datepicker" [(ngModel)]="anews.dateTime" [ngModelOptions]="{standalone: true}" class="form-control">
+        <label for="datepicker" class="col-12 col-sm-1 col-form-label">Date</label>
+        <div class="col-12 col-sm-6">    
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="anews.dateTime" name="anewsDateTime" class="form-control">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+        </div>
       </div>
-    </div>
 
     <div class="form-group row mb-3">
       <label class="col-12 col-sm-1 col-form-label">Message</label>
@@ -54,6 +59,7 @@
                 <div class="d-flex justify-content-start">
                   <button (click)="editNews(anews)" class="btn bi-gear-fill btn-sm btn-success me-1"> EDIT</button>
                   <button (click)="deleteNews(anews)" class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
+                  <button (click)="log_console(anews)" class="btn bi-gear-fill btn-sm btn-sm me-1"> INFO</button>
                 </div>
               </td>
               <td>{{ anews.id }}</td>

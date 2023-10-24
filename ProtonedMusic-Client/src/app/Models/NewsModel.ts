@@ -2,7 +2,7 @@ export interface NewsModel {
     id: number;
     title: string;
     text: string;
-    dateTime: Date;
+    dateTime: any;
 }
 
 export function resetNews() {
