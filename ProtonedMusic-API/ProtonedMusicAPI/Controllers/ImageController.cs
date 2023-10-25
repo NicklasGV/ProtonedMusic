@@ -11,54 +11,41 @@
             _imageService = imageService;
         }
 
-
-
-        [HttpPost]
-        public async Task<IActionResult> CreateImage([FromForm] ImageRequest imageRequest, IFormFile imageFile)
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateImage([FromForm] ImageRequest imageRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
-                if (imageFile == null || imageFile.Length == 0)
-                {
-                    return BadRequest("No file uploaded.");
-                }
-
-                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".PNG", ".GIF", }; // Definer de tilladte filtyper
-                var fileExtension = Path.GetExtension(imageFile.FileName);
-
-                if (!allowedExtensions.Contains(fileExtension))
-                {
-                    return BadRequest("Invalid file type. Allowed file types: jpg, jpeg, png, gif");
-                }
-
-                var uploadedImage = await _imageService.UploadImage(imageRequest, imageFile);
-
-                return Ok(uploadedImage);
+                var imageResponse = await _imageService.Create(imageRequest);
+                return Ok(imageResponse);
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
-                return Problem(ex.Message);
+                return BadRequest(ex.Message);
             }
+
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("{ImageId}")]
+        public async Task<IActionResult> GetImage(Guid ImageId)
         {
-            try
-            {
-                List<ImageResponse> images = await _imageService.GetAll();
+            var imageResponse = await _imageService.FindById(ImageId);
 
-                if (images.Count == 0)
-                {
-                    return NoContent();
-                }
-                return Ok(images);
-            }
-            catch (Exception ex)
+            if (imageResponse == null)
             {
-                return Problem(ex.Message);
+                return NotFound(); // Billede blev ikke fundet
             }
+
+            return Ok(imageResponse);
         }
 
+        // Du kan tilføje flere endpoints efter behov, f.eks. til at slette billeder eller hente en liste af billeder.
     }
+
 }
+

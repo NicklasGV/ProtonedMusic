@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -29,14 +30,13 @@ namespace ProtonedMusicAPI.Migrations
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.ImageId);
                 });
 
             migrationBuilder.CreateTable(
@@ -127,8 +127,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$Kxf7H0HzP.7ZKwstviRgUuOwf92T0d0EaFUugvSo8SJEkkA20n4Ve", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$9ELrb0d31I3F5rBOvYfn1Oh4Lsy3SRy.UAM.w78aNHp6mNcR9Bo2m", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$I3hg0tlVj.WiHog5vq3ue.lZAn1kPhhWQ3qCJpv6HqFopXPBHgmKe", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$z8hMvyDEeIGsWUJ9kVII0usGHUI51E/qzG0lZBtrZhqjHjxt/rq1q", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(

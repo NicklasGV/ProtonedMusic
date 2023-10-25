@@ -5,12 +5,9 @@ namespace ProtonedMusicAPI.Interfaces
     public interface IImageService
     {
         Task<List<ImageResponse>> GetAll();
-        Task<Image?> FindById(int Id);
-        Task<Image> CreateImage(Image createImage);
-        Task<Image?> UpdateImage(Image updateImage);
-        Task<Image?> DeleteImageById(int ImageId);
-
-        Task<Image?> UploadImage(ImageRequest imageRequest, IFormFile imageFile);
+        Task<ImageResponse> Create(ImageRequest newImage);
+        Task<ImageResponse?> FindById(Guid ImageId);
+        Task<ImageResponse?> DeleteById(int ImageId);
     }
 }
 
