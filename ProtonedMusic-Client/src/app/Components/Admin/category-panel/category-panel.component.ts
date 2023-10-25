@@ -5,6 +5,10 @@ import { ProductService } from 'src/app/Services/Product.service';
 import { CategoryService } from 'src/app/Services/category.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { FormsModule } from '@angular/forms';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { DialogService } from 'src/app/Services/dialog.service';
+import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-category-panel',
@@ -19,7 +23,7 @@ export class CategoryPanelComponent implements OnInit {
   category: CategoryModel = resetCategory();
   categories: CategoryModel[] = [];
   
-  constructor(private productService: ProductService, private categoryService:CategoryService) { }
+  constructor(private productService: ProductService, private categoryService:CategoryService, private snackBar:SnackBarService, private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(x => this.products = x);
@@ -31,15 +35,28 @@ export class CategoryPanelComponent implements OnInit {
   }
 
   deleteCategory(category: CategoryModel): void {
-    if (confirm("Er du sikker på at du vil slette dette produkt?")) {
-      this.categoryService.deleteCategory(category.id).subscribe(x => {
-        this.products = this.products.filter(x => x.id != category.id);
-      });
-    }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Delete Event", message: "Are you sure you want to delete this category?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.categoryService.deleteCategory(category.id).subscribe(x => {
+          this.categories = this.categories.filter(x => x.id != category.id);
+        });
+        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        console.log('Product deleted!');
+      } else {
+        // User canceled the operation
+        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
+        console.log('Deletion canceled.');
+      }
+    });
   }
 
   cancel(): void {
     this.category = resetCategory();
+    this.snackBar.openSnackBar('Category canceled.', '','info');
   }
 
   save(): void {
@@ -51,10 +68,12 @@ export class CategoryPanelComponent implements OnInit {
         next: (x) => {
           this.categories.push(x);
           this.category = resetCategory();
+          this.snackBar.openSnackBar("Category created", '', 'success');
         },
         error: (err) => {
           console.log(err);
           this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
         }
       });
     } else {
@@ -63,10 +82,12 @@ export class CategoryPanelComponent implements OnInit {
       .subscribe({
         error: (err) => {
           this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
         },
         complete: () => {
           this.categoryService.getCategories().subscribe(x => this.categories = x);
           this.category = resetCategory();
+          this.snackBar.openSnackBar("Category updated", '', 'success');
         }
       });
     }

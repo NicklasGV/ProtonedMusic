@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/app/Services/user.service';
 import { Role, constRoles } from 'src/app/Models/role';
 import { User, resetUser } from 'src/app/Models/UserModel';
+import { MatDialog } from '@angular/material/dialog';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-user-panel',
@@ -19,7 +21,7 @@ export class UserPanelComponent implements OnInit {
   user: User = resetUser();
   roles: Role[] = [];
   
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService, private snackBar: SnackBarService, private dialog: MatDialog) { }
   
     ngOnInit(): void {
       this.userService.getAll().subscribe(x => this.users = x);
@@ -33,6 +35,7 @@ export class UserPanelComponent implements OnInit {
   
     cancel(): void {
       this.user = resetUser();
+      this.snackBar.openSnackBar('User canceled.', '','info');
     }
   
     save(): void {
@@ -44,10 +47,12 @@ export class UserPanelComponent implements OnInit {
           next: (x) => {
             this.users.push(x);
             this.user = resetUser();
+            this.snackBar.openSnackBar("User created", '', 'success');
           },
           error: (err) => {
             console.log(err);
             this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
           }
         });
       } else {
@@ -56,10 +61,12 @@ export class UserPanelComponent implements OnInit {
         .subscribe({
           error: (err) => {
             this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
           },
           complete: () => {
             this.userService.getAll().subscribe(x => this.users = x);
             this.user = resetUser();
+            this.snackBar.openSnackBar("User updated", '', 'success');
           }
         });
       }
