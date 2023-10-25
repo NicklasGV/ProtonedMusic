@@ -10,6 +10,9 @@ import { MatIconModule } from '@angular/material/icon'; */
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +25,7 @@ export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
   products: ProductModel[] = [];
   amount: number = 1;
-  constructor(public cartService: CartService, private authService:AuthService) { }
+  constructor(public cartService: CartService, private authService:AuthService, private snackBar: SnackBarService,private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -31,10 +34,21 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(): void {
-    if(confirm('Er du sikker på du vil tømme din kurv?'))
-    {
-      this.cartService.clearCart();
-    }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Clear cart", message: "Are you sure you want to clear your cart?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.clearCart();
+        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        console.log('Product deleted!');
+      } else {
+        // User canceled the operation
+        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
+        console.log('Deletion canceled.');
+      }
+    });
   }
 
   updateCart(item: CartItem): void {

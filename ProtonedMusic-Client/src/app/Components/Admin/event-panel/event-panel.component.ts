@@ -8,6 +8,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DialogService } from 'src/app/Services/dialog.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-event-panel',
@@ -21,7 +23,7 @@ export class EventPanelComponent implements OnInit {
   events: EventModel[] = [];
   event: EventModel = resetEvent();
   
-  constructor(private eventService: EventService, private snackBar: SnackBarService, private dialogService:DialogService) { }
+  constructor(private eventService: EventService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(x => this.events = x);
@@ -32,16 +34,28 @@ editProduct(event: EventModel): void {
 }
   
   deleteProduct(event: EventModel): void {
-    this.dialogService.openDialog('Are you sure you want to delete this product?');
-    if (confirm("Er du sikker på at du vil slette dette produkt?")) {
-      this.eventService.deleteEvent(event.id).subscribe(x => {
-        this.events = this.events.filter(x => x.id != event.id);
-      });
-    }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Delete Event", message: "Are you sure you want to delete this event?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.eventService.deleteEvent(event.id).subscribe(x => {
+          this.events = this.events.filter(x => x.id != event.id);
+        });
+        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        console.log('Product deleted!');
+      } else {
+        // User canceled the operation
+        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
+        console.log('Deletion canceled.');
+      }
+    });
   }
 
   cancel(): void {
     this.event = resetEvent();
+    this.snackBar.openSnackBar('Event canceled.', '','info');
   }
 
   save(): void {

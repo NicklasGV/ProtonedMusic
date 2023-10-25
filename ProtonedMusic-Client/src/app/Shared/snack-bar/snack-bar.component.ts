@@ -11,8 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
   styleUrls: ['./snack-bar.component.css']
 })
 export class SnackBarComponent implements OnInit {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
-    console.log(data); 
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) { 
   }
 
   ngOnInit() {}
