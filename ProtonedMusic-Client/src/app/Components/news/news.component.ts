@@ -29,15 +29,17 @@ export class NewsComponent implements OnInit {
       // This is the call to the service to get all news.
       next: (result) => {
         this.news = result;
-        this.filterNews(); // Call the filterNews function after fetching news
+        this.filterAndSortNews(); // Call the filterNews function after fetching news
       },
     });
   }
 
-  // Function to filter news items with datetime in the past
-  filterNews() {
-    const currentDate = new Date(); // Get the current date and time
-    this.news = this.news.filter(anews => new Date(anews.dateTime) <= currentDate);
+  // Function to filter news items with datetime in the past and sort them by datetime (newest first)
+  filterAndSortNews() {
+    const currentDate = new Date();
+    this.news = this.news
+      .filter(anews => new Date(anews.dateTime) <= currentDate)
+      .sort((a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime());
   }
 
   
