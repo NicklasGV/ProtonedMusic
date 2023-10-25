@@ -60,7 +60,6 @@ editNews(anews: NewsModel): void {
     this.message = "";
     if (this.anews.id == 0) {
       //create
-      this.anews.dateTime = this.anews.dateTime.toISOString();
       this.newsService.createNews(this.anews)
       .subscribe({
         next: (x) => {
