@@ -46,7 +46,7 @@ export class NewsComponent implements OnInit {
 
   navigateToNews(newsId: number) {
     // Here you can specify the route to navigate to, passing the newsId as a parameter
-    this.router.navigate(['/newsProduct', newsId]);
+    this.router.navigate(['/newsDetailed', newsId]);
   }
 
 

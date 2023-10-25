@@ -1,0 +1,8 @@
+.lock:hover .bi-hand-thumbs-up,
+.lock .bi-hand-thumbs-up-fill {
+    display: none;
+    color: #198754
+}
+.lock:hover .bi-hand-thumbs-up-fill {
+    display: inline;
+}

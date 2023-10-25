@@ -170,7 +170,7 @@ namespace ProtonedMusicAPI.Database
             {
                 Id = 1,
                 Title = "SERVER GOT RESET",
-                Text = "Sorry if you lost some funny or important data, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
+                Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                 DateTime = DateTime.Now,
             },
             new News
