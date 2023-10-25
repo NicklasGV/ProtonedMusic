@@ -1,0 +1,7 @@
+.nav-button:hover{
+    background-color: var(--button-color);
+}
+
+.back-button:hover{
+    background-color: var(--back-button-color);
+}

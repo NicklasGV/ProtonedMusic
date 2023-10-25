@@ -6,22 +6,25 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Price</th>
                 <th>Description</th>
-                <th>Buy</th>
+                <th>Date of event</th>
+                <th class="d-flex justify-content-end">Buy</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let event of events;">
                 <td>{{ event.id }}</td>
                 <td>{{ event.title }}</td>
-                <td>{{ event.price | currency: 'DKK ' }}</td>
-                <td class="text-truncate" style="max-width: 150px;">{{ event.description }}</td>
+                <td class="text-truncate " style="max-width: 400px;">{{ event.description }}</td>
                 <td>
-                  <div class="d-flex justify-content-start">
-                    <button class="btn bi-gear-fill btn-sm btn-success me-1"> EDIT</button>
-                    <button class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
-                  </div>
+                  {{ event.timeofEvent | date: 'dd/MM/yyyy HH:mm a' }}
+                </td>
+                <td class="d-flex justify-content-end">
+                    <div class="">
+                        <td class="">{{ event.price | currency: 'DKK '}}</td>
+                        <button class="btn bi-bag-check btn-sm btn-success me-1 mx-3" (click)="addToCart(event)"> Purchase</button>
+                        <button class="text-info btn bi-info-circle-fill" [routerLink]="['/events', event.id]"></button>
+                    </div>
                 </td>
             </tr>
           </tbody>

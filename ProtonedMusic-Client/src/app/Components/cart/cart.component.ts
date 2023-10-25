@@ -4,17 +4,18 @@ import { RouterModule } from '@angular/router';
 import { Cart, CartItem } from '../../Models/CartModel';
 import { CartService } from '../../Services/cart.service';
 
-/* import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon'; */
+import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, MatCardModule],
   templateUrl: './cart.component.html',
   styles: []
 })
@@ -22,7 +23,7 @@ export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
   products: ProductModel[] = [];
   amount: number = 1;
-  constructor(public cartService: CartService, private authService:AuthService) { }
+  constructor(public cartService: CartService, private authService:AuthService, private snackBar: SnackBarService,private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -31,10 +32,21 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(): void {
-    if(confirm('Er du sikker på du vil tømme din kurv?'))
-    {
-      this.cartService.clearCart();
-    }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Clear cart", message: "Are you sure you want to clear your cart?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.clearCart();
+        this.snackBar.openSnackBar('Clearing successful.', '','success');
+        console.log('Product deleted!');
+      } else {
+        // User canceled the operation
+        this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+        console.log('Clearing canceled.');
+      }
+    });
   }
 
   updateCart(item: CartItem): void {
@@ -45,11 +57,22 @@ export class CartComponent implements OnInit {
         this.cartService.saveCart(this.cartItems);
      }
      else if (index !== -1 && this.cartItems[index].quantity === 0) {
-      if (confirm(`Er du sikker på du vil fjerne ${item.name}?`))
-      {
-        this.cartItems.splice(index, 1);
+      const dialogRef = this.dialog.open(DialogComponent, {
+        data: { title: "Remove Item?", message: "Are you sure you want to delete this item?" }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.cartItems.splice(index, 1);
         this.cartService.saveCart(this.cartItems);
-      }
+          this.snackBar.openSnackBar('Clearing successful.', '','success');
+          console.log('Product deleted!');
+        } else {
+          // User canceled the operation
+          this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+          console.log('Clearing canceled.');
+        }
+      });
      }
   }
 
@@ -63,8 +86,21 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: CartItem): void {
-    if (confirm(`Er du sikker på du vil fjerne ${item.name}?`)) {
-      this.cartService.removeItemFromCart(item.id);
-    }
-  }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Remove Item(s)?", message: "Are you sure you want to delete the item(s)?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.removeItemFromCart(item.id);
+        this.snackBar.openSnackBar('Clearing successful.', '','success');
+        console.log('Product deleted!');
+      } else {
+        // User canceled the operation
+        this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+        console.log('Clearing canceled.');
+      }
+    });
+   }
+   
 }

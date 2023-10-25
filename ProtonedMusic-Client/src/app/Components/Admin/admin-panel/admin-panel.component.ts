@@ -4,13 +4,14 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { UserService } from 'src/app/Services/user.service';
 import { AuthService } from 'src/app/Services/auth.service';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './admin-panel.component.html',
-  styles: []
+  styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
   user: User = resetUser();

@@ -15,11 +15,20 @@ const routes: Routes = [
   {path: 'merchandise', loadComponent: () =>
   import('./Components/merchandise/merchandise.component').then(it => it.MerchandiseComponent)},
 
+  {path: 'upcoming', loadComponent: () =>
+  import('./Components/upcoming/upcoming.component').then(it => it.UpcomingComponent)},
+
+  {path: 'news', loadComponent: () =>
+  import('./Components/news/news.component').then(it => it.NewsComponent)},
+
   {path: 'cart', loadComponent: () =>
   import('./Components/cart/cart.component').then(it => it.CartComponent)},
 
   {path: 'events', loadComponent: () =>
   import('./Components/events/events.component').then(it => it.EventsComponent)},
+
+  {path: 'events/:id', loadComponent: () =>
+  import('./Components/event/event.component').then(it => it.EventComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
@@ -44,6 +53,13 @@ const routes: Routes = [
 
   {path: 'admin/imagepanel', loadComponent: () =>
   import('./Components/Admin/image-panel/image-panel.component').then(it => it.ImagePanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/eventpanel', loadComponent: () =>
+  import('./Components/Admin/event-panel/event-panel.component').then(it => it.EventPanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/newspanel', loadComponent: () =>
+  import('./Components/Admin/news-panel/news-panel.component').then(it => it.NewsPanelComponent), canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({

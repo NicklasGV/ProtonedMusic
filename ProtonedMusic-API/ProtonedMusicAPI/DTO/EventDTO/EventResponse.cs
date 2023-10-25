@@ -1,4 +1,7 @@
-﻿namespace ProtonedMusicAPI.DTO.EventDTO
+﻿using Microsoft.VisualBasic;
+using System.Globalization;
+
+namespace ProtonedMusicAPI.DTO.EventDTO
 {
     public class EventResponse
     {
@@ -7,6 +10,6 @@
         public string Description { get; set; }
         public decimal price { get; set; }
         public DateTime TimeofEvent { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
     }
 }

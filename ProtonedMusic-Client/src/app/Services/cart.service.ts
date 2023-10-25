@@ -10,6 +10,7 @@ export class CartService {
   private CartName: string = "webshopProjectBasket";
   currentCartSubject: BehaviorSubject<CartItem[]>;
   currentCart: Observable<CartItem[]>;
+  public itemLength = 0;
 
   constructor() {
     this.currentCartSubject = new BehaviorSubject<CartItem[]>(
@@ -38,6 +39,7 @@ export class CartService {
       }
     } else {
       basket.push(item);
+      this.itemLength += 1;
     }
 
     this.saveCart(basket);

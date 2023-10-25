@@ -36,7 +36,7 @@ namespace ProtonedMusicAPI.Repositories
 
         public async Task<Event?> FindEventById(int eventId)
         {
-            return await _context.Events.FirstOrDefaultAsync();
+            return await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
         }
 
         public async Task<List<Event>> GetAllAsync()
@@ -46,7 +46,7 @@ namespace ProtonedMusicAPI.Repositories
 
         public async Task<Event> UpdateEventById(int eventId, Event updateEvent)
         {
-            Event events = await FindEventById(updateEvent.Id);
+            Event events = await FindEventById(eventId);
             if (events != null)
             {
                 events.Title = updateEvent.Title;
@@ -55,7 +55,7 @@ namespace ProtonedMusicAPI.Repositories
                 events.TimeofEvent = updateEvent.TimeofEvent;
 
                 await _context.SaveChangesAsync();
-                events = await FindEventById(events.Id);
+                events = await FindEventById(eventId);
             }
             return events;
         }

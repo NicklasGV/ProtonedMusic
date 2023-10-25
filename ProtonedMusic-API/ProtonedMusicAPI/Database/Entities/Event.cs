@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Database.Entities
+﻿using Microsoft.VisualBasic;
+
+namespace ProtonedMusicAPI.Database.Entities
 {
     public class Event
     {
@@ -10,9 +12,7 @@
         public decimal Price { get; set; } = 0;
         [Column(TypeName = "nvarchar(600)")]
         public string Description { get; set; } = string.Empty;
-        [Column(TypeName = "Date")]
-        public DateTime Created { get; set; }
-        [Column(TypeName = "Date")]
+        public DateTime Created { get; set; } = DateTime.Now;
         public DateTime TimeofEvent { get; set; }
     }
 }
