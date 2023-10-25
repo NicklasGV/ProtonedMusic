@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using ProtonedMusicAPI.Database.Entities;
+
+namespace ProtonedMusicAPI.Services
 {
     public class EventService : IEventService
     {
@@ -30,7 +32,8 @@
                 Price = eventRequest.Price,
                 Description = eventRequest.Description,
                 Created = eventRequest.Created,
-                TimeofEvent = eventRequest.TimeofEvent
+                TimeofEvent = eventRequest.TimeofEvent,
+               // TimeofEvent = eventRequest.DateofEvent.ToDateTime(eventRequest.TimeofEvent),
             };
         }
 
@@ -45,9 +48,15 @@
             return MapEventToEventResponse(events);
         }
 
-        public Task<EventResponse?> DeleteEventById(int eventId)
+        public async Task<EventResponse?> DeleteEventById(int eventId)
         {
-            throw new NotImplementedException();
+            var events = await _eventRepository.DeleteEventById(eventId);
+
+            if (events != null)
+            {
+                return MapEventToEventResponse(events);
+            }
+            return null;
         }
 
         public async Task<EventResponse?> FindByEventId(int eventId)
