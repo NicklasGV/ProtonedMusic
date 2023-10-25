@@ -127,8 +127,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$I3hg0tlVj.WiHog5vq3ue.lZAn1kPhhWQ3qCJpv6HqFopXPBHgmKe", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$z8hMvyDEeIGsWUJ9kVII0usGHUI51E/qzG0lZBtrZhqjHjxt/rq1q", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$fwd3UlafaF1A2I9eC9b4dOmrFKucCP4JbBtwMhbBrZP0IdA6WBOXu", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$LFOE9lMIVBJb/OyIlLtq2.J1uafcbBlusNp01KEdCEFDWDtiM3DwW", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(

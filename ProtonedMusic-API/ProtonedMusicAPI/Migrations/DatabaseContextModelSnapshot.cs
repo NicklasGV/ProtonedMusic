@@ -235,7 +235,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$I3hg0tlVj.WiHog5vq3ue.lZAn1kPhhWQ3qCJpv6HqFopXPBHgmKe",
+                            Password = "$2b$10$fwd3UlafaF1A2I9eC9b4dOmrFKucCP4JbBtwMhbBrZP0IdA6WBOXu",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -249,7 +249,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$z8hMvyDEeIGsWUJ9kVII0usGHUI51E/qzG0lZBtrZhqjHjxt/rq1q",
+                            Password = "$2b$10$LFOE9lMIVBJb/OyIlLtq2.J1uafcbBlusNp01KEdCEFDWDtiM3DwW",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0
