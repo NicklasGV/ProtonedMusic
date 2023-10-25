@@ -69,7 +69,6 @@ editNews(anews: NewsModel): void {
 
   cancel(): void {
     this.anews = resetNews();
-    this.resetCheckboxes();
     this.snackBar.openSnackBar('News canceled.', '','info');
   }
 
@@ -82,7 +81,6 @@ editNews(anews: NewsModel): void {
         next: (x) => {
           this.news.push(x);
           this.anews = resetNews();
-          this.resetCheckboxes();
           this.snackBar.openSnackBar("News created", '', 'success');
         },
         error: (err) => {
@@ -102,7 +100,6 @@ editNews(anews: NewsModel): void {
         complete: () => {
           this.newsService.getAllNews().subscribe(x => this.news = x);
           this.anews = resetNews();
-          this.resetCheckboxes();
           this.snackBar.openSnackBar("News updated", '', 'success');
         }
       });
