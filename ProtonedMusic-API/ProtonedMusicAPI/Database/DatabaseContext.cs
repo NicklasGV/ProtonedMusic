@@ -169,13 +169,20 @@ namespace ProtonedMusicAPI.Database
             modelBuilder.Entity<News>().HasData(new News
             {
                 Id = 1,
+                Title = "SERVER GOT RESET",
+                Text = "Sorry if you lost some funny or important data, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
+                DateTime = DateTime.Now,
+            },
+            new News
+            {
+                Id = 2,
                 Title = "Website Running!",
                 Text = "So ProtonedMusic's website is now up and running!",
                 DateTime = new DateTime(2022, 01, 01),
             },
             new News
             {
-                Id = 2,
+                Id = 3,
                 Title = "NEW SONG OUT",
                 Text = "Check out my new song in merchandise",
                 DateTime = new DateTime(2023, 08, 12),

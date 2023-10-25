@@ -42,9 +42,6 @@ export class NewsPanelComponent implements OnInit {
     this.selected.sort((a, b) => a - b);
     console.log("Seleted IDs ", this.selected);
   }
-  resetCheckboxes(): void {
-  this.selected.length = 0;
-}
   
 editNews(anews: NewsModel): void {
   Object.assign(this.anews, anews);
@@ -80,7 +77,6 @@ editNews(anews: NewsModel): void {
     this.message = "";
     if (this.anews.id == 0) {
       //create
-      this.anews.dateTime = this.anews.dateTime.toISOString();
       this.newsService.createNews(this.anews)
       .subscribe({
         next: (x) => {
