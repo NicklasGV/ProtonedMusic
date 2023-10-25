@@ -62,7 +62,7 @@ editProduct(product: ProductModel): void {
   
   deleteProduct(product: ProductModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Event", message: "Are you sure you want to delete this product?" }
+      data: { title: "Delete Product", message: "Are you sure you want to delete this product?" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -84,7 +84,7 @@ editProduct(product: ProductModel): void {
     this.product = resetProducts();
     this.category = resetCategory();
     this.resetCheckboxes();
-    this.snackBar.openSnackBar('Event canceled.', '','info');
+    this.snackBar.openSnackBar('Product canceled.', '','info');
   }
 
   save(): void {
