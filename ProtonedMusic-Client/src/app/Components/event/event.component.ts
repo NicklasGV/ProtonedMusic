@@ -25,6 +25,7 @@ export class EventComponent implements OnInit {
   }
 
   addToCart(eventItem: EventModel) {
+    this.itemlength += 1;
     console.log(eventItem);
     let item: CartItem = {
       id: eventItem.id,
@@ -33,7 +34,6 @@ export class EventComponent implements OnInit {
       name: eventItem.title,
     } as CartItem;
     this.cartService.addToCart(item);
-    this.itemlength += 1;
   }
 
 }

@@ -59,6 +59,7 @@ export class MerchandiseComponent implements OnInit {
   }
 
   addToCart(products: ProductModel) {
+    this.itemlength += 1;
     console.log(products);
     let item: CartItem = {
       id: products.id,
@@ -67,7 +68,6 @@ export class MerchandiseComponent implements OnInit {
       name: products.name,
     } as CartItem;
     this.cartService.addToCart(item);
-    this.itemlength += 1;
   }
 
 }
