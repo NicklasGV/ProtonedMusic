@@ -5,6 +5,7 @@ import { ProductModel } from 'src/app/Models/ProductModel';
 import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-merchandise',
@@ -37,7 +38,8 @@ export class MerchandiseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackbar: SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +70,7 @@ export class MerchandiseComponent implements OnInit {
       name: products.name,
     } as CartItem;
     this.cartService.addToCart(item);
+    this.snackbar.openSnackBar(products.name + ' added to cart','','success');
   }
 
 }

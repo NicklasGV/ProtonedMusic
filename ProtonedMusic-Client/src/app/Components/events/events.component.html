@@ -22,7 +22,7 @@
                 <td class="d-flex justify-content-end">
                     <div class="">
                         <td class="">{{ event.price | currency: 'DKK '}}</td>
-                        <button class="btn bi-bag-check btn-sm btn-success me-1 mx-3"> Purchase</button>
+                        <button class="btn bi-bag-check btn-sm btn-success me-1 mx-3" (click)="addToCart(event)"> Purchase</button>
                         <button class="text-info btn bi-info-circle-fill" [routerLink]="['/events', event.id]"></button>
                     </div>
                 </td>

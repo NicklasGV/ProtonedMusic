@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CartService } from 'src/app/Services/cart.service';
 import { EventModel, resetEvent } from 'src/app/Models/EventModel';
 import { CartItem } from 'src/app/Models/CartModel';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-event',
@@ -18,7 +19,7 @@ export class EventComponent implements OnInit {
   itemlength = 0;
   itemsQuantity = 0;
 
-  constructor(private route: ActivatedRoute, private cartService: CartService, private eventService: EventService) { }
+  constructor(private route: ActivatedRoute, private cartService: CartService, private eventService: EventService, private snackbar:SnackBarService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {this.eventService.getEventById(params['id']).subscribe(event => this.events = event);});
@@ -34,6 +35,7 @@ export class EventComponent implements OnInit {
       name: eventItem.title,
     } as CartItem;
     this.cartService.addToCart(item);
+    this.snackbar.openSnackBar(eventItem.title + ' added to cart','','success');
   }
 
 }

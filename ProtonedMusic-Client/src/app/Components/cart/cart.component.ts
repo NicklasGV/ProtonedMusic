@@ -39,12 +39,12 @@ export class CartComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.cartService.clearCart();
-        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        this.snackBar.openSnackBar('Clearing successful.', '','success');
         console.log('Product deleted!');
       } else {
         // User canceled the operation
-        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
-        console.log('Deletion canceled.');
+        this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+        console.log('Clearing canceled.');
       }
     });
   }
@@ -65,12 +65,12 @@ export class CartComponent implements OnInit {
         if (result) {
           this.cartItems.splice(index, 1);
         this.cartService.saveCart(this.cartItems);
-          this.snackBar.openSnackBar('Deletion successful.', '','success');
+          this.snackBar.openSnackBar('Clearing successful.', '','success');
           console.log('Product deleted!');
         } else {
           // User canceled the operation
-          this.snackBar.openSnackBar('Deletion canceled.', '','warning');
-          console.log('Deletion canceled.');
+          this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+          console.log('Clearing canceled.');
         }
       });
      }
@@ -93,12 +93,12 @@ export class CartComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.cartService.removeItemFromCart(item.id);
-        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        this.snackBar.openSnackBar('Clearing successful.', '','success');
         console.log('Product deleted!');
       } else {
         // User canceled the operation
-        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
-        console.log('Deletion canceled.');
+        this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+        console.log('Clearing canceled.');
       }
     });
    }
