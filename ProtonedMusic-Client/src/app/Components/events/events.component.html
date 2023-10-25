@@ -7,6 +7,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Date of event</th>
                 <th class="d-flex justify-content-end">Buy</th>
             </tr>
           </thead>
@@ -16,9 +17,13 @@
                 <td>{{ event.title }}</td>
                 <td class="text-truncate " style="max-width: 400px;">{{ event.description }}</td>
                 <td>
-                    <div class="d-flex justify-content-end">
-                        <td>{{ event.price | currency: 'DKK '}}</td>
+                  {{ event.timeofEvent | date: 'dd/MM/yyyy HH:mm a' }}
+                </td>
+                <td class="d-flex justify-content-end">
+                    <div class="">
+                        <td class="">{{ event.price | currency: 'DKK '}}</td>
                         <button class="btn bi-bag-check btn-sm btn-success me-1 mx-3"> Purchase</button>
+                        <button class="text-info btn bi-info-circle-fill" [routerLink]="['/events', event.id]"></button>
                     </div>
                 </td>
             </tr>

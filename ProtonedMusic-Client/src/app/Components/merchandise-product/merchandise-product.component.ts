@@ -27,7 +27,6 @@ export class MerchandiseProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {this.productService.getProductById(params['id']).subscribe(products => this.products = products);});
-
   }
 
   addToCart(products: ProductModel) {

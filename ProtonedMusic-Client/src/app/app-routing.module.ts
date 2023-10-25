@@ -24,6 +24,9 @@ const routes: Routes = [
   {path: 'events', loadComponent: () =>
   import('./Components/events/events.component').then(it => it.EventsComponent)},
 
+  {path: 'events/:id', loadComponent: () =>
+  import('./Components/event/event.component').then(it => it.EventComponent)},
+
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
 
