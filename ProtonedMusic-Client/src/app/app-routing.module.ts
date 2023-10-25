@@ -15,6 +15,9 @@ const routes: Routes = [
   {path: 'merchandise', loadComponent: () =>
   import('./Components/merchandise/merchandise.component').then(it => it.MerchandiseComponent)},
 
+  {path: 'news', loadComponent: () =>
+  import('./Components/news/news.component').then(it => it.NewsComponent)},
+
   {path: 'cart', loadComponent: () =>
   import('./Components/cart/cart.component').then(it => it.CartComponent)},
 

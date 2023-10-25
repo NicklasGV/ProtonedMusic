@@ -1,0 +1,14 @@
+<!-- News -->
+<div class="container mt-5" style="width: 80%;">
+    <div class="d-flex flex-column">
+        <div *ngFor="let anews of news" class="mb-4 custom-row">
+            <div class="card bg-dark text-light">
+                <div class="card-body" (click)="navigateToNews(anews.id)">
+                    <h2 class="card-title">{{ anews.title }}</h2>
+                    <p class="card-text">{{ anews.text }}</p>
+                    <h6 class="card-subtitle small mt-3">{{ anews.dateTime | date: 'dd MMM yyyy, HH:mm' }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
