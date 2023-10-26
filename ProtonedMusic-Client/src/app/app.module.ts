@@ -11,7 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { DATE_PIPE_DEFAULT_TIMEZONE} from '@angular/common';
 
 
 @NgModule({
