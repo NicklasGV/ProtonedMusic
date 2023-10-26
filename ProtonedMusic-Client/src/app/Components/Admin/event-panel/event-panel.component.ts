@@ -10,6 +10,7 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DialogService } from 'src/app/Services/dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { utc } from 'moment';
 
 @Component({
   selector: 'app-event-panel',
@@ -22,6 +23,7 @@ export class EventPanelComponent implements OnInit {
   message: string = "";
   events: EventModel[] = [];
   event: EventModel = resetEvent();
+  utc = utc;
   
   constructor(private eventService: EventService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 

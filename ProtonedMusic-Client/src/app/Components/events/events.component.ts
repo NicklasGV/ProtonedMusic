@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CartService } from 'src/app/Services/cart.service';
 import { CartItem } from 'src/app/Models/CartModel';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import {utc} from 'moment';
 
 @Component({
   selector: 'app-events',
@@ -16,12 +17,17 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 })
 export class EventsComponent implements OnInit {
   events: EventModel[] = [];
+  utc = utc;
   
 
   constructor(private eventService: EventService, private cartService:CartService, private snackbar:SnackBarService) { }
 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(x => this.events = x);
+  }
+
+  navigateToEvent(eventId: number) {
+    
   }
 
   addToCart(events: EventModel) {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { DATE_PIPE_DEFAULT_TIMEZONE} from '@angular/common';
 
 
 @NgModule({
@@ -31,6 +32,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     {
       provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
   },
+  {
+    provide: LOCALE_ID, useValue: 'da-DK'
+  }
   ],
   bootstrap: [AppComponent],
   entryComponents: [SnackBarComponent]
