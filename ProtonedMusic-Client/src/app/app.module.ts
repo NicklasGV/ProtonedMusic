@@ -30,9 +30,6 @@ import {MatDialogModule} from '@angular/material/dialog';
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
-  },
-  {
-    provide: LOCALE_ID, useValue: 'da-DK'
   }
   ],
   bootstrap: [AppComponent],

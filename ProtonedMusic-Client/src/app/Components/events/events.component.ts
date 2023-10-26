@@ -26,10 +26,6 @@ export class EventsComponent implements OnInit {
     this.eventService.getAllEvents().subscribe(x => this.events = x);
   }
 
-  navigateToEvent(eventId: number) {
-    
-  }
-
   addToCart(events: EventModel) {
     console.log(events);
     let item: CartItem = {

@@ -3,22 +3,24 @@
     <div class="display-6 mt-4 bg-gradient rounded-3">Events</div>
   </div>
 </div>
-<div class="container mt-5" style="width: 80%;">
-    <div class="d-flex flex-column">
-        <div *ngFor="let event of events" class="mb-4 custom-row">
-            <div class="card bg-dark text-light">
-                <div class="card-body" (click)="navigateToEvent(event.id)">
-                    <h2 class="card-title align-middle">{{ event.title }}</h2>
-                    <p class="card-text align-middle">{{ event.description }}</p>
-                    <h6 class="card-subtitle small mt-3 align-middle">{{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h6>
-                    <h6 class="card-subtitle small mt-3 align-middle">{{ utc(event.timeofEvent).local().format("DD MMM yyyy HH:mm")}}</h6>
-                </div>
-                <div>
-                  <td class="align-middle">{{ event.price | currency: 'DKK '}}</td>
-                  <button  class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3" (click)="addToCart(event)"> Purchase</button>
-                  <button class="text-info btn bi-info-circle-fill" [routerLink]="['/events', event.id]"></button>
-              </div>
-            </div>
+<div class="container-fluid">
+  <div class="row row-cols-2 row-cols-md-2 g-4">
+    <div *ngFor="let event of events" style="display: grid; grid-template-rows: auto 1fr;">
+      <div class="card bg-dark text-light">
+        <div class="card-header">
+          <h2 class="card-title">{{ event.title }}</h2>
         </div>
+        <div class="card-body">
+          <h5>Description: </h5>
+          <p class="card-text text-truncate">{{event.description}}</p>
+        </div>
+        <div class="card-footer">
+          <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
+          <span class="badge text-black bg-success">{{ event.price | currency: 'DKK '}}</span>
+          <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3" (click)="addToCart(event)"> Purchase</button>
+          <button class="text-info btn bi-info-circle-fill" [routerLink]="['/events', event.id]"></button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
