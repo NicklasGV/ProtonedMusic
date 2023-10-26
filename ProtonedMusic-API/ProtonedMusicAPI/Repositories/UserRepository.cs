@@ -8,15 +8,20 @@
             _databaseContext = databaseContext;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<User>> GetAllAsync()
         {
             return await _databaseContext.User
+                .Include(u => u.NewsLikes)
+                .ThenInclude(nl => nl.News)
                 .ToListAsync();
         }
 
-        public async Task<User> FindById(int userId)
+        public async Task<User> FindByIdAsync(int userId)
         {
-            return await _databaseContext.User.FirstOrDefaultAsync(s => s.Id == userId);
+            return await _databaseContext.User
+                .Include(u => u.NewsLikes)
+                .ThenInclude(nl => nl.News)
+                .FirstOrDefaultAsync(u => u.Id == userId);
         }
 
         public async Task<User> FindByEmail(string email)
@@ -24,16 +29,16 @@
             return await _databaseContext.User.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User> CreateUser(User newUser)
+        public async Task<User> CreateAsync(User newUser)
         {
             _databaseContext.User.Add(newUser);
             await _databaseContext.SaveChangesAsync();
             return newUser;
         }
 
-        public async Task<User> DeleteById(int userId)
+        public async Task<User> DeleteByIdAsync(int userId)
         {
-            var user = await FindById(userId);
+            var user = await FindByIdAsync(userId);
 
             if (user != null)
             {
@@ -43,9 +48,9 @@
             return user;
         }
 
-        public async Task<User> UpdateUser(int userId, User updateUser)
+        public async Task<User> UpdateByIdAsync(int userId, User updateUser)
         {
-            User user = await FindById(userId);
+            User user = await FindByIdAsync(userId);
             if (user != null)
             {
                 user.FirstName = updateUser.FirstName;
@@ -60,7 +65,7 @@
 
                 await _databaseContext.SaveChangesAsync();
 
-                user = await FindById(user.Id);
+                user = await FindByIdAsync(user.Id);
             }
             return user;
         }

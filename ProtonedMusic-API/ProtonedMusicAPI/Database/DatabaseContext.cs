@@ -14,6 +14,7 @@ namespace ProtonedMusicAPI.Database
         public DbSet<Image> Images { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<NewsLike> newsLikes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,27 @@ namespace ProtonedMusicAPI.Database
                 .HasOne(pc => pc.Product)
                 .WithMany(p => p.ProductCategories)
                 .HasForeignKey(pc => pc.ProductId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.NewsLikes)
+                .WithOne(nl => nl.User)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<News>()
+                .HasMany(n => n.NewsLikes)
+                .WithOne(nl => nl.News)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<NewsLike>()
+                .HasOne(nl => nl.User)
+                .WithMany(u => u.NewsLikes)
+                .HasForeignKey(nl => nl.user_Id);
+
+            modelBuilder.Entity<NewsLike>()
+                .HasOne(nl => nl.News)
+                .WithMany(n => n.NewsLikes)
+                .HasForeignKey(nl => nl.news_Id);
+
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
 
@@ -170,7 +192,7 @@ namespace ProtonedMusicAPI.Database
             {
                 Id = 1,
                 Title = "SERVER GOT RESET",
-                Text = "Sorry if you lost some funny or important data, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
+                Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                 DateTime = DateTime.Now,
             },
             new News
@@ -186,6 +208,15 @@ namespace ProtonedMusicAPI.Database
                 Title = "NEW SONG OUT",
                 Text = "Check out my new song in merchandise",
                 DateTime = new DateTime(2023, 08, 12),
+            });
+
+            modelBuilder.Entity<NewsLike>().HasData(new NewsLike
+            {
+                Id = 1,
+                user_Id = 1,
+                news_Id = 1,
+                DateTime = DateTime.Now,
+
             });
         }
     }

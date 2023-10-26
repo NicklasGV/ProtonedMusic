@@ -1,0 +1,36 @@
+
+
+<div class="container mt-5" style="width: 80%;">
+    <div class="row justify-content-center">
+        <div class="d-flex flex-column">
+            <div class="card bg-dark">
+                <div class="card-header text-center" >
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a type="button" class="bi bi-arrow-return-left btn btn-success" [routerLink]="['/news']"></a>
+                        <h1 class="display-6 mt-4">{{ news.title }}</h1>
+                        <a *ngIf="this.news.newsLikes.length">
+                            <a  class="lock" *ngIf="isIdInArray(news.newsLikes, currentUserId)">
+                                <h1 class="bi bi-hand-thumbs-up mt-3" style="font-size: 30px"></h1>
+                                <h1 class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike()"></h1>
+                            </a>
+                            <h1 *ngIf="!isIdInArray(news.newsLikes, currentUserId)" class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike()"></h1>
+                        </a>
+                        <a class="lock"*ngIf="!this.news.newsLikes.length">
+                            <h1 class="bi bi-hand-thumbs-up mt-3" style="font-size: 30px"></h1>
+                            <h1 class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike()"></h1>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <hr class="border-success border-2">
+                    <p class="card-text">{{ news.text }}</p>
+                    <hr class="border-success border-2">
+                    <h6 class="card-text small mt-3">{{ news.dateTime | date: 'dd MMM yyyy, HH:mm a' }}</h6>
+                </div>
+                <div class="card-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

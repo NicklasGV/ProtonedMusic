@@ -9,9 +9,22 @@
         <div *ngFor="let anews of news" class="mb-4 custom-row">
             <div class="card bg-dark text-light">
                 <div class="card-body" (click)="navigateToNews(anews.id)">
-                    <h2 class="card-title">{{ anews.title }}</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="card-title mt-3">{{ anews.title }}</h2>
+                        <a *ngIf="this.anews.newsLikes.length">
+                            <a  class="lock" *ngIf="isIdInArray(anews.newsLikes, currentUserId)">
+                                <h1 class="bi bi-hand-thumbs-up mt-3" style="font-size: 30px"></h1>
+                                <h1 class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike(this.anews); $event.stopPropagation()"></h1>
+                            </a>
+                            <h1 *ngIf="!isIdInArray(anews.newsLikes, currentUserId)" class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike(this.anews); $event.stopPropagation()"></h1>
+                        </a>
+                        <a class="lock"*ngIf="!this.anews.newsLikes.length">
+                            <h1 class="bi bi-hand-thumbs-up mt-3" style="font-size: 30px"></h1>
+                            <h1 class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike(this.anews); $event.stopPropagation()"></h1>
+                        </a>
+                    </div>
                     <p class="card-text">{{ anews.text }}</p>
-                    <h6 class="card-subtitle small mt-3">{{ anews.dateTime | date: 'dd MMM yyyy, HH:mm' }}</h6>
+                    <h6 class="card-subtitle small mt-3">{{ anews.dateTime | date: 'dd MMM yyyy, HH:mm a' }}</h6>
                 </div>
             </div>
         </div>

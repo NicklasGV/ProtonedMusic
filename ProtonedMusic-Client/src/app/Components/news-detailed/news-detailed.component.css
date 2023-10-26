@@ -1,8 +1,3 @@
-.card-body:hover {
-    background: #333333;
-    border-radius: 5px;
-}
-
 .lock:hover .bi-hand-thumbs-up,
 .lock .bi-hand-thumbs-up-fill {
     display: none;

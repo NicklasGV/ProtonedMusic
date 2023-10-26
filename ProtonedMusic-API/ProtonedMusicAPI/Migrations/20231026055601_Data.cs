@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Data : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -133,6 +133,33 @@ namespace ProtonedMusicAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "newsLikes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    user_Id = table.Column<int>(type: "int", nullable: false),
+                    news_Id = table.Column<int>(type: "int", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_newsLikes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_newsLikes_News_news_Id",
+                        column: x => x.news_Id,
+                        principalTable: "News",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_newsLikes_User_user_Id",
+                        column: x => x.user_Id,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Category",
                 columns: new[] { "Id", "Name" },
@@ -149,8 +176,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 24, 14, 10, 14, 322, DateTimeKind.Local).AddTicks(90), "Test", 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
-                    { 2, new DateTime(2023, 10, 24, 14, 10, 14, 322, DateTimeKind.Local).AddTicks(100), "Test2", 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
+                    { 1, new DateTime(2023, 10, 26, 7, 56, 0, 758, DateTimeKind.Local).AddTicks(7978), "Test", 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
+                    { 2, new DateTime(2023, 10, 26, 7, 56, 0, 758, DateTimeKind.Local).AddTicks(7986), "Test2", 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
                 });
 
             migrationBuilder.InsertData(
@@ -158,8 +185,9 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
-                    { 2, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
+                    { 1, new DateTime(2023, 10, 26, 7, 56, 0, 930, DateTimeKind.Local).AddTicks(356), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "SERVER GOT RESET" },
+                    { 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
+                    { 3, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
                 });
 
             migrationBuilder.InsertData(
@@ -178,8 +206,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$Hwxv6vmtu6by20bAn5DfAeNvjKgkE.KbjQ2myLsmnrxiF0yaayXL2", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$qRGF4IBUjB05eipmmvsNpOqf65h7LlSDInXstPEOsH2v.3iJ.r4w.", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$YI9f91svvzbjxMMe9vKsIuFmdZKSPMuu0qUm0tQe2OdHxZQ2xdhHa", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$F5e5nqCKtY0nRpmzE2mQzeuZKxSDV5Wu6YB7dEaXCezp9Qa/EmAqy", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -193,6 +221,21 @@ namespace ProtonedMusicAPI.Migrations
                     { 3, 2 },
                     { 2, 4 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "newsLikes",
+                columns: new[] { "Id", "DateTime", "news_Id", "user_Id" },
+                values: new object[] { 1, new DateTime(2023, 10, 26, 7, 56, 0, 930, DateTimeKind.Local).AddTicks(424), 1, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_newsLikes_news_Id",
+                table: "newsLikes",
+                column: "news_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_newsLikes_user_Id",
+                table: "newsLikes",
+                column: "user_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_CategoryId",
@@ -210,10 +253,13 @@ namespace ProtonedMusicAPI.Migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "News");
+                name: "newsLikes");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");
+
+            migrationBuilder.DropTable(
+                name: "News");
 
             migrationBuilder.DropTable(
                 name: "User");

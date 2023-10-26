@@ -20,8 +20,23 @@ namespace ProtonedMusicAPI.Services
                 Title = news.Title,
                 Text = news.Text,
                 DateTime = news.DateTime,
-                
             };
+            if (news.NewsLikes.Count > 0)
+            {
+                response.NewsLikes = news.NewsLikes.Select(x => new NewsNewsLikeResponse
+                {
+                    Id = x.User.Id,
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    Email = x.User.Email.ToLower(),
+                    Role = x.User.Role,
+                    PhoneNumber = x.User.PhoneNumber,
+                    Address = x.User.Address,
+                    Country = x.User.Country,
+                    City = x.User.City,
+                    Postal = x.User.Postal,
+                }).ToList();
+            }
             return response;
         }
 
@@ -32,6 +47,10 @@ namespace ProtonedMusicAPI.Services
                 Title = newsRequest.Title,
                 Text = newsRequest.Text,
                 DateTime = newsRequest.DateTime,
+                NewsLikes = newsRequest.UserIds.Select(u => new NewsLike
+                {
+                    user_Id = u
+                }).ToList()
             };
             return news;
         }
