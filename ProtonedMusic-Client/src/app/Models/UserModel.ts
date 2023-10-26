@@ -1,4 +1,5 @@
 import { Role, constRoles } from "./role";
+import { NewsModel } from "./NewsModel";
 
 export interface User {
   id: number;
@@ -13,6 +14,8 @@ export interface User {
   country: string;
   role?: string;
   token?: string;
+  newsLikes: NewsModel[];
+  newsIds: number[];
 }
 
 export function resetUser() {
@@ -27,5 +30,7 @@ export function resetUser() {
     city: '', 
     postal: 0, 
     country: '',
+    newsLikes: [],
+    newsIds: []
 };
 }

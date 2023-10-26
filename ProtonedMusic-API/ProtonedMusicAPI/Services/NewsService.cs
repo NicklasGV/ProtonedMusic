@@ -47,6 +47,10 @@ namespace ProtonedMusicAPI.Services
                 Title = newsRequest.Title,
                 Text = newsRequest.Text,
                 DateTime = newsRequest.DateTime,
+                NewsLikes = newsRequest.UserIds.Select(u => new NewsLike
+                {
+                    user_Id = u
+                }).ToList()
             };
             return news;
         }

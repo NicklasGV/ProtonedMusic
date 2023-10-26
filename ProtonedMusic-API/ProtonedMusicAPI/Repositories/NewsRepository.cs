@@ -51,6 +51,7 @@
                 news.Title = updateNews.Title;
                 news.Text = updateNews.Text;
                 news.DateTime = updateNews.DateTime;
+                news.NewsLikes = updateNews.NewsLikes;
 
                 await _databaseContext.SaveChangesAsync();
 
