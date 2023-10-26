@@ -11,5 +11,7 @@
         public string Text { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        public List<int> UserIds { get; set; } = new();
     }
 }

@@ -2,11 +2,11 @@
 {
     public interface IUserService
     {
-        Task<List<UserResponse>> GetAll();
-        Task<UserResponse?> FindById(int userId);
-        Task<UserResponse> CreateUser(UserRequest newUser);
-        Task<UserResponse?> UpdateUser(int userId, UserRequest updateUser);
-        Task<UserResponse> DeleteById(int userId);
+        Task<List<UserResponse>> GetAllAsync();
+        Task<UserResponse?> FindByIdAsync(int userId);
+        Task<UserResponse> CreateAsync(UserRequest newUser);
+        Task<UserResponse?> UpdateByIdAsync(int userId, UserRequest updateUser);
+        Task<UserResponse> DeleteByIdAsync(int userId);
         Task<LoginResponse> AuthenticateUser(LoginRequest login);
     }
 }

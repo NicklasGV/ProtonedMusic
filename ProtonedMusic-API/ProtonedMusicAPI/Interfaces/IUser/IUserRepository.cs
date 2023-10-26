@@ -2,11 +2,11 @@
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetAll();
-        Task<User?> FindById(int userId);
+        Task<List<User>> GetAllAsync();
+        Task<User?> FindByIdAsync(int userId);
         Task<User> FindByEmail(string email);
-        Task<User> CreateUser(User newUser);
-        Task<User?> UpdateUser(int userId, User updateUser);
-        Task<User?> DeleteById(int userId);
+        Task<User> CreateAsync(User newUser);
+        Task<User?> UpdateByIdAsync(int userId, User updateUser);
+        Task<User?> DeleteByIdAsync(int userId);
     }
 }

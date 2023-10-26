@@ -27,6 +27,16 @@
                 City = user.City,
                 Postal = user.Postal
             };
+            if (user.NewsLikes.Count > 0)
+            {
+                response.NewsLikes = user.NewsLikes.Select(x => new UserNewsLikeResponse
+                {
+                    Id = x.News.Id,
+                    Title = x.News.Title,
+                    Text = x.News.Text,
+                    DateTime = x.News.DateTime,
+                }).ToList();
+            }
             return response;
         }
 
@@ -48,9 +58,9 @@
             return user;
         }
 
-        public async Task<List<UserResponse>> GetAll()
+        public async Task<List<UserResponse>> GetAllAsync()
         {
-            List<User> users = await _userRepository.GetAll();
+            List<User> users = await _userRepository.GetAllAsync();
 
             if (users == null)
             {
@@ -59,9 +69,9 @@
             return users.Select(MapUserToUserResponse).ToList();
         }
 
-        public async Task<UserResponse> FindById(int userId)
+        public async Task<UserResponse> FindByIdAsync(int userId)
         {
-            var user = await _userRepository.FindById(userId);
+            var user = await _userRepository.FindByIdAsync(userId);
 
             if (user != null)
             {
@@ -71,9 +81,9 @@
             return null;
         }
 
-        public async Task<UserResponse> CreateUser(UserRequest newUser)
+        public async Task<UserResponse> CreateAsync(UserRequest newUser)
         {
-            var user = await _userRepository.CreateUser(MapUserRequestToUser(newUser));
+            var user = await _userRepository.CreateAsync(MapUserRequestToUser(newUser));
             if (user == null)
             {
                 throw new ArgumentNullException();
@@ -81,9 +91,9 @@
             return MapUserToUserResponse(user);
         }
 
-        public async Task<UserResponse> DeleteById(int userId)
+        public async Task<UserResponse> DeleteByIdAsync(int userId)
         {
-            var user = await _userRepository.DeleteById(userId);
+            var user = await _userRepository.DeleteByIdAsync(userId);
 
             if (user != null)
             {
@@ -92,10 +102,10 @@
             return null;
         }
 
-        public async Task<UserResponse> UpdateUser(int userId, UserRequest updateUser)
+        public async Task<UserResponse> UpdateByIdAsync(int userId, UserRequest updateUser)
         {
             var user = MapUserRequestToUser(updateUser);
-            var insertedUser = await _userRepository.UpdateUser(userId, user);
+            var insertedUser = await _userRepository.UpdateByIdAsync(userId, user);
 
             if (insertedUser != null)
             {

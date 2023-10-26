@@ -34,5 +34,7 @@
         [Column(TypeName = "nvarchar(50)")]
         public string Country { get; set; }
 
+        public List<NewsLike> NewsLikes { get; set; } = new List<NewsLike>();
+
     }
 }

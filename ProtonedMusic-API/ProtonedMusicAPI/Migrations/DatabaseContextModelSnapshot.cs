@@ -94,7 +94,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 10, 24, 14, 10, 14, 322, DateTimeKind.Local).AddTicks(90),
+                            Created = new DateTime(2023, 10, 26, 7, 56, 0, 758, DateTimeKind.Local).AddTicks(7978),
                             Description = "Test",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -103,7 +103,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 10, 24, 14, 10, 14, 322, DateTimeKind.Local).AddTicks(100),
+                            Created = new DateTime(2023, 10, 26, 7, 56, 0, 758, DateTimeKind.Local).AddTicks(7986),
                             Description = "Test2",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -159,16 +159,58 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
+                            DateTime = new DateTime(2023, 10, 26, 7, 56, 0, 930, DateTimeKind.Local).AddTicks(356),
+                            Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
+                            Title = "SERVER GOT RESET"
+                        },
+                        new
+                        {
+                            Id = 2,
                             DateTime = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Text = "So ProtonedMusic's website is now up and running!",
                             Title = "Website Running!"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 3,
                             DateTime = new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Text = "Check out my new song in merchandise",
                             Title = "NEW SONG OUT"
+                        });
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.NewsLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("news_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("user_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("news_Id");
+
+                    b.HasIndex("user_Id");
+
+                    b.ToTable("newsLikes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateTime = new DateTime(2023, 10, 26, 7, 56, 0, 930, DateTimeKind.Local).AddTicks(424),
+                            news_Id = 1,
+                            user_Id = 1
                         });
                 });
 
@@ -327,7 +369,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$Hwxv6vmtu6by20bAn5DfAeNvjKgkE.KbjQ2myLsmnrxiF0yaayXL2",
+                            Password = "$2b$10$YI9f91svvzbjxMMe9vKsIuFmdZKSPMuu0qUm0tQe2OdHxZQ2xdhHa",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -341,11 +383,30 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$qRGF4IBUjB05eipmmvsNpOqf65h7LlSDInXstPEOsH2v.3iJ.r4w.",
+                            Password = "$2b$10$F5e5nqCKtY0nRpmzE2mQzeuZKxSDV5Wu6YB7dEaXCezp9Qa/EmAqy",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0
                         });
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.NewsLike", b =>
+                {
+                    b.HasOne("ProtonedMusicAPI.Database.Entities.News", "News")
+                        .WithMany("NewsLikes")
+                        .HasForeignKey("news_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProtonedMusicAPI.Database.Entities.User", "User")
+                        .WithMany("NewsLikes")
+                        .HasForeignKey("user_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("News");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.ProductCategory", b =>
@@ -372,9 +433,19 @@ namespace ProtonedMusicAPI.Migrations
                     b.Navigation("ProductCategories");
                 });
 
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.News", b =>
+                {
+                    b.Navigation("NewsLikes");
+                });
+
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Product", b =>
                 {
                     b.Navigation("ProductCategories");
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.User", b =>
+                {
+                    b.Navigation("NewsLikes");
                 });
 #pragma warning restore 612, 618
         }

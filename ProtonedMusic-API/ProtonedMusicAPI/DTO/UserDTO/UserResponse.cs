@@ -12,5 +12,17 @@
         public string Country { get; set; }
         public string City { get; set; }
         public int Postal { get; set; }
+
+        public List<UserNewsLikeResponse> NewsLikes { get; set; } = new();
+    }
+
+    public class UserNewsLikeResponse
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+
+        public string Text { get; set; } = string.Empty;
+
+        public DateTime DateTime { get; set; } = DateTime.Now;
     }
 }
