@@ -16,6 +16,7 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 })
 export class EventsComponent implements OnInit {
   events: EventModel[] = [];
+  
 
   constructor(private eventService: EventService, private cartService:CartService, private snackbar:SnackBarService) { }
 

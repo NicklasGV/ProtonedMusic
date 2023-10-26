@@ -77,12 +77,13 @@ export class CartComponent implements OnInit {
   }
 
   buyCartItems(): void {
-    /* if (this.authService.CurrentUserValue.mail == "")
+    if (this.authService.currentUserValue.email == "")
     {
-      alert("Du skal være logget ind for at kunne købe dine varer")
+      this.snackBar.openSnackBar('You must be logged in to purchase items.', '','warning');
     } else {
       console.log(this.cartItems)
-    } */
+      this.snackBar.openSnackBar('Buying successful.', '','success');
+    }
   }
 
   removeItem(item: CartItem): void {
