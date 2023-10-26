@@ -4,6 +4,8 @@ import { NewsModel, resetNews  } from 'src/app/Models/NewsModel';
 import { NewsService } from 'src/app/Services/news.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User, resetUser } from 'src/app/Models/UserModel';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-news',
@@ -13,11 +15,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./news.component.css'],
 })
 export class NewsComponent implements OnInit {
+  currentUser: User = resetUser();
+  currentUserId: number = 0;
   news: NewsModel[] = [];
+  anews: NewsModel = resetNews();
+  user: User = resetUser();
   
 
   constructor(
     private newsService: NewsService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -26,15 +33,16 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.newsService.getAllNews().subscribe({
-      // This is the call to the service to get all news.
       next: (result) => {
         this.news = result;
-        this.filterAndSortNews(); // Call the filterNews function after fetching news
+        this.filterAndSortNews();
       },
     });
+
+    this.currentUserId = this.authService.currentUserValue.id;
+    console.log(this.currentUserId)
   }
 
-  // Function to filter news items with datetime in the past and sort them by datetime (newest first)
   filterAndSortNews() {
     const currentDate = new Date();
     this.news = this.news
@@ -45,9 +53,43 @@ export class NewsComponent implements OnInit {
   
 
   navigateToNews(newsId: number) {
-    // Here you can specify the route to navigate to, passing the newsId as a parameter
     this.router.navigate(['/newsDetailed', newsId]);
   }
 
+  isLiked(anews: NewsModel): boolean {
+    return anews.newsLikes.some(({id}) => id === this.currentUserId);
+  }
+
+  isIdInArray(array: any[], targetId: any): boolean {
+    return array.includes(targetId);
+}
+
+  
+  toggleLike(anews: NewsModel) {
+    anews.userIds = anews.newsLikes.map(user => user.id)
+    if (this.isLiked(anews)) {
+      // Unlike the news
+      anews.userIds = anews.userIds.filter(user => this.currentUserId !== this.currentUserId);
+    } else {
+      // Like the news
+      anews.userIds.push(this.currentUserId);
+      
+    }
+    
+
+    this.newsService.updateNews(anews.id, anews).subscribe({
+      error: (err) => {
+      },
+      complete: () => {
+        this.newsService.getAllNews().subscribe({
+          next: (result) => {
+            this.news = result;
+            this.filterAndSortNews();
+          },
+        });
+        console.log("Works");
+      }
+    });
+  }
 
 }

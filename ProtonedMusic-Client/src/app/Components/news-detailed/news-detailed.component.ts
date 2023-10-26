@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { AuthService } from 'src/app/Services/auth.service';
-import { UserService } from 'src/app/Services/user.service';
 
 
 @Component({
@@ -20,43 +19,17 @@ export class NewsDetailedComponent implements OnInit {
   currentUserId: number = 0;
   news: NewsModel = resetNews();
   user: User = resetUser();
-  itemlength = 0;
-  itemsQuantity = 0;
 
   constructor(
     private newsService: NewsService,
     private authService: AuthService,
-    private userService: UserService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {this.newsService.getNewsById(params['id']).subscribe(news => this.news = news);});
     
-    console.log(this.news.userIds)
     this.currentUserId = this.authService.currentUserValue.id;
-    console.log(this.currentUserId)
-
-    this.userService.findById(1).subscribe(user => {this.user = user});
-    
-    
-  }
-
-  Like() {
-    if (this.news.newsLikes.some(({id}) => id === this.currentUserId))
-    {
-      console.log("You unliked that")
-    }
-    else
-    {
-      console.log("You liked that")
-    }
-    
-  }
-
-  getUserInfo()
-  {
-    this.userService.findById(this.currentUser.id).subscribe(user => {this.authService.currentUserValue.id = user.id;});
   }
 
   isLiked(): boolean {
@@ -73,23 +46,18 @@ export class NewsDetailedComponent implements OnInit {
     this.news.userIds = this.news.newsLikes.map(user => user.id)
     if (this.isLiked()) {
       // Unlike the news
-      console.log("You unliked that")
       this.news.userIds = this.news.userIds.filter(user => this.currentUserId !== this.currentUserId);
     } else {
       // Like the news
-      console.log("You liked that")
       this.news.userIds.push(this.currentUserId);
       
     }
-
-    console.log(this.user)
-    console.log(this.news.userIds)
-    console.log(this.news)
 
     this.newsService.updateNews(this.news.id, this.news).subscribe({
       error: (err) => {
       },
       complete: () => {
+        this.route.params.subscribe(params => {this.newsService.getNewsById(params['id']).subscribe(news => this.news = news);});
         console.log("Works");
       }
     });
