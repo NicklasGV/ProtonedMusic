@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { CartService } from 'src/app/Services/cart.service';
 import { CartItem } from 'src/app/Models/CartModel';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
-import {utc} from 'moment';
 
 @Component({
   selector: 'app-events',
@@ -17,7 +16,6 @@ import {utc} from 'moment';
 })
 export class EventsComponent implements OnInit {
   events: EventModel[] = [];
-  utc = utc;
   
 
   constructor(private eventService: EventService, private cartService:CartService, private snackbar:SnackBarService) { }
