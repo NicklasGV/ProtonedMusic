@@ -4,9 +4,7 @@ import { RouterModule } from '@angular/router';
 import { Cart, CartItem } from '../../Models/CartModel';
 import { CartService } from '../../Services/cart.service';
 
-/* import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon'; */
+import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
@@ -17,7 +15,7 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, MatCardModule],
   templateUrl: './cart.component.html',
   styles: []
 })
@@ -41,12 +39,12 @@ export class CartComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.cartService.clearCart();
-        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        this.snackBar.openSnackBar('Clearing successful.', '','success');
         console.log('Product deleted!');
       } else {
         // User canceled the operation
-        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
-        console.log('Deletion canceled.');
+        this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+        console.log('Clearing canceled.');
       }
     });
   }
@@ -59,26 +57,51 @@ export class CartComponent implements OnInit {
         this.cartService.saveCart(this.cartItems);
      }
      else if (index !== -1 && this.cartItems[index].quantity === 0) {
-      if (confirm(`Er du sikker på du vil fjerne ${item.name}?`))
-      {
-        this.cartItems.splice(index, 1);
+      const dialogRef = this.dialog.open(DialogComponent, {
+        data: { title: "Remove Item?", message: "Are you sure you want to delete this item?" }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.cartItems.splice(index, 1);
         this.cartService.saveCart(this.cartItems);
-      }
+          this.snackBar.openSnackBar('Clearing successful.', '','success');
+          console.log('Product deleted!');
+        } else {
+          // User canceled the operation
+          this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+          console.log('Clearing canceled.');
+        }
+      });
      }
   }
 
   buyCartItems(): void {
-    /* if (this.authService.CurrentUserValue.mail == "")
+    if (this.authService.currentUserValue.email == "")
     {
-      alert("Du skal være logget ind for at kunne købe dine varer")
+      this.snackBar.openSnackBar('You must be logged in to purchase items.', '','warning');
     } else {
       console.log(this.cartItems)
-    } */
+      this.snackBar.openSnackBar('Buying successful.', '','success');
+    }
   }
 
   removeItem(item: CartItem): void {
-    if (confirm(`Er du sikker på du vil fjerne ${item.name}?`)) {
-      this.cartService.removeItemFromCart(item.id);
-    }
-  }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Remove Item(s)?", message: "Are you sure you want to delete the item(s)?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.removeItemFromCart(item.id);
+        this.snackBar.openSnackBar('Clearing successful.', '','success');
+        console.log('Product deleted!');
+      } else {
+        // User canceled the operation
+        this.snackBar.openSnackBar('Clearing canceled.', '','warning');
+        console.log('Clearing canceled.');
+      }
+    });
+   }
+   
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,7 +31,7 @@ import { NewsDetailedComponent } from './Components/news-detailed/news-detailed.
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
-  },
+  }
   ],
   bootstrap: [AppComponent],
   entryComponents: [SnackBarComponent]

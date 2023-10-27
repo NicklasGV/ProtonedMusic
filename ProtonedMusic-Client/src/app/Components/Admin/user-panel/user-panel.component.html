@@ -35,7 +35,7 @@
     <label class="col-12 col-sm-1 col-form-label">Role</label>
     <div class="col-12 col-sm-6">
       <div class="dropdown">
-        <select [(ngModel)]="user.role" class="form-control w-75">
+        <select [(ngModel)]="user.role" class="form-select w-75">
           <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
         </select>
       </div>

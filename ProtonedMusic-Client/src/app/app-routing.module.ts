@@ -15,6 +15,9 @@ const routes: Routes = [
   {path: 'merchandise', loadComponent: () =>
   import('./Components/merchandise/merchandise.component').then(it => it.MerchandiseComponent)},
 
+  {path: 'upcoming', loadComponent: () =>
+  import('./Components/upcoming/upcoming.component').then(it => it.UpcomingComponent)},
+
   {path: 'news', loadComponent: () =>
   import('./Components/news/news.component').then(it => it.NewsComponent)},
 
@@ -23,6 +26,9 @@ const routes: Routes = [
 
   {path: 'events', loadComponent: () =>
   import('./Components/events/events.component').then(it => it.EventsComponent)},
+
+  {path: 'events/:id', loadComponent: () =>
+  import('./Components/event/event.component').then(it => it.EventComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},

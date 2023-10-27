@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-12"> <!-- Adjusted column widths for responsiveness -->
+            <div class="card bg-dark">
+                <div class="card-header text-center">
+                    <h1 class="display-6">{{ events.title }}</h1>
+                </div>
+                <div class="card-body">
+                    <hr class="border-success border-2">
+                    <h3>Description: <p class="card-text">{{ events.description }}</p></h3>
+                    <h4>Event date: <p class="card-text">{{ events.timeofEvent | date: 'dd/MM/yyyy HH:mm a' }}</p></h4>
+                    <hr class="border-success border-2">
+                    <h2><span class="badge text-black bg-success">{{ events.price | currency: 'DKK' }}</span></h2>
+                </div>
+                <div class="card-footer">
+                    <a type="button" class="btn bi-x-circle-fill btn-outline-success float-start" [routerLink]="['/events']" > Back</a>
+                    <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end" (click)="addToCart(events)"> Add to basket</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
