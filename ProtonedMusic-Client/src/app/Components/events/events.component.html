@@ -4,9 +4,9 @@
   </div>
 </div>
 <div class="container-fluid">
-  <div class="row row-cols-2 row-cols-md-2 g-4">
-    <div *ngFor="let event of events" style="display: grid; grid-template-rows: auto 1fr;">
-      <div class="card bg-dark text-light">
+  <div class="row row-cols-auto row-cols-lg-2 g-4 m-5">
+    <div *ngFor="let event of events">
+      <div class="card bg-dark text-light" style="grid-template-rows: auto 1fr;">
         <div class="card-header">
           <h2 class="card-title">{{ event.title }}</h2>
         </div>
@@ -16,9 +16,9 @@
         </div>
         <div class="card-footer">
           <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
-          <span class="badge text-black bg-success">{{ event.price | currency: 'DKK '}}</span>
+          <h5 class="badge text-black bg-success mx-3">{{ event.price | currency: 'DKK '}}</h5>
           <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3" (click)="addToCart(event)"> Purchase</button>
-          <button class="text-info btn bi-info-circle-fill" [routerLink]="['/events', event.id]"></button>
+          <button class="text-info btn bi-info-circle-fill mx-2" [routerLink]="['/events', event.id]"></button>
         </div>
       </div>
     </div>
