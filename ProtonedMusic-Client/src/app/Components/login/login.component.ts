@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { Role, constRoles } from 'src/app/Models/role';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ import { Role, constRoles } from 'src/app/Models/role';
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
-  error = '';
+  message: string = '';	
   users: User[] = [];
   userForm: FormGroup = this.resetForm();
   user: User = resetUser();
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: SnackBarService
   ) { 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.error  = '';
+    this.message  = '';
     this.authService.login(this.email, this.password)
     .subscribe({
       next: () => {        
@@ -54,13 +56,16 @@ export class LoginComponent implements OnInit {
         let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         // this.authService.tt(true);
         this.router.navigate([returnUrl]);
+        this.snackBar.openSnackBar('Login Succesful','','success');
       },
       error: err => {
         if (err.error?.status == 400 || err.error?.status == 401 || err.error?.status == 500) {
-          this.error = 'Wrong mail or password, please try again';
+          this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
         }
         else {
-          this.error = err.error.title;
+          this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
         }
       }
     });
@@ -77,22 +82,26 @@ export class LoginComponent implements OnInit {
             this.cancel();
             console.log(this.users)
             this.userForm.reset();
+            this.snackBar.openSnackBar('User registered','','success');
           },
           error: (err) => {
-            console.warn(Object.values(err.error.errors).join(','));
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message,'','error');
           },
         });
       } else {
         console.log(this.userForm.value)
         this.userService.update(this.userForm.value).subscribe({
           error: (err) => {
-            console.warn(Object.values(err.error.errors).join(','));
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
 
           },
           complete: () => {
             this.userService.getAll().subscribe((x) => (this.users = x));
-            this.cancel();
             this.userForm.reset();
+            this.snackBar.openSnackBar('User registered','','success');
+            this.cancel();
           },
         });
       }

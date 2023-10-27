@@ -35,7 +35,7 @@ export class UserPanelComponent implements OnInit {
   
     cancel(): void {
       this.user = resetUser();
-      this.snackBar.openSnackBar('User canceled.', '','info');
+      this.snackBar.openSnackBar('User canceled.', '','warning');
     }
   
     save(): void {
@@ -54,7 +54,6 @@ export class UserPanelComponent implements OnInit {
             console.log(err);
             this.message = Object.values(err.error.errors).join(", ");
             this.snackBar.openSnackBar(this.message, '', 'error');
-            console.log(this.message)
           }
         });
       } else {
@@ -64,7 +63,6 @@ export class UserPanelComponent implements OnInit {
           error: (err) => {
             this.message = Object.values(err.error.errors).join(", ");
             this.snackBar.openSnackBar(this.message, '', 'error');
-            console.log(this.message)
           },
           complete: () => {
             this.userService.getAll().subscribe(x => this.users = x);

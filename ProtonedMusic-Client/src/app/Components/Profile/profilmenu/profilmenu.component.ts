@@ -1,3 +1,4 @@
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User, resetUser } from '../../../Models/UserModel';
@@ -16,7 +17,7 @@ export class ProfilmenuComponent implements OnInit {
   user: User = resetUser();
   msg: string = '';
 
-  constructor(private userService: UserService,private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute) {
+  constructor(private userService: UserService,private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: SnackBarService) {
   }
 
   ngOnInit(): void { 
@@ -49,8 +50,8 @@ export class ProfilmenuComponent implements OnInit {
   Logout(): void {
     console.log('Bruger logger ud:', this.authService.currentUserValue);
     this.authService.logout();
-    this.router.navigate(['/']);
-    window.location.reload();
+    this.router.navigate(['/login']);
+    this.snackBar.openSnackBar('Logged out','','info');
   } 
 
 }
