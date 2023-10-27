@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 
   save(): void {
     if (this.userForm.valid && this.userForm.touched) {
-      this.userForm.value.role = 0
+      this.userForm.value.role = 'Customer'
       if (this.user.id == 0) {
         console.log(this.userForm.value);
         this.userService.create(this.userForm.value).subscribe({
@@ -107,14 +107,14 @@ export class LoginComponent implements OnInit {
   resetForm(): FormGroup {
     return new FormGroup({
       firstName: new FormControl(null),
-      lastName: new FormControl(null),
+      lastName: new FormControl(''),
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null),
-      address: new FormControl(null),
-      city: new FormControl(null),
-      postal: new FormControl(null),
-      country: new FormControl(null)
+      phoneNumber: new FormControl(0),
+      address: new FormControl(''),
+      city: new FormControl(''),
+      postal: new FormControl(0),
+      country: new FormControl('')
     })
   }
 

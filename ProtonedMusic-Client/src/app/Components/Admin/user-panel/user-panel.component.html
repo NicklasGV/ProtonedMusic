@@ -10,17 +10,17 @@
     </div>
   </div>
 
-  <div class="form-group row mb-3">
-    <label class="col-12 col-sm-1 col-form-label">Email</label>
-    <div class="col-12 col-sm-6">
-      <input [(ngModel)]="user.email" class="form-control w-75">
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Last name</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="user.lastName" class="form-control w-75">
     </div>
   </div>
 
   <div class="form-group row mb-3">
-    <label class="col-12 col-sm-1 col-form-label">Address</label>
+    <label class="col-12 col-sm-1 col-form-label">Email</label>
     <div class="col-12 col-sm-6">
-      <input [(ngModel)]="user.address" class="form-control w-75">
+      <input [(ngModel)]="user.email" class="form-control w-75">
     </div>
   </div>
 
@@ -32,11 +32,39 @@
   </div>
 
   <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Address</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="user.address" class="form-control w-75">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">City</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="user.city" class="form-control w-75">
+    </div>
+  </div>
+  
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Postal</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="user.postal" class="form-control w-75">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Country</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="user.country" class="form-control w-75">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
     <label class="col-12 col-sm-1 col-form-label">Role</label>
     <div class="col-12 col-sm-6">
       <div class="dropdown">
         <select [(ngModel)]="user.role" class="form-select w-75">
-          <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
+          <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role.name">{{ role.name }}</option>
         </select>
       </div>
     </div>
