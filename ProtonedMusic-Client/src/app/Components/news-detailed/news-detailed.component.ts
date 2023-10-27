@@ -19,6 +19,7 @@ export class NewsDetailedComponent implements OnInit {
   currentUserId: number = 0;
   news: NewsModel = resetNews();
   user: User = resetUser();
+  e: number = 0;
 
   constructor(
     private newsService: NewsService,
@@ -29,7 +30,7 @@ export class NewsDetailedComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {this.newsService.getNewsById(params['id']).subscribe(news => this.news = news);});
     
-    this.currentUserId = this.authService.currentUserValue.id;
+    this.currentUserId = this.authService.currentUserValue.id;   
   }
 
   isLiked(): boolean {
@@ -37,12 +38,12 @@ export class NewsDetailedComponent implements OnInit {
     return this.news.newsLikes.some(({id}) => id === this.currentUserId);
   }
 
-  isIdInArray(array: any[], targetId: any): boolean {
-    return array.includes(targetId);
+  isIdInArray(news: any, targetId: any): boolean {
+    return news.newsLikes.some((newsLike: { id: any; }) => newsLike.id === targetId);
 }
 
   
-  toggleLike() {
+  toggleLike() {  
     this.news.userIds = this.news.newsLikes.map(user => user.id)
     if (this.isLiked()) {
       // Unlike the news
