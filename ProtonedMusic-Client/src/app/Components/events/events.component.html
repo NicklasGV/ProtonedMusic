@@ -16,9 +16,9 @@
         </div>
         <div class="card-footer">
           <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
-          <h5 class="badge text-black bg-success mx-3">{{ event.price | currency: 'DKK '}}</h5>
-          <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3" (click)="addToCart(event)"> Purchase</button>
-          <button class="text-info btn bi-info-circle-fill mx-2" [routerLink]="['/events', event.id]"></button>
+          <h5 class="badge text-black bg-success mx-2 align-middle float-end">{{ event.price | currency: 'DKK '}}</h5>
+          <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3 float-end" (click)="addToCart(event)"> Purchase</button>
+          <button class="text-info btn bi-info-circle-fill mx-2 float-end" [routerLink]="['/events', event.id]"></button>
         </div>
       </div>
     </div>
