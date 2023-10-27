@@ -35,7 +35,7 @@
     <label class="col-12 col-sm-1 col-form-label">Role</label>
     <div class="col-12 col-sm-6">
       <div class="dropdown">
-        <select [(ngModel)]="user.role" class="form-control w-75">
+        <select [(ngModel)]="user.role" class="form-select w-75">
           <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role">{{ role.name }}</option>
         </select>
       </div>
@@ -43,8 +43,8 @@
   </div>
 
   <div class="d-flex mt-5 mx-0">
-    <button (click)="save()" class="btn btn-sm btn-success me-1">SAVE</button>
-    <button (click)="cancel()" class="btn btn-sm btn-danger">CANCEL</button>
+    <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+    <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
   </div>
 </div>
 
@@ -74,7 +74,7 @@
           <tr *ngFor="let user of users">
             <td>
               <div class="d-flex justify-content-start">
-                <button (click)="edit(user)" class="btn btn-sm btn-success">EDIT</button>
+                <button (click)="edit(user)" class="btn bi-gear-fill btn-sm btn-success"> EDIT</button>
               </div>
             </td>
             <td>{{ user.id }}</td>

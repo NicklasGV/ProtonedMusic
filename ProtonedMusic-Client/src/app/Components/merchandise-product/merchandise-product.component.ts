@@ -27,10 +27,11 @@ export class MerchandiseProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {this.productService.getProductById(params['id']).subscribe(products => this.products = products);});
-
   }
 
-  addToCart(products: ProductModel) {
+  addToCart(products: ProductModel, ItemAmount: number): void {
+    this.itemlength += 1;
+    ItemAmount = this.itemlength;
     console.log(products);
     let item: CartItem = {
       id: products.id,
@@ -39,6 +40,5 @@ export class MerchandiseProductComponent implements OnInit {
       name: products.name,
     } as CartItem;
     this.cartService.addToCart(item);
-    this.itemlength += 1;
   }
 }

@@ -30,5 +30,7 @@
 
         [StringLength(40, ErrorMessage = "Country cannot be longer than 40 chars")]
         public string Country { get; set; }
+
+        public List<int> NewsIds { get; set; } = new();
     }
 }

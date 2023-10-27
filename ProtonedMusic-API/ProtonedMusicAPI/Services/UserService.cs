@@ -27,6 +27,16 @@
                 City = user.City,
                 Postal = user.Postal
             };
+            if (user.NewsLikes.Count > 0)
+            {
+                response.NewsLikes = user.NewsLikes.Select(x => new UserNewsLikeResponse
+                {
+                    Id = x.News.Id,
+                    Title = x.News.Title,
+                    Text = x.News.Text,
+                    DateTime = x.News.DateTime,
+                }).ToList();
+            }
             return response;
         }
 
@@ -48,9 +58,9 @@
             return user;
         }
 
-        public async Task<List<UserResponse>> GetAll()
+        public async Task<List<UserResponse>> GetAllAsync()
         {
-            List<User> users = await _userRepository.GetAll();
+            List<User> users = await _userRepository.GetAllAsync();
 
             if (users == null)
             {
@@ -59,9 +69,9 @@
             return users.Select(MapUserToUserResponse).ToList();
         }
 
-        public async Task<UserResponse> FindById(int userId)
+        public async Task<UserResponse> FindByIdAsync(int userId)
         {
-            var user = await _userRepository.FindById(userId);
+            var user = await _userRepository.FindByIdAsync(userId);
 
             if (user != null)
             {
@@ -71,9 +81,9 @@
             return null;
         }
 
-        public async Task<UserResponse> CreateUser(UserRequest newUser)
+        public async Task<UserResponse> CreateAsync(UserRequest newUser)
         {
-            var user = await _userRepository.CreateUser(MapUserRequestToUser(newUser));
+            var user = await _userRepository.CreateAsync(MapUserRequestToUser(newUser));
             if (user == null)
             {
                 throw new ArgumentNullException();
@@ -81,9 +91,9 @@
             return MapUserToUserResponse(user);
         }
 
-        public async Task<UserResponse> DeleteById(int userId)
+        public async Task<UserResponse> DeleteByIdAsync(int userId)
         {
-            var user = await _userRepository.DeleteById(userId);
+            var user = await _userRepository.DeleteByIdAsync(userId);
 
             if (user != null)
             {
@@ -92,10 +102,10 @@
             return null;
         }
 
-        public async Task<UserResponse> UpdateUser(UserRequest updateUser)
+        public async Task<UserResponse> UpdateByIdAsync(int userId, UserRequest updateUser)
         {
             var user = MapUserRequestToUser(updateUser);
-            var insertedUser = await _userRepository.UpdateUser(user);
+            var insertedUser = await _userRepository.UpdateByIdAsync(userId, user);
 
             if (insertedUser != null)
             {
@@ -104,67 +114,6 @@
 
             return null;
         }
-
-        public async Task<LoginModel> LoginUser(string email, string password)
-        {
-        //    var user = await _userRepository.FindByEmail(email);
-
-        //    if (user == null)
-        //    {
-        //        return null; // User not found
-        //    }
-
-        //    // Use BCrypt to verify the hashed password
-        //    bool passwordMatch = BCrypt.Net.BCrypt.Verify(password, user.Password);
-
-        //    if (BCrypt.Net.BCrypt.Verify(password, user.Password))
-        //    {
-        //        string newAccessToken = CreateJwtToken();
-        //        string newRefreshToken = CreateRefreshToken();
-        //        user.RefreshToken = newRefreshToken;
-        //        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
-        //        await _userRepository.UpdateUser(user);
-
-        //        LoginModel model = new LoginModel()
-        //        {
-        //            Id = user.Id,
-        //            Email = user.Email,
-        //            Role = user.Role,
-        //            AccessToken = newAccessToken,
-        //            RefreshToken = newRefreshToken,
-        //        };
-        //        return model;
-        //    }
-            return null;
-        }
-
-        //public string CreateJwtToken()
-        //{
-        //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-        //    var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-        //    var tokeOptions = new JwtSecurityToken(
-        //        claims: new List<Claim>(),
-        //        expires: DateTime.Now.AddMinutes(10),
-        //        signingCredentials: signInCredentials
-        //        );
-
-        //    return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-        //}
-
-        //public string CreateRefreshToken()
-        //{
-        //    var tokenBytes = RandomNumberGenerator.GetBytes(64);
-        //    var refreshToken = Convert.ToBase64String(tokenBytes);
-
-        //    // Check if token exists in the Database already.
-        //    var tokenInUser = _context.User.Any(u => u.RefreshToken == refreshToken);
-        //    if (tokenInUser)
-        //    {
-        //        // If token already exists then run the method again.
-        //        return CreateRefreshToken();
-        //    }
-        //    return refreshToken;
-        //}
 
         public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
         {

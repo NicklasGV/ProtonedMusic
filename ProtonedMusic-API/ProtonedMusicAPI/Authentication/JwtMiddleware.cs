@@ -16,7 +16,7 @@
             if (userId is not null)
             {
                 //Attach account to context on succesful jwt validation
-                var user = await userRepository.FindById(userId.Value);
+                var user = await userRepository.FindByIdAsync(userId.Value);
                 context.Items["User"] = UserService.MapUserToUserResponse(user);
             }
 

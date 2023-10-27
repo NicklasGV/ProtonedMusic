@@ -5,6 +5,9 @@ import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
 import { ProductService } from 'src/app/Services/Product.service';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from 'src/app/Services/category.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-product-panel',
@@ -14,7 +17,6 @@ import { CategoryService } from 'src/app/Services/category.service';
   styles: []
 })
 export class ProductPanelComponent implements OnInit {
-
   message: string = "";
   products: ProductModel[] = [];
   product: ProductModel = resetProducts();
@@ -22,7 +24,7 @@ export class ProductPanelComponent implements OnInit {
   categories: CategoryModel[] = [];
   selected: number[] = [];
   
-  constructor(private productService: ProductService, private categoryService:CategoryService, private cdr: ChangeDetectorRef) { }
+  constructor(private productService: ProductService, private categoryService:CategoryService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(x => this.products = x);
@@ -59,17 +61,30 @@ editProduct(product: ProductModel): void {
 }
   
   deleteProduct(product: ProductModel): void {
-    if (confirm("Er du sikker på at du vil slette dette produkt?")) {
-      this.productService.deleteProduct(product.id).subscribe(x => {
-        this.products = this.products.filter(x => x.id != product.id);
-      });
-    }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Delete Product", message: "Are you sure you want to delete this product?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.productService.deleteProduct(product.id).subscribe(x => {
+          this.products = this.products.filter(x => x.id != product.id);
+        });
+        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        console.log('Product deleted!');
+      } else {
+        // User canceled the operation
+        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
+        console.log('Deletion canceled.');
+      }
+    });
   }
 
   cancel(): void {
     this.product = resetProducts();
     this.category = resetCategory();
     this.resetCheckboxes();
+    this.snackBar.openSnackBar('Product canceled.', '','info');
   }
 
   save(): void {
@@ -84,10 +99,12 @@ editProduct(product: ProductModel): void {
           this.product = resetProducts();
           this.category = resetCategory();
           this.resetCheckboxes();
+          this.snackBar.openSnackBar("Product created", '', 'success');
         },
         error: (err) => {
           console.log(err);
           this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
         }
       });
     } else {
@@ -97,11 +114,13 @@ editProduct(product: ProductModel): void {
       .subscribe({
         error: (err) => {
           this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
         },
         complete: () => {
           this.productService.getAllProducts().subscribe(x => this.products = x);
           this.product = resetProducts();
           this.resetCheckboxes();
+          this.snackBar.openSnackBar("Product updated", '', 'success');
         }
       });
     }

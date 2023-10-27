@@ -1,1 +1,31 @@
-<p>admin-panel works!</p>
+<div class="container-fluid d-flex justify-content-center" data-bs-theme="dark">
+    <div class="mb-3">
+        <div class="text-center">
+            <i class="bi-person-fill-gear" style="font-size: 8rem; color: white;" id="Profile"></i>
+        </div>
+        <div class="px-sm-5">
+            <h3 class="text-center mt-4 rounded-3 bg-gradient" id="name"> {{msg}} {{user.firstName}}</h3>
+        </div>
+        <div class="mt-5">
+            <button class="form-control text-center nav-button" routerLink="/admin/productpanel">Product Panel</button>
+        </div>
+        <div class="mt-4">
+            <button class="form-control text-center nav-button" routerLink="/admin/categorypanel">Category Panel</button>
+        </div>
+        <div class="mt-4">
+            <button class="form-control text-center nav-button" routerLink="/admin/userpanel">User Panel</button>
+        </div>
+        <div class="mt-4">
+            <button class="form-control text-center nav-button" routerLink="/admin/imagepanel">Image Panel</button>
+        </div>
+        <div class="mt-4">
+            <button class="form-control text-center nav-button" routerLink="/admin/eventpanel">Event Panel</button>
+        </div>
+        <div class="mt-4">
+            <button class="form-control text-center nav-button" routerLink="/admin/newspanel">News Panel</button>
+        </div>
+        <div class="mt-5">
+            <button class="form-control text-center back-button" routerLink="">Back</button>
+        </div>    
+    </div> 
+</div>

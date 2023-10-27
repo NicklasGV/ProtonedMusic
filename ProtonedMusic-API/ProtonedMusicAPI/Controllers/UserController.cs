@@ -36,11 +36,11 @@
         [Authorize(Role.Admin, Role.Customer)]
         [HttpGet]
         [Route("{userId}")]
-        public async Task<IActionResult> FindById([FromRoute] int userId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int userId)
         {
             try
             {
-                UserResponse userResponse = await _userService.FindById(userId);
+                UserResponse userResponse = await _userService.FindByIdAsync(userId);
 
                 if (userResponse == null)
                 {
@@ -57,11 +57,11 @@
         [Authorize(Role.Admin, Role.Customer)]
         [HttpPut]
         [Route("{userId}")]
-        public async Task<IActionResult> UpdateUser([FromBody] UserRequest updateUser)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromBody] UserRequest updateUser)
         {
             try
             {
-                var userResponse = await _userService.UpdateUser(updateUser);
+                var userResponse = await _userService.UpdateByIdAsync(userId, updateUser);
 
                 if (userResponse == null)
                 {
@@ -79,11 +79,11 @@
         [Authorize(Role.Admin, Role.Customer)]
         [HttpDelete]
         [Route("{userId}")]
-        public async Task<IActionResult> DeleteById([FromRoute] int userId)
+        public async Task<IActionResult> DeleteByIdAsync([FromRoute] int userId)
         {
             try
             {
-                var userResponse = await _userService.DeleteById(userId);
+                var userResponse = await _userService.DeleteByIdAsync(userId);
                 if (userResponse == null)
                 {
                     return NotFound();
@@ -99,11 +99,11 @@
 
         [Authorize(Role.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                List<UserResponse> users = await _userService.GetAll();
+                List<UserResponse> users = await _userService.GetAllAsync();
 
                 if (users == null)
                 {
@@ -125,11 +125,11 @@
         [AllowAnnonymous]
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> CreateUser([FromBody] UserRequest newUser)
+        public async Task<IActionResult> CreateAsync([FromBody] UserRequest newUser)
         {
             try
             {
-                UserResponse userResponse = await _userService.CreateUser(newUser);
+                UserResponse userResponse = await _userService.CreateAsync(newUser);
                 return Ok(userResponse);
             }
             catch (Exception ex)
