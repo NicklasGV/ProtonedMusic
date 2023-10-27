@@ -54,6 +54,7 @@
               <th>Description</th>
               <th>Price</th>
               <th>Event Date</th>
+              <th>Created Date</th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +69,8 @@
               <td>{{ event.title }}</td>
               <td class="text-truncate" style="max-width: 300px;">{{ event.description }}</td>
               <td>{{ event.price | currency: 'DKK ' }}</td>
-              <td>{{event.timeofEvent | date:'dd MMM yyyy, HH:mm'}}</td>
+              <td>{{event.timeofEvent | date:'dd-MM-yyyy | HH:mm'}}</td>
+              <td>{{event.created | date:'dd-MM-yyyy | HH:mm'}}</td>
             </tr>
           </tbody>
         </table>

@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="container-fluid">
-    <div class="row row-cols-auto row-cols-lg-2 g-4 m-5">
+    <div class="row row-cols-auto row-cols-lg-3 g-4 m-5">
       <div *ngFor="let event of events">
         <div class="card bg-dark text-light" style="grid-template-rows: auto 1fr;">
           <div class="card-header">
@@ -15,8 +15,7 @@
             <p class="card-text text-truncate">{{event.description}}</p>
           </div>
           <div class="card-footer">
-            <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
-            <button class="text-info btn bi-info-circle-fill mx-2 float-end" [routerLink]="['/events', event.id]"></button>
+            <h5 class="card-subtitle small mt-3 me-3">Release date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
           </div>
         </div>
       </div>
