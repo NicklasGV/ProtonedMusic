@@ -63,17 +63,20 @@ namespace ProtonedMusicAPI.Migrations
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Image", b =>
                 {
-                    b.Property<Guid>("ImageId")
+                    b.Property<int?>("ImageId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ImageId"));
+
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ImageId");
 
@@ -235,7 +238,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$fwd3UlafaF1A2I9eC9b4dOmrFKucCP4JbBtwMhbBrZP0IdA6WBOXu",
+                            Password = "$2b$10$WGgzmSi7YjLGSByYOJcqy.jvRwI7tdpAXZ/go62lFJs/f3yyxc7QK",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -249,7 +252,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$LFOE9lMIVBJb/OyIlLtq2.J1uafcbBlusNp01KEdCEFDWDtiM3DwW",
+                            Password = "$2b$10$woey3r.oxsOBfQhsLEZNwuxo01Qbb5dl4b0CKYLSW.wR3f9r5t6L2",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

@@ -9,36 +9,29 @@
             _context = context;
         }
 
-        public async Task<Image> Create(Image newImage)
+        public async Task<Image> Add(Image image)
         {
-            _context.Images.Add(newImage);
+            _context.Images.Add(image);
             await _context.SaveChangesAsync();
-            return newImage;
-            
+            return image;
         }
 
-        public async Task<Image?> DeleteById(int deleteImageId)
+        public async Task<Image> DeleteImage(int id)
         {
-            var image = await _context.Images.FindAsync(deleteImageId);
+            var pic = await _context.Images.FindAsync(id);
 
-            if (image != null)
+            if (pic is not null)
             {
-                _context.Images.Remove(image);
+                _context.Images.Remove(pic);
                 await _context.SaveChangesAsync();
-                return image;
             }
 
-            return null; // Billede blev ikke fundet
+            return pic;
         }
 
-        public async Task<Image?> FindById(Guid ImageId)
+        public async Task<Image> GetImageById(int id)
         {
-            return await _context.Images.FirstOrDefaultAsync(image => image.ImageId == ImageId);
-        }
-
-        public Task<List<Category>> GetAll()
-        {
-            throw new NotImplementedException();
+            return await _context.Images.FirstOrDefaultAsync(x => x.ImageId == id);
         }
     }
 }

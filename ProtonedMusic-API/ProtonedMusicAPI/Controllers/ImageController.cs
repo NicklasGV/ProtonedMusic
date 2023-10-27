@@ -11,40 +11,47 @@
             _imageService = imageService;
         }
 
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateImage([FromForm] ImageRequest imageRequest)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetImageById(int id)
         {
-            if (!ModelState.IsValid)
+            var img = await _imageService.GetImageById(id);
+
+            if (img is null)
             {
-                return BadRequest(ModelState);
+                return NotFound($"No picture found with ID = {id}");
             }
 
-            try
-            {
-                var imageResponse = await _imageService.Create(imageRequest);
-                return Ok(imageResponse);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            return Ok(img);
         }
 
-        [HttpGet("{ImageId}")]
-        public async Task<IActionResult> GetImage(Guid ImageId)
+        [HttpPost]
+        public async Task<IActionResult> AddPicture()
         {
-            var imageResponse = await _imageService.FindById(ImageId);
+            var file = Request.Form.Files[0];
 
-            if (imageResponse == null)
+            if (file is null)
             {
-                return NotFound(); // Billede blev ikke fundet
+                return BadRequest("Something done gone wrong, I tell you hwat");
             }
+            var img = new Image();
+            using (var ms = new MemoryStream())
+            {
+                await file.CopyToAsync(ms);
 
-            return Ok(imageResponse);
+                if (ms.Length < 2097152)
+                {
+                    //img.ImageData = ms.ToArray();
+                    img.ImageName = file.FileName;
+                }
+                else
+                {
+                    return BadRequest("This picture is too dang big, make sure it's under 2MB in size");
+                }
+            }
+            await _imageService.AddImage(img);
+            return Ok(img);
         }
 
-        // Du kan tilføje flere endpoints efter behov, f.eks. til at slette billeder eller hente en liste af billeder.
     }
 
 }

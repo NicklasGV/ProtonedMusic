@@ -2,13 +2,9 @@
 {
     public class Image
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ImageId { get; set; }
-
-        [Column(TypeName = "nvarchar(30)")]
-        public string Name { get; set; } = string.Empty;
-
-        public string ImagePath { get; set; } = string.Empty;
+        public int? ImageId { get; set; }
+        public string? PublicId { get; set; } = string.Empty;
+        public string? ImageName { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; } = string.Empty;
     }
 }

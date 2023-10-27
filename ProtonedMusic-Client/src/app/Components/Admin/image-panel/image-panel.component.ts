@@ -4,6 +4,9 @@ import { PaginationComponent } from 'src/app/Shared/pagination/pagination.compon
 import {CloudinaryModule} from '@cloudinary/ng';
 import { CloudinaryImage, Cloudinary } from '@cloudinary/url-gen';
 import {fill} from "@cloudinary/url-gen/actions/resize";
+import { ImageModel } from 'src/app/Models/ImageModel';
+import { ImageService } from 'src/app/Services/image.service';
+
 
 @Component({
   selector: 'app-image-panel',
@@ -14,6 +17,9 @@ import {fill} from "@cloudinary/url-gen/actions/resize";
 })
 export class ImagePanelComponent {
   img!: CloudinaryImage;
+  images: ImageModel[] = [];
+
+  constructor(private imgService: ImageService) {}
 
   ngOnInit() {
     // Create a Cloudinary instance and set your cloud name.
@@ -29,6 +35,11 @@ export class ImagePanelComponent {
 
     // Resize to 250 x 250 pixels using the 'fill' crop mode.
     this.img.resize(fill().width(250).height(250));
+
+    this.imgService.getImages().subscribe((data) => {
+      this.images = data;
+      console.log(data);
+    });
   }
 }
 
