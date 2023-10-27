@@ -40,7 +40,6 @@ export class NewsComponent implements OnInit {
     });
 
     this.currentUserId = this.authService.currentUserValue.id;
-    console.log(this.currentUserId)
   }
 
   filterAndSortNews() {

@@ -43,10 +43,7 @@ export class NewsDetailedComponent implements OnInit {
 }
 
   
-  toggleLike() {
-    console.log(this.currentUserId)
-    console.log(this.news.newsLikes)
-    
+  toggleLike() {  
     this.news.userIds = this.news.newsLikes.map(user => user.id)
     if (this.isLiked()) {
       // Unlike the news
