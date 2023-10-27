@@ -10,31 +10,27 @@
     </div>
     <hr class="border-2 opacity-25">
 </div>
-
-<!--Products-->
-<div class="row row-cols-auto row-cols-lg-5 g-4 m-5">
-    <div *ngFor="let product of products">
-        <div class="card h-100 w-auto bg-dark" style="display: grid; grid-template-rows: auto 1fr;">
-            <img src="../../../assets/img/img400.png">
-            <div class="card-body" style="display: flex; flex-direction: column;">
-                <!--Products-->
-                <div class="align-items-start">
-                    <div class="justify-content-between">
-                        <div class="float-end">
-                            <p class="text-success fw-bold" *ngFor="let category of product.categories">{{category.name}}</p>
+<div class="container-fluid">
+    <div class="row row-cols-auto row-cols-lg-4 g-4 m-5">
+        <div *ngFor="let product of products">
+            <div class="card h-100 w-auto bg-dark text-light" [routerLink]="['/merchandiseProduct', product.id]" style="display: grid; grid-template-rows: auto 1fr;">
+                <img src="../../../assets/img/img400.png">
+                <div class="card-body" style="display: flex; flex-direction: column; min-width: 200px;">
+                    <div class="align-items-start">
+                        <div class="justify-content-between">
+                            <div class="float-end">
+                                <p class="text-success fw-bold" *ngFor="let category of product.categories">{{category.name}}</p>
+                            </div>
+                            <p>{{product.name}}</p>
                         </div>
-                        <p>Name: {{product.name}}</p>
+                        <p class="text-truncate" style="max-width: 200px;">{{product.description}}</p>
                     </div>
-                    <p class="text-truncate" style="max-width: 200px;"> Desc: {{product.description}}</p>
-                    <h3 class="fw-bold"><span class="badge text-black bg-success">{{ product.price | currency: 'DKK ' }}</span></h3>
-                </div>
-                <div class="mt-auto">
-                    <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end btn-sm" (click)="addToCart(product)"> Add to basket</a>
-                    <a type="button" class="btn bi-info-circle-fill btn-outline-success btn-sm " [routerLink]="['/merchandiseProduct', product.id]"> See More</a>
+                    <div class="card-footer mt-auto">
+                        <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end btn-sm me-1" (click)="addToCart(product); $event.stopPropagation()"> Add to basket</a>
+                        <h5 class="badge text-black bg-success float-end">{{ product.price | currency: 'DKK ' }}</h5>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-

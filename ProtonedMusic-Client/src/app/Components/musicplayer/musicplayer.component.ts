@@ -20,6 +20,8 @@ export class MusicplayerComponent{
   state?: StreamState;
   currentFile: any = {};
   currentSong: string = '';
+  currentSongName: string = '';
+  currentArtist: string = '';
 
   constructor(private audioService: AudioService, cloudService: CloudService, public auth: AuthService) {
     // get media files
@@ -37,7 +39,6 @@ export class MusicplayerComponent{
   playStream(url: any) {
     this.audioService.playStream(url)
     .subscribe(events => {
-      // listening for fun here
     });
   }
 
@@ -45,7 +46,8 @@ export class MusicplayerComponent{
     this.currentFile = { index, file};
     this.audioService.stop();
     this.playStream(file.url);
-    this.currentSong = this.currentFile(file.songName)
+    this.currentSongName = this.currentFile.file.songName;
+    this.currentArtist = this.currentFile.file.artist;
   }
 
   pause() {
