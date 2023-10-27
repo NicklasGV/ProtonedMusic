@@ -40,7 +40,6 @@ export class NewsComponent implements OnInit {
     });
 
     this.currentUserId = this.authService.currentUserValue.id;
-    console.log(this.currentUserId)
   }
 
   filterAndSortNews() {
@@ -60,8 +59,8 @@ export class NewsComponent implements OnInit {
     return anews.newsLikes.some(({id}) => id === this.currentUserId);
   }
 
-  isIdInArray(array: any[], targetId: any): boolean {
-    return array.includes(targetId);
+  isIdInArray(news: any, targetId: any): boolean {
+    return news.newsLikes.some((newsLike: { id: any; }) => newsLike.id === targetId);
 }
 
   

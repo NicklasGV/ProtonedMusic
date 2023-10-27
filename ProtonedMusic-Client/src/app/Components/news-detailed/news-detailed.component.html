@@ -9,11 +9,11 @@
                         <a type="button" class="bi bi-arrow-return-left btn btn-success" [routerLink]="['/news']"></a>
                         <h1 class="display-6 mt-4">{{ news.title }}</h1>
                         <a *ngIf="this.news.newsLikes.length">
-                            <a  class="lock" *ngIf="isIdInArray(news.newsLikes, currentUserId)">
+                            <a  class="lock" *ngIf="!isIdInArray(this.news, currentUserId)">
                                 <h1 class="bi bi-hand-thumbs-up mt-3" style="font-size: 30px"></h1>
                                 <h1 class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike()"></h1>
                             </a>
-                            <h1 *ngIf="!isIdInArray(news.newsLikes, currentUserId)" class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike()"></h1>
+                            <h1 *ngIf="isIdInArray(this.news, currentUserId)" class="bi bi-hand-thumbs-up-fill mt-3" style="font-size: 30px" (click)="toggleLike()"></h1>
                         </a>
                         <a class="lock"*ngIf="!this.news.newsLikes.length">
                             <h1 class="bi bi-hand-thumbs-up mt-3" style="font-size: 30px"></h1>
@@ -25,7 +25,7 @@
                     <hr class="border-success border-2">
                     <p class="card-text">{{ news.text }}</p>
                     <hr class="border-success border-2">
-                    <h6 class="card-text small mt-3">{{ news.dateTime | date: 'dd MMM yyyy, HH:mm a' }}</h6>
+                    <h6 class="card-text small mt-3">{{ news.dateTime | date: 'dd MMM yyyy, HH:mm' }}</h6>
                 </div>
                 <div class="card-footer">
                     
