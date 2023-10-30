@@ -9,32 +9,29 @@
             _context = context;
         }
 
-        public async Task<Image> CreateImage(Image createImage)
+        public async Task<Image> Add(Image image)
         {
-            _context.Images.Add(createImage);
-
+            _context.Images.Add(image);
             await _context.SaveChangesAsync();
-            return createImage;
+            return image;
         }
 
-        public Task<Image?> DeleteImageById(int ImageId)
+        public async Task<Image> DeleteImage(int id)
         {
-            throw new NotImplementedException();
+            var pic = await _context.Images.FindAsync(id);
+
+            if (pic is not null)
+            {
+                _context.Images.Remove(pic);
+                await _context.SaveChangesAsync();
+            }
+
+            return pic;
         }
 
-        public Task<Image?> FindById(int Id)
+        public async Task<Image> GetImageById(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Image>> GetAll()
-        {
-            return await _context.Images.ToListAsync();
-        }
-
-        public Task<Image?> UpdateImage(Image updateImage)
-        {
-            throw new NotImplementedException();
+            return await _context.Images.FirstOrDefaultAsync(x => x.ImageId == id);
         }
     }
 }

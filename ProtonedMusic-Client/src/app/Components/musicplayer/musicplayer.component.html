@@ -1,51 +1,53 @@
 <div class="m-5">
   <div class="d-flex justify-content-around col-md-12">
-    <div class="display-6 mt-2 bg-gradient rounded-3">Music Player</div>
+    <div class="display-4 fw-medium mt-2">MUSIC PLAYER</div>
   </div>
 </div>
-<div class="container-fluid">
-        <img src="../../../assets/img/1.png" class="card-img-top w-25">
-        <div class="card-body">
-          <h5 class="card-title">Current song:</h5>
-          <p class="card-text">{{this.currentSong}}</p>
-                {{ state?.readableCurrentTime }}
-                <mat-slider class="time-slider" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime" (input)="onSliderChangeEnd($event)" [disabled]="state?.error || currentFile.index === undefined"></mat-slider>
-                {{ state?.readableDuration }}
-          <div class="d-flex mt-5 mx-0 justify-content-center">
-            <button (click)="previous()" [disabled]="isFirstPlaying()" class="btn btn-lg bi-skip-backward-circle-fill btn-outline-success"></button>
-            <button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing" (click)="play()" class="btn btn-lg bi-play-circle-fill btn-outline-success"></button>
-            <button (click)="pause()" *ngIf="state?.playing" class="btn btn-lg bi-pause-circle-fill btn-outline-success"></button>
-            <button (click)="next()" [disabled]="isLastPlaying()" class="btn btn-lg bi-skip-forward-circle-fill btn-outline-success"></button>
-          </div>
-        </div>
-  <div class="container-fluid" data-bs-theme="dark">
-    <div class="table-responsive">
-      <div class="table-wrapper">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Play</th>
-              <th>Id</th>
-              <th>Title</th>
-              <th>Artist</th>
-              <th>Album</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let file of files; let i = index;">
-              <td>
-                <div class="d-flex justify-content-start">
-                  <button (click)="openFile(file, i)" class="btn btn-lg bi-play-btn-fill btn-outline-success"></button>
-                </div>
-              </td>
-              <td>{{ file.id }}</td>
-              <td>{{ file.songName }}</td>
-              <td>{{file.artist}}</td>
-              <td>{{file.album}}</td>
-            </tr>
-          </tbody>
-        </table>
+<div class="d-flex justify-content-center">
+  <div class="">
+    <img src="../../../assets/img/1.png" class="card-img-top w-50">
+    <div class="card-body">
+      <h5 class="card-title">Current song:</h5>
+      <p class="card-text">{{this.currentSongName}} by {{this.currentArtist}}</p>
+            {{ state?.readableCurrentTime }}
+            <mat-slider class="time-slider" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime" (input)="onSliderChangeEnd($event)" [disabled]="state?.error || currentFile.index === undefined"></mat-slider>
+            {{ state?.readableDuration }}
+      <div class="d-flex mt-5 mx-0 mb-5">
+        <button (click)="previous()" [disabled]="isFirstPlaying()" class="btn btn-lg bi-skip-backward-circle-fill text-success btn-dark rounded-5"></button>
+        <button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing" (click)="play()" class="btn btn-lg bi-play-circle-fill text-success btn-dark rounded-5"></button>
+        <button (click)="pause()" *ngIf="state?.playing" class="btn btn-lg bi-pause-circle-fill text-success btn-dark rounded-5"></button>
+        <button (click)="next()" [disabled]="isLastPlaying()" class="btn btn-lg bi-skip-forward-circle-fill text-success btn-dark rounded-5"></button>
       </div>
     </div>
+  </div>
 </div>
+<div class="container-fluid" data-bs-theme="dark">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Play</th>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of files; let i = index;">
+            <td>
+              <div class="d-flex justify-content-start">
+                <button (click)="openFile(file, i)" class="btn btn-lg bi-play-btn-fill btn-outline-success"></button>
+              </div>
+            </td>
+            <td>{{ file.id }}</td>
+            <td>{{ file.songName }}</td>
+            <td>{{file.artist}}</td>
+            <td>{{file.album}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   
