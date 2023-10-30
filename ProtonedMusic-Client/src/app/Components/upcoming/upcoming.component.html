@@ -12,7 +12,7 @@
           </div>
           <div class="card-body">
             <h5>Description: </h5>
-            <p class="card-text text-truncate">{{event.description}}</p>
+            <p class="card-text text-truncate" style="max-width: 235px;">{{event.description}}</p>
           </div>
           <div class="card-footer">
             <h5 class="card-subtitle small mt-3 me-3">Release date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
