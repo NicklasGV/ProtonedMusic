@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { AuthService } from 'src/app/Services/auth.service';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class NewsDetailedComponent implements OnInit {
   constructor(
     private newsService: NewsService,
     private authService: AuthService,
+    private snackBar: SnackBarService,
     private route: ActivatedRoute
   ) { }
 
@@ -48,6 +50,10 @@ export class NewsDetailedComponent implements OnInit {
     if (this.isLiked()) {
       // Unlike the news
       this.news.userIds = this.news.userIds.filter(userId => userId !== this.currentUserId);
+    } else if (this.currentUserId == 0)
+    {
+      // Snackbar saying you need to be logged in to like
+      this.snackBar.openSnackBar("You need to be logged in to like", '', 'error');
     } else {
       // Like the news
       this.news.userIds.push(this.currentUserId);
