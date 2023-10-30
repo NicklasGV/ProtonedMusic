@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     return true;
   } else {
     this.snackBar.openSnackBar('You are not authorized to access this page', '', 'error');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
     return false;
   }
 }

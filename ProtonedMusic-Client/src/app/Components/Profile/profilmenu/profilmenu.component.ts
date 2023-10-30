@@ -17,10 +17,6 @@ export class ProfilmenuComponent implements OnInit {
   user: User = resetUser();
   msg: string = '';
 
-  delay(seconds: number) {
-    return new Promise( resolve => setTimeout(resolve, seconds));
-  }
-
   constructor(private userService: UserService,private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: SnackBarService) {
   }
 
@@ -53,9 +49,9 @@ export class ProfilmenuComponent implements OnInit {
 
   async Logout(): Promise<void> {
     console.log('Bruger logger ud:', this.authService.currentUserValue);
-    this.router.navigate(['/login']);
     this.authService.logout();
     window.location.reload();
+    this.router.navigate(['/login']);
     this.snackBar.openSnackBar('Logged out','','info');
   } 
 
