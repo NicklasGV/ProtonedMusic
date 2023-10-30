@@ -47,7 +47,7 @@ export class NewsDetailedComponent implements OnInit {
     this.news.userIds = this.news.newsLikes.map(user => user.id)
     if (this.isLiked()) {
       // Unlike the news
-      this.news.userIds = this.news.userIds.filter(user => this.currentUserId !== this.currentUserId);
+      this.news.userIds = this.news.userIds.filter(userId => userId !== this.currentUserId);
     } else {
       // Like the news
       this.news.userIds.push(this.currentUserId);
