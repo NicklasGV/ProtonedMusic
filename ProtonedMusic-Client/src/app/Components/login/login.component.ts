@@ -51,11 +51,9 @@ export class LoginComponent implements OnInit {
     this.message  = '';
     this.authService.login(this.email, this.password)
     .subscribe({
-      next: () => {        
-        //get return url from activatedRoute service or default to '/'
-        let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        // this.authService.tt(true);
-        this.router.navigate([returnUrl]);
+      next: async () => {
+        this.router.navigate(['/login']);
+        window.location.reload();
         this.snackBar.openSnackBar('Login Succesful','','success');
       },
       error: err => {
@@ -100,6 +98,7 @@ export class LoginComponent implements OnInit {
           complete: () => {
             this.userService.getAll().subscribe((x) => (this.users = x));
             this.userForm.reset();
+            window.location.reload();
             this.snackBar.openSnackBar('User registered','','success');
             this.cancel();
           },
