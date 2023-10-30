@@ -11,54 +11,48 @@
             _imageService = imageService;
         }
 
-
-
-        [HttpPost]
-        public async Task<IActionResult> CreateImage([FromForm] ImageRequest imageRequest, IFormFile imageFile)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetImageById(int id)
         {
-            try
+            var img = await _imageService.GetImageById(id);
+
+            if (img is null)
             {
-                if (imageFile == null || imageFile.Length == 0)
-                {
-                    return BadRequest("No file uploaded.");
-                }
-
-                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".PNG", ".GIF", }; // Definer de tilladte filtyper
-                var fileExtension = Path.GetExtension(imageFile.FileName);
-
-                if (!allowedExtensions.Contains(fileExtension))
-                {
-                    return BadRequest("Invalid file type. Allowed file types: jpg, jpeg, png, gif");
-                }
-
-                var uploadedImage = await _imageService.UploadImage(imageRequest, imageFile);
-
-                return Ok(uploadedImage);
+                return NotFound($"No picture found with ID = {id}");
             }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
+
+            return Ok(img);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost]
+        public async Task<IActionResult> AddPicture()
         {
-            try
-            {
-                List<ImageResponse> images = await _imageService.GetAll();
+            var file = Request.Form.Files[0];
 
-                if (images.Count == 0)
-                {
-                    return NoContent();
-                }
-                return Ok(images);
-            }
-            catch (Exception ex)
+            if (file is null)
             {
-                return Problem(ex.Message);
+                return BadRequest("Something done gone wrong, I tell you hwat");
             }
+            var img = new Image();
+            using (var ms = new MemoryStream())
+            {
+                await file.CopyToAsync(ms);
+
+                if (ms.Length < 2097152)
+                {
+                    //img.ImageData = ms.ToArray();
+                    img.ImageName = file.FileName;
+                }
+                else
+                {
+                    return BadRequest("This picture is too dang big, make sure it's under 2MB in size");
+                }
+            }
+            await _imageService.AddImage(img);
+            return Ok(img);
         }
 
     }
+
 }
+

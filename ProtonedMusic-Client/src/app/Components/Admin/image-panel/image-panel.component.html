@@ -1,10 +1,15 @@
-<div class="container"*ngFor="let images of image">
-  <h4 class="mt-5 mb-4">Works</h4>
-  <div class="card" style="width: 18rem;" x>
-    <img [src]="images" class="card-img-top" alt="error">
-    <div class="card-body">
-      <h5 class="card-title">{{images.fileName}}</h5>
-      <a href="#" class="btn bi-trash-fill btn-sm btn-danger">DELETE</a>
+
+<div class="container m-5">
+  <div class="card" style="width: 18rem;">
+    <div class="text-center">
+      <advanced-image class="align-middle" [cldImg]="img"></advanced-image>
     </div>
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
 </div>
-</div>
+
+

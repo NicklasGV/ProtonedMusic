@@ -2,9 +2,9 @@
 {
     public class Image
     {
-        [Key]
-        public int Id { get; set; }
-        public string FileName { get; set; }
-        public string FilePath { get; set; }
+        public int? ImageId { get; set; }
+        public string? PublicId { get; set; } = string.Empty;
+        public string? ImageName { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; } = string.Empty;
     }
 }

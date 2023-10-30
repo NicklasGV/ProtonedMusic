@@ -3,10 +3,37 @@
     <div class="display-4 fw-medium mt-4">EVENTS</div>
   </div>
 </div>
+<!-- <div class="container">
+  <div id="carouselExampleDark" class="carousel carousel-dark slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner rounded mx-auto d-block">
+      <div class="carousel-item active"  data-bs-interval="10000">
+        <img src="../../../assets/img/bannerLogo2.jpg" class="rounded mx-auto d-block img-fluid rounded-start" style="height: 500px;" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>First slide label</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div> -->
 <div class="container-fluid">
   <div class="row row-cols-auto row-cols-lg-2 g-4 m-5">
     <div *ngFor="let event of events">
-      <div class="card bg-dark text-light cardbody" [routerLink]="['/events', event.id]" style="grid-template-rows: auto 1fr;">
+      <div class="card bg-dark text-light cardbody" [routerLink]="['/events', event.id]"
+        style="grid-template-rows: auto 1fr;">
         <div class="row g-0">
           <div class="col-md-4">
             <img src="../../../assets/img/img400.png" class="img-fluid rounded-start" alt="...">
@@ -20,9 +47,12 @@
               <p class="card-text text-truncate">{{event.description}}</p>
             </div>
             <div class="card-footer">
-              <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
-              <h5 class="badge text-black bg-success mx-2 align-middle float-end">{{ event.price | currency: 'DKK '}}</h5>
-              <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3 float-end" (click)="addToCart(event); $event.stopPropagation()"> Purchase</button>
+              <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}
+              </h5>
+              <h5 class="badge text-black bg-success mx-2 align-middle float-end">{{ event.price | currency: 'DKK '}}
+              </h5>
+              <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3 float-end"
+                (click)="addToCart(event); $event.stopPropagation()"> Purchase</button>
             </div>
           </div>
         </div>
