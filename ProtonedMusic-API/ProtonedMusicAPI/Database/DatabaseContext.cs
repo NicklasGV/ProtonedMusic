@@ -16,8 +16,6 @@ namespace ProtonedMusicAPI.Database
         public DbSet<Event> Events { get; set; }
         public DbSet<NewsLike> newsLikes { get; set; }
 
-        public DbSet<Email> Emails { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
