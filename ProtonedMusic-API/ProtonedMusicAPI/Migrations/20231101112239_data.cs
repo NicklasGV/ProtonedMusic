@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class data : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -177,8 +177,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 31, 8, 47, 53, 549, DateTimeKind.Local).AddTicks(8113), "Test", 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
-                    { 2, new DateTime(2023, 10, 31, 8, 47, 53, 549, DateTimeKind.Local).AddTicks(8119), "Test2", 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
+                    { 1, new DateTime(2023, 11, 1, 12, 22, 38, 739, DateTimeKind.Local).AddTicks(696), "Test", 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
+                    { 2, new DateTime(2023, 11, 1, 12, 22, 38, 739, DateTimeKind.Local).AddTicks(702), "Test2", 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
                 });
 
             migrationBuilder.InsertData(
@@ -186,7 +186,7 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 31, 8, 47, 53, 760, DateTimeKind.Local).AddTicks(2287), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "SERVER GOT RESET" },
+                    { 1, new DateTime(2023, 11, 1, 12, 22, 39, 22, DateTimeKind.Local).AddTicks(6383), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "SERVER GOT RESET" },
                     { 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
                     { 3, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
                 });
@@ -207,8 +207,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$dtH2w9zTBcbDC1Y9/qQqFu0CLPP0dBH/My1orPvAw5Lz9up2pijgy", 12345678, 1234, 1 },
-                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$qxb5es5t1biQ84UtPheXx.Ju4vGKvoRJEuxA9sdWDbgeTqBkx7Z1S", 12345679, 1234, 0 }
+                    { 1, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$Id0Tw7qaSCQkD2HAXWazwu2OGeBgXRHt7Jxbw.1.5dRXOsU6gYEBq", 12345678, 1234, 1 },
+                    { 2, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$WVQerOpn3DlVGB/J2Dnpn.JNlLo6xigVxT5hMSugNDSG0tKqBcpaS", 12345679, 1234, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -226,7 +226,7 @@ namespace ProtonedMusicAPI.Migrations
             migrationBuilder.InsertData(
                 table: "newsLikes",
                 columns: new[] { "Id", "DateTime", "news_Id", "user_Id" },
-                values: new object[] { 1, new DateTime(2023, 10, 31, 8, 47, 53, 760, DateTimeKind.Local).AddTicks(2357), 1, 1 });
+                values: new object[] { 1, new DateTime(2023, 11, 1, 12, 22, 39, 22, DateTimeKind.Local).AddTicks(6419), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_newsLikes_news_Id",
