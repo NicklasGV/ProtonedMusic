@@ -30,6 +30,16 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IEventRepository, EventRepository>();
             builder.Services.AddScoped<IEventService, EventService>();
 
+            builder.Services.AddScoped<IEmailService, EmailService>();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder
+                .WithOrigins("https://protonedmusic.com")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
+            });
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder

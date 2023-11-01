@@ -20,7 +20,7 @@ export class ProfilmenuComponent implements OnInit {
   constructor(private userService: UserService,private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: SnackBarService) {
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.user = x);
     this.activatedRoute.paramMap.subscribe( params => {
       if (this.authService.currentUserValue == null || this.authService.currentUserValue.id == 0 || this.authService.currentUserValue.id != Number(params.get('id')))
@@ -47,11 +47,13 @@ export class ProfilmenuComponent implements OnInit {
     return this.msg = "Good Evening"
   }
 
-  Logout(): void {
+  async Logout(): Promise<void> {
     console.log('Bruger logger ud:', this.authService.currentUserValue);
     this.authService.logout();
+    window.location.reload();
     this.router.navigate(['/login']);
     this.snackBar.openSnackBar('Logged out','','info');
-  } 
+    window.location.reload();
+  }
 
 }
