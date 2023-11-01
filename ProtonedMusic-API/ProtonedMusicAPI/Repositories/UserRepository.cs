@@ -1,11 +1,15 @@
-﻿namespace ProtonedMusicAPI.Repositories
+﻿using ProtonedMusicAPI.Interfaces.IUser;
+
+namespace ProtonedMusicAPI.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly DatabaseContext _databaseContext;
-        public UserRepository(DatabaseContext databaseContext)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public UserRepository(DatabaseContext databaseContext, IWebHostEnvironment hostingEnvironment)
         {
             _databaseContext = databaseContext;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<List<User>> GetAllAsync()
@@ -67,6 +71,25 @@
 
                 user = await FindByIdAsync(user.Id);
             }
+            return user;
+        }
+
+        public async Task<User?> UploadProfilePicture(int userId, IFormFile file)
+        {
+            // Process the uploaded file and save it to the server
+            string filePath = "/uploads/profile-pics/" + Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            string uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, filePath);
+
+            using (var stream = new FileStream(uploadPath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            // Update the user's profile picture path in the database
+            User user = await FindByIdAsync(userId);
+            user.ProfilePicturePath = filePath;
+            UpdateByIdAsync(userId, user);
+
             return user;
         }
     }
