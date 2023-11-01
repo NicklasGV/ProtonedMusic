@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NewsModel, resetNews } from 'src/app/Models/NewsModel';
 import { NewsService } from 'src/app/Services/news.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { AuthService } from 'src/app/Services/auth.service';
