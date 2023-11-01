@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from 'src/app/Shared/pagination/pagination.component';
 import {CloudinaryModule} from '@cloudinary/ng';
-import { CloudinaryImage, Cloudinary } from '@cloudinary/url-gen';
-import {fill} from "@cloudinary/url-gen/actions/resize";
 import { ImageModel } from 'src/app/Models/ImageModel';
 import { ImageService } from 'src/app/Services/image.service';
+import { CloudinaryImage, Cloudinary } from '@cloudinary/url-gen';
+import { fill } from '@cloudinary/url-gen/actions/resize';
 
 
 @Component({

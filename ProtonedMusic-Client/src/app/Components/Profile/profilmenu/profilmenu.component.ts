@@ -47,9 +47,10 @@ export class ProfilmenuComponent implements OnInit {
     return this.msg = "Good Evening"
   }
 
-  Logout(): void {
+  async Logout(): Promise<void> {
     console.log('Bruger logger ud:', this.authService.currentUserValue);
     this.authService.logout();
+    window.location.reload();
     this.router.navigate(['/login']);
     this.snackBar.openSnackBar('Logged out','','info');
     window.location.reload();
