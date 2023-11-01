@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Controllers
+﻿using Microsoft.Extensions.Hosting.Internal;
+
+namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -6,6 +8,7 @@
     {
         private readonly IUserService _userService;
         private readonly IUserRepository _userRepository;
+       
 
         public UserController(IUserService userService, IUserRepository userRepository)
         {
@@ -136,6 +139,25 @@
             {
                 return Problem(ex.Message);
             }
+        }
+
+        [HttpPost("upload-profile-picture")]
+        public async Task<IActionResult> UploadProfilePicture([FromForm] int userId, IFormFile file)
+        {
+            if (file != null)
+            {
+                // Process the uploaded file, save it to a designated folder on the server
+                string filePath = "/uploads/profile-pics/" + Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                UserResponse user = await _userService.UploadProfilePicture(userId, file);
+
+                if (user != null)
+                {
+                    return Ok(user.ProfilePicturePath);
+                }
+                
+            }
+
+            return BadRequest("No file was uploaded.");
         }
     }
 }
