@@ -20,6 +20,9 @@ export class UserPanelComponent implements OnInit {
   users: User[] = [];
   user: User = resetUser();
   roles: Role[] = [];
+  selectedFile: File | undefined;
+  formData = new FormData();
+  
   
     constructor(private userService: UserService, private snackBar: SnackBarService, private dialog: MatDialog) { }
   
@@ -38,6 +41,32 @@ export class UserPanelComponent implements OnInit {
       this.snackBar.openSnackBar('User canceled.', '','warning');
     }
   
+    
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadImage() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile); // 'file' should match the parameter name in your API
+
+      // Use your service to upload the image
+      this.userService.uploadProfilePicture(1, formData).subscribe(
+        (user: User) => {
+          // Handle the success response here
+          console.log('Image uploaded successfully.', user);
+        },
+        (error) => {
+          // Handle the error here
+          console.error('Error uploading image:', error);
+        }
+      );
+    }
+  }
+    
+
     save(): void {
       this.message = "";
       console.log(this.user)

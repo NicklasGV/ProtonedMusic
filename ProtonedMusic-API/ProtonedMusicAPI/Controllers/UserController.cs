@@ -141,9 +141,16 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [HttpPost("upload-profile-picture")]
-        public async Task<IActionResult> UploadProfilePicture([FromForm] int userId, IFormFile file)
+        [HttpPost]
+        [Route("upload-profile-picture/{userId}")]
+        public async Task<IActionResult> UploadProfilePicture([FromRoute] int userId, IFormFile file)
         {
+
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Invalid file.");
+            }
+
             if (file != null)
             {
                 // Process the uploaded file, save it to a designated folder on the server

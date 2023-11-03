@@ -47,7 +47,8 @@
                 Address = user.Address,
                 Country = user.Country,
                 City = user.City,
-                Postal = user.Postal
+                Postal = user.Postal,
+                ProfilePicturePath = user.ProfilePicturePath
             };
             if (user.NewsLikes.Count > 0)
             {
@@ -75,7 +76,8 @@
                 Address = userRequest.Address,
                 Country = userRequest.Country,
                 City = userRequest.City,
-                Postal = userRequest.Postal
+                Postal = userRequest.Postal,
+                ProfilePicturePath = userRequest.ProfilePicturePath
             };
             return user;
         }
