@@ -70,6 +70,7 @@ namespace ProtonedMusicAPI.Repositories
                 user.City = updateUser.City;
                 user.Postal = updateUser.Postal;
                 user.Country = updateUser.Country;
+                user.ProfilePicturePath = updateUser.ProfilePicturePath;
 
                 await _databaseContext.SaveChangesAsync();
 
@@ -81,7 +82,7 @@ namespace ProtonedMusicAPI.Repositories
         public async Task<User?> UploadProfilePicture(int userId, IFormFile file)
         {
             // FTP shortcut provided by your hosting provider (includes username and password)
-            string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/uploads/";
+            string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/assets/uploads/";
 
             // Create an FTP request using the shortcut
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
@@ -96,8 +97,8 @@ namespace ProtonedMusicAPI.Repositories
 
             // Update the user's profile picture path in the database
             User user = await FindByIdAsync(userId);
-            user.ProfilePicturePath = Path.Combine("uploads/", fileName);
-            UpdateByIdAsync(userId, user);
+            user.ProfilePicturePath = Path.Combine("assets/uploads/", fileName);
+            await UpdateByIdAsync(userId, user);
 
             return user;
         }

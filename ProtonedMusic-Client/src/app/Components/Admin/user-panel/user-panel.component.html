@@ -119,7 +119,9 @@
             <td>{{ user.city }}</td>
             <td>{{ user.postal}}</td>
             <td>{{ user.country}}</td>
-            <td>{{ user.profilePicturePath}}</td>
+            <td>
+              <img src="https://protonedmusic.com/{{ user.profilePicturePath }}" class="rounded-2">
+            </td>
             <td>{{ user.role }}</td>
         </tbody>
       </table>
