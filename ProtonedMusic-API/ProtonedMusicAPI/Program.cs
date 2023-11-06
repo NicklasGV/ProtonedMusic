@@ -35,12 +35,11 @@ namespace ProtonedMusicAPI
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                .WithOrigins("https://protonedmusic.com")
+                .WithOrigins("https://protonedmusic.com", "http://localhost:4200")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials());
             });
-
             // Add services to the container.
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
@@ -107,12 +106,8 @@ namespace ProtonedMusicAPI
             app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
-
             app.UseMiddleware<JwtMiddleware>();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }
