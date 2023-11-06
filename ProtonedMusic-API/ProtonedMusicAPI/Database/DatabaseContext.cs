@@ -193,7 +193,7 @@ namespace ProtonedMusicAPI.Database
             modelBuilder.Entity<News>().HasData(new News
             {
                 Id = 1,
-                Title = "SERVER GOT RESET",
+                Title = "DATABASE GOT RESET",
                 Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                 DateTime = DateTime.Now,
             },

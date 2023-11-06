@@ -1,4 +1,8 @@
-﻿using ProtonedMusicAPI.Interfaces.IUser;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using ProtonedMusicAPI.Interfaces.IUser;
+using static System.Net.WebRequestMethods;
+using System.Net;
+using System.Security.Cryptography.Xml;
 
 namespace ProtonedMusicAPI.Repositories
 {
@@ -66,6 +70,7 @@ namespace ProtonedMusicAPI.Repositories
                 user.City = updateUser.City;
                 user.Postal = updateUser.Postal;
                 user.Country = updateUser.Country;
+                user.ProfilePicturePath = updateUser.ProfilePicturePath;
 
                 await _databaseContext.SaveChangesAsync();
 
@@ -76,19 +81,24 @@ namespace ProtonedMusicAPI.Repositories
 
         public async Task<User?> UploadProfilePicture(int userId, IFormFile file)
         {
-            // Process the uploaded file and save it to the server
-            string filePath = "/uploads/profile-pics/" + Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, filePath);
+            // FTP shortcut provided by your hosting provider (includes username and password)
+            string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/assets/uploads/";
 
-            using (var stream = new FileStream(uploadPath, FileMode.Create))
+            // Create an FTP request using the shortcut
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(new Uri(new Uri(ftpUrl), fileName));
+            ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+
+            using (var stream = file.OpenReadStream())
+            using (var ftpStream = ftpRequest.GetRequestStream())
             {
-                file.CopyTo(stream);
+                stream.CopyTo(ftpStream);
             }
 
             // Update the user's profile picture path in the database
             User user = await FindByIdAsync(userId);
-            user.ProfilePicturePath = filePath;
-            UpdateByIdAsync(userId, user);
+            user.ProfilePicturePath = Path.Combine("assets/uploads/", fileName);
+            await UpdateByIdAsync(userId, user);
 
             return user;
         }
