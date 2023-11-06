@@ -170,7 +170,8 @@ namespace ProtonedMusicAPI.Database
                     Address = "Test Vej 1",
                     City = "Test By",
                     Postal = 1234,
-                    Country = "Denmark"
+                    Country = "Denmark",
+                    ProfilePicturePath = ""
                 },
                 new User
                 {
@@ -184,14 +185,15 @@ namespace ProtonedMusicAPI.Database
                     Address = "Test Vej 2",
                     City = "Test By",
                     Postal = 1234,
-                    Country = "Denmark"
+                    Country = "Denmark",
+                    ProfilePicturePath = ""
                 }
                 );
 
             modelBuilder.Entity<News>().HasData(new News
             {
                 Id = 1,
-                Title = "SERVER GOT RESET",
+                Title = "DATABASE GOT RESET",
                 Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                 DateTime = DateTime.Now,
             },

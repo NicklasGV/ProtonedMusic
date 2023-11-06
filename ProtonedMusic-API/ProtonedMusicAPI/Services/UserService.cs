@@ -12,6 +12,28 @@
             _jwtUtils = jwtUtils;
         }
 
+        public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
+        {
+            User user = await _userRepository.FindByEmail(login.Email);
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
+            {
+                LoginResponse response = new()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Role = user.Role,
+                    Token = _jwtUtils.GenerateJwtToken(user)
+                };
+                return response;
+            }
+            return null;
+        }
+
         public static UserResponse MapUserToUserResponse(User user)
         {
             UserResponse response = new UserResponse
@@ -25,7 +47,8 @@
                 Address = user.Address,
                 Country = user.Country,
                 City = user.City,
-                Postal = user.Postal
+                Postal = user.Postal,
+                ProfilePicturePath = user.ProfilePicturePath
             };
             if (user.NewsLikes.Count > 0)
             {
@@ -53,7 +76,8 @@
                 Address = userRequest.Address,
                 Country = userRequest.Country,
                 City = userRequest.City,
-                Postal = userRequest.Postal
+                Postal = userRequest.Postal,
+                ProfilePicturePath = userRequest.ProfilePicturePath
             };
             return user;
         }
@@ -115,26 +139,17 @@
             return null;
         }
 
-        public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
+        public async Task<UserResponse> UploadProfilePicture(int userId, IFormFile file)
         {
-            User user = await _userRepository.FindByEmail(login.Email);
-            if (user == null)
+            User user = await _userRepository.UploadProfilePicture(userId, file);
+
+            if (user != null)
             {
-                return null;
+                return MapUserToUserResponse(user);
             }
 
-            if (BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
-            {
-                LoginResponse response = new()
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Role = user.Role,
-                    Token = _jwtUtils.GenerateJwtToken(user)
-                };
-                return response;
-            }
             return null;
+
         }
     }
 }

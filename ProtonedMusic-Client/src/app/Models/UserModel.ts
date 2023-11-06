@@ -12,6 +12,7 @@ export interface User {
   city: string;
   postal: number;
   country: string;
+  profilePicturePath: string;
   role?: string;
   token?: string;
   newsLikes: NewsModel[];
@@ -30,6 +31,7 @@ export function resetUser() {
     city: '', 
     postal: 0, 
     country: '',
+    profilePicturePath: '',
     newsLikes: [],
     newsIds: []
 };

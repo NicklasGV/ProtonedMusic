@@ -1,11 +1,19 @@
-﻿namespace ProtonedMusicAPI.Repositories
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using ProtonedMusicAPI.Interfaces.IUser;
+using static System.Net.WebRequestMethods;
+using System.Net;
+using System.Security.Cryptography.Xml;
+
+namespace ProtonedMusicAPI.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly DatabaseContext _databaseContext;
-        public UserRepository(DatabaseContext databaseContext)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public UserRepository(DatabaseContext databaseContext, IWebHostEnvironment hostingEnvironment)
         {
             _databaseContext = databaseContext;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<List<User>> GetAllAsync()
@@ -62,11 +70,36 @@
                 user.City = updateUser.City;
                 user.Postal = updateUser.Postal;
                 user.Country = updateUser.Country;
+                user.ProfilePicturePath = updateUser.ProfilePicturePath;
 
                 await _databaseContext.SaveChangesAsync();
 
                 user = await FindByIdAsync(user.Id);
             }
+            return user;
+        }
+
+        public async Task<User?> UploadProfilePicture(int userId, IFormFile file)
+        {
+            // FTP shortcut provided by your hosting provider (includes username and password)
+            string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/assets/uploads/";
+
+            // Create an FTP request using the shortcut
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(new Uri(new Uri(ftpUrl), fileName));
+            ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+
+            using (var stream = file.OpenReadStream())
+            using (var ftpStream = ftpRequest.GetRequestStream())
+            {
+                stream.CopyTo(ftpStream);
+            }
+
+            // Update the user's profile picture path in the database
+            User user = await FindByIdAsync(userId);
+            user.ProfilePicturePath = Path.Combine("assets/uploads/", fileName);
+            await UpdateByIdAsync(userId, user);
+
             return user;
         }
     }

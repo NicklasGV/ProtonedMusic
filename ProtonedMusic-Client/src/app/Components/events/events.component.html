@@ -33,7 +33,7 @@
   <div class="row row-cols-auto row-cols-lg-2 g-4 m-5">
     <div *ngFor="let event of events">
       <div class="card bg-dark text-light cardbody" [routerLink]="['/events', event.id]"
-        style="grid-template-rows: auto 1fr;">
+        style="grid-template-rows: auto 1fr; min-width: 300px;">
         <div class="row g-0">
           <div class="col-md-4">
             <img src="../../../assets/img/img400.png" class="img-fluid rounded-start" alt="...">
@@ -42,7 +42,7 @@
             <div class="card-header">
               <h2 class="card-title">{{ event.title }}</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="min-width: 300px;">
               <h5>Description: </h5>
               <p class="card-text text-truncate">{{event.description}}</p>
             </div>

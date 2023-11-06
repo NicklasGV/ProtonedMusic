@@ -12,6 +12,7 @@
         public string Country { get; set; }
         public string City { get; set; }
         public int Postal { get; set; }
+        public string ProfilePicturePath { get; set; }
 
         public List<UserNewsLikeResponse> NewsLikes { get; set; } = new();
     }

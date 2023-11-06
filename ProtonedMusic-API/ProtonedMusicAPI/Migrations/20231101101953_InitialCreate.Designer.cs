@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProtonedMusicAPI.Database;
 
@@ -11,9 +12,11 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231101101953_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,7 +97,6 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 11, 1, 12, 22, 38, 739, DateTimeKind.Local).AddTicks(696),
                             Created = new DateTime(2023, 11, 1, 11, 19, 53, 297, DateTimeKind.Local).AddTicks(4926),
                             Description = "Test",
                             Price = 249.95m,
@@ -104,7 +106,6 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 11, 1, 12, 22, 38, 739, DateTimeKind.Local).AddTicks(702),
                             Created = new DateTime(2023, 11, 1, 11, 19, 53, 297, DateTimeKind.Local).AddTicks(4941),
                             Description = "Test2",
                             Price = 546.95m,
@@ -162,7 +163,6 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 1, 12, 22, 39, 22, DateTimeKind.Local).AddTicks(6383),
                             DateTime = new DateTime(2023, 11, 1, 11, 19, 53, 469, DateTimeKind.Local).AddTicks(7484),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "SERVER GOT RESET"
@@ -212,7 +212,6 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 1, 12, 22, 39, 22, DateTimeKind.Local).AddTicks(6419),
                             DateTime = new DateTime(2023, 11, 1, 11, 19, 53, 469, DateTimeKind.Local).AddTicks(7578),
                             news_Id = 1,
                             user_Id = 1
@@ -377,7 +376,6 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$Id0Tw7qaSCQkD2HAXWazwu2OGeBgXRHt7Jxbw.1.5dRXOsU6gYEBq",
                             Password = "$2b$10$8JcE/NMvPlRJuRDeZBHKb.T7qQCM/dSW7CSUEm8.sFNFDW20Cy1CS",
                             PhoneNumber = 12345678,
                             Postal = 1234,
@@ -393,7 +391,6 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$WVQerOpn3DlVGB/J2Dnpn.JNlLo6xigVxT5hMSugNDSG0tKqBcpaS",
                             Password = "$2b$10$8oqq2Bn08yc9XhhVAHqfdO/.RocA/a/WO2/PLKEvfFgxmkLKDwz9q",
                             PhoneNumber = 12345679,
                             Postal = 1234,

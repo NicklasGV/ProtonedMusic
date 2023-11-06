@@ -31,4 +31,8 @@ export class UserService {
   findById(userId: number): Observable<User> {
     return this.http.get<User>(this.apiUrl + '/' + userId);
   }
+
+  uploadProfilePicture(userId: number, file: FormData): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/upload-profile-picture/' + userId, file);
+  }
 }
