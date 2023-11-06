@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -12,6 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
+import { loadStripe } from '@stripe/stripe-js';
+
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -23,11 +26,13 @@ export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
   products: ProductModel[] = [];
   amount: number = 1;
-  constructor(public cartService: CartService, private authService:AuthService, private snackBar: SnackBarService,private dialog: MatDialog) { }
+  constructor(public cartService: CartService, private authService:AuthService,
+     private snackBar: SnackBarService,private dialog: MatDialog,
+     private http: HttpClient) { }
 
 
   ngOnInit(): void {
-    this.cartService.currentCart.subscribe(x => this.cartItems = x); 
+    this.cartService.currentCart.subscribe(x => this.cartItems = x);
     console.log(this.cartItems);
   }
 
@@ -60,7 +65,7 @@ export class CartComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogComponent, {
         data: { title: "Remove Item?", message: "Are you sure you want to delete this item?" }
       });
-  
+
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.cartItems.splice(index, 1);
@@ -84,6 +89,17 @@ export class CartComponent implements OnInit {
       console.log(this.cartItems)
       this.snackBar.openSnackBar('Buying successful.', '','success');
     }
+    this.http
+      .post('http://localhost:4242/checkout', {
+        items: this.cartItems,
+      })
+      .subscribe(async (res: any) => {
+        let stripe = await loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q');
+        stripe?.redirectToCheckout({
+          sessionId: res.id,
+        });
+      });
+
   }
 
   removeItem(item: CartItem): void {
@@ -103,5 +119,5 @@ export class CartComponent implements OnInit {
       }
     });
    }
-   
+
 }
