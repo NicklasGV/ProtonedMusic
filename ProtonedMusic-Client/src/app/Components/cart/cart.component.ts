@@ -14,6 +14,9 @@ import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 import { loadStripe } from '@stripe/stripe-js';
+import { CheckoutModel } from 'src/app/Models/CheckoutModel';
+import { PaymentService } from 'src/app/Services/payment.service';
+
 
 @Component({
   selector: 'app-cart',
@@ -31,7 +34,8 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private paymentService: PaymentService
   ) {}
 
   ngOnInit(): void {
@@ -75,7 +79,6 @@ export class CartComponent implements OnInit {
           message: 'Are you sure you want to delete this item?',
         },
       });
-
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.cartItems.splice(index, 1);
@@ -91,30 +94,46 @@ export class CartComponent implements OnInit {
     }
   }
 
-  buyCartItems(): void {
-    if (this.authService.currentUserValue.email == '') {
-      this.snackBar.openSnackBar(
-        'You must be logged in to purchase items.',
-        '',
-        'warning'
-      );
-    } else {
-      console.log(this.cartItems);
-      this.snackBar.openSnackBar('Buying successful.', '', 'success');
+  async buyCartItems(): Promise<void> {
+    console.log('Starter købsprocessen...');
+
+    const checkoutData: CheckoutModel = {
+      name: '',
+      price : 0,
+      product: '',
+      quantity: 0,
+      // Sørg for at alle nødvendige data til checkout er angivet
+    };
+
+    try {
+      console.log('Forsøger at oprette checkout-session...');
+      const response = await this.paymentService.createCheckoutSession(checkoutData).toPromise();
+      console.log('Checkout-session oprettet med succes.');
+
+      const sessionId = response.id;
+
+      if (this.authService.currentUserValue.email === '') {
+        console.log('Brugeren er ikke logget ind. Viser advarsel.');
+        this.snackBar.openSnackBar('Du skal være logget ind for at købe varer.', '', 'warning');
+      } else {
+        console.log('Brugeren er logget ind. Køb er succesfuldt.');
+        this.snackBar.openSnackBar('Køb succesfuldt.', '', 'success');
+
+        const stripe = await loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q');
+        if (stripe) {
+          console.log('Omdirigerer til Stripe Checkout...');
+          stripe.redirectToCheckout({
+            sessionId: sessionId
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Fejl under køb:', error);
+      console.log('Fejl under betalingen. Viser fejlmeddelelse.');
+      this.snackBar.openSnackBar('Fejl under betalingen.', '', 'error');
     }
-    this.http
-      .post('http://localhost:4242/checkout', {
-        items: this.cartItems,
-      })
-      .subscribe(async (res: any) => {
-        let stripe = await loadStripe(
-          'pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q'
-        );
-        stripe?.redirectToCheckout({
-          sessionId: res.id,
-        });
-      });
   }
+
 
   removeItem(item: CartItem): void {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -123,7 +142,6 @@ export class CartComponent implements OnInit {
         message: 'Are you sure you want to delete the item(s)?',
       },
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.cartService.removeItemFromCart(item.id);

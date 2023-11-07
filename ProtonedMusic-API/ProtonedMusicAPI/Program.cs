@@ -35,7 +35,7 @@ namespace ProtonedMusicAPI
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                .WithOrigins("https://protonedmusic.com", "http://localhost:4200")
+                .WithOrigins("https://protonedmusic.com", "http://localhost:4200", "https://checkout.stripe.com")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials());

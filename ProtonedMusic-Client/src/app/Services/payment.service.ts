@@ -1,7 +1,7 @@
+import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
 import { CheckoutModel } from '../Models/CheckoutModel';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class PaymentService {
   constructor(private http: HttpClient) {}
 
   public createCheckoutSession(checkoutData: CheckoutModel): Observable<any> {
-    return this.http.post<any>(this.url + '/createCheckoutSession', checkoutData);
+    return this.http.post<any>(this.url + '/CreateCheckoutSession', checkoutData);
   }
 }
 
