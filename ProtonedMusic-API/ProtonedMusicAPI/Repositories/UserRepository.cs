@@ -81,10 +81,8 @@ namespace ProtonedMusicAPI.Repositories
 
         public async Task<User?> UploadProfilePicture(int userId, IFormFile file)
         {
-            // FTP shortcut provided by your hosting provider (includes username and password)
             string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/assets/uploads/";
 
-            // Get the user's current profile picture path
             User user = await FindByIdAsync(userId);
             string oldFilePath = user.ProfilePicturePath;
 
