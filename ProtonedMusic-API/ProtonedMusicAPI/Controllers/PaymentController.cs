@@ -1,6 +1,4 @@
-﻿
-
-using Stripe;
+﻿using Stripe;
 using Stripe.Checkout;
 
 namespace ProtonedMusicAPI.Controllers
@@ -9,34 +7,53 @@ namespace ProtonedMusicAPI.Controllers
     [ApiController]
     public class PaymentController : ControllerBase
     {
-        [Route("VIRK MAND")]
-        [ApiController]
-        public class CheckoutApiController : Controller
+        public class CheckoutSessionDto
         {
-            [HttpPost]
-            public ActionResult Create()
+            public decimal Amount { get; set; }
+            public string Currency { get; set; }
+        }
+
+        [HttpPost("createCheckoutSession")]
+        public async Task<IActionResult> CreateCheckoutSession([FromBody] CheckoutSessionDto model)
+        {
+            try
             {
-                var domain = "http://localhost:4242";
+                StripeConfiguration.ApiKey = "sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F";
+
                 var options = new SessionCreateOptions
                 {
+                    PaymentMethodTypes = new List<string> { "card" },
                     LineItems = new List<SessionLineItemOptions>
                 {
-                  new SessionLineItemOptions
-                  {
-                    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    Price = "{{PRICE_ID}}",
-                    Quantity = 1,
-                  },
+                    new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            UnitAmount = (long)(model.Amount * 100), // Beløb i ører
+                            Currency = "dkk",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = "Produktnavn"
+                            }
+                        },
+                        Quantity = 1
+                    }
                 },
                     Mode = "payment",
-                    SuccessUrl = domain + "/success.html",
-                    CancelUrl = domain + "/cancel.html",
+                    SuccessUrl = "https://dinwebsite.com/success",
+                    CancelUrl = "https://dinwebsite.com/cancel",
                 };
+
                 var service = new SessionService();
                 Session session = service.Create(options);
 
                 Response.Headers.Add("Location", session.Url);
                 return new StatusCodeResult(303);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
             }
         }
     }
