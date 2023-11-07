@@ -20,6 +20,7 @@ namespace ProtonedMusicAPI.Services
                 Description = events.Description,
                 Created = events.Created,
                 TimeofEvent = events.TimeofEvent,
+                EventPicturePath = events.EventPicturePath,
             };
             return response;
         }
@@ -33,6 +34,7 @@ namespace ProtonedMusicAPI.Services
                 Description = eventRequest.Description,
                 Created = eventRequest.Created,
                 TimeofEvent = eventRequest.TimeofEvent,
+                EventPicturePath = eventRequest.EventPicturePath,
                // TimeofEvent = eventRequest.DateofEvent.ToDateTime(eventRequest.TimeofEvent),
             };
         }
@@ -89,6 +91,19 @@ namespace ProtonedMusicAPI.Services
                 return MapEventToEventResponse(events);
             }
             return null;
+        }
+
+        public async Task<EventResponse> UploadEventPicture(int eventId, IFormFile file)
+        {
+            Event events = await _eventRepository.UploadEventPicture(eventId, file);
+
+            if (events != null)
+            {
+                return MapEventToEventResponse(events);
+            }
+
+            return null;
+
         }
     }
 }

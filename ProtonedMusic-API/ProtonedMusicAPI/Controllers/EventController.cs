@@ -111,5 +111,29 @@ namespace ProtonedMusicAPI.Controllers
                 return Problem(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("upload-event-picture/{eventId}")]
+        public async Task<IActionResult> UploadProfilePicture([FromRoute] int eventId, IFormFile file)
+        {
+
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Invalid file.");
+            }
+
+            if (file != null)
+            {
+                EventResponse eventResponse = await _eventService.UploadEventPicture(eventId, file);
+
+                if (eventResponse != null)
+                {
+                    return Ok(eventResponse.EventPicturePath);
+                }
+
+            }
+
+            return BadRequest("No file was uploaded.");
+        }
     }
 }
