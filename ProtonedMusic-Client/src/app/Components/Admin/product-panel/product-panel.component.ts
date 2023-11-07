@@ -23,6 +23,8 @@ export class ProductPanelComponent implements OnInit {
   category: CategoryModel = resetCategory();
   categories: CategoryModel[] = [];
   selected: number[] = [];
+  selectedFile: File | undefined;
+  formData = new FormData();
   
   constructor(private productService: ProductService, private categoryService:CategoryService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 
@@ -58,6 +60,29 @@ editProduct(product: ProductModel): void {
       this.selected.push(existingCategory.id);
     }
   });
+}
+
+onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0];
+}
+
+uploadImage() {
+  if (this.selectedFile) {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.productService.uploadProductPicture(this.product.id, formData).subscribe(
+      (product: ProductModel) => {
+        this.productService.getAllProducts().subscribe(x => this.products = x);
+          this.product = resetProducts();
+          this.snackBar.openSnackBar("Product Pic Updated", '', 'success');
+      },
+      (error) => {
+        this.message = Object.values(error.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
+      }
+    );
+  }
 }
   
   deleteProduct(product: ProductModel): void {

@@ -1,10 +1,10 @@
 <div class="container-fluid d-flex justify-content-center" data-bs-theme="dark">
     <div class="mb-3">
         <div class="card-body text-center">
-            <a *ngIf="user.profilePicturePath.length">
+            <a *ngIf="user.profilePicturePath">
                 <img src="https://protonedmusic.com/{{ user.profilePicturePath }}" class="rounded-circle" alt="Cinque Terre" width="208" height="208">
             </a>
-            <a *ngIf="!user.profilePicturePath.length">
+            <a *ngIf="!user.profilePicturePath">
                 <i class="bi-person-circle me-auto text-center" style="font-size: 13rem; color: white;" id="Profile"></i> 
             </a>
         </div>

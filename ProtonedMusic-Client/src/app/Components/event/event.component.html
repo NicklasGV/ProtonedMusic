@@ -6,6 +6,12 @@
                     <h1 class="display-6">{{ events.title }}</h1>
                 </div>
                 <div class="card-body">
+                    <a *ngIf="events.eventPicturePath">
+                        <img class="card-img-top" src="https://protonedmusic.com/{{ events.eventPicturePath }}" alt="Product Image">
+                    </a>
+                    <a *ngIf="!events.eventPicturePath">
+                        <img class="card-img-top" src="../../../assets/img/1.png" alt="Product Image">
+                    </a>
                     <hr class="border-success border-2">
                     <h3>Description: <p class="card-text">{{ events.description }}</p></h3>
                     <h4>Event date: <p class="card-text">{{ events.timeofEvent | date: 'dd/MM/yyyy HH:mm a' }}</p></h4>

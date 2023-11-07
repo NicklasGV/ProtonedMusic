@@ -36,7 +36,12 @@
         style="grid-template-rows: auto 1fr; min-width: 300px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="../../../assets/img/img400.png" class="img-fluid rounded-start" alt="...">
+            <a *ngIf="event.eventPicturePath">
+              <img src="https://protonedmusic.com/{{ event.eventPicturePath }}" class="img-fluid rounded-start" alt="...">
+          </a>
+          <a *ngIf="!event.eventPicturePath">
+              <img src="../../../assets/img/img400.png" class="img-fluid rounded-start" alt="...">
+          </a>
           </div>
           <div class="col-md-8">
             <div class="card-header">
