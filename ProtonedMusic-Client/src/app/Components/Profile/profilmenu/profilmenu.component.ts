@@ -14,8 +14,11 @@ import { UserService } from 'src/app/Services/user.service';
   styles: []
 })
 export class ProfilmenuComponent implements OnInit {
+  message: string = "";
   user: User = resetUser();
   msg: string = '';
+  selectedFile: File | undefined;
+  formData = new FormData();
 
   constructor(private userService: UserService,private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: SnackBarService) {
   }
@@ -54,6 +57,29 @@ export class ProfilmenuComponent implements OnInit {
     this.router.navigate(['/login']);
     this.snackBar.openSnackBar('Logged out','','info');
     window.location.reload();
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+
+
+  uploadImage() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+
+      this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe(
+        (user: User) => {
+          
+        },
+        (error) => {
+          
+        }
+      );
+    }
   }
 
 }
