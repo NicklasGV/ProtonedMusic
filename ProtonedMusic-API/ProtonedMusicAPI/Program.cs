@@ -8,6 +8,8 @@ namespace ProtonedMusicAPI
     {
         public static void Main(string[] args)
         {
+
+
             var builder = WebApplication.CreateBuilder(args);
 
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
@@ -95,6 +97,7 @@ namespace ProtonedMusicAPI
                 });
             });
 
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -104,9 +107,10 @@ namespace ProtonedMusicAPI
             }
 
 
-
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
+            app.UseRouting();
+            app.UseStaticFiles();
             app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
             app.MapControllers();

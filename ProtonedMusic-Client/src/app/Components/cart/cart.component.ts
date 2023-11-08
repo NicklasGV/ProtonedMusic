@@ -94,46 +94,46 @@ export class CartComponent implements OnInit {
     }
   }
 
-  async buyCartItems(): Promise<void> {
-    console.log('Starter købsprocessen...');
+  buyCartItems(): void {
+    if (this.authService.currentUserValue.email === '') {
+      this.snackBar.openSnackBar(
+        'You must be logged in to purchase items.',
+        '',
+        'warning'
+      );
+    } else {
+      console.log(this.cartItems);
+      this.snackBar.openSnackBar('Buying successful.', '', 'success');
+    }
 
+    // Opret en CheckoutModel med de nødvendige data
     const checkoutData: CheckoutModel = {
-      name: '',
-      price : 0,
-      product: '',
-      quantity: 0,
-      // Sørg for at alle nødvendige data til checkout er angivet
+      sessionId: '', // Sæt session ID, hvis det kræves
     };
 
-    try {
-      console.log('Forsøger at oprette checkout-session...');
-      const response = await this.paymentService.createCheckoutSession(checkoutData).toPromise();
-      console.log('Checkout-session oprettet med succes.');
+    // Kald din PaymentService for at oprette en Checkout Session
+    this.paymentService.createCheckoutSession(checkoutData).subscribe(
+      (response) => {
+        // Håndter responsen fra API-kaldet
+        console.log('Session oprettet:', response);
 
-      const sessionId = response.id;
-
-      if (this.authService.currentUserValue.email === '') {
-        console.log('Brugeren er ikke logget ind. Viser advarsel.');
-        this.snackBar.openSnackBar('Du skal være logget ind for at købe varer.', '', 'warning');
-      } else {
-        console.log('Brugeren er logget ind. Køb er succesfuldt.');
-        this.snackBar.openSnackBar('Køb succesfuldt.', '', 'success');
-
-        const stripe = await loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q');
-        if (stripe) {
-          console.log('Omdirigerer til Stripe Checkout...');
-          stripe.redirectToCheckout({
-            sessionId: sessionId
-          });
-        }
+        // Brug Stripe.js eller lignende for at starte betalingsprocessen
+        this.initiateStripeCheckout(response); // Send hele responsen (CheckoutModel)
+      },
+      (error) => {
+        // Håndter eventuelle fejl under sessionoprettelsen
+        console.error('Fejl under oprettelse af session:', error);
       }
-    } catch (error) {
-      console.error('Fejl under køb:', error);
-      console.log('Fejl under betalingen. Viser fejlmeddelelse.');
-      this.snackBar.openSnackBar('Fejl under betalingen.', '', 'error');
-    }
+    );
   }
-
+  // Funktion til at initialisere Stripe Checkout
+  private initiateStripeCheckout(checkoutData: CheckoutModel): void {
+    loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
+      stripe?.redirectToCheckout({
+        sessionId: checkoutData.sessionId,
+      });
+    });
+  }
 
   removeItem(item: CartItem): void {
     const dialogRef = this.dialog.open(DialogComponent, {

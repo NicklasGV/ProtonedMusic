@@ -1,4 +1,3 @@
 export interface CheckoutModel {
-  amount: number;
-  currency : string;
+  sessionId: string;
 }
