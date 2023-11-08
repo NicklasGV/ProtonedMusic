@@ -14,6 +14,9 @@ import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 import { loadStripe } from '@stripe/stripe-js';
+import { CheckoutModel } from 'src/app/Models/CheckoutModel';
+import { PaymentService } from 'src/app/Services/payment.service';
+
 
 @Component({
   selector: 'app-cart',
@@ -31,7 +34,8 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private paymentService: PaymentService
   ) {}
 
   ngOnInit(): void {
@@ -75,7 +79,6 @@ export class CartComponent implements OnInit {
           message: 'Are you sure you want to delete this item?',
         },
       });
-
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.cartItems.splice(index, 1);
@@ -92,7 +95,7 @@ export class CartComponent implements OnInit {
   }
 
   buyCartItems(): void {
-    if (this.authService.currentUserValue.email == '') {
+    if (this.authService.currentUserValue.email === '') {
       this.snackBar.openSnackBar(
         'You must be logged in to purchase items.',
         '',
@@ -102,18 +105,34 @@ export class CartComponent implements OnInit {
       console.log(this.cartItems);
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
-    this.http
-      .post('http://localhost:4242/checkout', {
-        items: this.cartItems,
-      })
-      .subscribe(async (res: any) => {
-        let stripe = await loadStripe(
-          'pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q'
-        );
-        stripe?.redirectToCheckout({
-          sessionId: res.id,
-        });
+
+    // Opret en CheckoutModel med de nødvendige data
+    const checkoutData: CheckoutModel = {
+      sessionId: '', // Sæt session ID, hvis det kræves
+    };
+
+    // Kald din PaymentService for at oprette en Checkout Session
+    this.paymentService.createCheckoutSession(checkoutData).subscribe(
+      (response) => {
+        // Håndter responsen fra API-kaldet
+        console.log('Session oprettet:', response);
+
+        // Brug Stripe.js eller lignende for at starte betalingsprocessen
+        this.initiateStripeCheckout(response); // Send hele responsen (CheckoutModel)
+      },
+      (error) => {
+        // Håndter eventuelle fejl under sessionoprettelsen
+        console.error('Fejl under oprettelse af session:', error);
+      }
+    );
+  }
+  // Funktion til at initialisere Stripe Checkout
+  private initiateStripeCheckout(checkoutData: CheckoutModel): void {
+    loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
+      stripe?.redirectToCheckout({
+        sessionId: checkoutData.sessionId,
       });
+    });
   }
 
   removeItem(item: CartItem): void {
@@ -123,7 +142,6 @@ export class CartComponent implements OnInit {
         message: 'Are you sure you want to delete the item(s)?',
       },
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.cartService.removeItemFromCart(item.id);

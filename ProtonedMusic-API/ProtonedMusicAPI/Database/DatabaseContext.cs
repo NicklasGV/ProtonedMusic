@@ -170,8 +170,7 @@ namespace ProtonedMusicAPI.Database
                     Address = "Test Vej 1",
                     City = "Test By",
                     Postal = 1234,
-                    Country = "Denmark",
-                    ProfilePicturePath = ""
+                    Country = "Denmark"
                 },
                 new User
                 {
@@ -185,8 +184,7 @@ namespace ProtonedMusicAPI.Database
                     Address = "Test Vej 2",
                     City = "Test By",
                     Postal = 1234,
-                    Country = "Denmark",
-                    ProfilePicturePath = ""
+                    Country = "Denmark"
                 }
                 );
 

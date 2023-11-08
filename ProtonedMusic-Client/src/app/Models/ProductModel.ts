@@ -6,6 +6,7 @@ export interface ProductModel {
     price: number;
     description: string;
     image: string;
+    productPicturePath: string;
     categories: CategoryModel[];
     categoryIds: number[];
 }
@@ -17,6 +18,7 @@ export function resetProducts() {
         price: 0,
         description: '',
         image: '',
+        productPicturePath: '',
         categories: [],
         categoryIds: [],
     }

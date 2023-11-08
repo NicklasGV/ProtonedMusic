@@ -153,8 +153,6 @@ namespace ProtonedMusicAPI.Controllers
 
             if (file != null)
             {
-                // Process the uploaded file, save it to a designated folder on the server
-                string filePath = "/uploads/profile-pics/" + Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 UserResponse user = await _userService.UploadProfilePicture(userId, file);
 
                 if (user != null)

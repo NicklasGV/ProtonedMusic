@@ -81,10 +81,18 @@ namespace ProtonedMusicAPI.Repositories
 
         public async Task<User?> UploadProfilePicture(int userId, IFormFile file)
         {
-            // FTP shortcut provided by your hosting provider (includes username and password)
             string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/assets/uploads/";
 
-            // Create an FTP request using the shortcut
+            User user = await FindByIdAsync(userId);
+            string oldFilePath = user.ProfilePicturePath;
+
+            if (!string.IsNullOrEmpty(oldFilePath))
+            {
+                // If the user already has a profile picture, delete the old image asynchronously
+                await DeleteFileOnFtpAsync(oldFilePath);
+            }
+
+            // Create an FTP request to upload the new profile picture
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(new Uri(new Uri(ftpUrl), fileName));
             ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
@@ -96,11 +104,28 @@ namespace ProtonedMusicAPI.Repositories
             }
 
             // Update the user's profile picture path in the database
-            User user = await FindByIdAsync(userId);
             user.ProfilePicturePath = Path.Combine("assets/uploads/", fileName);
             await UpdateByIdAsync(userId, user);
 
             return user;
+        }
+
+        public async Task DeleteFileOnFtpAsync(string filePath)
+        {
+            string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/";
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(new Uri(new Uri(ftpUrl), filePath));
+            ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
+
+            try
+            {
+                FtpWebResponse ftpResponse = (FtpWebResponse)await ftpRequest.GetResponseAsync();
+                Console.WriteLine($"File deleted, status: {ftpResponse.StatusDescription}");
+                ftpResponse.Close();
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine($"Error deleting file: {ex.Message}");
+            }
         }
     }
 }

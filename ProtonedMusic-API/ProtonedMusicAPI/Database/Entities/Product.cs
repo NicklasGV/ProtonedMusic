@@ -13,6 +13,7 @@ namespace ProtonedMusicAPI.Database.Entities
         public decimal Price { get; set; } = 0;
         [Column(TypeName = "nvarchar(600)")]
         public string Description { get; set; } = string.Empty;
+        public string? ProductPicturePath { get; set; }
         public List<ProductCategory> ProductCategories { get; set; } = new();
     }
 }
