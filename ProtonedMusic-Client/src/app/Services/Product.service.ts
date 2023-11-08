@@ -31,6 +31,10 @@ export class ProductService {
   public getProductById(productId: number): Observable<ProductModel> { 
     return this.http.get<ProductModel>(this.url + '/' + productId);
   }
+
+  uploadProductPicture(productId: number, file: FormData): Observable<ProductModel> {
+    return this.http.post<ProductModel>(this.url + '/upload-product-picture/' + productId, file);
+  }
 }
 
 

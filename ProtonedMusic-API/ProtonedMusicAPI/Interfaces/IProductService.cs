@@ -7,5 +7,6 @@
         Task<ProductResponse?> FindByIdAsync(int productId);
         Task<ProductResponse?> UpdateByIdAsync(int productId, ProductRequest updateProduct);
         Task<ProductResponse?> DeleteByIdAsync(int productId);
+        Task<ProductResponse> UploadProductPicture(int productId, IFormFile file);
     }
 }

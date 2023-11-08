@@ -31,4 +31,8 @@ export class EventService {
   public getEventById(eventId: number): Observable<EventModel> { 
     return this.http.get<EventModel>(this.url + '/' + eventId);
   }
+
+  uploadProductPicture(eventId: number, file: FormData): Observable<EventModel> {
+    return this.http.post<EventModel>(this.url + '/upload-event-picture/' + eventId, file);
+  }
 }

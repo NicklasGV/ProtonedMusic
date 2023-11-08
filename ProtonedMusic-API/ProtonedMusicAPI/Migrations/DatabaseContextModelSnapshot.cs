@@ -76,6 +76,9 @@ namespace ProtonedMusicAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(600)");
 
+                    b.Property<string>("EventPicturePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10,2)");
 
@@ -94,7 +97,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 11, 1, 12, 22, 38, 739, DateTimeKind.Local).AddTicks(696),
+                            Created = new DateTime(2023, 11, 7, 10, 15, 12, 740, DateTimeKind.Local).AddTicks(6402),
                             Description = "Test",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -103,8 +106,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 11, 1, 12, 22, 38, 739, DateTimeKind.Local).AddTicks(702),
-
+                            Created = new DateTime(2023, 11, 7, 10, 15, 12, 740, DateTimeKind.Local).AddTicks(6414),
                             Description = "Test2",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -161,10 +163,9 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 1, 12, 22, 39, 22, DateTimeKind.Local).AddTicks(6383),
-
+                            DateTime = new DateTime(2023, 11, 7, 10, 15, 12, 910, DateTimeKind.Local).AddTicks(9953),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
-                            Title = "SERVER GOT RESET"
+                            Title = "DATABASE GOT RESET"
                         },
                         new
                         {
@@ -211,8 +212,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 1, 12, 22, 39, 22, DateTimeKind.Local).AddTicks(6419),
-
+                            DateTime = new DateTime(2023, 11, 7, 10, 15, 12, 911, DateTimeKind.Local).AddTicks(30),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -236,6 +236,9 @@ namespace ProtonedMusicAPI.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("ProductPicturePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -376,11 +379,9 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$Id0Tw7qaSCQkD2HAXWazwu2OGeBgXRHt7Jxbw.1.5dRXOsU6gYEBq",
-
+                            Password = "$2b$10$.6HaGAKziW1/WvPGXd4etuPF28adIlz0PMNmx7OQpaVy21tua0wDG",
                             PhoneNumber = 12345678,
                             Postal = 1234,
-                            ProfilePicturePath = "",
                             Role = 1
                         },
                         new
@@ -392,10 +393,9 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$WVQerOpn3DlVGB/J2Dnpn.JNlLo6xigVxT5hMSugNDSG0tKqBcpaS",
+                            Password = "$2b$10$RpB6Vph.L0FyXI6mVpABfuquXsR2778DVjcyAkKDUraheP88Yxzx2",
                             PhoneNumber = 12345679,
                             Postal = 1234,
-                            ProfilePicturePath = "",
                             Role = 0
                         });
                 });

@@ -27,6 +27,8 @@ export class EventPanelComponent implements OnInit {
   message: string = '';
   events: EventModel[] = [];
   event: EventModel = resetEvent();
+  selectedFile: File | undefined;
+  formData = new FormData();
 
   constructor(
     private eventService: EventService,
@@ -40,6 +42,29 @@ export class EventPanelComponent implements OnInit {
 
   editProduct(event: EventModel): void {
     Object.assign(this.event, event);
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+  
+  uploadImage() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+  
+      this.eventService.uploadProductPicture(this.event.id, formData).subscribe(
+        (event: EventModel) => {
+          this.eventService.getAllEvents().subscribe(x => this.events = x);
+            this.event = resetEvent();
+            this.snackBar.openSnackBar("Event Pic Updated", '', 'success');
+        },
+        (error) => {
+          this.message = Object.values(error.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
+        }
+      );
+    }
   }
 
   deleteProduct(event: EventModel): void {
