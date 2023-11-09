@@ -107,5 +107,29 @@
                 return Problem(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("upload-product-picture/{productId}")]
+        public async Task<IActionResult> UploadProductPicture([FromRoute] int productId, IFormFile file)
+        {
+
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Invalid file.");
+            }
+
+            if (file != null)
+            {
+                ProductResponse product = await _productService.UploadProductPicture(productId, file);
+
+                if (product != null)
+                {
+                    return Ok(product.ProductPicturePath);
+                }
+
+            }
+
+            return BadRequest("No file was uploaded.");
+        }
     }
 }

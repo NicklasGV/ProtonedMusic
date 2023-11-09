@@ -50,17 +50,17 @@ export class UserPanelComponent implements OnInit {
   uploadImage() {
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('file', this.selectedFile); // 'file' should match the parameter name in your API
+      formData.append('file', this.selectedFile);
 
-      // Use your service to upload the image
       this.userService.uploadProfilePicture(this.user.id, formData).subscribe(
         (user: User) => {
-          // Handle the success response here
-          console.log('Image uploaded successfully.', user);
+          this.userService.getAll().subscribe(x => this.users = x);
+            this.user = resetUser();
+            this.snackBar.openSnackBar("Profile Pic Updated", '', 'success');
         },
         (error) => {
-          // Handle the error here
-          console.error('Error uploading image:', error);
+          this.message = Object.values(error.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
         }
       );
     }

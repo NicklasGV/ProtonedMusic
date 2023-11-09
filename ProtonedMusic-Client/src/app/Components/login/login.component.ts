@@ -122,7 +122,8 @@ export class LoginComponent implements OnInit {
       address: new FormControl(''),
       city: new FormControl(''),
       postal: new FormControl(0),
-      country: new FormControl('')
+      country: new FormControl(''),
+      profilePicturePath: new FormControl('')
     })
   }
 
