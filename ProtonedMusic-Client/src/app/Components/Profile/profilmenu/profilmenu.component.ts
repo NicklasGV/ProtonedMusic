@@ -16,7 +16,14 @@ import { UserService } from 'src/app/Services/user.service';
 border:0px solid;
 border-radius:50%;
 background: transparent;
-}`]
+}
+.uploadicon{
+  display: none;
+}
+img:hover + .uploadicon, .uploadicon:hover {
+    display: inline-block;
+}
+`]
 })
 export class ProfilmenuComponent implements OnInit {
   message: string = "";
