@@ -38,5 +38,7 @@
 
         public List<NewsLike> NewsLikes { get; set; } = new List<NewsLike>();
 
+        public AddonRoles AddonRoles { get; set; }
+
     }
 }

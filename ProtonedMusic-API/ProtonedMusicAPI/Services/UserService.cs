@@ -48,7 +48,9 @@
                 Country = user.Country,
                 City = user.City,
                 Postal = user.Postal,
-                ProfilePicturePath = user.ProfilePicturePath
+                ProfilePicturePath = user.ProfilePicturePath,
+                AddonRoles = user.AddonRoles
+
             };
             if (user.NewsLikes.Count > 0)
             {
@@ -77,7 +79,8 @@
                 Country = userRequest.Country,
                 City = userRequest.City,
                 Postal = userRequest.Postal,
-                ProfilePicturePath = userRequest.ProfilePicturePath
+                ProfilePicturePath = userRequest.ProfilePicturePath,
+                AddonRoles = userRequest.AddonRoles
             };
             return user;
         }

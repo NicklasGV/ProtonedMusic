@@ -13,6 +13,7 @@
         public string City { get; set; }
         public int Postal { get; set; }
         public string ProfilePicturePath { get; set; }
+        public AddonRoles AddonRoles { get; set; }
 
         public List<UserNewsLikeResponse> NewsLikes { get; set; } = new();
     }

@@ -34,5 +34,7 @@
         public string ProfilePicturePath { get; set; }
 
         public List<int> NewsIds { get; set; } = new();
+
+        public AddonRoles AddonRoles { get; set; }
     }
 }
