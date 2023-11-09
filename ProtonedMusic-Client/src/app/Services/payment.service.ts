@@ -23,7 +23,7 @@ export class PaymentService {
         'Content-Type': 'application/json'
       }
     };
-
+    //HALLO
     return this.http.post<any>(stripeAPIURL, checkoutData, httpOptions);
   }
 

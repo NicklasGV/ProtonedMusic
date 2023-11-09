@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Cart, CartItem } from '../../Models/CartModel';
+import { CartItem } from '../../Models/CartModel';
 import { CartService } from '../../Services/cart.service';
 
 import { MatCardModule } from '@angular/material/card';
