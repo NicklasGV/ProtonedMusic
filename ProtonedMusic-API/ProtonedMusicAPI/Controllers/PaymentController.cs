@@ -25,7 +25,8 @@ namespace Server.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
-                //HALLO
+                //HALLO SUT MIG IGOS SUT MIG 
+                // saodkfapdsad
             }
         }
     }
