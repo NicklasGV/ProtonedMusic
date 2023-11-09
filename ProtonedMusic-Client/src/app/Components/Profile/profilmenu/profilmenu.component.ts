@@ -11,7 +11,12 @@ import { UserService } from 'src/app/Services/user.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './profilmenu.component.html',
-  styles: []
+  styles: [`
+  .rounded-circle{
+border:0px solid;
+border-radius:50%;
+background: transparent;
+}`]
 })
 export class ProfilmenuComponent implements OnInit {
   message: string = "";
