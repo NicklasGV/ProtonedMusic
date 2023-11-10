@@ -9,7 +9,7 @@
         public decimal Price { get; set; } = 0;
 
         public string Description { get; set; } = string.Empty;
-        public string ProductPicturePath { get; set; }
+        public string? ProductPicturePath { get; set; }
 
         public List<ProductCategoryResponse> Categories { get; set; } = new();
 

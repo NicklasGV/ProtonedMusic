@@ -37,6 +37,10 @@ export class ProfilmenuComponent implements OnInit {
     this.WelcomeUser();
   }
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
   WelcomeUser() {
     var today = new Date().getHours();
     if (today >= 6 && today <= 11)
@@ -65,21 +69,15 @@ export class ProfilmenuComponent implements OnInit {
 
 
 
-  uploadImage() {
+  async uploadImage() {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
 
-
-      this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe(
-        (user: User) => {
-          
-        },
-        (error) => {
-          
-        }
-      );
+      this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe();
     }
+    await this.delay(500);
+    window.location.reload();
   }
 
 }
