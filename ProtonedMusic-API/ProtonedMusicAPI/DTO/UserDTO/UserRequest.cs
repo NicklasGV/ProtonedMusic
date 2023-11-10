@@ -18,6 +18,7 @@
 
         [Required]
         public Role Role { get; set; }
+        public AddonRoles AddonRoles { get; set; }
 
         public int PhoneNumber { get; set; }
 
@@ -31,8 +32,9 @@
         [StringLength(40, ErrorMessage = "Country cannot be longer than 40 chars")]
         public string Country { get; set; }
 
-        public string ProfilePicturePath { get; set; }
+        public string? ProfilePicturePath { get; set; }
 
         public List<int> NewsIds { get; set; } = new();
+
     }
 }

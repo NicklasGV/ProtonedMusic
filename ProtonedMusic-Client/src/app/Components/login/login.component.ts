@@ -72,6 +72,7 @@ export class LoginComponent implements OnInit {
   save(): void {
     if (this.userForm.valid && this.userForm.touched) {
       this.userForm.value.role = 'Customer'
+      this.userForm.value.addonRole = 'None'
       if (this.user.id == 0) {
         console.log(this.userForm.value);
         this.userService.create(this.userForm.value).subscribe({

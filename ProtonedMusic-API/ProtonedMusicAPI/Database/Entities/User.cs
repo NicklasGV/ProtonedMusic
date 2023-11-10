@@ -18,6 +18,7 @@
         public string Password { get; set; }
 
         public Role Role { get; set; }
+        public AddonRoles AddonRoles { get; set; }
 
         [Column(TypeName = "int")]
         public int PhoneNumber { get; set; }
@@ -37,6 +38,7 @@
         public string? ProfilePicturePath { get; set; }
 
         public List<NewsLike> NewsLikes { get; set; } = new List<NewsLike>();
+
 
     }
 }
