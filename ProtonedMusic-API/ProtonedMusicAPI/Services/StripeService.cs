@@ -43,6 +43,7 @@ namespace ProtonedMusicAPI.Services
             var session = service.Create(options);
 
             return session.Id;
+            //heyheyehye
         }
     }
 }
