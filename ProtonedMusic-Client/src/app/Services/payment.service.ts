@@ -2,7 +2,7 @@ import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CheckoutModel } from '../Models/CheckoutModel';
+import { StripeChekoutModel } from '../Models/StripeChekoutItems';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +13,16 @@ export class PaymentService {
 
   constructor(private http: HttpClient) {}
 
-  public createCheckoutSession(checkoutData: CheckoutModel): Observable<any> {
-    const stripeAPIURL = 'https://localhost:7149/Checkout/CreateCheckoutSession'; // Erstat med Stripe's API-endepunkt
-    const stripeAPIKey = 'sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F'; // Erstat med din Stripe API-nøgle
-
+  public createCheckoutSession(cartItems: StripeChekoutModel[]): Observable<any> {
+    const stripeAPIURL = 'https://localhost:7149/Checkout/CreateCheckoutSession';
+    const stripeAPIKey = 'sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F';
     const httpOptions = {
       headers: {
         'Authorization': `Bearer ${stripeAPIKey}`,
         'Content-Type': 'application/json'
       }
     };
-    //HALLO
-    return this.http.post<any>(stripeAPIURL, checkoutData, httpOptions);
+    return this.http.post<any>(stripeAPIURL, cartItems, httpOptions);
   }
-
 }
 
-//create-checkout-session

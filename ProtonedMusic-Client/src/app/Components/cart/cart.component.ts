@@ -17,6 +17,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { CheckoutModel } from 'src/app/Models/CheckoutModel';
 import { PaymentService } from 'src/app/Services/payment.service';
 
+import { StripeChekoutModel } from 'src/app/Models/StripeChekoutItems';
+
 
 @Component({
   selector: 'app-cart',
@@ -96,23 +98,24 @@ export class CartComponent implements OnInit {
 
   buyCartItems(): void {
     if (this.authService.currentUserValue.email === '') {
-      this.snackBar.openSnackBar(
-        'You must be logged in to purchase items.',
-        '',
-        'warning'
-      );
+      this.snackBar.openSnackBar('You must be logged in to purchase items.', '', 'warning');
     } else {
       console.log(this.cartItems);
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
 
-    // Opret en CheckoutModel med de nødvendige data
-    const checkoutData: CheckoutModel = {
-      sessionId: '', // Sæt session ID, hvis det kræves
-    };
+    // Opret en liste af StripeCheckoutItem baseret på dine CartItem-objekter
+    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map(item => {
+      return {
+        name: item.name,
+        unitAmount: item.price,
+        quantity: item.quantity,
+        price: item.price
+      };
+    });
 
     // Kald din PaymentService for at oprette en Checkout Session
-    this.paymentService.createCheckoutSession(checkoutData).subscribe(
+    this.paymentService.createCheckoutSession(stripeCheckoutItems).subscribe(
       (response) => {
         // Håndter responsen fra API-kaldet
         console.log('Session oprettet:', response);
@@ -126,6 +129,7 @@ export class CartComponent implements OnInit {
       }
     );
   }
+
   // Funktion til at initialisere Stripe Checkout
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
     loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
