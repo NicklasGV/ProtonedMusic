@@ -58,8 +58,8 @@
       <input [(ngModel)]="user.country" class="form-control w-75">
     </div>
   </div>
-  <div class="mt-4">
-    <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success"> Gem</button>
-    <button [routerLink]="['../../../profilmenu', user.id]" class="btn bi-x btn-sm btn-default">Annuller</button>
+  <div class="my-3">
+    <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> Save changes</button>
+    <button [routerLink]="['../../../profilmenu', user.id]" class="btn bi-x btn-sm btn-secondary"> Cancel</button>
 </div>
 </div>

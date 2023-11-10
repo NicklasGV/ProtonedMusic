@@ -24,7 +24,7 @@ export class UserPanelComponent implements OnInit {
   formData = new FormData();
   
   
-    constructor(private userService: UserService, private snackBar: SnackBarService, private dialog: MatDialog) { }
+    constructor(private userService: UserService, private snackBar: SnackBarService) { }
   
     ngOnInit(): void {
       this.userService.getAll().subscribe(x => this.users = x);

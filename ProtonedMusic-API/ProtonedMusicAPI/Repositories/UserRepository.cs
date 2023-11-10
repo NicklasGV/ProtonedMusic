@@ -65,6 +65,7 @@ namespace ProtonedMusicAPI.Repositories
                 user.LastName = updateUser.LastName;
                 user.Email = updateUser.Email;
                 user.Role = updateUser.Role;
+                user.AddonRoles = updateUser.AddonRoles;
                 user.PhoneNumber = updateUser.PhoneNumber;
                 user.Address = updateUser.Address;
                 user.City = updateUser.City;

@@ -18,6 +18,7 @@
 
         [Required]
         public Role Role { get; set; }
+        public AddonRoles AddonRoles { get; set; }
 
         public int PhoneNumber { get; set; }
 
@@ -35,6 +36,5 @@
 
         public List<int> NewsIds { get; set; } = new();
 
-        public AddonRoles AddonRoles { get; set; }
     }
 }

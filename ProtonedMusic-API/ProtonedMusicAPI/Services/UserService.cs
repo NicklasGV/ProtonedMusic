@@ -43,13 +43,13 @@
                 LastName = user.LastName,
                 Email = user.Email.ToLower(),
                 Role = user.Role,
+                AddonRoles = user.AddonRoles,
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address,
                 Country = user.Country,
                 City = user.City,
                 Postal = user.Postal,
                 ProfilePicturePath = user.ProfilePicturePath,
-                AddonRoles = user.AddonRoles
 
             };
             if (user.NewsLikes.Count > 0)
@@ -74,13 +74,13 @@
                 Email = userRequest.Email.ToLower(),
                 Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password) ?? string.Empty,
                 Role = userRequest.Role,
+                AddonRoles = userRequest.AddonRoles,
                 PhoneNumber = userRequest.PhoneNumber,
                 Address = userRequest.Address,
                 Country = userRequest.Country,
                 City = userRequest.City,
                 Postal = userRequest.Postal,
                 ProfilePicturePath = userRequest.ProfilePicturePath,
-                AddonRoles = userRequest.AddonRoles
             };
             return user;
         }
