@@ -80,7 +80,16 @@
                 Country = userRequest.Country,
                 City = userRequest.City,
                 Postal = userRequest.Postal,
-                ProfilePicturePath = userRequest.ProfilePicturePath,
+                ProfilePicturePath = userRequest.ProfilePicturePath ?? string.Empty,
+            };
+            return user;
+        }
+
+        private static User MapUserRequestToUserAddonRole(UserRequest userRequest)
+        {
+            User user = new User
+            {
+                AddonRoles = userRequest.AddonRoles,
             };
             return user;
         }

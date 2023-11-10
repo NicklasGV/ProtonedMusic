@@ -5,12 +5,12 @@
                 <div class="card-header">
                     Email Notifications
                     <div>
-                        
+                        <!-- <mat-slidetoggle [checked]="currentUser.addonRoles == roleChecker" (change)="newsletterEvent()">Subscribe to newsletter</mat-slidetoggle> -->
                     </div>
                 </div>
             </div>
             <div>
-                <button class="btn btn-success me-1" [routerLink]="['../../../profilmenu', currentUser.id]">Save Changes</button>
+                <button class="btn btn-success" [routerLink]="['../../../profilmenu', currentUser.id]">Save</button>
                 <button class="btn btn-danger" [routerLink]="['../../../profilmenu', currentUser.id]">Back</button>
             </div>
         </div>

@@ -56,11 +56,6 @@ namespace ProtonedMusicAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));
             });
 
-            
-
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-
 
             builder.Services.AddControllers().AddJsonOptions(x =>
             {
