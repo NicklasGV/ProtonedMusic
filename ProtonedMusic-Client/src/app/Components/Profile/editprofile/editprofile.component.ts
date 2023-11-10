@@ -14,7 +14,7 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, MatSlideToggleModule],
   templateUrl: './editprofile.component.html',
-  styles: []
+  styleUrls: ['./editprofile.component.scss']
 })
 export class EditprofilComponent{
   user: User = resetUser();
