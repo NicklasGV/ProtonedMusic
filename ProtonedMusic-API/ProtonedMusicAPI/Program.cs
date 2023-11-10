@@ -32,23 +32,23 @@ namespace ProtonedMusicAPI
 
             builder.Services.AddScoped<IEmailService, EmailService>();
 
-            //builder.Services.AddCors(options =>
-            //{
-            //    options.AddPolicy("CorsPolicy", builder => builder
-            //    .WithOrigins("https://protonedmusic.com")
-            //    .AllowAnyHeader()
-            //    .AllowAnyMethod()
-            //    .AllowCredentials());
-            //});
-
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                .WithOrigins("http://localhost:4200")
+                .WithOrigins("https://protonedmusic.com")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials());
             });
+
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("CorsPolicy", builder => builder
+            //    .WithOrigins("http://localhost:4200")
+            //    .AllowAnyHeader()
+            //    .AllowAnyMethod()
+            //    .AllowCredentials());
+            //});
 
             // Add services to the container.
             builder.Services.AddDbContext<DatabaseContext>(options =>
