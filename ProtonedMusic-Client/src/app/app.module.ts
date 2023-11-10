@@ -11,12 +11,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { NewsDetailedComponent } from './Components/news-detailed/news-detailed.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

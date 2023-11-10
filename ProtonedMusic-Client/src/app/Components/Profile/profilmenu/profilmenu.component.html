@@ -1,16 +1,22 @@
 <div class="container-fluid d-flex justify-content-center" data-bs-theme="dark">
     <div class="mb-3">
         <div class="card-body text-center">
-            <button type="button" class="btn btn-outline-success rounded-circle" data-bs-toggle="modal"
+            <button type="button" class="btn rounded-circle" data-bs-toggle="modal"
                 data-bs-target="#Modal">
-                <a *ngIf="user.profilePicturePath">
-                    <img src="https://protonedmusic.com/{{ user.profilePicturePath }}" class="rounded-circle"
-                        width="208" height="208">
-                </a>
-                <a *ngIf="!user.profilePicturePath">
-                    <i class="bi-person-circle me-auto text-center" style="font-size: 13rem; color: white;"
-                        id="Profile"></i>
-                </a>
+                <div class="image-container rounded-circle">
+                    <a *ngIf="user.profilePicturePath">
+                        <img src="https://protonedmusic.com/{{ user.profilePicturePath }}" class="rounded-circle"
+                            width="208" height="208">
+                            <div class="edit-overlay rounded-circle">
+                                <i class="uploadicon bi-upload text-success align-bottom"></i>
+                            </div>
+                    </a>
+                    <a *ngIf="!user.profilePicturePath">
+                        <i class="bi-person-circle me-auto text-center" style="font-size: 13rem; color: white;"
+                            id="Profile"></i>
+                            <i class="bi-upload text-success"></i>
+                    </a>
+                </div>
             </button>
         </div>
 
@@ -18,10 +24,10 @@
         <div class="mx-lg-5 text-center">
             <h1 type="name" class="display-4 fw-medium my-5" id="name"> {{msg}} {{user.firstName}}</h1>
         </div>
-        <div class="mt-4">
+        <div class="my-3 mb-5">
             <button class="form-control text-center" id="editprofil" [routerLink]="['editprofil']">Edit profile</button>
         </div>
-        <div class="mt-4">
+        <div class="my-3">
             <button type="password" class="form-control text-center" id="logud" (click)="Logout()">Log ud</button>
         </div>
     </div>
