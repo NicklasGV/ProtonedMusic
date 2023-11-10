@@ -1,33 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Stripe;
+﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
 
-namespace Server.Controllers
+[ApiController]
+[Route("[controller]")]
+public class CheckoutController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class CheckoutController : ControllerBase
+    private readonly StripeService _stripeService;
+
+    public CheckoutController()
     {
-        private readonly StripeService _stripeService;
+        _stripeService = new StripeService("sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F");
+    }
 
-        public CheckoutController()
+    [HttpPost("CreateCheckoutSession")]
+    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems)
+    {
+        try
         {
-            _stripeService = new StripeService("sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F");
+            Console.WriteLine("Received request to create Checkout Session with items:");
+            foreach (var item in cartItems)
+            {
+                Console.WriteLine($"Name: {item.Name}, Quantity: {item.Quantity}, Unit Amount: {item.UnitAmount}");
+            }
+
+            var sessionId = _stripeService.CreateCheckoutSession(cartItems);
+            Console.WriteLine($"Checkout Session created. Session ID: {sessionId}");
+
+            return Ok(new { sessionId });
         }
-
-        [HttpPost("CreateCheckoutSession")]
-        public IActionResult CreateCheckoutSession()
+        catch (Exception ex)
         {
-            try
-            {
-                var sessionId = _stripeService.CreateCheckoutSession();
-                return Ok(new { sessionId });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-                //HALLO SUT MIG IGOS SUT MIG 
-                // saodkfapdsad
-            }
+            Console.WriteLine($"Error creating Checkout Session: {ex.Message}");
+            return StatusCode(500, ex.Message);
         }
     }
 }

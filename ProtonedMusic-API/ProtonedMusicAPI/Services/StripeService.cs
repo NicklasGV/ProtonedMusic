@@ -1,4 +1,5 @@
-﻿using Stripe;
+﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
+using Stripe;
 using Stripe.Checkout;
 
 namespace ProtonedMusicAPI.Services
@@ -13,33 +14,29 @@ namespace ProtonedMusicAPI.Services
             StripeConfiguration.ApiKey = _stripeSecretKey;
         }
 
-        public string CreateCheckoutSession()
+        public string CreateCheckoutSession(List<CartItemData> cartItems)
         {
+            var lineItems = cartItems.Select(item => new SessionLineItemOptions
+            {
+                PriceData = new SessionLineItemPriceDataOptions
+                {
+                    Currency = "dkk",
+                    ProductData = new SessionLineItemPriceDataProductDataOptions
+                    {
+                        Name = item.Name,
+                    },
+                    UnitAmount = item.UnitAmount * 100,
+                },
+                Quantity = item.Quantity,
+            }).ToList();
+
             var options = new SessionCreateOptions
             {
-                PaymentMethodTypes = new List<string>
-            {
-                "card",
-            },
-                LineItems = new List<SessionLineItemOptions>
-            {
-                new SessionLineItemOptions
-                {
-                    PriceData = new SessionLineItemPriceDataOptions
-                    {
-                        Currency = "dkk", // Erstat med din ønskede valuta
-                        ProductData = new SessionLineItemPriceDataProductDataOptions
-                        {
-                            Name = "Dit produkt",
-                        },
-                        UnitAmount = 1000, // Erstat med det beløb, der skal opkræves
-                    },
-                    Quantity = 1,
-                },
-            },
+                PaymentMethodTypes = new List<string> { "card" },
+                LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "https://dit-websted.com/success",
-                CancelUrl = "https://dit-websted.com/cancel",
+                SuccessUrl = "https://your-website.com/success",
+                CancelUrl = "https://your-website.com/cancel",
             };
 
             var service = new SessionService();
