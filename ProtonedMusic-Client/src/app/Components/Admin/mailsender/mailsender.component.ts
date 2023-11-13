@@ -39,6 +39,10 @@ export class MailsenderComponent implements OnInit {
     this.snackBar.openSnackBar('Upcoming canceled.', '', 'info');
   }
 
+  sendTo(user: User): void {
+    this.mail.to = user.email;
+  }
+
   save(): void {
     this.message = '';
   

@@ -32,7 +32,7 @@
         </textarea>
       </div>
     </div>
-    <div class="d-flex mt-5 mx-0">
+    <div class="d-flex mt-5 mx-0 mb-3">
         <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
         <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
     </div>
@@ -45,15 +45,17 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Id</th>
-              <th>Mail</th>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Newsletter </th>
+            <th>Action</th>
+            <th>Id</th>
+            <th>Mail</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Newsletter </th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let user of getNewsletterUsers()">
+                <td><button (click)="sendTo(user)" class="btn btn-success btn-sm">Send To</button></td>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.firstName }}</td>
