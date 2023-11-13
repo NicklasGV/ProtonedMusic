@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
-import { ProductService } from 'src/app/Services/Product.service';
+import { ProductService } from 'src/app/Services/product.service';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from 'src/app/Services/category.service';
 import { MatDialog } from '@angular/material/dialog';

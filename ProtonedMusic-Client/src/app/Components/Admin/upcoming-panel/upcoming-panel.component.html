@@ -1,0 +1,71 @@
+<div class="container">
+    <h1 class="m-2">Upcoming administration</h1>
+  </div>
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Title</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="upcoming.title" [ngModelOptions]="{standalone: true}" class="form-control">
+      </div>
+    </div>
+  
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Description</label>
+      <div class="col-12 col-sm-6">
+        <textarea style="resize: none;" class="form-control" rows="4" maxlength="500" [(ngModel)]="upcoming.description"
+          [ngModelOptions]="{standalone: true}">
+        </textarea>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <label for="datepicker" class="col-12 col-sm-1 col-form-label">Upcoming event date</label>
+      <div class="col-12 col-sm-6">
+        <input type="datetime-local" [(ngModel)]="upcoming.timeof" class="form-control">
+      </div>
+    </div>
+  
+    <div class="d-flex mt-5 mx-0">
+      <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+      <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+    </div>
+  </div>
+  
+  <div class="container mt-2 mb-2">
+  </div>
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Actions</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Event Date</th>
+              <th>Created Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let upcoming of upcomings;">
+              <td>
+                <div class="d-flex justify-content-start">
+                  <button (click)="editUpcoming(upcoming)" class="btn bi-gear-fill btn-sm btn-success me-1"> EDIT</button>
+                  <button (click)="deleteUpcoming(upcoming)" class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
+                </div>
+              </td>
+              <td>{{ upcoming.id }}</td>
+              <td>{{ upcoming.title }}</td>
+              <td class="text-truncate" style="max-width: 300px;">{{ upcoming.description }}</td>
+              <td>{{upcoming.timeof | date:'dd-MM-yyyy | HH:mm'}}</td>
+              <td>{{upcoming.created | date:'dd-MM-yyyy | HH:mm'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
