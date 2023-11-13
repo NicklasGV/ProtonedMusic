@@ -1,0 +1,19 @@
+﻿using Microsoft.VisualBasic;
+
+namespace ProtonedMusicAPI.DTO.EventDTO
+{
+    public class UpcomingRequest
+    {
+        [Required]
+        [StringLength(80, ErrorMessage = "Event Name cannot be longer than 80 characters")]
+        public string Title { get; set; }
+        [Required]
+        [StringLength(600, ErrorMessage = "Description cannot be longer than 600 characters")]
+        public string Description { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Created { get; set; } = DateTime.Now;
+
+        public DateTime Timeof { get; set; }
+    }
+}
