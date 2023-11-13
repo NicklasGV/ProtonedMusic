@@ -38,7 +38,20 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IEventRepository, EventRepository>();
             builder.Services.AddScoped<IEventService, EventService>();
 
+            builder.Services.AddScoped<IUpcomingRepository, UpcomingRepository>();
+            builder.Services.AddScoped<IUpcomingService, UpcomingService>();
+
             builder.Services.AddScoped<IEmailService, EmailService>();
+
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("CorsPolicy", builder => builder
+            //        .WithOrigins("https://protonedmusic.com")
+            //        .AllowAnyHeader()
+            //        .AllowAnyMethod()
+            //        .AllowCredentials()
+            //    );
+            //});
 
             builder.Services.AddCors(options =>
             {
@@ -49,6 +62,7 @@ namespace ProtonedMusicAPI
                     .AllowCredentials()
                 );
             });
+
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));
