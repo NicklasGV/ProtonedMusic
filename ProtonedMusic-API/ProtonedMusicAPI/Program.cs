@@ -46,22 +46,12 @@ namespace ProtonedMusicAPI
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                    .WithOrigins("https://protonedmusic.com")
+                    .WithOrigins("https://protonedmusic.com", "http://localhost:4200")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
                 );
             });
-
-            //builder.Services.AddCors(options =>
-            //{
-            //    options.AddPolicy("CorsPolicy", builder => builder
-            //        .WithOrigins("http://localhost:4200")
-            //        .AllowAnyHeader()
-            //        .AllowAnyMethod()
-            //        .AllowCredentials()
-            //    );
-            //});
 
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
