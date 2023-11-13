@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/app/Services/user.service';
 import { Role, constRoles } from 'src/app/Models/role';
 import { User, resetUser } from 'src/app/Models/UserModel';
-import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
@@ -24,7 +23,7 @@ export class UserPanelComponent implements OnInit {
   formData = new FormData();
   
   
-    constructor(private userService: UserService, private snackBar: SnackBarService, private dialog: MatDialog) { }
+    constructor(private userService: UserService, private snackBar: SnackBarService) { }
   
     ngOnInit(): void {
       this.userService.getAll().subscribe(x => this.users = x);

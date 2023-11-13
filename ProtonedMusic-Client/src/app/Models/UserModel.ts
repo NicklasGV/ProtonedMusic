@@ -1,4 +1,3 @@
-import { Role, constRoles } from "./role";
 import { NewsModel } from "./NewsModel";
 
 export interface User {
@@ -14,6 +13,7 @@ export interface User {
   country: string;
   profilePicturePath: string;
   role?: string;
+  addonRoles?: string;
   token?: string;
   newsLikes: NewsModel[];
   newsIds: number[];
