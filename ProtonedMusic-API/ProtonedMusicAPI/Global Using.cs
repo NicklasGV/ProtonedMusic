@@ -15,6 +15,7 @@ global using ProtonedMusicAPI.DTO.ImageDTO;
 global using ProtonedMusicAPI.DTO.NewsDTO;
 global using ProtonedMusicAPI.DTO.EventDTO;
 global using ProtonedMusicAPI.DTO.FrontpageDTO;
+global using ProtonedMusicAPI.Interfaces.IFrontpage;
 
 //Microsoft
 global using Microsoft.EntityFrameworkCore;

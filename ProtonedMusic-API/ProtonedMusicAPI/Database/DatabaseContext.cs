@@ -15,7 +15,7 @@ namespace ProtonedMusicAPI.Database
         public DbSet<News> News { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<NewsLike> newsLikes { get; set; }
-        public DbSet<FrontPagePost> FrontPages { get; set; }
+        public DbSet<FrontpagePost> Frontpages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -220,19 +220,19 @@ namespace ProtonedMusicAPI.Database
 
             });
 
-            modelBuilder.Entity<FrontPagePost>().HasData(new FrontPagePost
+            modelBuilder.Entity<FrontpagePost>().HasData(new FrontpagePost
             {
                 Id = 1,
                 Text = "Protoned Music",
                 Banner = Banner.LeftBanner,
             },
-            new FrontPagePost
+            new FrontpagePost
             {
                 Id = 2,
                 Text = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas",
                 Banner = Banner.RightBanner,
             },
-            new FrontPagePost
+            new FrontpagePost
             {
                 Id = 3,
                 Text = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas",
