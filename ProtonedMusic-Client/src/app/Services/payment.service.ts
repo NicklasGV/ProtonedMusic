@@ -14,7 +14,7 @@ export class PaymentService {
   constructor(private http: HttpClient) {}
 
   public createCheckoutSession(cartItems: StripeChekoutModel[]): Observable<any> {
-    // const stripeAPIURL = 'https://api.protonedmusic.com/api/CreateCheckoutSession'; Online host
+    // const stripeAPIURL = 'https://api.protonedmusic.com/api/CreateCheckoutSession'; //Online host
     const stripeAPIURL = this.url + 'CreateCheckoutSession'; // Local host
     const stripeAPIKey = 'sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F';
     const httpOptions = {
