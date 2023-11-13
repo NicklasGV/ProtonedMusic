@@ -12,15 +12,15 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231107091513_data")]
-    partial class data
+    [Migration("20231109124819_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -100,7 +100,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 11, 7, 10, 15, 12, 740, DateTimeKind.Local).AddTicks(6402),
+                            Created = new DateTime(2023, 11, 9, 13, 48, 19, 599, DateTimeKind.Local).AddTicks(1840),
                             Description = "Test",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -109,7 +109,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 11, 7, 10, 15, 12, 740, DateTimeKind.Local).AddTicks(6414),
+                            Created = new DateTime(2023, 11, 9, 13, 48, 19, 599, DateTimeKind.Local).AddTicks(1851),
                             Description = "Test2",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -166,7 +166,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 7, 10, 15, 12, 910, DateTimeKind.Local).AddTicks(9953),
+                            DateTime = new DateTime(2023, 11, 9, 13, 48, 19, 737, DateTimeKind.Local).AddTicks(8698),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -215,7 +215,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 7, 10, 15, 12, 911, DateTimeKind.Local).AddTicks(30),
+                            DateTime = new DateTime(2023, 11, 9, 13, 48, 19, 737, DateTimeKind.Local).AddTicks(8772),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -328,6 +328,9 @@ namespace ProtonedMusicAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddonRoles")
+                        .HasColumnType("int");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
@@ -376,13 +379,14 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
+                            AddonRoles = 0,
                             Address = "Test Vej 1",
                             City = "Test By",
                             Country = "Denmark",
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$.6HaGAKziW1/WvPGXd4etuPF28adIlz0PMNmx7OQpaVy21tua0wDG",
+                            Password = "$2b$10$BIYAfwN7Lv70Txmo09NVYOISRgXl8kTiEod9y/JKHhtCvoc8LPcou",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -390,13 +394,14 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
+                            AddonRoles = 0,
                             Address = "Test Vej 2",
                             City = "Test By",
                             Country = "Denmark",
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$RpB6Vph.L0FyXI6mVpABfuquXsR2778DVjcyAkKDUraheP88Yxzx2",
+                            Password = "$2b$10$mUIR8tu//b.fFseUWLlz.uooV8OcwyewJka7Q40Pk46BbCMoMX2Ju",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0
