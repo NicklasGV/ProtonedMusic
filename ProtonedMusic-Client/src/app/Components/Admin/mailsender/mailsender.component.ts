@@ -81,6 +81,7 @@ export class MailsenderComponent implements OnInit {
         },
       });
     }
+    this.mail = resetEmail();
   }
   
   
