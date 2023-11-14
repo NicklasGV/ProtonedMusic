@@ -14,14 +14,22 @@ import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 })
 export class UpcomingComponent implements OnInit {
   upcomings: UpcomingModel[] = [];
-  dateTime = new Date().toISOString();
 
-  
+
+  getUpcomingShows(): any[] {
+    const currentTime = new Date();
+    currentTime.setDate(currentTime.getDate() - 1);
+    currentTime.setHours(23, 59, 59, 999);
+
+    return this.upcomings.filter(upcoming => {
+      const showDate = new Date(upcoming.timeof);
+      return showDate > currentTime;
+    });
+  }
 
   constructor(private upcomingService: UpcomingService, private snackbar:SnackBarService) { }
 
   ngOnInit(): void {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
-    console.log(this.dateTime);
   }
 }
