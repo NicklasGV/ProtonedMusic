@@ -12,7 +12,7 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231109124819_Init")]
+    [Migration("20231113091632_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -100,7 +100,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 11, 9, 13, 48, 19, 599, DateTimeKind.Local).AddTicks(1840),
+                            Created = new DateTime(2023, 11, 13, 10, 16, 32, 218, DateTimeKind.Local).AddTicks(9958),
                             Description = "Test",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -109,7 +109,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 11, 9, 13, 48, 19, 599, DateTimeKind.Local).AddTicks(1851),
+                            Created = new DateTime(2023, 11, 13, 10, 16, 32, 218, DateTimeKind.Local).AddTicks(9963),
                             Description = "Test2",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -166,7 +166,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 9, 13, 48, 19, 737, DateTimeKind.Local).AddTicks(8698),
+                            DateTime = new DateTime(2023, 11, 13, 10, 16, 32, 460, DateTimeKind.Local).AddTicks(1451),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -215,7 +215,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 9, 13, 48, 19, 737, DateTimeKind.Local).AddTicks(8772),
+                            DateTime = new DateTime(2023, 11, 13, 10, 16, 32, 460, DateTimeKind.Local).AddTicks(1518),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -320,6 +320,33 @@ namespace ProtonedMusicAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Upcoming", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(600)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateTime>("timeOf")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("upcomings");
+                });
+
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -386,7 +413,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$BIYAfwN7Lv70Txmo09NVYOISRgXl8kTiEod9y/JKHhtCvoc8LPcou",
+                            Password = "$2b$10$9h3s8KooYlK7CiXSYS0E6enLsQWPyYkjTPwzRZM5K/FX8x82MJwra",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -401,7 +428,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$mUIR8tu//b.fFseUWLlz.uooV8OcwyewJka7Q40Pk46BbCMoMX2Ju",
+                            Password = "$2b$10$EoefVsJNb9G4JBZVZ/ZaBuVG1iCJlnYZY2Wva5xU.uvTjqWsKjyA.",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

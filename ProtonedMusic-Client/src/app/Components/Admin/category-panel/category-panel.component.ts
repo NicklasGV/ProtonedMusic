@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
-import { ProductService } from 'src/app/Services/Product.service';
+import { ProductService } from 'src/app/Services/product.service';
 import { CategoryService } from 'src/app/Services/category.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { FormsModule } from '@angular/forms';
