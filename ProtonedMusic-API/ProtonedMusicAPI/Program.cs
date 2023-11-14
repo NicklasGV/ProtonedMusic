@@ -49,10 +49,11 @@ namespace ProtonedMusicAPI
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                    .WithOrigins("https://protonedmusic.com", "http://localhost:4200")
+                    .WithOrigins("https://protonedmusic.com", "http://localhost:4200", "https://api.protonedmusic.com")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
+                    .WithExposedHeaders("Content-Disposition")
                 );
             });
 
@@ -72,7 +73,7 @@ namespace ProtonedMusicAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationDemo", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Protoned Music", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
