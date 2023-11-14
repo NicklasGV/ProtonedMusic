@@ -45,7 +45,7 @@ export class MailsenderComponent implements OnInit {
 
   send(): void {
     this.message = '';
-    console.log("Right before sendtoal");
+    console.log("Right before sendtoall");
     if (this.sendToAll) {
       this.users.forEach((user) => {
         if (user.addonRoles === 'Newsletter' && user.email) {
@@ -69,6 +69,7 @@ export class MailsenderComponent implements OnInit {
       });
     } else {
       // If not sending to all, use the existing code
+      console.log("Email sent to:", this.mail);
       this.mailService.sendEmail(this.mail).subscribe({
         next: (x) => {
           this.mails.push(x);
