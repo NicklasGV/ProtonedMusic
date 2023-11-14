@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class data : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,6 +42,21 @@ namespace ProtonedMusicAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Frontpages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(500)", nullable: false),
+                    Banner = table.Column<int>(type: "int", nullable: false),
+                    FrontpagePicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Frontpages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,8 +212,18 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "EventPicturePath", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 13, 10, 16, 32, 218, DateTimeKind.Local).AddTicks(9958), "Test", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
-                    { 2, new DateTime(2023, 11, 13, 10, 16, 32, 218, DateTimeKind.Local).AddTicks(9963), "Test2", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
+                    { 1, new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9594), "Test", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
+                    { 2, new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9601), "Test2", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Frontpages",
+                columns: new[] { "Id", "Banner", "FrontpagePicturePath", "Text" },
+                values: new object[,]
+                {
+                    { 1, 0, "assets/img/bannerLogo1.jpg", "Protoned Music" },
+                    { 2, 1, "assets/img/bannerLogo2.jpg", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas" },
+                    { 3, 2, "assets/img/bannerLogo3.jpg", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas" }
                 });
 
             migrationBuilder.InsertData(
@@ -206,7 +231,7 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 13, 10, 16, 32, 460, DateTimeKind.Local).AddTicks(1451), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
+                    { 1, new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1443), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
                     { 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
                     { 3, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
                 });
@@ -227,8 +252,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "AddonRoles", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "ProfilePicturePath", "Role" },
                 values: new object[,]
                 {
-                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$9h3s8KooYlK7CiXSYS0E6enLsQWPyYkjTPwzRZM5K/FX8x82MJwra", 12345678, 1234, null, 1 },
-                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$EoefVsJNb9G4JBZVZ/ZaBuVG1iCJlnYZY2Wva5xU.uvTjqWsKjyA.", 12345679, 1234, null, 0 }
+                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$nF4LEaE2V3ertqxv1JWxuOpXRJE3e1GHn6RkIhVyr4hyZui60os8u", 12345678, 1234, null, 1 },
+                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$Ve3oyWnpZx2SpDJLnJPwj.I/i5wsPejsFK7rtX47Bl.fOYidpscnm", 12345679, 1234, null, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -246,7 +271,7 @@ namespace ProtonedMusicAPI.Migrations
             migrationBuilder.InsertData(
                 table: "newsLikes",
                 columns: new[] { "Id", "DateTime", "news_Id", "user_Id" },
-                values: new object[] { 1, new DateTime(2023, 11, 13, 10, 16, 32, 460, DateTimeKind.Local).AddTicks(1518), 1, 1 });
+                values: new object[] { 1, new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1498), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_newsLikes_news_Id",
@@ -269,6 +294,9 @@ namespace ProtonedMusicAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Frontpages");
 
             migrationBuilder.DropTable(
                 name: "Images");
