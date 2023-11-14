@@ -63,7 +63,6 @@ export class MailsenderComponent implements OnInit {
               this.snackBar.openSnackBar(this.message, '', 'error');
             },
           });
-  
           console.log("Email sent to:", user.email);
         }
       });
@@ -73,7 +72,7 @@ export class MailsenderComponent implements OnInit {
       this.mailService.sendEmail(this.mail).subscribe({
         next: (x) => {
           this.mails.push(x);
-          console.log("does it enter here?");
+          console.log("Does it push?");
           this.snackBar.openSnackBar('Mail sent', '', 'success');
         },
         error: (err) => {
