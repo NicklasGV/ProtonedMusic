@@ -41,6 +41,9 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IUpcomingRepository, UpcomingRepository>();
             builder.Services.AddScoped<IUpcomingService, UpcomingService>();
 
+            builder.Services.AddScoped<IFrontpagePostRepository, FrontpagePostRepository>();
+            builder.Services.AddScoped<IFrontpagePostService, FrontpagePostService>();
+
             builder.Services.AddScoped<IEmailService, EmailService>();
 
             builder.Services.AddCors(options =>
