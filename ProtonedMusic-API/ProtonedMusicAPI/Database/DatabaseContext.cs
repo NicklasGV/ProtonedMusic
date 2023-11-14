@@ -225,18 +225,21 @@ namespace ProtonedMusicAPI.Database
                 Id = 1,
                 Text = "Protoned Music",
                 Banner = Banner.LeftBanner,
+                FrontpagePicturePath = "assets/img/bannerLogo1.jpg"
             },
             new FrontpagePost
             {
                 Id = 2,
                 Text = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas",
                 Banner = Banner.RightBanner,
+                FrontpagePicturePath = "assets/img/bannerLogo2.jpg"
             },
             new FrontpagePost
             {
                 Id = 3,
                 Text = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas",
                 Banner = Banner.MiddleBanner,
+                FrontpagePicturePath = "assets/img/bannerLogo3.jpg"
             });
         }
     }
