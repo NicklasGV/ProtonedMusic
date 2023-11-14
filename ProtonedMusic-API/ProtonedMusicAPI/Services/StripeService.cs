@@ -1,9 +1,6 @@
 ﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
 using Stripe;
 using Stripe.Checkout;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ProtonedMusicAPI.Services
 {
@@ -17,7 +14,7 @@ namespace ProtonedMusicAPI.Services
             StripeConfiguration.ApiKey = _stripeSecretKey;
         }
 
-        public string CreateCheckoutSession(List<CartItemData> cartItems, string customerEmail = null)
+        public string CreateCheckoutSession(List<CartItemData> cartItems)
         {
             var lineItems = cartItems.Select(item => new SessionLineItemOptions
             {
@@ -40,18 +37,13 @@ namespace ProtonedMusicAPI.Services
                 Mode = "payment",
                 SuccessUrl = "http://localhost:4200/#/",
                 CancelUrl = "https://your-website.com/cancel",
-                CustomerEmail = customerEmail, // Dynamisk kunde-e-mail (kan være null)
-                InvoiceCreation = new SessionInvoiceCreationOptions
-                {
-                    Enabled = true,
-                },
             };
 
             var service = new SessionService();
             var session = service.Create(options);
 
             return session.Id;
+            //heyheyehye
         }
-
     }
 }

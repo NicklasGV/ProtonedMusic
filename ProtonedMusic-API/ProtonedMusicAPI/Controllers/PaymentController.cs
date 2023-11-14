@@ -1,5 +1,4 @@
 ﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
-using Stripe;
 
 [ApiController]
 [Route("api")]
@@ -13,7 +12,7 @@ public class CheckoutController : ControllerBase
     }
 
     [HttpPost("CreateCheckoutSession")]
-    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems, string customerEmail = null)
+    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems)
     {
         try
         {
@@ -23,7 +22,7 @@ public class CheckoutController : ControllerBase
                 Console.WriteLine($"Name: {item.Name}, Quantity: {item.Quantity}, Unit Amount: {item.UnitAmount}");
             }
 
-            var sessionId = _stripeService.CreateCheckoutSession(cartItems, customerEmail);
+            var sessionId = _stripeService.CreateCheckoutSession(cartItems);
             Console.WriteLine($"Checkout Session created. Session ID: {sessionId}");
 
             return Ok(new { sessionId });
