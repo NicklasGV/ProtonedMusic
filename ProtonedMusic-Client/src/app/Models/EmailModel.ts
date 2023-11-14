@@ -6,7 +6,6 @@ export interface EmailModel {
 
 export function resetEmail() {
   return {
-      id: 0,
       to: '',
       subject: '',
       body: '',
