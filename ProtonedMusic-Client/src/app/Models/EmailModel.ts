@@ -4,3 +4,12 @@ export interface EmailModel {
   body: string;
 }
 
+export function resetEmail() {
+  return {
+      id: 0,
+      to: '',
+      subject: '',
+      body: '',
+  }
+}
+

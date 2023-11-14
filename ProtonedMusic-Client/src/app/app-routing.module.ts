@@ -54,14 +54,17 @@ const routes: Routes = [
   {path: 'admin/userpanel', loadComponent: () =>
   import('./Components/Admin/user-panel/user-panel.component').then(it => it.UserPanelComponent), canActivate: [AuthGuard]},
 
-  {path: 'admin/imagepanel', loadComponent: () =>
-  import('./Components/Admin/image-panel/image-panel.component').then(it => it.ImagePanelComponent), canActivate: [AuthGuard]},
+  {path: 'admin/emailpanel', loadComponent: () =>
+  import('./Components/Admin/mailsender/mailsender.component').then(it => it.MailsenderComponent), canActivate: [AuthGuard]},
 
   {path: 'admin/eventpanel', loadComponent: () =>
   import('./Components/Admin/event-panel/event-panel.component').then(it => it.EventPanelComponent), canActivate: [AuthGuard]},
 
   {path: 'admin/newspanel', loadComponent: () =>
   import('./Components/Admin/news-panel/news-panel.component').then(it => it.NewsPanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/upcomingpanel', loadComponent: () =>
+  import('./Components/Admin/upcoming-panel/upcoming-panel.component').then(it => it.UpcomingPanelComponent), canActivate: [AuthGuard]},
 
 ];
 

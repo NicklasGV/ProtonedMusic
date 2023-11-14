@@ -16,6 +16,7 @@ namespace ProtonedMusicAPI.Database
         public DbSet<Event> Events { get; set; }
         public DbSet<NewsLike> newsLikes { get; set; }
         public DbSet<FrontpagePost> Frontpages { get; set; }
+        public DbSet<Upcoming> upcomings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

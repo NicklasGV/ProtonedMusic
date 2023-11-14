@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { UserService } from 'src/app/Services/user.service';
 import { FormsModule } from '@angular/forms';
-import { AddonRoles, constRoles } from 'src/app/Models/AddonRole';
+import { AddonRoles, constAddonRoles } from 'src/app/Models/AddonRole';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
@@ -36,7 +36,7 @@ export class EditprofilComponent{
     });
     Object.assign(this.user, user);
 
-    this.addonRoles = constRoles;
+    this.addonRoles = constAddonRoles;
   }
 
   errorOnChanges() {
