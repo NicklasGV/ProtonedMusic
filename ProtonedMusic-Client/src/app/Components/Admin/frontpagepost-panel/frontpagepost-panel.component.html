@@ -11,21 +11,24 @@
     </div>
   
     <div class="form-group row">
-        <label class="col-12 col-sm-1 col-form-label">Banner Formations</label>
-        <div class="col-12 col-sm-6">
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let banner of banners">
-              <input class="form-check-input me-1" type="radio" name="category" [(ngModel)]="post.banner" [value]="banner.name">
-              <label class="form-check-label">
-                <i *ngIf="banner.name === 'LeftBanner'" class="bi bi-text-left"></i>
-                <i *ngIf="banner.name === 'RightBanner'" class="bi bi-text-right"></i>
-                <i *ngIf="banner.name === 'MiddleBanner'" class="bi bi-text-center"></i>
-                {{ banner.name }}
-              </label>
-            </li>
-          </ul>
+      <label class="col-12 col-sm-1 col-form-label">Banner Formations</label>
+      <div class="col-12 col-sm-6 d-flex flex-wrap">
+        <div *ngFor="let banner of banners" class="form-check me-3 mb-3">
+          <label class="form-check-label text-center"> <!-- Added text-center class -->
+            <i *ngIf="banner.name === 'LeftBanner'" class="bi bi-text-left" style="font-size: 1.3rem;"></i>
+            <i *ngIf="banner.name === 'RightBanner'" class="bi bi-text-right" style="font-size: 1.3rem;"></i>
+            <i *ngIf="banner.name === 'MiddleBanner'" class="bi bi-text-center" style="font-size: 1.3rem;"></i>
+            {{ banner.name }}
+          </label>
+          <div class="d-flex justify-content-center"> <!-- Added justify-content-center class -->
+            <input class="form-check-input" type="radio" name="category" [(ngModel)]="post.banner" [value]="banner.name">
+          </div>
         </div>
       </div>
+    </div>
+    
+    
+    
       
       
   
