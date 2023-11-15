@@ -4,11 +4,12 @@ import { FrontpagePostService } from 'src/app/Services/frontpagePost.service';
 import { FrontpagePost, resetFrontpage } from 'src/app/Models/FrontpagePostModel';
 import { Banner, constBanners } from 'src/app/Models/banner';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-frontpagepost-panel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './frontpagepost-panel.component.html',
   styleUrls: ['./frontpagepost-panel.component.css']
 })
@@ -17,7 +18,7 @@ export class FrontpagepostPanelComponent implements OnInit {
   message: string = "";
   frontpagePosts: FrontpagePost[] = [];
   post: FrontpagePost = resetFrontpage();
-  banner: Banner[] = [];
+  banners: Banner[] = [];
   selectedFile: File | undefined;
   formData = new FormData();
   
@@ -26,7 +27,7 @@ export class FrontpagepostPanelComponent implements OnInit {
   
     ngOnInit(): void {
       this.frontpagePostService.getAll().subscribe(x => this.frontpagePosts = x);
-      this.banner = constBanners;
+      this.banners = constBanners;
     }
 
     edit(post: FrontpagePost): void {

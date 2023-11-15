@@ -1,1 +1,72 @@
-<p>frontpagepost-panel works!</p>
+<div class="container">
+    <h1 class="m-2">Frontpage Post Administration</h1>
+  </div>
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Text</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="post.text" class="form-control w-75">
+      </div>
+    </div>
+  
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Banner Position</label>
+      <div class="col-12 col-sm-6">
+        <div class="dropdown">
+          <select [(ngModel)]="post.banner" class="form-select w-75">
+            <option class="dropdown-item" *ngFor="let banner of banners" [ngValue]="banner.name">{{ banner.name }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Image</label>
+      <div class="col-12 col-sm-6">
+        <form (ngSubmit)="uploadImage()" #imageUploadForm class="form-control w-75">
+          <input class="form-control" type="file" (change)="onFileSelected($event)" name="fileInput" accept="image/*" />
+          <button type="submit" class="btn btn-sm btn-success">Upload Image</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="d-flex mt-5 mx-0">
+      <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+      <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+    </div>
+  </div>
+  
+  <div class="container mt-2 mb-2">
+  </div>
+  
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Actions</th>
+              <th>Id</th>
+              <th>Text</th>
+              <th>Picture Path</th>
+              <th>Banner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of frontpagePosts">
+              <td>
+                <div class="d-flex justify-content-start">
+                  <button (click)="edit(post)" class="btn bi-gear-fill btn-sm btn-success"> EDIT</button>
+                </div>
+              </td>
+              <td>{{ post.id }}</td>
+              <td>{{ post.text }}</td>
+              <td>{{ post.frontpagePicturePath }}</td>
+              <td>{{ post.banner }}</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

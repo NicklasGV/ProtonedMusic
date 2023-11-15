@@ -66,6 +66,9 @@ const routes: Routes = [
   {path: 'admin/upcomingpanel', loadComponent: () =>
   import('./Components/Admin/upcoming-panel/upcoming-panel.component').then(it => it.UpcomingPanelComponent), canActivate: [AuthGuard]},
 
+  {path: 'admin/frontpagepostpanel', loadComponent: () =>
+  import('./Components/Admin/frontpagepost-panel/frontpagepost-panel.component').then(it => it.FrontpagepostPanelComponent), canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({
