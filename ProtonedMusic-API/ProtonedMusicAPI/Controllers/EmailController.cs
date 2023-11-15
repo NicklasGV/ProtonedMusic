@@ -20,8 +20,15 @@ namespace ProtonedMusicAPI.Controllers
         [HttpPost]
         public IActionResult SendEmail(EmailResponse request)
         {
-            _emailService.SendEMail(request);
-            return Ok();
+            try
+            {
+                _emailService.SendEMail(request);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
     }
 }

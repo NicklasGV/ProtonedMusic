@@ -43,17 +43,18 @@ export class MailsenderComponent implements OnInit {
     this.mail.to = user.email;
   }
 
-  save(): void {
+  send(): void {
     this.message = '';
-  
+    console.log("Right before sendtoall");
     if (this.sendToAll) {
       this.users.forEach((user) => {
         if (user.addonRoles === 'Newsletter' && user.email) {
           this.mail.to = user.email; // Set the recipient email in the mail object
-  
+          console.log("Does it enter??");
           this.mailService.sendEmail(this.mail).subscribe({
             next: (x) => {
               this.mails.push(x);
+              console.log("Does it push?");
               this.snackBar.openSnackBar('Mail sent', '', 'success');
             },
             error: (err) => {
@@ -62,16 +63,16 @@ export class MailsenderComponent implements OnInit {
               this.snackBar.openSnackBar(this.message, '', 'error');
             },
           });
-  
           console.log("Email sent to:", user.email);
         }
       });
     } else {
       // If not sending to all, use the existing code
+      console.log("Email sent to:", this.mail);
       this.mailService.sendEmail(this.mail).subscribe({
         next: (x) => {
           this.mails.push(x);
-          this.mail = resetEmail();
+          console.log("Does it push?");
           this.snackBar.openSnackBar('Mail sent', '', 'success');
         },
         error: (err) => {
