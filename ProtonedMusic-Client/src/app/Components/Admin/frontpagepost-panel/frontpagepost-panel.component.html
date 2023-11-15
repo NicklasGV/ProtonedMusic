@@ -10,16 +10,24 @@
       </div>
     </div>
   
-    <div class="form-group row mb-3">
-      <label class="col-12 col-sm-1 col-form-label">Banner Position</label>
-      <div class="col-12 col-sm-6">
-        <div class="dropdown">
-          <select [(ngModel)]="post.banner" class="form-select w-75">
-            <option class="dropdown-item" *ngFor="let banner of banners" [ngValue]="banner.name">{{ banner.name }}</option>
-          </select>
+    <div class="form-group row">
+        <label class="col-12 col-sm-1 col-form-label">Banner Formations</label>
+        <div class="col-12 col-sm-6">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let banner of banners">
+              <input class="form-check-input me-1" type="radio" name="category" [(ngModel)]="post.banner" [value]="banner.name">
+              <label class="form-check-label">
+                <i *ngIf="banner.name === 'LeftBanner'" class="bi bi-text-left"></i>
+                <i *ngIf="banner.name === 'RightBanner'" class="bi bi-text-right"></i>
+                <i *ngIf="banner.name === 'MiddleBanner'" class="bi bi-text-center"></i>
+                {{ banner.name }}
+              </label>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+      
+      
   
     <div class="form-group row mb-3">
       <label class="col-12 col-sm-1 col-form-label">Image</label>

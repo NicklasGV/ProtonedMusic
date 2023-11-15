@@ -39,8 +39,6 @@ export class FrontpagepostPanelComponent implements OnInit {
       this.snackBar.openSnackBar('User canceled.', '','warning');
     }
   
-    
-
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
@@ -54,7 +52,7 @@ export class FrontpagepostPanelComponent implements OnInit {
         (post: FrontpagePost) => {
           this.frontpagePostService.getAll().subscribe(x => this.frontpagePosts = x);
             this.post = resetFrontpage();
-            this.snackBar.openSnackBar("Profile Pic Updated", '', 'success');
+            this.snackBar.openSnackBar("Post Pic Updated", '', 'success');
         },
         (error) => {
           this.message = Object.values(error.error.errors).join(", ");
@@ -75,7 +73,7 @@ export class FrontpagepostPanelComponent implements OnInit {
           next: (x) => {
             this.frontpagePosts.push(x);
             this.post = resetFrontpage();
-            this.snackBar.openSnackBar("User created", '', 'success');
+            this.snackBar.openSnackBar("Post created", '', 'success');
           },
           error: (err) => {
             console.log(err);
@@ -94,7 +92,7 @@ export class FrontpagepostPanelComponent implements OnInit {
           complete: () => {
             this.frontpagePostService.getAll().subscribe(x => this.frontpagePosts = x);
             this.post = resetFrontpage();
-            this.snackBar.openSnackBar("User updated", '', 'success');
+            this.snackBar.openSnackBar("Post updated", '', 'success');
           }
         });
       }
