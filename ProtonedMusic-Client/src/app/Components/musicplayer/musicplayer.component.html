@@ -27,11 +27,10 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Play</th>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Album</th>
+            <th class="fw-medium">Play</th>
+            <th class="fw-medium">Title</th>
+            <th class="fw-medium">Artist</th>
+            <th class="fw-medium">Album</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +40,6 @@
                 <button (click)="openFile(file, i)" class="btn btn-lg bi-play-btn-fill btn-outline-success"></button>
               </div>
             </td>
-            <td>{{ file.id }}</td>
             <td>{{ file.songName }}</td>
             <td>{{file.artist}}</td>
             <td>{{file.album}}</td>
