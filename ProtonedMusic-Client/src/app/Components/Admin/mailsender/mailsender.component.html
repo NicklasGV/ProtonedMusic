@@ -49,12 +49,12 @@
             <th>Mail</th>
             <th>First name</th>
             <th>Last name</th>
-            <th>Newsletter </th>
+            <th>Subscription</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let user of getNewsletterUsers()">
-                <td><button (click)="sendTo(user)" class="btn btn-success btn-sm">Send To</button></td>
+                <td><button (click)="sendTo(user)" class="btn bi-send-plus-fill btn-success btn-sm"></button></td>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.firstName }}</td>
