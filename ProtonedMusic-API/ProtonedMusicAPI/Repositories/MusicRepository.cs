@@ -38,6 +38,19 @@ namespace ProtonedMusicAPI.Repositories
         {
             var music = await FindByIdAsync(musicId);
 
+            if (!string.IsNullOrEmpty(music.SongFilePath))
+            {
+                await DeleteFileOnFtpAsync(music.SongFilePath);
+            }
+
+            if (!string.IsNullOrEmpty(music.SongPicturePath))
+            {
+                if (!music.SongPicturePath.Contains("img"))
+                {
+                    await DeleteFileOnFtpAsync(music.SongPicturePath);
+                }
+            }
+
             if (music != null)
             {
                 _databaseContext.Remove(music);

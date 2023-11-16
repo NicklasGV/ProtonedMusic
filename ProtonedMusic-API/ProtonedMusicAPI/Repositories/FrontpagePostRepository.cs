@@ -4,6 +4,7 @@ using static System.Net.WebRequestMethods;
 using System.Net;
 using System.Security.Cryptography.Xml;
 using ProtonedMusicAPI.Interfaces.IFrontpage;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ProtonedMusicAPI.Repositories
 {
@@ -37,6 +38,14 @@ namespace ProtonedMusicAPI.Repositories
         public async Task<FrontpagePost> DeleteByIdAsync(int frontpageId)
         {
             var frontpage = await FindByIdAsync(frontpageId);
+
+            if (!string.IsNullOrEmpty(frontpage.FrontpagePicturePath))
+            {
+                if (!frontpage.FrontpagePicturePath.Contains("img"))
+                {
+                    await DeleteFileOnFtpAsync(frontpage.FrontpagePicturePath);
+                }
+            }
 
             if (frontpage != null)
             {

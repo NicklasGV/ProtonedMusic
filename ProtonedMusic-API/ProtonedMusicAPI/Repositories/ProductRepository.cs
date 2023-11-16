@@ -71,6 +71,7 @@ namespace ProtonedMusicAPI.Repositories
                 product.Name = updateProduct.Name;
                 product.Price = updateProduct.Price;
                 product.Description = updateProduct.Description;
+                product.ProductPicturePath = updateProduct.ProductPicturePath;
 
                 await _context.SaveChangesAsync();
                 //Vi finder produktet igen med alle de nye ændringer og sender den til produkt som vi retunere
@@ -82,6 +83,11 @@ namespace ProtonedMusicAPI.Repositories
         public async Task<Product?> DeleteByIdAsync(int productId)
         {
             var product = await FindByIdAsync(productId);
+
+            if (!string.IsNullOrEmpty(product.ProductPicturePath))
+            {
+                await DeleteFileOnFtpAsync(product.ProductPicturePath);
+            }
 
             if (product != null)
             {
