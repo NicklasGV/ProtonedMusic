@@ -14,6 +14,7 @@ import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 })
 export class UpcomingComponent implements OnInit {
   upcomings: UpcomingModel[] = [];
+  upcoming: boolean = false;
 
 
   getUpcomingShows(): any[] {
@@ -31,5 +32,16 @@ export class UpcomingComponent implements OnInit {
 
   ngOnInit(): void {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+  }
+
+  checkUpcomings() {
+    if (this.getUpcomingShows().length === 0)
+    {
+      this.upcoming = false;
+    }
+    if (this.getUpcomingShows().length <= 1)
+    {
+      this.upcoming = true;
+    }
   }
 }
