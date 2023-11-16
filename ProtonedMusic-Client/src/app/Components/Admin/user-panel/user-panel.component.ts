@@ -68,7 +68,6 @@ export class UserPanelComponent implements OnInit {
 
     save(): void {
       this.message = "";
-      console.log(this.user)
       if (this.user.id == 0) {
         //create
         this.userService.create(this.user)

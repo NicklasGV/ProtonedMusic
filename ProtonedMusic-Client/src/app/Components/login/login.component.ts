@@ -84,12 +84,10 @@ export class LoginComponent implements OnInit {
       this.userForm.value.role = 'Customer'
       this.userForm.value.addonRole = 'None'
       if (this.user.id == 0) {
-        console.log(this.userForm.value);
         this.userService.create(this.userForm.value).subscribe({
           next: (x) => {
             this.users.push(x);
             this.cancel();
-            console.log(this.users)
             this.userForm.reset();
             this.snackBar.openSnackBar('User registered','','success');
           },
@@ -99,7 +97,6 @@ export class LoginComponent implements OnInit {
           },
         });
       } else {
-        console.log(this.userForm.value)
         this.userService.update(this.userForm.value).subscribe({
           error: (err) => {
             this.message = Object.values(err.error.errors).join(", ");

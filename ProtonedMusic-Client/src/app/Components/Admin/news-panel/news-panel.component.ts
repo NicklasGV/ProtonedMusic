@@ -32,7 +32,6 @@ export class NewsPanelComponent implements OnInit {
   }
 
   marked(event: any) {
-    console.log(event)
     let value = parseInt(event.target.value);
     if (this.selected.indexOf(value) == -1) {
       this.selected.push(value);
@@ -40,7 +39,6 @@ export class NewsPanelComponent implements OnInit {
       this.selected.splice(this.selected.indexOf(value), 1);
     }
     this.selected.sort((a, b) => a - b);
-    console.log("Seleted IDs ", this.selected);
   }
   
 editNews(anews: NewsModel): void {
@@ -58,11 +56,9 @@ editNews(anews: NewsModel): void {
           this.news = this.news.filter(x => x.id != anews.id);
         });
         this.snackBar.openSnackBar('Deletion successful.', '','success');
-        console.log('Product deleted!');
       } else {
         // User canceled the operation
         this.snackBar.openSnackBar('Deletion canceled.', '','warning');
-        console.log('Deletion canceled.');
       }
     });
   }
