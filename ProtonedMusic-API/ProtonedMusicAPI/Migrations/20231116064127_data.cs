@@ -212,8 +212,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "EventPicturePath", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9594), "Test", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
-                    { 2, new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9601), "Test2", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
+                    { 1, new DateTime(2023, 11, 16, 7, 41, 26, 807, DateTimeKind.Local).AddTicks(9470), "Test", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
+                    { 2, new DateTime(2023, 11, 16, 7, 41, 26, 807, DateTimeKind.Local).AddTicks(9481), "Test2", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
                 });
 
             migrationBuilder.InsertData(
@@ -231,7 +231,7 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1443), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
+                    { 1, new DateTime(2023, 11, 16, 7, 41, 27, 72, DateTimeKind.Local).AddTicks(8796), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
                     { 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
                     { 3, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
                 });
@@ -252,8 +252,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "AddonRoles", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "ProfilePicturePath", "Role" },
                 values: new object[,]
                 {
-                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$nF4LEaE2V3ertqxv1JWxuOpXRJE3e1GHn6RkIhVyr4hyZui60os8u", 12345678, 1234, null, 1 },
-                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$Ve3oyWnpZx2SpDJLnJPwj.I/i5wsPejsFK7rtX47Bl.fOYidpscnm", 12345679, 1234, null, 0 }
+                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$ojNKz4zvTlYeHrEySo8AMe/uF/deqkG3rZEb21F/2X8OE0mCpB8IO", 12345678, 1234, null, 1 },
+                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$xOtqOtI.y4f6As2gTj0er./diFevUmzyYCgSNbGn36RFuG.03/xzG", 12345679, 1234, null, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -271,7 +271,7 @@ namespace ProtonedMusicAPI.Migrations
             migrationBuilder.InsertData(
                 table: "newsLikes",
                 columns: new[] { "Id", "DateTime", "news_Id", "user_Id" },
-                values: new object[] { 1, new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1498), 1, 1 });
+                values: new object[] { 1, new DateTime(2023, 11, 16, 7, 41, 27, 72, DateTimeKind.Local).AddTicks(8853), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_newsLikes_news_Id",

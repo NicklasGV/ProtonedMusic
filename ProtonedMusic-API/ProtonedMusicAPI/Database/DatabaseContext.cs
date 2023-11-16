@@ -17,6 +17,7 @@ namespace ProtonedMusicAPI.Database
         public DbSet<NewsLike> newsLikes { get; set; }
         public DbSet<FrontpagePost> Frontpages { get; set; }
         public DbSet<Upcoming> upcomings { get; set; }
+        public DbSet<Music> Music { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -241,6 +242,25 @@ namespace ProtonedMusicAPI.Database
                 Text = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas",
                 Banner = Banner.MiddleBanner,
                 FrontpagePicturePath = "assets/img/bannerLogo3.jpg"
+            });
+
+            modelBuilder.Entity<Music>().HasData(new Music
+            {
+                Id = 1,
+                SongName = "Chatter",
+                Artist = "Connor Price",
+                Album = "Around the worlds",
+                SongFilePath = "assets/music/audio1.mp3",
+                SongPicturePath = ""
+            },
+            new Music
+            {
+                Id = 2,
+                SongName = "FlipFlop",
+                Artist = "Sigurd",
+                Album = "Bjørn",
+                SongFilePath = "assets/music/audio2.mp3",
+                SongPicturePath = ""
             });
         }
     }
