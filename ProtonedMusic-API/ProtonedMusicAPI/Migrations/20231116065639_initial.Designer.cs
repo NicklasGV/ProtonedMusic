@@ -12,8 +12,8 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231114110657_data")]
-    partial class data
+    [Migration("20231116065639_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,7 +100,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9594),
+                            Created = new DateTime(2023, 11, 16, 7, 56, 39, 354, DateTimeKind.Local).AddTicks(1318),
                             Description = "Test",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -109,7 +109,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9601),
+                            Created = new DateTime(2023, 11, 16, 7, 56, 39, 354, DateTimeKind.Local).AddTicks(1329),
                             Description = "Test2",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -212,7 +212,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1443),
+                            DateTime = new DateTime(2023, 11, 16, 7, 56, 39, 490, DateTimeKind.Local).AddTicks(3386),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -261,7 +261,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1498),
+                            DateTime = new DateTime(2023, 11, 16, 7, 56, 39, 490, DateTimeKind.Local).AddTicks(3438),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -459,7 +459,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$nF4LEaE2V3ertqxv1JWxuOpXRJE3e1GHn6RkIhVyr4hyZui60os8u",
+                            Password = "$2b$10$8W7RuoiAYo/FEuY/HVb6Z.grWc306JaYwmWJoRX2Il3ZaQmBKWqaK",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -474,7 +474,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$Ve3oyWnpZx2SpDJLnJPwj.I/i5wsPejsFK7rtX47Bl.fOYidpscnm",
+                            Password = "$2b$10$.mS8aMiz/ZA7OBatqgb.weRAcnOHJJVU7Xq4RQnAaNf7XZauUcd6K",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -212,8 +212,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "EventPicturePath", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9594), "Test", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
-                    { 2, new DateTime(2023, 11, 14, 12, 6, 57, 359, DateTimeKind.Local).AddTicks(9601), "Test2", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
+                    { 1, new DateTime(2023, 11, 16, 7, 56, 39, 354, DateTimeKind.Local).AddTicks(1318), "Test", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "Test" },
+                    { 2, new DateTime(2023, 11, 16, 7, 56, 39, 354, DateTimeKind.Local).AddTicks(1329), "Test2", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Test2" }
                 });
 
             migrationBuilder.InsertData(
@@ -231,7 +231,7 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1443), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
+                    { 1, new DateTime(2023, 11, 16, 7, 56, 39, 490, DateTimeKind.Local).AddTicks(3386), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
                     { 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
                     { 3, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
                 });
@@ -252,8 +252,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "AddonRoles", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "ProfilePicturePath", "Role" },
                 values: new object[,]
                 {
-                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$nF4LEaE2V3ertqxv1JWxuOpXRJE3e1GHn6RkIhVyr4hyZui60os8u", 12345678, 1234, null, 1 },
-                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$Ve3oyWnpZx2SpDJLnJPwj.I/i5wsPejsFK7rtX47Bl.fOYidpscnm", 12345679, 1234, null, 0 }
+                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$8W7RuoiAYo/FEuY/HVb6Z.grWc306JaYwmWJoRX2Il3ZaQmBKWqaK", 12345678, 1234, null, 1 },
+                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$.mS8aMiz/ZA7OBatqgb.weRAcnOHJJVU7Xq4RQnAaNf7XZauUcd6K", 12345679, 1234, null, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -271,7 +271,7 @@ namespace ProtonedMusicAPI.Migrations
             migrationBuilder.InsertData(
                 table: "newsLikes",
                 columns: new[] { "Id", "DateTime", "news_Id", "user_Id" },
-                values: new object[] { 1, new DateTime(2023, 11, 14, 12, 6, 57, 633, DateTimeKind.Local).AddTicks(1498), 1, 1 });
+                values: new object[] { 1, new DateTime(2023, 11, 16, 7, 56, 39, 490, DateTimeKind.Local).AddTicks(3438), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_newsLikes_news_Id",

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   user: User = resetUser();
   roles:Role[] = []
   loginForm: FormGroup;
+  showPassword: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private snackBar: SnackBarService
+    private snackBar: SnackBarService,
+    private renderer: Renderer2
   ) { 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -45,6 +47,14 @@ export class LoginComponent implements OnInit {
     if (this.authService.currentUserValue != null && this.authService.currentUserValue.id > 0) {
       this.router.navigate(['/']);
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  hidePassword(passwordInput: any) {
+    this.renderer.setAttribute(passwordInput.nativeElement, 'type', 'password');
   }
 
   login(): void {
