@@ -57,11 +57,9 @@ export class CartComponent implements OnInit {
       if (result) {
         this.cartService.clearCart();
         this.snackBar.openSnackBar('Clearing successful.', '', 'success');
-        console.log('Product deleted!');
       } else {
         // User canceled the operation
         this.snackBar.openSnackBar('Clearing canceled.', '', 'warning');
-        console.log('Clearing canceled.');
       }
     });
   }
@@ -86,11 +84,9 @@ export class CartComponent implements OnInit {
           this.cartItems.splice(index, 1);
           this.cartService.saveCart(this.cartItems);
           this.snackBar.openSnackBar('Clearing successful.', '', 'success');
-          console.log('Product deleted!');
         } else {
           // User canceled the operation
           this.snackBar.openSnackBar('Clearing canceled.', '', 'warning');
-          console.log('Clearing canceled.');
         }
       });
     }
@@ -100,7 +96,6 @@ export class CartComponent implements OnInit {
     if (this.authService.currentUserValue.email === '') {
       this.snackBar.openSnackBar('You must be logged in to purchase items.', '', 'warning');
     } else {
-      console.log(this.cartItems);
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
 
@@ -150,11 +145,9 @@ export class CartComponent implements OnInit {
       if (result) {
         this.cartService.removeItemFromCart(item.id);
         this.snackBar.openSnackBar('Clearing successful.', '', 'success');
-        console.log('Product deleted!');
       } else {
         // User canceled the operation
         this.snackBar.openSnackBar('Clearing canceled.', '', 'warning');
-        console.log('Clearing canceled.');
       }
     });
   }

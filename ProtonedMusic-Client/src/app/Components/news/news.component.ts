@@ -88,7 +88,6 @@ export class NewsComponent implements OnInit {
             this.filterAndSortNews();
           },
         });
-        console.log('Works');
       },
     });
   }
