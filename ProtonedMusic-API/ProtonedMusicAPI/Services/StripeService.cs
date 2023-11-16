@@ -1,4 +1,5 @@
-﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
+﻿using System.Collections.Generic;
+using ProtonedMusicAPI.Database.NonDatabaseEntities;
 using Stripe;
 using Stripe.Checkout;
 
@@ -12,6 +13,56 @@ namespace ProtonedMusicAPI.Services
         {
             _stripeSecretKey = stripeSecretKey;
             StripeConfiguration.ApiKey = _stripeSecretKey;
+        }
+
+        public string CreateAccountInfoSession(string customerEmail, string customerName, string customerAddress, string customerPhone)
+        {
+            var customerOptions = new CustomerCreateOptions
+            {
+                Email = customerEmail,
+                Name = customerName,
+                Address = new AddressOptions
+                {
+                    Line1 = customerAddress,
+                },
+                Phone = customerPhone,
+            };
+
+            var customerService = new CustomerService();
+            var customer = customerService.Create(customerOptions);
+
+            var options = new SessionCreateOptions
+            {
+                Customer = customer.Id,
+                BillingAddressCollection = "required",
+                Mode = "setup",
+                Currency = "dkk",
+                SuccessUrl = "http://localhost:4200/#/",
+                CancelUrl = "https://your-website.com/cancel",
+            };
+
+            // Gem session-ID i en variabel, database, eller andet, så det kan bruges senere
+            var accountInfoSessionId = CreateSession(options);
+
+            // Returner session-ID til klienten
+            return accountInfoSessionId;
+        }
+
+        public string CreateDeliveryAddressSession(string previousSessionId)
+        {
+            var options = new SessionCreateOptions
+            {
+                BillingAddressCollection = "required",
+                ShippingAddressCollection = new SessionShippingAddressCollectionOptions
+                {
+                    AllowedCountries = new List<string> { "DK" }, // Angiv de lande, der er tilladt for forsendelse
+                },
+                Mode = "setup",
+                Currency = "dkk",
+                SuccessUrl = "http://localhost:4200/#/"
+            };
+
+            return CreateSession(options, previousSessionId);
         }
 
         public string CreateCheckoutSession(List<CartItemData> cartItems)
@@ -39,11 +90,33 @@ namespace ProtonedMusicAPI.Services
                 CancelUrl = "https://your-website.com/cancel",
             };
 
+            return CreateSession(options);
+        }
+
+        private string CreateSession(SessionCreateOptions options)
+        {
             var service = new SessionService();
             var session = service.Create(options);
 
             return session.Id;
-            //heyheyehye
         }
+
+        // Opdateret metode med en ekstra parameter for previousSessionId
+        private string CreateSession(SessionCreateOptions options, string previousSessionId)
+        {
+            // Log ud af previousSessionId for fejlfinding
+            Console.WriteLine($"Previous Session ID: {previousSessionId}");
+
+            // Hvis der er en tidligere session-ID, kan du inkludere det som en reference
+            options.SetupIntentData = previousSessionId != null
+                ? new SessionSetupIntentDataOptions { Metadata = new Dictionary<string, string> { { "previous_session_id", previousSessionId } } }
+                : null;
+
+            var service = new SessionService();
+            var session = service.Create(options);
+
+            return session.Id;
+        }
+
     }
 }

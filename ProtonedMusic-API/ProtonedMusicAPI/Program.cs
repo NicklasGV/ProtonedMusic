@@ -8,11 +8,7 @@ namespace ProtonedMusicAPI
     {
         public static void Main(string[] args)
         {
-
-
             var builder = WebApplication.CreateBuilder(args);
-
-            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
