@@ -25,8 +25,8 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
-            builder.Services.AddScoped<IImageRepository, ImageRepository>();
-            builder.Services.AddScoped<IImageService, ImageService>();
+            builder.Services.AddScoped<IMusicRepository, MusicRepository>();
+            builder.Services.AddScoped<IMusicService, MusicService>();
 
             builder.Services.AddScoped<INewsRepository, NewsRepository>();
             builder.Services.AddScoped<INewsService, NewsService>();
