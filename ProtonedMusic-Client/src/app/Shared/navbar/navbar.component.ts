@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit {
         this.isLoggedIn = true;
       }
     });
-    console.log('Bruger logger ind:', this.authService.currentUserValue);
   }
 
   roleCheck(): boolean {

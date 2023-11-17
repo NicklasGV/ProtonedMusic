@@ -43,14 +43,12 @@ export class MailsenderComponent implements OnInit {
     this.mail.to = user.email;
   }
 
-  save(): void {
+  send(): void {
     this.message = '';
-  
     if (this.sendToAll) {
       this.users.forEach((user) => {
         if (user.addonRoles === 'Newsletter' && user.email) {
           this.mail.to = user.email; // Set the recipient email in the mail object
-  
           this.mailService.sendEmail(this.mail).subscribe({
             next: (x) => {
               this.mails.push(x);
@@ -62,8 +60,6 @@ export class MailsenderComponent implements OnInit {
               this.snackBar.openSnackBar(this.message, '', 'error');
             },
           });
-  
-          console.log("Email sent to:", user.email);
         }
       });
     } else {
@@ -71,7 +67,6 @@ export class MailsenderComponent implements OnInit {
       this.mailService.sendEmail(this.mail).subscribe({
         next: (x) => {
           this.mails.push(x);
-          this.mail = resetEmail();
           this.snackBar.openSnackBar('Mail sent', '', 'success');
         },
         error: (err) => {

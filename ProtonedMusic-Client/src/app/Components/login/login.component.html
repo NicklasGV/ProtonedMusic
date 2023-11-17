@@ -9,7 +9,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label bi-key-fill"> Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="password" [(ngModel)]="password">
+                    <div class="input-group">
+                        <input *ngIf="!showPassword" type="password" class="form-control" name="password" placeholder="password" [(ngModel)]="password">
+                        <input *ngIf="showPassword" type="text" class="form-control" name="password" placeholder="password" [(ngModel)]="password">
+                        <button class="btn btn-outline-secondary bi-eye-fill" (click)="togglePasswordVisibility()" type="button"></button>
+                    </div>
                 </div>
                 <div class="d-grid">
                     <button type="submit" class="btn btn-outline-success rounded-4" (click)="login()">Login</button>
@@ -53,7 +57,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="SignUpPassword" class="form-label bi-key-fill"> Password</label>
-                        <input type="password" formControlName="password" placeholder="Adgangskode" class="form-control" id="SignUpPassword">
+                        <div class="input-group">
+                            <input *ngIf="!showPassword" type="password" class="form-control" name="password" placeholder="password" formControlName="password">
+                            <input *ngIf="showPassword" type="text" class="form-control" name="password" placeholder="password" formControlName="password">
+                            <button class="btn btn-outline-secondary bi-eye-fill" (click)="togglePasswordVisibility()" type="button"></button>
+                        </div>
                         <span class="error" *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">Udfyld!</span>
                     </div>
                 </div>

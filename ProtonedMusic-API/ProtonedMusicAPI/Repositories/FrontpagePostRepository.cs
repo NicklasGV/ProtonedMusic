@@ -71,8 +71,11 @@ namespace ProtonedMusicAPI.Repositories
 
             if (!string.IsNullOrEmpty(oldFilePath))
             {
-                // If the user already has a profile picture, delete the old image asynchronously
-                await DeleteFileOnFtpAsync(oldFilePath);
+                if (!oldFilePath.Contains("img"))
+                {
+                    // If the user already has a profile picture, delete the old image asynchronously
+                    await DeleteFileOnFtpAsync(oldFilePath);
+                }
             }
 
             // Create an FTP request to upload the new profile picture

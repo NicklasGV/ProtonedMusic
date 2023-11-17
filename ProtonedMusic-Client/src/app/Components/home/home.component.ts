@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FrontpagePostService } from 'src/app/Services/frontpagePost.service';
-import { FrontpagePost, resetFrontpage } from 'src/app/Models/FrontpagePostModel';
+import { FrontpagePost} from 'src/app/Models/FrontpagePostModel';
 import { Banner, constBanners } from 'src/app/Models/banner';
 
 @Component({
@@ -12,13 +12,8 @@ import { Banner, constBanners } from 'src/app/Models/banner';
   styleUrls: ['./home.component.css']
 })
 export class HomepageComponent implements OnInit {
-
-  message: string = "";
   frontpagePosts: FrontpagePost[] = [];
-  user: FrontpagePost = resetFrontpage();
   banner: Banner[] = [];
-  selectedFile: File | undefined;
-  formData = new FormData();
   
   
     constructor(private frontpagePostService: FrontpagePostService) { }
