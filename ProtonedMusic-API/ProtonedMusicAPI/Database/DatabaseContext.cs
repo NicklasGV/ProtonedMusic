@@ -11,7 +11,6 @@ namespace ProtonedMusicAPI.Database
         public DbSet<Category> Category { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<Image> Images { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<NewsLike> newsLikes { get; set; }
