@@ -67,7 +67,8 @@ export class LoginComponent implements OnInit {
         }
       }
     });
-}
+  }
+  
   save(): void {
     if (this.userForm.valid && this.userForm.touched) {
       this.userForm.value.role = 'Customer'
