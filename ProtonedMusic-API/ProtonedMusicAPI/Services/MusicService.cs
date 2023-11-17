@@ -1,7 +1,4 @@
-﻿using ProtonedMusicAPI.Database.Entities;
-using ProtonedMusicAPI.DTO.MusicDTO;
-
-namespace ProtonedMusicAPI.Services
+﻿namespace ProtonedMusicAPI.Services
 {
     public class MusicService : IMusicService
     {

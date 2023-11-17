@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting.Server;
-using ProtonedMusicAPI.Interfaces.IUser;
-using static System.Net.WebRequestMethods;
-using System.Net;
-using System.Security.Cryptography.Xml;
-using ProtonedMusicAPI.Interfaces.IFrontpage;
-
-namespace ProtonedMusicAPI.Repositories
+﻿namespace ProtonedMusicAPI.Repositories
 {
     public class MusicRepository : IMusicRepository
     {

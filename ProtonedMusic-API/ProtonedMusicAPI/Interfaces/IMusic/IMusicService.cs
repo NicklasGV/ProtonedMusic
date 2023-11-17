@@ -1,6 +1,4 @@
-﻿using ProtonedMusicAPI.DTO.MusicDTO;
-
-namespace ProtonedMusicAPI.Interfaces.IMusic
+﻿namespace ProtonedMusicAPI.Interfaces.IMusic
 {
     public interface IMusicService
     {

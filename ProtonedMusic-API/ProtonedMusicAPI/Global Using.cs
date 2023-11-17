@@ -17,6 +17,7 @@ global using ProtonedMusicAPI.DTO.EventDTO;
 global using ProtonedMusicAPI.DTO.FrontpageDTO;
 global using ProtonedMusicAPI.Interfaces.IFrontpage;
 global using ProtonedMusicAPI.Interfaces.IMusic;
+global using ProtonedMusicAPI.DTO.MusicDTO;
 
 //Microsoft
 global using Microsoft.EntityFrameworkCore;
@@ -28,3 +29,4 @@ global using Microsoft.OpenApi.Models;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using System.ComponentModel.DataAnnotations;
 global using System.Text.Json.Serialization;
+global using System.Net;
