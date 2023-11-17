@@ -1,12 +1,15 @@
-﻿namespace ProtonedMusicAPI.Interfaces.IMusic
+﻿using ProtonedMusicAPI.DTO.MusicDTO;
+
+namespace ProtonedMusicAPI.Interfaces.IMusic
 {
-    public interface IFrontpagePostService
+    public interface IMusicService
     {
-        Task<List<FrontpagePostResponse>> GetAllAsync();
-        Task<FrontpagePostResponse?> FindByIdAsync(int frontPageId);
-        Task<FrontpagePostResponse> CreateAsync(FrontpagePostRequest newFrontPage);
-        Task<FrontpagePostResponse?> UpdateByIdAsync(int frontPageId, FrontpagePostRequest updateFrontPage);
-        Task<FrontpagePostResponse> DeleteByIdAsync(int frontPageId);
-        Task<FrontpagePostResponse> UploadFrontpagePicture(int frontPageId, IFormFile file);
+        Task<List<MusicResponse>> GetAllAsync();
+        Task<MusicResponse?> FindByIdAsync(int musicId);
+        Task<MusicResponse> CreateAsync(MusicRequest newMusic);
+        Task<MusicResponse?> UpdateByIdAsync(int musicId, MusicRequest updateMusic);
+        Task<MusicResponse> DeleteByIdAsync(int musicId);
+        Task<MusicResponse> UploadSong(int musicId, IFormFile song);
+        Task<MusicResponse> UploadSongPicture(int musicId, IFormFile file);
     }
 }
