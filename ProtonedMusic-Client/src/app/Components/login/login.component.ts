@@ -19,7 +19,7 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
-  message: string = '';	
+  message: string = '';
   users: User[] = [];
   userForm: FormGroup = this.resetForm();
   user: User = resetUser();
@@ -67,18 +67,18 @@ export class LoginComponent implements OnInit {
         this.snackBar.openSnackBar('Login Succesful','','success');
       },
       error: err => {
-        if (err.error?.status == 400 || err.error?.status == 401 || err.error?.status == 500) {
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, '', 'error');
-        }
-        else {
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, '', 'error');
+        console.error('Login error:', err);
+        if (err.status === 400 || err.status === 401 || err.status === 500) {
+          this.message = 'Incorrect email or password. Please try again.';
+          this.snackBar.openSnackBar(this.message, 'asdfasd', 'error');
+        } else {
+          this.message = 'An unexpected error occurred.';
+          this.snackBar.openSnackBar(this.message, 'asd', 'error');
         }
       }
     });
   }
-
+  
   save(): void {
     if (this.userForm.valid && this.userForm.touched) {
       this.userForm.value.role = 'Customer'
