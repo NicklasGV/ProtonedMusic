@@ -1,4 +1,8 @@
-﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using ProtonedMusicAPI.Services;
+using ProtonedMusicAPI.Database.NonDatabaseEntities;
 
 [ApiController]
 [Route("api")]
@@ -9,6 +13,36 @@ public class CheckoutController : ControllerBase
     public CheckoutController()
     {
         _stripeService = new StripeService("sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F");
+    }
+
+    [HttpPost("CreateCombinedSession")]
+    public IActionResult CreateCombinedSession([FromBody] CombinedSessionData combinedData)
+    {
+        try
+        {
+            var accountInfoSessionId = _stripeService.CreateAccountInfoSession(
+                combinedData.CustomerInfo.Email,
+                combinedData.CustomerInfo.Name,
+                combinedData.CustomerInfo.Address,
+                combinedData.CustomerInfo.Phone
+            );
+
+            var deliveryAddressSessionId = _stripeService.CreateDeliveryAddressSession(combinedData.PreviousSessionId);
+            var checkoutSessionId = _stripeService.CreateCheckoutSession(combinedData.CartItems);
+
+            return Ok(new
+            {
+                AccountInfoSessionId = accountInfoSessionId,
+                DeliveryAddressSessionId = deliveryAddressSessionId,
+                CheckoutSessionId = checkoutSessionId
+            });
+        }
+        catch (Exception ex)
+        {
+            // Log fejl og returner BadRequest-status
+            Console.WriteLine($"Error creating combined sessions: {ex.Message}");
+            return BadRequest(new { Error = "An error occurred while creating combined sessions. Please try again or contact support." });
+        }
     }
 
     [HttpPost("CreateAccountInfoSession")]
@@ -43,7 +77,6 @@ public class CheckoutController : ControllerBase
         }
     }
 
-
     [HttpPost("CreateCheckoutSession")]
     public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems)
     {
@@ -65,4 +98,12 @@ public class CheckoutController : ControllerBase
             return BadRequest(new { Error = ex.Message });
         }
     }
+
+    public class CombinedSessionData
+    {
+        public CustomerInfoData CustomerInfo { get; set; }
+        public string PreviousSessionId { get; set; }
+        public List<CartItemData> CartItems { get; set; }
+    }
+
 }

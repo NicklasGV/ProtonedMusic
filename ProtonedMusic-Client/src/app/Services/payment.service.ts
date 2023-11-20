@@ -5,36 +5,67 @@ import { Injectable } from "@angular/core";
 import { StripeChekoutModel } from '../Models/StripeChekoutItems';
 import { AccountInfo } from '../Models/AccountInfo';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
   private readonly url = environment.apiUrl;
+  private static readonly stripeAPIKey = 'STRIPE_API_KEY';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public CreateAccountInfoSession(accountInfo: AccountInfo): Observable<any> {
     const stripeAPIURL = this.url + 'CreateAccountInfoSession';
-    return this.http.post<any>(stripeAPIURL, accountInfo);
-
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${PaymentService.stripeAPIKey}`,
+        'Content-Type': 'application/json'
+      }
+    };
+    return this.http.post<any>(stripeAPIURL, accountInfo, httpOptions);
   };
+
   public CreateDeliveryAddressSession(previousSessionId: string): Observable<any> {
     const stripeAPIURL = this.url + 'CreateDeliveryAddressSession';
-    return this.http.post<any>(stripeAPIURL, previousSessionId);
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${PaymentService.stripeAPIKey}`,
+        'Content-Type': 'application/json'
+      }
+    };
+    return this.http.post<any>(stripeAPIURL, previousSessionId, httpOptions);
   }
 
   public createCheckoutSession(cartItems: StripeChekoutModel[]): Observable<any> {
     const stripeAPIURL = this.url + 'CreateCheckoutSession';
-    const stripeAPIKey = 'sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F';
     const httpOptions = {
       headers: {
-        'Authorization': `Bearer ${stripeAPIKey}`,
+        'Authorization': `Bearer ${PaymentService.stripeAPIKey}`,
+        'Content-Type': 'application/json'
+      }
+    };
+    console.log('Sending createCheckoutSession request with data:', cartItems);
+    return this.http.post<any>(stripeAPIURL, cartItems, httpOptions);
+  }
+
+  //Test for alle sessions
+  public CreateCombinedSession(accountInfo: AccountInfo, cartItems: StripeChekoutModel[], previousSessionId: string): Observable<any> {
+    const stripeAPIURL = this.url + 'CreateStripeSession';
+    const httpOptions = {
+      headers: {
+        'Authorization': `Bearer ${PaymentService.stripeAPIKey}`,
         'Content-Type': 'application/json'
       }
     };
 
-    console.log('Sending createCheckoutSession request with data:', cartItems);
+    const sessionData = {
+      accountInfo: accountInfo,
+      cartItems: cartItems,
+      previousSessionId: previousSessionId
+    };
 
-    return this.http.post<any>(stripeAPIURL, cartItems, httpOptions);
+    return this.http.post<any>(stripeAPIURL, sessionData, httpOptions);
   }
+
 }
