@@ -1,4 +1,3 @@
-import { AddonRoles } from 'src/app/Models/AddonRole';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from 'src/app/Services/user.service';
@@ -23,7 +22,6 @@ export class MailsenderComponent implements OnInit {
   message: string = '';
   sendToAll: boolean = false;
   selected: string[] = [];
-
   constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService) { }
 
   ngOnInit(): void {
@@ -41,6 +39,10 @@ export class MailsenderComponent implements OnInit {
 
   sendTo(user: User): void {
     this.mail.to = user.email;
+  }
+
+  templateText() {
+    this.message = '<h1>Protoned Music</h1>'
   }
 
   send(): void {
