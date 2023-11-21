@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router';
 import { CartItem } from '../../Models/CartModel';
 import { CartService } from '../../Services/cart.service';
 
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 

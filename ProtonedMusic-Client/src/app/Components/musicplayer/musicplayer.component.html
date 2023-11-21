@@ -11,7 +11,7 @@
       <p *ngIf="this.currentSongName" class="card-text">{{this.currentSongName}} by {{this.currentArtist}}</p>
       <div id="Duration" class="d-flex justify-content-center">
         {{ state?.readableCurrentTime }}
-        <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime" (input)="onSliderChangeEnd($event)" [disabled]="state?.error || currentFile.index === undefined"></mat-slider>
+        <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider><input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" /></mat-slider>
         {{ state?.readableDuration }}
       </div>
       <div class="d-flex mt-2 mx-0 mb-4 justify-content-center">
@@ -22,7 +22,7 @@
         <div class="ms-2">
           <a class="bi-volume-up-fill"></a>
           <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-            <mat-slider min="0" max="100" step="1" discrete>
+            <mat-slider min="0" max="100" step="1" discrete><input matSliderThumb />
               <input matSliderThumb #slider>
             </mat-slider>
           </span>
