@@ -21,11 +21,10 @@
         <button (click)="next()" [disabled]="isLastPlaying()" class="btn btn-lg bi-skip-forward-circle-fill text-success rounded-5 m-0 p-0"></button>
         <div class="ms-2">
           <a class="bi-volume-up-fill"></a>
-          <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-            <mat-slider min="0" max="100" step="1" discrete><input matSliderThumb />
-              <input matSliderThumb #slider>
-            </mat-slider>
-          </span>
+          <input type="range" class="form-range" id="customRange1" min="0" max="100" step="1" [value]="volume">
+          <!-- <mat-slider min="0" max="100" step="1" discrete>
+            <input matSliderThumb #slider>
+          </mat-slider> -->
         </div>
       </div>
     </div>
@@ -58,4 +57,3 @@
       </table>
     </div>
   </div>
-  
