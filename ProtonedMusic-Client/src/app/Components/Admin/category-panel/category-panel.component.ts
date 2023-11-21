@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DialogService } from 'src/app/Services/dialog.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-category-panel',

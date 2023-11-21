@@ -5,7 +5,7 @@ import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
 import { ProductService } from 'src/app/Services/product.service';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from 'src/app/Services/category.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 
