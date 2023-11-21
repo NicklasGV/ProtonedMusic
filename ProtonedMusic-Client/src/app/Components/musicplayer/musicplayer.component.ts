@@ -22,7 +22,7 @@ export class MusicplayerComponent{
   currentSong: string = '';
   currentSongName: string = '';
   currentArtist: string = '';
-  thumbLabel: boolean = true;
+  volume: number = 0.2;
 
   constructor(private audioService: AudioService, cloudService: CloudService, public auth: AuthService) {
     // get media files
@@ -85,5 +85,10 @@ export class MusicplayerComponent{
 
   onSliderChangeEnd(change: { value: any; }) {
     this.audioService.seekTo(change.value);
+  }
+
+  volumeChange() {
+    let audio = new Audio();
+    audio.volume = this.volume;
   }
 }
