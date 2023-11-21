@@ -11,7 +11,7 @@
       <p *ngIf="this.currentSongName" class="card-text">{{this.currentSongName}} by {{this.currentArtist}}</p>
       <div id="Duration" class="d-flex justify-content-center">
         {{ state?.readableCurrentTime }}
-        <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider><input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" /></mat-slider>
+        <!-- <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider><input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" /></mat-slider> -->
         {{ state?.readableDuration }}
       </div>
       <div class="d-flex mt-2 mx-0 mb-4 justify-content-center">
