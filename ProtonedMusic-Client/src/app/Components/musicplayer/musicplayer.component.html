@@ -22,12 +22,12 @@
         <button (click)="pause()" *ngIf="state?.playing" class="btn btn-lg bi-pause-circle-fill text-success rounded-5 m-0 p-0 me-1"></button>
         <button (click)="next()" [disabled]="isLastPlaying()" class="btn btn-lg bi-skip-forward-circle-fill text-success rounded-5 m-0 p-0"></button>
         <div class="d-flex ms-2 justify-content-center">
-          <a *ngIf="volume >= 50 / 100" class="bi-volume-up-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
-          <a *ngIf="volume <= 49 / 100" class="bi-volume-down-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
+          <a *ngIf="ngSliderThumb2.value >= 50" class="bi-volume-up-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
+          <a *ngIf="ngSliderThumb2.value <= 49 && ngSliderThumb2.value >= 1" class="bi-volume-down-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
+          <a *ngIf="ngSliderThumb2.value == 0" class="bi-volume-mute-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
           <mat-slider min="0" max="100" step="1" discrete [disabled]="state?.error || currentFile.index === undefined">
-            <input matSliderThumb #slider [value]="volume" (input)="volumeChange(ngSliderThumb.value)" #ngSliderThumb="matSliderThumb">
+            <input matSliderThumb #slider [value]="volume" (input)="volumeChange(ngSliderThumb2.value)" #ngSliderThumb2="matSliderThumb">
           </mat-slider>
-          
         </div>
       </div>
     </div>

@@ -89,7 +89,6 @@ export class MusicplayerComponent{
   }
 
   volumeChange(volume: number) {
-    console.log(volume);
     this.audioService.setVolume(volume);
   }
 }
