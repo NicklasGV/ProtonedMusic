@@ -22,6 +22,7 @@ export class MusicplayerComponent{
   currentSong: string = '';
   currentSongName: string = '';
   currentArtist: string = '';
+  thumbLabel: boolean = true;
 
   constructor(private audioService: AudioService, cloudService: CloudService, public auth: AuthService) {
     // get media files
