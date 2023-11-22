@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="container-fluid">
-  <div class="row row-cols-auto row-cols-lg-3 g-4 m-5">
+  <div class="row row-cols-auto row-cols-lg-3 g-4 m-5" *ngIf="upcoming == true">
     <div *ngFor="let upcoming of getUpcomingShows()">
       <div class="card bg-dark text-light" style="grid-template-rows: auto 1fr;">
         <div class="card-header">
@@ -20,4 +20,20 @@
       </div>
     </div>
   </div>
+  <div class="g-4 m-5 align-content-center" *ngIf="upcoming == false">
+    <div class="card bg-dark text-light">
+      <div class="card-body text-center">
+        <h2>Nothing upcoming right now check back later!</h2>
+      </div>
+    </div>
+  </div>
 </div>
+
+<button style="background-color: #04AA6D; /* Green */
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;"></button>

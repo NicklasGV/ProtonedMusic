@@ -33,7 +33,7 @@
                         <p class="text-truncate" style="max-width: 300px;">{{product.description}}</p>
                     </div>
                     <div class="card-footer mt-auto">
-                        <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end btn-sm me-1" (click)="addToCart(product); $event.stopPropagation()"> Add to basket</a>
+                        <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end btn-sm ms-1" (click)="addToCart(product); $event.stopPropagation()"> Add to basket</a>
                         <h5 class="badge text-black bg-success float-end">{{ product.price | currency: 'DKK ' }}</h5>
                     </div>
                 </div>

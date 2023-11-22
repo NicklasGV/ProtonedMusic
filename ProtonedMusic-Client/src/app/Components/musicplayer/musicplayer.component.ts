@@ -1,4 +1,5 @@
 import { MatSliderModule } from '@angular/material/slider';
+import * as i2 from '@angular/material/slider';
 import { AfterViewInit, Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ export class MusicplayerComponent{
   currentSong: string = '';
   currentSongName: string = '';
   currentArtist: string = '';
+  volume: number = 50;
 
   constructor(private audioService: AudioService, cloudService: CloudService, public auth: AuthService) {
     // get media files
@@ -82,7 +84,11 @@ export class MusicplayerComponent{
     return this.currentFile.index === this.files.length - 1;
   }
 
-  onSliderChangeEnd(change: { value: any; }) {
+  onSliderChangeEnd(change: any) {
     this.audioService.seekTo(change.value);
+  }
+
+  volumeChange(volume: number) {
+    this.audioService.setVolume(volume);
   }
 }

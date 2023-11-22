@@ -47,7 +47,6 @@ export class MerchandiseComponent implements OnInit {
       // This is the call to the service to get all products.
       next: (result) => {
         this.products = result;
-        console.log(this.cart.length);
         this.cart.forEach((element) => {
           this.itemlength += element.quantity;
         });
@@ -62,7 +61,6 @@ export class MerchandiseComponent implements OnInit {
 
   addToCart(products: ProductModel) {
     this.itemlength += 1;
-    console.log(products);
     let item: CartItem = {
       id: products.id,
       price: products.price,

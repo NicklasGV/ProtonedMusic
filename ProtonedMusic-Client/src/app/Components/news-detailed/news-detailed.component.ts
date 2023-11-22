@@ -65,7 +65,6 @@ export class NewsDetailedComponent implements OnInit {
       },
       complete: () => {
         this.route.params.subscribe(params => {this.newsService.getNewsById(params['id']).subscribe(news => this.news = news);});
-        console.log("Works");
       }
     });
   }

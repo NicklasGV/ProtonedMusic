@@ -3,35 +3,62 @@ using MimeKit.Text;
 using MimeKit;
 using ProtonedMusicAPI.DTO.EmailDTO;
 using MailKit.Net.Smtp;
-
+using Org.BouncyCastle.Asn1.Pkcs;
+using Microsoft.Extensions.Options;
 
 namespace ProtonedMusicAPI.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly IConfiguration _config;
-
-        public EmailService(IConfiguration config)
+        //private readonly IConfiguration _config;
+        //public EmailService(IConfiguration config)
+        //{
+        //    _config = config;
+        //}
+        private readonly MailSettings _mailSettings;
+        public EmailService(IOptions<MailSettings> mailSettingsOptions)
         {
-            _config = config;
+            _mailSettings = mailSettingsOptions.Value;
         }
-
-        public void SendEMail(EmailResponse request)
+        public void SendEMail(EmailResponse mailData)
         {
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_config.GetSection("Emailusername").Value));
-            email.To.Add(MailboxAddress.Parse(request.To));
-            email.Subject = request.Subject;
-            email.Body = new TextPart(TextFormat.Html)
+            using (MimeMessage emailMessage = new MimeMessage())
             {
-                Text = request.Body
-            };
+                MailboxAddress emailFrom = new MailboxAddress(_mailSettings.SenderName, _mailSettings.SenderEmail);
+                emailMessage.From.Add(emailFrom);
+                emailMessage.To.Add(MailboxAddress.Parse(mailData.To));
 
-            using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_config.GetSection("Emailusername").Value, _config.GetSection("EmailPassword").Value);
-            smtp.Send(email);
-            smtp.Disconnect(true);
+                emailMessage.Subject = mailData.Subject;
+
+                BodyBuilder emailBodyBuilder = new BodyBuilder();
+                emailBodyBuilder.TextBody = mailData.Body;
+                emailMessage.Body = new TextPart(TextFormat.Html)
+                {
+                    Text = mailData.Body
+                };
+
+                using SmtpClient mailClient = new SmtpClient();
+                mailClient.Connect(_mailSettings.Server, _mailSettings.Port, SecureSocketOptions.StartTls);
+                mailClient.Authenticate(_mailSettings.UserName, _mailSettings.Password);
+                mailClient.Send(emailMessage);
+                mailClient.Disconnect(true);
+
+
+                //var email = new MimeMessage();
+                //email.From.Add(MailboxAddress.Parse(_config.GetSection("Emailusername").Value));
+                //email.To.Add(MailboxAddress.Parse(request.To));
+                //email.Subject = request.Subject;
+                //email.Body = new TextPart(TextFormat.Html)
+                //{
+                //    Text = request.Body
+                //};
+
+                //using var smtp = new SmtpClient();
+                //smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+                //smtp.Authenticate(_config.GetSection("Emailusername").Value, _config.GetSection("EmailPassword").Value);
+                //smtp.Send(email);
+                //smtp.Disconnect(true);
+            }
         }
     }
 

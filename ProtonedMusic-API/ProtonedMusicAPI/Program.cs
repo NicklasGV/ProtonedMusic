@@ -42,6 +42,8 @@ namespace ProtonedMusicAPI
 
             builder.Services.AddScoped<IEmailService, EmailService>();
 
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder

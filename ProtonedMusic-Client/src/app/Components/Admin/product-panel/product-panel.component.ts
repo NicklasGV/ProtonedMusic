@@ -35,7 +35,6 @@ export class ProductPanelComponent implements OnInit {
   }
 
   marked(event: any) {
-    console.log(event)
     let value = parseInt(event.target.value);
     if (this.selected.indexOf(value) == -1) {
       this.selected.push(value);
@@ -43,7 +42,6 @@ export class ProductPanelComponent implements OnInit {
       this.selected.splice(this.selected.indexOf(value), 1);
     }
     this.selected.sort((a, b) => a - b);
-    console.log("Seleted IDs ", this.selected);
   }
   resetCheckboxes(): void {
   this.categories.map(category => category.checked = false);
@@ -96,11 +94,9 @@ uploadImage() {
           this.products = this.products.filter(x => x.id != product.id);
         });
         this.snackBar.openSnackBar('Deletion successful.', '','success');
-        console.log('Product deleted!');
       } else {
         // User canceled the operation
         this.snackBar.openSnackBar('Deletion canceled.', '','warning');
-        console.log('Deletion canceled.');
       }
     });
   }

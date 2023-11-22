@@ -57,11 +57,9 @@ export class UpcomingPanelComponent implements OnInit {
           this.upcomings = this.upcomings.filter((x) => x.id != upcoming.id);
         });
         this.snackBar.openSnackBar('Deletion successful.', '', 'success');
-        console.log('Upcoming deleted!');
       } else {
         // User canceled the operation
         this.snackBar.openSnackBar('Deletion canceled.', '', 'warning');
-        console.log('Deletion canceled.');
       }
     });
   }

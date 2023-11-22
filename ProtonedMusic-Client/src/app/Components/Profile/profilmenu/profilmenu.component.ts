@@ -55,7 +55,6 @@ export class ProfilmenuComponent implements OnInit {
   }
 
   async Logout(): Promise<void> {
-    console.log('Bruger logger ud:', this.authService.currentUserValue);
     this.authService.logout();
     window.location.reload();
     this.router.navigate(['/login']);

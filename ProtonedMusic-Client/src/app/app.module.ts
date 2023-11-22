@@ -26,13 +26,13 @@ import {MatDialogModule} from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
+    SnackBarComponent
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
   }
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [SnackBarComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

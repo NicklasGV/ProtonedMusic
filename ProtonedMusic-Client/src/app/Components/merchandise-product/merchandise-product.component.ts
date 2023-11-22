@@ -32,7 +32,6 @@ export class MerchandiseProductComponent implements OnInit {
   addToCart(products: ProductModel, ItemAmount: number): void {
     this.itemlength += 1;
     ItemAmount = this.itemlength;
-    console.log(products);
     let item: CartItem = {
       id: products.id,
       price: products.price,

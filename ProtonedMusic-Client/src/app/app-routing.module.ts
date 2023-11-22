@@ -27,6 +27,9 @@ const routes: Routes = [
   {path: 'events', loadComponent: () =>
   import('./Components/events/events.component').then(it => it.EventsComponent)},
 
+  {path: 'syke', loadComponent: () =>
+  import('./Components/testing/testing.component').then(it => it.TestingComponent)},
+
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
 

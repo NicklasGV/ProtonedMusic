@@ -27,7 +27,6 @@ export class EventComponent implements OnInit {
 
   addToCart(eventItem: EventModel) {
     this.itemlength += 1;
-    console.log(eventItem);
     let item: CartItem = {
       id: eventItem.id,
       price: eventItem.price,

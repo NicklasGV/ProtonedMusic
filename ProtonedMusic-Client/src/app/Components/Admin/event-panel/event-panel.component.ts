@@ -81,11 +81,9 @@ export class EventPanelComponent implements OnInit {
           this.events = this.events.filter((x) => x.id != event.id);
         });
         this.snackBar.openSnackBar('Deletion successful.', '', 'success');
-        console.log('Product deleted!');
       } else {
         // User canceled the operation
         this.snackBar.openSnackBar('Deletion canceled.', '', 'warning');
-        console.log('Deletion canceled.');
       }
     });
   }

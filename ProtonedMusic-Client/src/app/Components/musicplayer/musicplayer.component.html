@@ -3,20 +3,32 @@
     <div class="display-4 fw-medium mt-2">MUSIC PLAYER</div>
   </div>
 </div>
-<div class="d-flex justify-content-center">
-  <div class="">
-    <img src="../../../assets/img/1.png" class="card-img-top w-50">
+<div class="container-fluid">
+  <div class="d-flex justify-content-center">
     <div class="card-body">
+    <img src="../../../assets/img/1.png" class="card-img">
       <h5 class="card-title">Current song:</h5>
-      <p class="card-text">{{this.currentSongName}} by {{this.currentArtist}}</p>
-            {{ state?.readableCurrentTime }}
-            <mat-slider class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider><input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" /></mat-slider>
-            {{ state?.readableDuration }}
-      <div class="d-flex mt-5 mx-0 mb-5">
-        <button (click)="previous()" [disabled]="isFirstPlaying()" class="btn btn-lg bi-skip-backward-circle-fill text-success btn-dark rounded-5"></button>
-        <button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing" (click)="play()" class="btn btn-lg bi-play-circle-fill text-success btn-dark rounded-5"></button>
-        <button (click)="pause()" *ngIf="state?.playing" class="btn btn-lg bi-pause-circle-fill text-success btn-dark rounded-5"></button>
-        <button (click)="next()" [disabled]="isLastPlaying()" class="btn btn-lg bi-skip-forward-circle-fill text-success btn-dark rounded-5"></button>
+      <p *ngIf="this.currentSongName" class="card-text">{{this.currentSongName}} by {{this.currentArtist}}</p>
+      <div id="Duration" class="d-flex justify-content-center">
+        {{ state?.readableCurrentTime }}
+        <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider>
+          <input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" />
+        </mat-slider>
+        {{ state?.readableDuration }}
+      </div>
+      <div class="d-flex mt-2 mx-0 mb-4 justify-content-center">
+        <button (click)="previous()" [disabled]="isFirstPlaying()" class="btn btn-lg bi-skip-backward-circle-fill text-success rounded-5 m-0 p-0 me-1"></button>
+        <button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing" (click)="play()" class="btn btn-lg bi-play-circle-fill text-success rounded-5 m-0 p-0 me-1"></button>
+        <button (click)="pause()" *ngIf="state?.playing" class="btn btn-lg bi-pause-circle-fill text-success rounded-5 m-0 p-0 me-1"></button>
+        <button (click)="next()" [disabled]="isLastPlaying()" class="btn btn-lg bi-skip-forward-circle-fill text-success rounded-5 m-0 p-0"></button>
+        <div class="d-flex ms-2 justify-content-center">
+          <a *ngIf="ngSliderThumb2.value >= 50" class="bi-volume-up-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
+          <a *ngIf="ngSliderThumb2.value <= 49 && ngSliderThumb2.value >= 1" class="bi-volume-down-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
+          <a *ngIf="ngSliderThumb2.value == 0" class="bi-volume-mute-fill me-2 m-0 p-0" style="font-size: 1.5rem; align-self: center;"></a>
+          <mat-slider min="0" max="100" step="1" discrete [disabled]="state?.error || currentFile.index === undefined">
+            <input matSliderThumb #slider [value]="volume" (input)="volumeChange(ngSliderThumb2.value)" #ngSliderThumb2="matSliderThumb">
+          </mat-slider>
+        </div>
       </div>
     </div>
   </div>
@@ -27,21 +39,19 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Play</th>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Artist</th>
-            <th>Album</th>
+            <th class="fw-medium">Play</th>
+            <th class="fw-medium">Title</th>
+            <th class="fw-medium">Artist</th>
+            <th class="fw-medium">Album</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let file of files; let i = index;">
             <td>
               <div class="d-flex justify-content-start">
-                <button (click)="openFile(file, i)" class="btn btn-lg bi-play-btn-fill btn-outline-success"></button>
+                <button (click)="openFile(file, i)" class="btn btn-lg bi-play-btn-fill text-success m-0 p-0" style="font-size: 1.8rem;"></button>
               </div>
             </td>
-            <td>{{ file.id }}</td>
             <td>{{ file.songName }}</td>
             <td>{{file.artist}}</td>
             <td>{{file.album}}</td>

@@ -55,7 +55,9 @@ namespace ProtonedMusicAPI.Services
                 BillingAddressCollection = "required",
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions
                 {
-                    AllowedCountries = new List<string> { "DK" }, // Angiv de lande, der er tilladt for forsendelse
+                    
+                    AllowedCountries = new List<string> { "DK" }, 
+                    
                 },
                 Mode = "setup",
                 Currency = "dkk",
@@ -101,7 +103,7 @@ namespace ProtonedMusicAPI.Services
             return session.Id;
         }
 
-        // Opdateret metode med en ekstra parameter for previousSessionId
+
         private string CreateSession(SessionCreateOptions options, string previousSessionId)
         {
             // Log ud af previousSessionId for fejlfinding
