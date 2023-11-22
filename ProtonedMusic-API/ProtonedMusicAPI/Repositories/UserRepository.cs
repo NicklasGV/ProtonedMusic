@@ -48,6 +48,11 @@ namespace ProtonedMusicAPI.Repositories
         {
             var user = await FindByIdAsync(userId);
 
+            if (!string.IsNullOrEmpty(user.ProfilePicturePath))
+            {
+                await DeleteFileOnFtpAsync(user.ProfilePicturePath);
+            }
+
             if (user != null)
             {
                 _databaseContext.Remove(user);
