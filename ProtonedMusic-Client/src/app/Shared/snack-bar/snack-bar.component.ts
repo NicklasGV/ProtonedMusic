@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { MAT_LEGACY_SNACK_BAR_DATA as MAT_SNACK_BAR_DATA } from '@angular/material/legacy-snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
