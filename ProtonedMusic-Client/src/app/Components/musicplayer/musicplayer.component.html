@@ -10,7 +10,7 @@
       <h5 class="card-title">Current song:</h5>
       <p class="card-text">{{this.currentSongName}} by {{this.currentArtist}}</p>
             {{ state?.readableCurrentTime }}
-            <mat-slider class="time-slider" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime" (input)="onSliderChangeEnd($event)" [disabled]="state?.error || currentFile.index === undefined"></mat-slider>
+            <mat-slider class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider><input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" /></mat-slider>
             {{ state?.readableDuration }}
       <div class="d-flex mt-5 mx-0 mb-5">
         <button (click)="previous()" [disabled]="isFirstPlaying()" class="btn btn-lg bi-skip-backward-circle-fill text-success btn-dark rounded-5"></button>

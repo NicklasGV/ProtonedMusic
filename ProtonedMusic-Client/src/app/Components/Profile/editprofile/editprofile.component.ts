@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { UserService } from 'src/app/Services/user.service';
 import { FormsModule } from '@angular/forms';
 import { AddonRoles, constAddonRoles } from 'src/app/Models/AddonRole';
-import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({

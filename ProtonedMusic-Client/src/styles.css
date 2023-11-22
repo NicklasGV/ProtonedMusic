@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5 , h6, p {
   --back-button-color: #dc3545;
 }
 
-.mat-dialog-container{
+.mat-mdc-dialog-container{
   background-color: #333333;
 }
 
