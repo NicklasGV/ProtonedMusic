@@ -1,0 +1,97 @@
+<div class="container">
+  <h1 class="m-2">Products administration </h1>
+</div>
+
+<div class="container-fluid" data-bs-theme="dark">
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Name</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Price</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="product.price" [ngModelOptions]="{standalone: true}" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Description</label>
+    <div class="col-12 col-sm-6">
+      <textarea style="resize: none;" class="form-control" rows="4" maxlength="500" [(ngModel)]="product.description"
+        [ngModelOptions]="{standalone: true}">
+      </textarea>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-12 col-sm-1 col-form-label">Category</label>
+    <div class="col-12 col-sm-6">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let category of categories">
+          <input class="form-check-input me-1" type="checkbox" (change)="marked($event)" [(ngModel)]="category.checked"
+            [value]="category.id">
+          <label class="form-check-label">{{category.name}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Image</label>
+    <div class="col-12 col-sm-6">
+      <form (ngSubmit)="uploadImage()" #imageUploadForm class="form-control w-75">
+        <input class="form-control" type="file" (change)="onFileSelected($event)" name="fileInput" accept="image/*" />
+        <button type="submit" class="btn btn-sm btn-success">Upload Image</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="d-flex mt-5 mx-0">
+    <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+    <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+  </div>
+</div>
+
+<div class="container mt-2 mb-2">
+</div>
+
+<div class="container-fluid" data-bs-theme="dark">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="fw-medium">Actions</th>
+            <th class="fw-medium">Id</th>
+            <th class="fw-medium">Name</th>
+            <th class="fw-medium">Price</th>
+            <th class="fw-medium">Description</th>
+            <th class="fw-medium">Picture Path</th>
+            <th class="fw-medium">Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products;">
+            <td>
+              <div class="d-flex justify-content-start">
+                <button (click)="editProduct(product)" class="btn bi-gear-fill btn-sm btn-success me-1"> EDIT</button>
+                <button (click)="deleteProduct(product)" class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
+              </div>
+            </td>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency: 'DKK ' }}</td>
+            <td class="text-truncate" style="max-width: 150px;">{{ product.description }}</td>
+            <td>{{ product.productPicturePath }}</td>
+            <td>
+                <li *ngFor="let category of product.categories">{{category.name}}</li>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

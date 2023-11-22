@@ -3,18 +3,24 @@
         <div class="col-md-4 col-sm-12"> <!-- Adjusted column widths for responsiveness -->
             <div class="card bg-dark">
                 <div class="card-header text-center">
-                    <h1 class="display-6">{{ products.productName }}</h1>
+                    <h1 class="display-6">{{ products.name }}</h1>
                 </div>
-                <img class="card-img-top" src="../../../assets/img/1.png" alt="Product Image">
+                <a *ngIf="products.productPicturePath">
+                    <img class="card-img-top" src="https://protonedmusic.com/{{ products.productPicturePath }}" alt="Product Image">
+                </a>
+                <a *ngIf="!products.productPicturePath">
+                    <img class="card-img-top" src="../../../assets/img/1.png" alt="Product Image">
+                </a>
                 <div class="card-body">
                     <hr class="border-success border-2">
-                    <p class="card-text">{{ products.productDescription }}</p>
-                    <p class="card-text">{{ products.productPrice | currency: 'DKK' }}</p>
+                    <h4>Description:</h4>
+                    <p class="card-text">{{ products.description }}</p>
                     <hr class="border-success border-2">
+                    <h3 class="card-text"><span class="badge bg-success">{{ products.price | currency: 'DKK ' }}</span></h3>
                 </div>
                 <div class="card-footer">
-                    <a type="button" class="btn btn-outline-success float-start" [routerLink]="['/merchandise']">Back</a>
-                    <a type="button" class="btn btn-outline-success float-end" (click)="addToCart(products)">Add to basket</a>
+                    <a type="button" class="btn bi-x-circle-fill btn-outline-success float-start" [routerLink]="['/merchandise']"> Back</a>
+                    <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end" (click)="addToCart(products, itemlength)"> Add to basket</a>
                 </div>
             </div>
         </div>

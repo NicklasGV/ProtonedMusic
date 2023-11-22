@@ -1,6 +1,6 @@
 <div class="m-5">
     <div class="d-flex justify-content-around col-md-12">
-        <div class="display-6 mt-4">MERCHANDISE</div>
+        <div class="display-6 fw-medium mt-4">MERCHANDISE</div>
         <div class="btnImg btn-group mt-2 flex-column align-items-center">
             <span class="position-absolute start-50 translate-middle badge rounded-pill bg-danger mt-1 ms-4" 
             style="font-size: 0.8rem;">{{itemlength}}</span>
@@ -10,26 +10,34 @@
     </div>
     <hr class="border-2 opacity-25">
 </div>
-
-<!--Products-->
-<div class="row row-cols-auto row-cols-lg-5 g-4 m-5">
-    <div *ngFor="let product of products">
-        <div class="card h-100 bg-dark" style="display: grid; grid-template-rows: 1fr auto;">
-            <img src="../../../assets/img/1.png" style="max-width: 100%; max-height: 100%;">
-            <div class="card-body">
-                <div>
-                    <p class="">{{product.productName}}</p>
-                    <p class="">{{product.productCategory}}</p>
+<div class="container-fluid">
+    <div class="row row-cols-auto row-cols-lg-4 g-4 m-5">
+        <div *ngFor="let product of products">
+            <div class="card h-100 w-auto bg-dark text-light" [routerLink]="['/merchandiseProduct', product.id]" style="display: grid; grid-template-rows: auto 1fr; max-width: 400px;">
+                <div class="card-header d-flex justify-content-center">
+                    <a *ngIf="product.productPicturePath">
+                        <img src="https://protonedmusic.com/{{ product.productPicturePath }}" class="rounded-2">
+                    </a>
+                    <a *ngIf="!product.productPicturePath">
+                        <img src="../../../assets/img/img400.png" class="rounded-2">
+                    </a>
                 </div>
-                <p>{{product.productDescription}}</p>
-                <p>{{product.productPrice | currency:'DKK ' }}</p>
-                <div>
-                    <a type="button" class="btn btn-outline-success float-end btn-sm" (click)="addToCart(product)">Add to basket</a>
-                    <a type="button" class="btn btn-outline-success btn-sm " [routerLink]="['/merchandiseProduct', product.id]">See More</a>
+                <div class="card-body" style="display: flex; flex-direction: column; min-width: 200px;">
+                    <div class="align-items-start">
+                        <div class="justify-content-between">
+                            <div class="float-end">
+                                <p class="text-success fw-bold" *ngFor="let category of product.categories">{{category.name}}</p>
+                            </div>
+                            <p>{{product.name}}</p>
+                        </div>
+                        <p class="text-truncate" style="max-width: 300px;">{{product.description}}</p>
+                    </div>
+                    <div class="card-footer mt-auto">
+                        <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end btn-sm ms-1" (click)="addToCart(product); $event.stopPropagation()"> Add to basket</a>
+                        <h5 class="badge text-black bg-success float-end">{{ product.price | currency: 'DKK ' }}</h5>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-

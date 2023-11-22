@@ -1,0 +1,39 @@
+<div class="m-5">
+    <div class="d-flex justify-content-around col-md-12">
+      <div class="display-4 fw-medium mt-4">UPCOMING</div>
+    </div>
+</div>
+<div class="container-fluid">
+  <div class="row row-cols-auto row-cols-lg-3 g-4 m-5" *ngIf="upcoming == true">
+    <div *ngFor="let upcoming of getUpcomingShows()">
+      <div class="card bg-dark text-light" style="grid-template-rows: auto 1fr;">
+        <div class="card-header">
+          <h2 class="card-title">{{ upcoming.title }}</h2>
+        </div>
+        <div class="card-body">
+          <h5>Description: </h5>
+          <p class="card-text text-truncate" style="max-width: 235px;">{{upcoming.description}}</p>
+        </div>
+        <div class="card-footer">
+          <h5 class="card-subtitle small mt-3 me-3">Release date: {{ upcoming.timeof | date: 'dd MMM yyyy, HH:mm' }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="g-4 m-5 align-content-center" *ngIf="upcoming == false">
+    <div class="card bg-dark text-light">
+      <div class="card-body text-center">
+        <h2>Nothing upcoming right now check back later!</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button style="background-color: #04AA6D; /* Green */
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;"></button>

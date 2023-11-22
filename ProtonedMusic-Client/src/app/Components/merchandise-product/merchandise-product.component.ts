@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductModel } from 'src/app/Models/ProductModel';
+import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProductService } from 'src/app/Services/Product.service';
+import { ProductService } from 'src/app/Services/product.service';
 import { CartItem, } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 
@@ -15,7 +15,7 @@ import { CartService } from 'src/app/Services/cart.service';
   styleUrls: ['./merchandise-product.component.css']
 })
 export class MerchandiseProductComponent implements OnInit {
-  products: ProductModel = new ProductModel();
+  products: ProductModel = resetProducts();
   itemlength = 0;
   itemsQuantity = 0;
 
@@ -27,18 +27,17 @@ export class MerchandiseProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {this.productService.getProductById(params['id']).subscribe(products => this.products = products);});
-
   }
 
-  addToCart(products: ProductModel) {
-    console.log(products);
+  addToCart(products: ProductModel, ItemAmount: number): void {
+    this.itemlength += 1;
+    ItemAmount = this.itemlength;
     let item: CartItem = {
       id: products.id,
-      price: products.productPrice,
+      price: products.price,
       quantity: 1,
-      name: products.productName,
+      name: products.name,
     } as CartItem;
     this.cartService.addToCart(item);
-    this.itemlength += 1;
   }
 }

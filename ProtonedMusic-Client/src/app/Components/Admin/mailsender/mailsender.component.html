@@ -1,0 +1,154 @@
+<div class="container">
+    <h1 class="m-2">Mail Sender </h1>
+</div>
+<div class="container-fluid" data-bs-theme="dark">
+  <div class="row">
+    <div class="col-8 ">
+      <div class="form-group row mb-3">
+        <label class="col-12 col-sm-1 col-form-label">Send to all</label>
+        <div class="col-12 col-sm-6">
+          <input type="checkbox" [(ngModel)]="sendToAll">
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">To</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="mail.to" class="form-control">
+      </div>
+    </div>
+  
+    <div class="form-group row mb-3">
+        <label class="col-12 col-sm-1 col-form-label">Subject</label>
+        <div class="col-12 col-sm-6">
+          <input [(ngModel)]="mail.subject" class="form-control">
+        </div>
+      </div>
+
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Message</label>
+      <div class="col-12 col-sm-6">
+        <textarea class="form-control" rows="8" maxlength="2000" [(ngModel)]="mail.body" id="mail-body">
+        </textarea>
+      </div>
+    </div>
+    <div class="d-flex mt-5 mx-0 mb-3">
+        <button (click)="send()" class="btn bi-send-fill btn-sm btn-success me-1"> SEND</button>
+        <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+    </div>
+    </div>
+    <div class="col">
+      <div class="container">
+        <div>
+          <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Email tips and tricks
+          </button>
+          
+          <div class="collapse" id="collapseExample">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    How to make Titles
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    To make a title bigger or smaller, or somewhat in the middle you can use &lt;h1&gt; <br>
+                    All the way to &lt;h6&gt; this will become smaller for each letter we ascend so h1 would look like <h1>This</h1>
+                    and h6 would look like <h6>this</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    How to add images
+                  </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    To add images to your mail body you'll add &lt;img src=""&gt; <br>
+                    within the src="" you will need to add a path to a picture <br>
+                    this can easily be done using the current paths which is <br>
+                    https://protonedmusic/assets/ <br>
+                    You will then need to access a folder like img or alike <br>
+                    which will then contain images you can add.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    How to make buttons
+                  </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    To add a button to the mail body you'll have to <br>
+                    add an &lt;a&gt; element with a href that then <br>
+                    leads back to the website. <br>
+                    This would look something like this: <br>
+                    <h5>&lt;a href="https://protonedmusic.com/#/merchandiseProduct/2"&gt;&lt;button&gt;Buy now&lt;/button&gt;&lt;/a&gt;</h5> <br>
+                    this button you've now created will when pressed send you directly to product 2
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Template of a finished look
+                  </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse mb-4" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body user-select-all">
+                    &lt;h1&gt;Protoned Music&lt;/h1&gt; <br>
+                    <br>
+                    &lt;p&gt;This is a paragraph of a newsletter from Protoned Music,
+                    this will be a lot of stuff but mostly for you to see new products,
+                    merch, and other stuff that will become available!&lt;/p&gt; <br>
+                    <br>
+                    &lt;h2&gt;New Merch&lt;/h2&gt; <br>
+                    <br>
+                    &lt;a href="https://protonedmusic.com/#/merchandiseProduct/2"&gt;&lt;img src="https://protonedmusic.com/assets/img/test.jpg"&gt;&lt;/a&gt;
+                    &lt;h3&gt;Newest Product of this month!&lt;/h3&gt; <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<div class="container-fluid" data-bs-theme="dark">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+            <th class="fw-medium">Action</th>
+            <th class="fw-medium">Id</th>
+            <th class="fw-medium">Mail</th>
+            <th class="fw-medium">First name</th>
+            <th class="fw-medium">Last name</th>
+            <th class="fw-medium">Subscription</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of getNewsletterUsers()">
+                <td><button (click)="sendTo(user)" class="btn bi-send-plus-fill btn-success btn-sm"></button></td>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.addonRoles }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

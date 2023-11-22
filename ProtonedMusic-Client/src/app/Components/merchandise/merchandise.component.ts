@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProductService } from 'src/app/Services/Product.service';
+import { ProductService } from 'src/app/Services/product.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
   selector: 'app-merchandise',
@@ -37,7 +38,8 @@ export class MerchandiseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackbar: SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,6 @@ export class MerchandiseComponent implements OnInit {
       // This is the call to the service to get all products.
       next: (result) => {
         this.products = result;
-        console.log(this.cart.length);
         this.cart.forEach((element) => {
           this.itemlength += element.quantity;
         });
@@ -59,15 +60,15 @@ export class MerchandiseComponent implements OnInit {
   }
 
   addToCart(products: ProductModel) {
-    console.log(products);
+    this.itemlength += 1;
     let item: CartItem = {
       id: products.id,
-      price: products.productPrice,
+      price: products.price,
       quantity: 1,
-      name: products.productName,
+      name: products.name,
     } as CartItem;
     this.cartService.addToCart(item);
-    this.itemlength += 1;
+    this.snackbar.openSnackBar(products.name + ' added to cart','','success');
   }
 
 }
