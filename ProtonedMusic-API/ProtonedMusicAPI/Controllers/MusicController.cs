@@ -114,7 +114,7 @@
         [AllowAnnonymous]
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateAsync([FromBody] MusicRequest newMusic)
+        public async Task<IActionResult> CreateAsync([FromForm] MusicRequest newMusic)
         {
             try
             {
