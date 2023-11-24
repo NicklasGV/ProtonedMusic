@@ -10,34 +10,46 @@
           <input type="checkbox" [(ngModel)]="sendToAll">
         </div>
     </div>
-
-    <div class="form-group row mb-3">
-      <label class="col-12 col-sm-1 col-form-label">To</label>
-      <div class="col-12 col-sm-6">
-        <input [(ngModel)]="mail.to" class="form-control">
-      </div>
-    </div>
-  
-    <div class="form-group row mb-3">
-        <label class="col-12 col-sm-1 col-form-label">Subject</label>
+    <div *ngIf="sendToAll == true">
+      <div class="form-group row mb-3">
+        <label class="col-12 col-sm-1 col-form-label">Message</label>
         <div class="col-12 col-sm-6">
-          <input [(ngModel)]="mail.subject" class="form-control">
+          <textarea class="form-control" rows="8" maxlength="2000" [(ngModel)]="mail.body" id="mail-body">
+          </textarea>
         </div>
       </div>
+    </div>
 
-    <div class="form-group row mb-3">
-      <label class="col-12 col-sm-1 col-form-label">Message</label>
-      <div class="col-12 col-sm-6">
-        <textarea class="form-control" rows="8" maxlength="2000" [(ngModel)]="mail.body" id="mail-body">
-        </textarea>
+    <div *ngIf="sendToAll == false">
+      <div class="form-group row mb-3">
+        <label class="col-12 col-sm-1 col-form-label">To</label>
+        <div class="col-12 col-sm-6">
+          <input [(ngModel)]="mail.to" class="form-control">
+        </div>
+      </div>
+    
+      <div class="form-group row mb-3">
+          <label class="col-12 col-sm-1 col-form-label">Subject</label>
+          <div class="col-12 col-sm-6">
+            <input [(ngModel)]="mail.subject" class="form-control">
+          </div>
+        </div>
+  
+      <div class="form-group row mb-3">
+        <label class="col-12 col-sm-1 col-form-label">Message</label>
+        <div class="col-12 col-sm-6">
+          <textarea class="form-control" rows="8" maxlength="2000" [(ngModel)]="mail.body" id="mail-body">
+          </textarea>
+        </div>
       </div>
     </div>
+
     <div class="d-flex mt-5 mx-0 mb-3">
         <button (click)="send()" class="btn bi-send-fill btn-sm btn-success me-1"> SEND</button>
         <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
     </div>
     </div>
-    <div class="col">
+    <div id="Tips for Email" class="col">
       <div class="container">
         <div>
           <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -45,7 +57,7 @@
           </button>
           
           <div class="collapse" id="collapseExample">
-            <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion accordion-flush mb-2" id="accordionFlushExample">
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -112,6 +124,23 @@
                     <br>
                     &lt;a href="https://protonedmusic.com/#/merchandiseProduct/2"&gt;&lt;img src="https://protonedmusic.com/assets/img/test.jpg"&gt;&lt;/a&gt;
                     &lt;h3&gt;Newest Product of this month!&lt;/h3&gt; <br>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    Send to all checkbox
+                  </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    This checkbox can be used to send newsletters out to all the subscribed users instead of just sending a single mail to a person. <br>
+                    This checkbox adds the To and Subject on its own. <br>
+                    The To field will of course contain all the subscribers. <br>
+                    Whereas the Subject field will contain "this.mail.subject = "Newsletter for " + this.transformDate(this.date);" <br>
+                    This line of code make every subject contain <h3>Newsletter for **Current Month**</h3> <br> <br>
+                    So instead of writing the subject of a newsletter every time its just there.
                   </div>
                 </div>
               </div>

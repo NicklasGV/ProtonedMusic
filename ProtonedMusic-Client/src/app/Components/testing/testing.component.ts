@@ -1,19 +1,17 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
-import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @Component({
   selector: 'app-testing',
   standalone: true,
-  imports: [CommonModule, MatSliderModule, YouTubePlayerModule],
+  imports: [CommonModule, MatSliderModule],
   templateUrl: './testing.component.html',
   styleUrls: ['./testing.component.css']
 })
 export class TestingComponent implements OnInit {
   audio = new Audio();
   volume: number = 50;
-  apiLoaded = false;
 
   constructor() {}
 

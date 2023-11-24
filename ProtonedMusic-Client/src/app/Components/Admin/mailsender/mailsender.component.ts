@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { UserService } from 'src/app/Services/user.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { FormsModule } from '@angular/forms';
@@ -22,10 +22,16 @@ export class MailsenderComponent implements OnInit {
   message: string = '';
   sendToAll: boolean = false;
   selected: string[] = [];
-  constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService) { }
+  date: any = new Date();
+
+  constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.userService.getAll().subscribe(x => this.users = x);
+  }
+
+  transformDate(date: any) {
+    return this.datePipe.transform(date, 'MMMM of yyyy');
   }
 
   getNewsletterUsers(): any[] {
@@ -41,16 +47,13 @@ export class MailsenderComponent implements OnInit {
     this.mail.to = user.email;
   }
 
-  templateText() {
-    this.message = '<h1>Protoned Music</h1>'
-  }
-
   send(): void {
     this.message = '';
     if (this.sendToAll) {
       this.users.forEach((user) => {
         if (user.addonRoles === 'Newsletter' && user.email) {
           this.mail.to = user.email; // Set the recipient email in the mail object
+          this.mail.subject = "Newsletter for " + this.transformDate(this.date);
           this.mailService.sendEmail(this.mail).subscribe({
             next: (x) => {
               this.mails.push(x);

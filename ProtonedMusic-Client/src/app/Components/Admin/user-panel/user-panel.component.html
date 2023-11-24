@@ -71,6 +71,17 @@
   </div>
 
   <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Subscription Role</label>
+    <div class="col-12 col-sm-6">
+      <div class="dropdown">
+        <select [(ngModel)]="user.addonRoles" class="form-select w-75">
+          <option class="dropdown-item" *ngFor="let addonrole of addonRoles" [ngValue]="addonrole.name">{{ addonrole.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
     <label class="col-12 col-sm-1 col-form-label">Image</label>
     <div class="col-12 col-sm-6">
       <form (ngSubmit)="uploadImage()" #imageUploadForm class="form-control w-75">
