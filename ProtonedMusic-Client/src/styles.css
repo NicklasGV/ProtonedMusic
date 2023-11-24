@@ -37,6 +37,13 @@ h1, h2, h3, h4, h5 , h6, p {
   background-color: #333333;
 }
 
+.mat-ripple {
+  --mat-mdc-slider-hover-ripple-color: #198754 !important;
+  opacity: 20%;
+  --mat-mdc-slider-focus-ripple-color: #105736 !important;
+  --mat-mdc-slider-ripple-color: #0a3823 !important;
+}
+
 
 
 
