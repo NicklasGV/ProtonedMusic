@@ -8,38 +8,38 @@
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link bi-house-door-fill" [routerLink]="['']" routerLinkActive="router-link-active" routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{exact:true}"> Home</a>
+          [routerLinkActiveOptions]="{exact:true}" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link bi-newspaper" [routerLink]="['/news']" routerLinkActive="router-link-active"
-          routerLinkActive="active-link"> News</a>
+          routerLinkActive="active-link" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> News</a>
       </li>
       <li class="nav-item">
         <a class="nav-link bi-calendar2-week-fill" [routerLink]="['/events']" routerLinkActive="router-link-active"
-          routerLinkActive="active-link"> Events</a>
+          routerLinkActive="active-link" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> Events</a>
       </li>
       <li class="nav-item">
         <a class="nav-link bi-music-note-beamed" [routerLink]="['/music']" routerLinkActive="router-link-active"
-          routerLinkActive="active-link"> Music</a>
+          routerLinkActive="active-link" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> Music</a>
       </li>
       <li class="nav-item">
         <a class="nav-link bi-calendar2-event-fill" [routerLink]="['/upcoming']" routerLinkActive="router-link-active"
-          routerLinkActive="active-link"> Upcoming</a>
+          routerLinkActive="active-link" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> Upcoming</a>
       </li>
       <li class="nav-item">
         <a class="nav-link bi-bag-fill" [routerLink]="['/merchandise']" routerLinkActive="router-link-active"
-          routerLinkActive="active-link"> Merchandise</a>
+          routerLinkActive="active-link" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> Merchandise</a>
         </li>
         <li class="nav-item">
           <a class="nav-link bi-person-fill-gear" [routerLink]="['/admin']" routerLinkActive="router-link-active"
-            routerLinkActive="active-link" *ngIf="currentUser.role == 'Admin'"> Admin panels</a>
+            routerLinkActive="active-link" *ngIf="currentUser.role == 'Admin'" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"> Admin panels</a>
           </li>
       </ul>
       <form class="d-flex">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a *ngIf="currentUser.role != null" [routerLink]="['profilmenu', currentUser.id]" class="bi-person-circle text-success" style="font-size: 2rem;"></a>
-            <a *ngIf="currentUser.role == null" [routerLink]="['/login']" class="btn btn-outline-success me-2">LOG IND</a>
+            <a *ngIf="currentUser.role != null" [routerLink]="['profilmenu', currentUser.id]" class="bi-person-circle text-success" style="font-size: 2rem;" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"></a>
+            <a *ngIf="currentUser.role == null" [routerLink]="['/login']" class="btn btn-outline-success me-2" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">LOG IND</a>
           </li>
         </ul>
       </form>
