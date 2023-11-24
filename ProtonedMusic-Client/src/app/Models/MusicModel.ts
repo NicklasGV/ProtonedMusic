@@ -1,5 +1,5 @@
 export interface MusicModel {
-    id?: string;
+    id: number;
     songName: string;
     artist: string;
     album: string;
