@@ -11,7 +11,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styles: ['']
 })
 export class FooterComponent implements OnInit {
   currentUser: User = resetUser();

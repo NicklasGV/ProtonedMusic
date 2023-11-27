@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="m-2">User Administration</h1>
+  <h1 class="m-2">User administration</h1>
 </div>
 
 <div class="container-fluid" data-bs-theme="dark">
@@ -65,6 +65,17 @@
       <div class="dropdown">
         <select [(ngModel)]="user.role" class="form-select w-75">
           <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role.name">{{ role.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Subscription Role</label>
+    <div class="col-12 col-sm-6">
+      <div class="dropdown">
+        <select [(ngModel)]="user.addonRoles" class="form-select w-75">
+          <option class="dropdown-item" *ngFor="let addonrole of addonRoles" [ngValue]="addonrole.name">{{ addonrole.name }}</option>
         </select>
       </div>
     </div>
