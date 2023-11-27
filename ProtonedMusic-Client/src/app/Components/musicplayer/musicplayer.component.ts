@@ -24,6 +24,7 @@ export class MusicplayerComponent implements OnInit{
   currentSong: string = '';
   currentSongName: string = '';
   currentArtist: string = '';
+  currentPicture: string = "../../../assets/img/1.png";
   volume: number = 50;
 
   constructor(private audioService: AudioService, private musicService: MusicService, public auth: AuthService) { }
@@ -50,6 +51,13 @@ export class MusicplayerComponent implements OnInit{
     this.playStream("https://protonedmusic.com/" + this.currentFile.file.songFilePath);
     this.currentSongName = this.currentFile.file.songName;
     this.currentArtist = this.currentFile.file.artist;
+    if (this.currentFile.file.songPicturePath){
+      this.currentPicture = this.currentFile.file.songPicturePath;
+    }
+    else{
+      this.currentPicture = "../../../assets/img/1.png";
+    }
+    
   }
 
   pause() {
