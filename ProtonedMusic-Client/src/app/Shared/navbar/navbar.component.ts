@@ -34,4 +34,12 @@ export class NavbarComponent implements OnInit {
     }
     return false;
   }
+
+  collapseNavbar(): void {
+    // Close the navbar by toggling the 'show' class
+    const navbar = document.getElementById('navbarSupportedContent');
+    if (navbar?.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  }
 }
