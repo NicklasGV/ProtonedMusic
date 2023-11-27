@@ -51,7 +51,7 @@ export class PaymentService {
 
   //Test for alle sessions
   public CreateCombinedSession(accountInfo: AccountInfo, cartItems: StripeChekoutModel[], previousSessionId: string): Observable<any> {
-    const stripeAPIURL = this.url + 'CreateStripeSession';
+    const stripeAPIURL = this.url + 'CreateCombinedSession';
     const httpOptions = {
       headers: {
         'Authorization': `Bearer ${PaymentService.stripeAPIKey}`,
