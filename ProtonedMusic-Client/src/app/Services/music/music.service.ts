@@ -21,11 +21,42 @@ export class MusicService {
   }
 
   create(music: MusicModel): Observable<MusicModel> {
-    return this.http.post<MusicModel>(this.apiUrl + '/create', music);
+    const formData = new FormData();
+  
+    formData.append('songName', music.songName);
+    formData.append('artist', music.artist);
+    formData.append('album', music.album);
+    formData.append('songFilePath', music.songFilePath);
+    formData.append('songPicturePath', music.songPicturePath);
+
+    if (music.songFile) {
+      formData.append('songFile', music.songFile, music.songFile.name);
+    }
+  
+    if (music.pictureFile) {
+      formData.append('pictureFile', music.pictureFile, music.pictureFile.name);
+    }
+  
+    return this.http.post<MusicModel>(this.apiUrl + '/create', formData);
   }
 
   update(music: MusicModel): Observable<MusicModel> {
-    return this.http.put<MusicModel>(this.apiUrl + '/' + music.id, music);
+    const formData = new FormData();
+  
+    formData.append('songName', music.songName);
+    formData.append('artist', music.artist);
+    formData.append('album', music.album);
+    formData.append('songFilePath', music.songFilePath);
+    formData.append('songPicturePath', music.songPicturePath);
+
+    if (music.songFile) {
+      formData.append('songFile', music.songFile, music.songFile.name);
+    }
+  
+    if (music.pictureFile) {
+      formData.append('pictureFile', music.pictureFile, music.pictureFile.name);
+    }
+    return this.http.put<MusicModel>(this.apiUrl + '/' + music.id, formData);
   }
 
   findById(musicId: number): Observable<MusicModel> {

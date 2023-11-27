@@ -90,9 +90,9 @@ export class MusicPanelComponent implements OnInit{
     
       save(): void {
         this.message = "";
+        console.log(this.song)
         if (this.song.id == 0) {
           //create
-          console.log(this.song)
           this.musicService.create(this.song)
           .subscribe({
             next: (x) => {

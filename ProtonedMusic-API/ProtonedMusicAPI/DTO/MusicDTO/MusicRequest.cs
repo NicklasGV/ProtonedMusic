@@ -14,10 +14,10 @@
         [StringLength(50, ErrorMessage = "Album cannot be longer than 50 chars")]
         public string Album { get; set; }
 
-        public IFormFile SongFile { get; set; }
+        public IFormFile? SongFile { get; set; }
         public string? SongFilePath { get; set; }
 
-        public IFormFile PictureFile { get; set; }
+        public IFormFile? PictureFile { get; set; }
         public string? SongPicturePath { get; set; }
     }
 }

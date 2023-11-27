@@ -3,9 +3,9 @@ export interface MusicModel {
     songName: string;
     artist: string;
     album: string;
-    songFile: FormData;
+    songFile: File | null;
     songFilePath: string;
-    pictureFile: FormData;
+    pictureFile: File | null;
     songPicturePath: string;
 }
 
@@ -15,9 +15,9 @@ export function resetMusic() {
       songName: '', 
       artist: '', 
       album: '', 
-      songFile: new FormData(),
+      songFile: null,
       songFilePath: '',
-      pictureFile: new FormData(),
+      pictureFile: null,
       songPicturePath: '', 
   };
   }
