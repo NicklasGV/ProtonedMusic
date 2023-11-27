@@ -38,21 +38,21 @@
 
         [HttpPut]
         [Route("{musicId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int musicId, [FromBody] MusicRequest updateMusic, IFormFile song, IFormFile file)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int musicId, [FromForm] MusicRequest updateMusic)
         {
             try
             {
-                if (song != null)
+                MusicResponse musicResponse = await _musicService.UpdateByIdAsync(musicId, updateMusic);
+
+                if (updateMusic.SongFile != null)
                 {
-                    MusicResponse musicSong = await _musicService.UploadSong(musicId, song);
+                    musicResponse = await _musicService.UploadSong(musicId, updateMusic.SongFile);
                 }
-                if (file != null)
+                if (updateMusic.PictureFile != null)
                 {
-                    MusicResponse musicPicture = await _musicService.UploadSongPicture(musicId, file);
+                    musicResponse = await _musicService.UploadSongPicture(musicId, updateMusic.PictureFile);
 
                 }
-
-                var musicResponse = await _musicService.UpdateByIdAsync(musicId, updateMusic);
 
                 if (musicResponse == null)
                 {
