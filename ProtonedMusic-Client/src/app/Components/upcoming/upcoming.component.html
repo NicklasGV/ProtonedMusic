@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="container-fluid">
-  <div class="row row-cols-auto row-cols-lg-3 g-4 m-5" *ngIf="upcoming == true">
+  <div class="row row-cols-auto row-cols-lg-3 g-4 m-5" *ngIf="this.getUpcomingShows().length >= 1">
     <div *ngFor="let upcoming of getUpcomingShows()">
       <div class="card bg-dark text-light" style="grid-template-rows: auto 1fr;">
         <div class="card-header">
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <div class="g-4 m-5 align-content-center" *ngIf="upcoming == false">
+  <div class="g-4 m-5 align-content-center" *ngIf="this.getUpcomingShows().length <= 0">
     <div class="card bg-dark text-light">
       <div class="card-body text-center">
         <h2>Nothing upcoming right now check back later!</h2>
