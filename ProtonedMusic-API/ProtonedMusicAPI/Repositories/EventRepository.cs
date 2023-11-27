@@ -27,6 +27,11 @@ namespace ProtonedMusicAPI.Repositories
         {
             var events = await FindEventById(eventId);
 
+            if (!string.IsNullOrEmpty(events.EventPicturePath))
+            {
+                await DeleteFileOnFtpAsync(events.EventPicturePath);
+            }
+
             if (events != null)
             {
                 _context.Remove(events);
@@ -54,6 +59,7 @@ namespace ProtonedMusicAPI.Repositories
                 events.Description = updateEvent.Description;
                 events.Price = updateEvent.Price;
                 events.TimeofEvent = updateEvent.TimeofEvent;
+                events.EventPicturePath = updateEvent.EventPicturePath;
 
                 await _context.SaveChangesAsync();
                 events = await FindEventById(eventId);

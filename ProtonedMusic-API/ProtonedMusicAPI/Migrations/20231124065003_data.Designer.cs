@@ -12,8 +12,8 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231116065639_initial")]
-    partial class initial
+    [Migration("20231124065003_data")]
+    partial class data
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,22 +45,22 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Pop"
+                            Name = "T-Shirt"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Metal"
+                            Name = "Pop"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "EDM"
+                            Name = "Cap"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Rock"
+                            Name = "Special"
                         });
                 });
 
@@ -100,20 +100,20 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 11, 16, 7, 56, 39, 354, DateTimeKind.Local).AddTicks(1318),
-                            Description = "Test",
+                            Created = new DateTime(2023, 11, 24, 7, 50, 3, 177, DateTimeKind.Local).AddTicks(9765),
+                            Description = "Test event",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test"
+                            Title = "First Event"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 11, 16, 7, 56, 39, 354, DateTimeKind.Local).AddTicks(1329),
-                            Description = "Test2",
+                            Created = new DateTime(2023, 11, 24, 7, 50, 3, 177, DateTimeKind.Local).AddTicks(9777),
+                            Description = "Test 2 for testing making events",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test2"
+                            Title = "Super Event"
                         });
                 });
 
@@ -163,26 +163,55 @@ namespace ProtonedMusicAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Image", b =>
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Music", b =>
                 {
-                    b.Property<int?>("ImageId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ImageId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ImageName")
+                    b.Property<string>("Album")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Artist")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SongFilePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("SongName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SongPicturePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PublicId")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.HasKey("ImageId");
+                    b.ToTable("Music");
 
-                    b.ToTable("Images");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Album = "Around the worlds",
+                            Artist = "Connor Price",
+                            SongFilePath = "assets/music/audio1.mp3",
+                            SongName = "Chatter",
+                            SongPicturePath = ""
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Album = "Bjørn",
+                            Artist = "Sigurd",
+                            SongFilePath = "assets/music/audio2.mp3",
+                            SongName = "FlipFlop",
+                            SongPicturePath = ""
+                        });
                 });
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.News", b =>
@@ -212,7 +241,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 16, 7, 56, 39, 490, DateTimeKind.Local).AddTicks(3386),
+                            DateTime = new DateTime(2023, 11, 24, 7, 50, 3, 377, DateTimeKind.Local).AddTicks(9230),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -261,7 +290,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 16, 7, 56, 39, 490, DateTimeKind.Local).AddTicks(3438),
+                            DateTime = new DateTime(2023, 11, 24, 7, 50, 3, 377, DateTimeKind.Local).AddTicks(9300),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -297,29 +326,29 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Testproduct-1",
-                            Name = "Testproduct-1",
+                            Description = "Testproduct for seeing 2 categories",
+                            Name = "Rock Shirt",
                             Price = 399.95m
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Testproduct-2",
-                            Name = "Testproduct-2",
+                            Description = "Testproduct cap",
+                            Name = "Normal Cap",
                             Price = 560m
                         },
                         new
                         {
                             Id = 3,
                             Description = "Today's video is sponsored by Raid Shadow Legends, one of the biggest mobile role-playing games of 2019 and it's totally free! Currently almost 10 million users have joined Raid over the last six months, and it's one of the most impressive games in its class with detailed models, environments and smooth 60 frames per second animations! All the champions in the game can be customized with unique gear that changes your strategic buffs and abilities! So what are you waiting for? Go to the video description! Good luck and I'll see you there!",
-                            Name = "Testproduct-3",
+                            Name = "Raid Shadow Legends",
                             Price = 299.95m
                         },
                         new
                         {
                             Id = 4,
-                            Description = "Testproduct-4",
-                            Name = "Testproduct-4",
+                            Description = "Testproduct song",
+                            Name = "Pop song",
                             Price = 760m
                         });
                 });
@@ -346,11 +375,6 @@ namespace ProtonedMusicAPI.Migrations
                         },
                         new
                         {
-                            ProductId = 1,
-                            CategoryId = 2
-                        },
-                        new
-                        {
                             ProductId = 2,
                             CategoryId = 1
                         },
@@ -358,6 +382,11 @@ namespace ProtonedMusicAPI.Migrations
                         {
                             ProductId = 2,
                             CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 4
                         },
                         new
                         {
@@ -459,7 +488,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$8W7RuoiAYo/FEuY/HVb6Z.grWc306JaYwmWJoRX2Il3ZaQmBKWqaK",
+                            Password = "$2b$10$4mBWtZUHqs/UcA9Vbbsn.e6VRQvGSQCVijBMAiWIWa5gD85.BPAL2",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -474,7 +503,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$.mS8aMiz/ZA7OBatqgb.weRAcnOHJJVU7Xq4RQnAaNf7XZauUcd6K",
+                            Password = "$2b$10$DtfoKuuA5mDIp2JUQi4cYO4IK.IuIOD0Z0z6VUq6tVP6CC38qzwX.",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

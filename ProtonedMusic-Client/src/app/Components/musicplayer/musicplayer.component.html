@@ -6,12 +6,15 @@
 <div class="container-fluid">
   <div class="d-flex justify-content-center">
     <div class="card-body">
-    <img src="../../../assets/img/1.png" class="card-img">
-      <h5 class="card-title">Current song:</h5>
-      <p *ngIf="this.currentSongName" class="card-text">{{this.currentSongName}} by {{this.currentArtist}}</p>
+      <div class="d-flex justify-content-center mb-3">
+        <img src="../../../assets/img/1.png" class="card-img">
+      </div>
+      <h5 class="card-title d-flex justify-content-center">Current song: <p *ngIf="this.currentSongName" class="card-text ms-2"> {{this.currentSongName}} by {{this.currentArtist}}</p></h5>
       <div id="Duration" class="d-flex justify-content-center">
         {{ state?.readableCurrentTime }}
-        <!-- <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider><input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" /></mat-slider> -->
+        <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider>
+          <input matSliderThumb [value]="state?.currentTime" (input)="onSliderChangeEnd({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" />
+        </mat-slider>
         {{ state?.readableDuration }}
       </div>
       <div class="d-flex mt-2 mx-0 mb-4 justify-content-center">
@@ -19,12 +22,13 @@
         <button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing" (click)="play()" class="btn btn-lg bi-play-circle-fill text-success rounded-5 m-0 p-0 me-1"></button>
         <button (click)="pause()" *ngIf="state?.playing" class="btn btn-lg bi-pause-circle-fill text-success rounded-5 m-0 p-0 me-1"></button>
         <button (click)="next()" [disabled]="isLastPlaying()" class="btn btn-lg bi-skip-forward-circle-fill text-success rounded-5 m-0 p-0"></button>
-        <div class="ms-2">
-          <a class="bi-volume-up-fill"></a>
-          <input type="range" class="form-range" id="customRange1" min="0" max="100" step="1" [value]="volume">
-          <!-- <mat-slider min="0" max="100" step="1" discrete>
-            <input matSliderThumb #slider>
-          </mat-slider> -->
+        <div class="d-flex ms-3 justify-content-center">
+          <a *ngIf="ngSliderThumb2.value >= 50" class="bi-volume-up-fill m-0 p-0 text-success" style="font-size: 1.5rem; align-self: center;"></a>
+          <a *ngIf="ngSliderThumb2.value <= 49 && ngSliderThumb2.value >= 1" class="bi-volume-down-fill m-0 p-0 text-success" style="font-size: 1.5rem; align-self: center;"></a>
+          <a *ngIf="ngSliderThumb2.value == 0" class="bi-volume-mute-fill m-0 p-0 text-secondary" style="font-size: 1.5rem; align-self: center;"></a>
+          <mat-slider class="volume-slider" min="0" max="100" step="1" discrete>
+            <input id="volumeThumb" matSliderThumb #slider [value]="volume" (input)="volumeChange(ngSliderThumb2.value)" #ngSliderThumb2="matSliderThumb">
+          </mat-slider>
         </div>
       </div>
     </div>
