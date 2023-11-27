@@ -56,7 +56,10 @@ export class MailsenderComponent implements OnInit {
         if (user.addonRoles === 'Newsletter' && user.email) {
           this.mail.to = user.email;
           this.mail.subject = "Newsletter for " + this.transformDate(this.date);
-          this.mail.body += this.footerContent;
+          if (!this.mail.body.endsWith(this.footerContent))
+          {
+            this.mail.body += this.footerContent
+          }
           this.mailService.sendEmail(this.mail).subscribe({
             next: (x) => {
               this.mails.push(x);
