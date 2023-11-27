@@ -134,5 +134,20 @@ namespace ProtonedMusicAPI.Repositories
                 Console.WriteLine($"Error deleting file: {ex.Message}");
             }
         }
+
+        public async Task<User?> SubscribeNewsletter(int userId, AddonRoles updateNewsletter)
+        {
+            User user = await FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                user.AddonRoles = updateNewsletter;
+
+                await _databaseContext.SaveChangesAsync();
+
+                user = await FindByIdAsync(userId);
+            }
+            return user;
+        }
     }
 }

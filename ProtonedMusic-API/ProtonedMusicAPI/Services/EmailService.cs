@@ -3,7 +3,6 @@ using MimeKit.Text;
 using MimeKit;
 using ProtonedMusicAPI.DTO.EmailDTO;
 using MailKit.Net.Smtp;
-using Org.BouncyCastle.Asn1.Pkcs;
 using Microsoft.Extensions.Options;
 
 namespace ProtonedMusicAPI.Services

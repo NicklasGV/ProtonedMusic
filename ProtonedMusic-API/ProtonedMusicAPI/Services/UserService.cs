@@ -85,15 +85,6 @@
             return user;
         }
 
-        private static User MapUserRequestToUserAddonRole(UserRequest userRequest)
-        {
-            User user = new User
-            {
-                AddonRoles = userRequest.AddonRoles,
-            };
-            return user;
-        }
-
         public async Task<List<UserResponse>> GetAllAsync()
         {
             List<User> users = await _userRepository.GetAllAsync();
@@ -162,6 +153,17 @@
 
             return null;
 
+        }
+
+        public async Task<UserResponse> SubscribeNewsletter(int userId, AddonRoles updateNewsletter)
+        {
+            User user = await _userRepository.SubscribeNewsletter(userId, updateNewsletter);
+
+            if (user != null)
+            {
+                return MapUserToUserResponse(user);
+            }
+            return null;
         }
     }
 }
