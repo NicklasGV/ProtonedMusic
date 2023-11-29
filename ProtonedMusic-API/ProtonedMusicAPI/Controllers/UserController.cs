@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting.Internal;
+﻿using Microsoft.EntityFrameworkCore.Update.Internal;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace ProtonedMusicAPI.Controllers
 {
@@ -163,6 +164,26 @@ namespace ProtonedMusicAPI.Controllers
             }
 
             return BadRequest("No file was uploaded.");
+        }
+
+        [HttpPost]
+        [Route("Newsletter/{userId}")]
+        public async Task<IActionResult> SubscribeNewsletter([FromRoute] int userId, [FromBody] AddonRoles newsletter)
+        {
+            try
+            {
+                UserResponse user = await _userService.SubscribeNewsletter(userId, newsletter);
+
+                if (user != null)
+                {
+                    return Ok(user.AddonRoles);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
     }
 }

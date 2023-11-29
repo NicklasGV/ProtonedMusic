@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { SnackBarService } from '../snack-bar.service';
 
@@ -10,7 +9,7 @@ import { SnackBarService } from '../snack-bar.service';
 export class AuthGuard  {
   constructor(private router: Router, private authService: AuthService, private snackBar: SnackBarService) { }
 
-  canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot) {
+  canActivate() {
     const currentUser = this.authService.currentUserValue;
 
   if (currentUser && currentUser.role == 'Admin') {

@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { UserService } from 'src/app/Services/user.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { FormsModule } from '@angular/forms';
 import { EmailModel, resetEmail } from 'src/app/Models/EmailModel';
 import { EmailService } from 'src/app/Services/email.service';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { subscribeOn } from 'rxjs';
 
 @Component({
   selector: 'app-mailsender',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './mailsender.component.html',
-  styleUrls: ['./mailsender.component.css']
+  styleUrls: ['./mailsender.component.css'],
 })
 export class MailsenderComponent implements OnInit {
   users: User[] = [];
@@ -22,10 +23,17 @@ export class MailsenderComponent implements OnInit {
   message: string = '';
   sendToAll: boolean = false;
   selected: string[] = [];
-  constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService) { }
+  date: any = new Date();
+  footerContent = '<br><br><br><br>' + '<footer><a style="display: flex; align-content: center;" href="http://localhost:4200/#/unsubscribe">Unsubscribe</a></footer>';
+
+  constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.userService.getAll().subscribe(x => this.users = x);
+  }
+
+  transformDate(date: any) {
+    return this.datePipe.transform(date, 'MMMM of yyyy');
   }
 
   getNewsletterUsers(): any[] {
@@ -41,16 +49,17 @@ export class MailsenderComponent implements OnInit {
     this.mail.to = user.email;
   }
 
-  templateText() {
-    this.message = '<h1>Protoned Music</h1>'
-  }
-
   send(): void {
     this.message = '';
     if (this.sendToAll) {
       this.users.forEach((user) => {
         if (user.addonRoles === 'Newsletter' && user.email) {
-          this.mail.to = user.email; // Set the recipient email in the mail object
+          this.mail.to = user.email;
+          this.mail.subject = "Newsletter for " + this.transformDate(this.date);
+          if (!this.mail.body.endsWith(this.footerContent))
+          {
+            this.mail.body += this.footerContent
+          }
           this.mailService.sendEmail(this.mail).subscribe({
             next: (x) => {
               this.mails.push(x);
@@ -65,7 +74,6 @@ export class MailsenderComponent implements OnInit {
         }
       });
     } else {
-      // If not sending to all, use the existing code
       this.mailService.sendEmail(this.mail).subscribe({
         next: (x) => {
           this.mails.push(x);
