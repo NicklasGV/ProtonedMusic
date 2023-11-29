@@ -36,7 +36,6 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
-    private http: HttpClient,
     private paymentService: PaymentService
   ) {}
 
@@ -113,8 +112,7 @@ export class CartComponent implements OnInit {
       (response) => {
         // Håndter responsen fra API-kaldet
         console.log('Session oprettet:', response);
-
-        // Brug Stripe.js eller lignende for at starte betalingsprocessen
+        // Brug Stripe.js til at initialisere Stripe Checkout
         this.initiateStripeCheckout(response); // Send hele responsen (CheckoutModel)
       },
       (error) => {
