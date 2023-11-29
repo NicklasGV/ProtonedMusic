@@ -29,12 +29,12 @@ export class AudioService {
       this.audioObj.src = url;
       this.audioObj.load();
       this.audioObj.play();
-  
+
       const handler = (event: Event) => {
         this.updateStateEvents(event);
         observer.next(event);
       };
-  
+
       this.addEvents(this.audioObj, this.audioEvents, handler);
       return () => {
         // Stop Playing
