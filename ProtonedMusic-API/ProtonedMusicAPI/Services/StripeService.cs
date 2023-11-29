@@ -16,62 +16,97 @@ namespace ProtonedMusicAPI.Services
             StripeConfiguration.ApiKey = _stripeSecretKey;
         }
 
-        public string CreateCombinedSession(CustomerInfoData customerInfo, string previousSessionId, List<CartItemData> cartItems)
-        {
-            var accountInfoSessionId = CreateAccountInfoSession(customerInfo.Email, customerInfo.Name, customerInfo.Address, customerInfo.Phone);
-            var deliveryAddressSessionId = CreateDeliveryAddressSession(previousSessionId);
-            var checkoutSessionId = CreateCheckoutSession(cartItems);
-
-            // Returner session-IDs til klienten
-            return $"{accountInfoSessionId},{deliveryAddressSessionId},{checkoutSessionId}";
-        }
-
-        public string CreateAccountInfoSession(string customerEmail, string customerName, string customerAddress, string customerPhone)
-        {
-            var customerOptions = new CustomerCreateOptions
-            {
-                Email = customerEmail,
-                Name = customerName,
-                Address = new AddressOptions
-                {
-                    Line1 = customerAddress,
-                },
-                Phone = customerPhone,
-            };
-
-            var customerService = new CustomerService();
-            var customer = customerService.Create(customerOptions);
-
-            var options = new SessionCreateOptions
-            {
-                Customer = customer.Id,
-                BillingAddressCollection = "required",
-                Mode = "setup",
-                Currency = "dkk",
-                SuccessUrl = "http://localhost:4200/#/",
-                CancelUrl = "https://your-website.com/cancel",
-            };
-
-            return CreateSession(options);
-        }
-
-        public string CreateDeliveryAddressSession(string previousSessionId)
+        public string CreateDeliveryAddressSession()
         {
             var options = new SessionCreateOptions
             {
-                BillingAddressCollection = "required",
+                Locale = "auto",  // Set language to Danish
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions
                 {
                     AllowedCountries = new List<string> { "DK" },
                 },
-                Mode = "setup",
-                Currency = "dkk",
-                SuccessUrl = "http://localhost:4200/#/"
+                ShippingOptions = new List<SessionShippingOptionOptions>
+                {
+                    new SessionShippingOptionOptions
+                    {
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
+                        {
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 0,
+                                Currency = "dkk",  // Set currency to DKK (Danish Krone)
+                            },
+                            DisplayName = "Gratis fragt",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 5,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 7,
+                                },
+                            },
+                        },
+                    },
+                    new SessionShippingOptionOptions
+                    {
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
+                        {
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 1500,
+                                Currency = "dkk",  // Set currency to DKK
+                            },
+                            DisplayName = "Næste dags levering",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                },
+                            },
+                        },
+                    },
+                },
+                //HALLO DU!
+                LineItems = new List<SessionLineItemOptions>
+                {
+                    new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            Currency = "dkk",  // Set currency to DKK
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = "T-shirt",
+                            },
+                            UnitAmount = 1000,
+                        },
+                        Quantity = 1,
+                    },
+                },
+                Mode = "payment",
+                SuccessUrl = "https://example.com/success",
+                CancelUrl = "https://example.com/cancel",
             };
 
-            return CreateSession(options, previousSessionId);
+            var service = new SessionService();
+            return service.Create(options).Id;
         }
 
+        //Ur OldSchool FoOl
         public string CreateCheckoutSession(List<CartItemData> cartItems)
         {
             var lineItems = cartItems.Select(item => new SessionLineItemOptions
@@ -102,22 +137,6 @@ namespace ProtonedMusicAPI.Services
 
         public string CreateSession(SessionCreateOptions options)
         {
-            var service = new SessionService();
-            var session = service.Create(options);
-
-            return session.Id;
-        }
-
-        public string CreateSession(SessionCreateOptions options, string previousSessionId)
-        {
-            // Log ud af previousSessionId for fejlfinding
-            Console.WriteLine($"Previous Session ID: {previousSessionId}");
-
-            // Hvis der er en tidligere session-ID, kan du inkludere det som en reference
-            options.SetupIntentData = previousSessionId != null
-                ? new SessionSetupIntentDataOptions { Metadata = new Dictionary<string, string> { { "previous_session_id", previousSessionId } } }
-                : null;
-
             var service = new SessionService();
             var session = service.Create(options);
 

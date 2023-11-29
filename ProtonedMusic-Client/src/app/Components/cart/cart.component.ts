@@ -97,7 +97,6 @@ export class CartComponent implements OnInit {
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
 
-    // Opret en liste af StripeCheckoutItem baseret på dine CartItem-objekter
     const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map(item => {
       return {
         name: item.name,
@@ -107,22 +106,18 @@ export class CartComponent implements OnInit {
       };
     });
 
-    // Kald din PaymentService for at oprette en Checkout Session
-    this.paymentService.createCheckoutSession(stripeCheckoutItems).subscribe(
+    // Opdater til at bruge createDeliveryAddressSession
+    this.paymentService.createDeliveryAddressSession(stripeCheckoutItems).subscribe(
       (response) => {
-        // Håndter responsen fra API-kaldet
         console.log('Session oprettet:', response);
-        // Brug Stripe.js til at initialisere Stripe Checkout
-        this.initiateStripeCheckout(response); // Send hele responsen (CheckoutModel)
+        this.initiateStripeCheckout(response);
       },
       (error) => {
-        // Håndter eventuelle fejl under sessionoprettelsen
         console.error('Fejl under oprettelse af session:', error);
       }
     );
   }
 
-  // Funktion til at initialisere Stripe Checkout
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
     loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
       stripe?.redirectToCheckout({
