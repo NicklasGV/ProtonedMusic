@@ -24,6 +24,9 @@ const routes: Routes = [
   {path: 'cart', loadComponent: () =>
   import('./Components/cart/cart.component').then(it => it.CartComponent)},
 
+  {path: 'unsubscribe', loadComponent: () =>
+  import('./Components/unsubscribe/unsubscribe.component').then(it => it.UnsubscribeComponent)},
+
   {path: 'events', loadComponent: () =>
   import('./Components/events/events.component').then(it => it.EventsComponent)},
 
