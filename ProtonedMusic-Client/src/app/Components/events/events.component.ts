@@ -30,6 +30,7 @@ export class EventsComponent implements OnInit {
       price: events.price,
       quantity: 1,
       name: events.title,
+      picturePath: events.eventPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
     this.snackbar.openSnackBar(events.title + ' added to cart','','success');

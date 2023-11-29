@@ -37,6 +37,7 @@ export class MerchandiseProductComponent implements OnInit {
       price: products.price,
       quantity: 1,
       name: products.name,
+      picturePath: products.productPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
   }
