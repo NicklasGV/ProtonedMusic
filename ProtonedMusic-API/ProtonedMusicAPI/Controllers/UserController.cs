@@ -168,11 +168,34 @@ namespace ProtonedMusicAPI.Controllers
 
         [AllowAnnonymous]
         [HttpPost]
-        [Route("Newsletter/{email}")]
-        public async Task<IActionResult> SubscribeNewsletter([FromRoute] string email, [FromForm] AddonRoles newsletter)
+        [Route("Newsletter/Subscribe/{email}")]
+        public async Task<IActionResult> SubscribeNewsletter([FromRoute] string email)
         {
             try
             {
+                AddonRoles newsletter = (AddonRoles)1;
+                UserResponse user = await _userService.SubscribeNewsletter(email, newsletter);
+
+                if (user != null)
+                {
+                    return Ok(user.AddonRoles);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [AllowAnnonymous]
+        [HttpPost]
+        [Route("Newsletter/Unsubscribe/{email}")]
+        public async Task<IActionResult> UnsubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                AddonRoles newsletter = 0;
                 UserResponse user = await _userService.SubscribeNewsletter(email, newsletter);
 
                 if (user != null)

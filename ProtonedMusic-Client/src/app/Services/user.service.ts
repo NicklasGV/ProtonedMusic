@@ -25,8 +25,12 @@ export class UserService {
     return this.http.post<User>(this.apiUrl + '/register', user);
   }
 
-  newsletter(userMail: string, subscription: string): Observable<User> {
-    return this.http.post<User>(this.apiUrl + '/Newsletter/' + userMail, subscription);
+  subscribe(userMail: string): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/Newsletter/Subscribe/' + userMail, userMail);
+  }
+
+  unsubscribe(userMail: string): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/Newsletter/Unsubscribe/' + userMail, userMail);
   }
 
   update(user: User): Observable<User> {

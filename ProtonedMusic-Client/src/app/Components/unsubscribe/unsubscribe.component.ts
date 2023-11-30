@@ -23,8 +23,7 @@ export class UnsubscribeComponent {
   }
 
   unsubscribeEmail(mail: string) {
-      this.user.addonRoles = 'None';
-      this.userService.newsletter(mail, this.user.addonRoles).subscribe({
+      this.userService.unsubscribe(mail).subscribe({
         next: (x) => {
           this.users.push(x);
           this.user = resetUser();
