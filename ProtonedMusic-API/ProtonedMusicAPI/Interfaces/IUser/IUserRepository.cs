@@ -9,6 +9,6 @@
         Task<User?> UpdateByIdAsync(int userId, User updateUser);
         Task<User?> DeleteByIdAsync(int userId);
         Task<User?> UploadProfilePicture(int userId, IFormFile file);
-        Task<User?> SubscribeNewsletter(int userId, AddonRoles updateNewsletter);
+        Task<User?> SubscribeNewsletter(string email, AddonRoles updateNewsletter);
     }
 }

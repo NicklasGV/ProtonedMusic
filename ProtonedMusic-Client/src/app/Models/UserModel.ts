@@ -1,3 +1,4 @@
+import { AddonRoles } from './AddonRole';
 import { NewsModel } from "./NewsModel";
 
 export interface User {

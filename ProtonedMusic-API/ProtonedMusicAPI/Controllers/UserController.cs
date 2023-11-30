@@ -166,19 +166,40 @@ namespace ProtonedMusicAPI.Controllers
             return BadRequest("No file was uploaded.");
         }
 
+        [AllowAnnonymous]
         [HttpPost]
-        [Route("Newsletter/{userId}")]
-        public async Task<IActionResult> SubscribeNewsletter([FromRoute] int userId, [FromBody] AddonRoles newsletter)
+        [Route("Newsletter/{email}")]
+        public async Task<IActionResult> SubscribeNewsletter([FromRoute] string email, [FromForm] AddonRoles newsletter)
         {
             try
             {
-                UserResponse user = await _userService.SubscribeNewsletter(userId, newsletter);
+                UserResponse user = await _userService.SubscribeNewsletter(email, newsletter);
 
                 if (user != null)
                 {
                     return Ok(user.AddonRoles);
                 }
                 return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("Email/{email}")]
+        public async Task<IActionResult> FindByEmailAsync([FromRoute] string email)
+        {
+            try
+            {
+                UserResponse userResponse = await _userService.FindByEmailAsync(email);
+
+                if (userResponse == null)
+                {
+                    return NotFound();
+                }
+                return Ok(userResponse);
             }
             catch (Exception ex)
             {

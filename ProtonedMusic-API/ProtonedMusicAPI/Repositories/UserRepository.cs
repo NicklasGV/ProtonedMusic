@@ -135,9 +135,9 @@ namespace ProtonedMusicAPI.Repositories
             }
         }
 
-        public async Task<User?> SubscribeNewsletter(int userId, AddonRoles updateNewsletter)
+        public async Task<User?> SubscribeNewsletter(string email, AddonRoles updateNewsletter)
         {
-            User user = await FindByIdAsync(userId);
+            User user = await FindByEmail(email);
 
             if (user != null)
             {
@@ -145,7 +145,7 @@ namespace ProtonedMusicAPI.Repositories
 
                 await _databaseContext.SaveChangesAsync();
 
-                user = await FindByIdAsync(userId);
+                user = await FindByIdAsync(user.Id);
             }
             return user;
         }

@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using ProtonedMusicAPI.Database.Entities;
+
+namespace ProtonedMusicAPI.Services
 {
     public class UserService : IUserService
     {
@@ -155,14 +157,26 @@
 
         }
 
-        public async Task<UserResponse> SubscribeNewsletter(int userId, AddonRoles updateNewsletter)
+        public async Task<UserResponse> SubscribeNewsletter(string email, AddonRoles updateNewsletter)
         {
-            User user = await _userRepository.SubscribeNewsletter(userId, updateNewsletter);
+            User user = await _userRepository.SubscribeNewsletter(email, updateNewsletter);
 
             if (user != null)
             {
                 return MapUserToUserResponse(user);
             }
+            return null;
+        }
+
+        public async Task<UserResponse> FindByEmailAsync(string email)
+        {
+            var user = await _userRepository.FindByEmail(email);
+
+            if (user != null)
+            {
+                return MapUserToUserResponse(user);
+            }
+
             return null;
         }
     }

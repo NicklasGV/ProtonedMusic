@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../Models/UserModel';
+import { AddonRoles } from '../Models/AddonRole';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,20 @@ export class UserService {
     return this.http.post<User>(this.apiUrl + '/register', user);
   }
 
+  newsletter(userMail: string, subscription: string): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/Newsletter/' + userMail, subscription);
+  }
+
   update(user: User): Observable<User> {
     return this.http.put<User>(this.apiUrl + '/' + user.id, user);
   }
 
   findById(userId: number): Observable<User> {
     return this.http.get<User>(this.apiUrl + '/' + userId);
+  }
+
+  findByEmail(userMail: string): Observable<User> {
+    return this.http.get<User>(this.apiUrl + '/Email/' + userMail);
   }
 
   uploadProfilePicture(userId: number, file: FormData): Observable<User> {
