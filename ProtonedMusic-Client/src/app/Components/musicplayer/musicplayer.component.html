@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<div class="container-fluid" data-bs-theme="dark">
+<div class="container-fluid" data-bs-theme="dark" *ngIf="this.files.length > 0">
   <div class="table-responsive">
     <div class="table-wrapper">
       <table class="table table-hover">
@@ -61,3 +61,12 @@
       </table>
     </div>
   </div>
+</div>
+<div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
+  <div class="card bg-dark text-light">
+    <div class="card-body text-center">
+      <h2>No music is available right now check back later!</h2>
+    </div>
+  </div>
+</div>
+

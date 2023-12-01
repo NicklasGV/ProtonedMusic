@@ -14,7 +14,9 @@ import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 })
 export class UpcomingComponent implements OnInit {
   upcomings: UpcomingModel[] = [];
+  checkEmpty: boolean = false;
 
+  constructor(private upcomingService: UpcomingService) { }
 
   getUpcomingShows(): any[] {
     const currentTime = new Date();
@@ -27,11 +29,15 @@ export class UpcomingComponent implements OnInit {
     });
   }
 
-  constructor(private upcomingService: UpcomingService) { }
-
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
-    this.checkIfEmpty();
+
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   checkIfEmpty() {

@@ -26,15 +26,31 @@ export class MusicplayerComponent implements OnInit{
   currentArtist: string = '';
   currentPicture: string = "../../../assets/img/1.png";
   volume: number = 50;
+  checkEmpty: boolean = false;
 
   constructor(private audioService: AudioService, private musicService: MusicService, public auth: AuthService) { }
     
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
       this.musicService.getAll().subscribe(x => this.files = x);
 
 
     // listen to stream state
     this.audioService.getState().subscribe(state => {this.state = state;});
+
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
+    }
+
+    delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
+    }
+  
+    checkIfEmpty() {
+      if (this.files.length <= 0)
+      {
+        return true;
+      }
+      return false;
     }
 
     
