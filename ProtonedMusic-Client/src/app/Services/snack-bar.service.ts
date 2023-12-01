@@ -12,7 +12,7 @@ export class SnackBarService {
   public openSnackBar(message: string, action:string , type: snackType) {
     const _snackType = type !== undefined ? type : 'success';
     this.snackBar.openFromComponent(SnackBarComponent, {
-      duration: 2000,
+      duration: 4000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
       data: { message: message, action: action , snackType: _snackType }

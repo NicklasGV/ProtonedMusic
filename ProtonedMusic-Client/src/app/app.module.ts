@@ -11,11 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,13 +27,16 @@ import {MatDialogModule} from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
+    SnackBarComponent
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
   },
+  {
+    provide: DatePipe
+  }
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [SnackBarComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

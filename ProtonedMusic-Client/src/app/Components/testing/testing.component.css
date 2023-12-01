@@ -1,0 +1,6 @@
+.mat-mdc-slider {
+    --mdc-slider-handle-color: #198754;
+    --mdc-slider-focus-handle-color: #198754;
+    --mdc-slider-active-track-color: #198754;
+    --mdc-slider-inactive-track-color: #125a38;
+  }

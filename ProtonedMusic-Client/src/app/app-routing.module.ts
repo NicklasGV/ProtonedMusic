@@ -24,14 +24,23 @@ const routes: Routes = [
   {path: 'cart', loadComponent: () =>
   import('./Components/cart/cart.component').then(it => it.CartComponent)},
 
+  {path: 'unsubscribe', loadComponent: () =>
+  import('./Components/unsubscribe/unsubscribe.component').then(it => it.UnsubscribeComponent)},
+
   {path: 'events', loadComponent: () =>
   import('./Components/events/events.component').then(it => it.EventsComponent)},
+
+  {path: 'syke', loadComponent: () =>
+  import('./Components/testing/testing.component').then(it => it.TestingComponent)},
 
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
+
+  {path: 'newsDetailed/:id', loadComponent: () =>
+  import('./Components/news-detailed/news-detailed.component').then(it => it.NewsDetailedComponent)},
 
   {path: 'profilmenu/:id', loadComponent: ()=> 
   import('./Components/Profile/profilmenu/profilmenu.component').then( it => it.ProfilmenuComponent)},
@@ -51,8 +60,8 @@ const routes: Routes = [
   {path: 'admin/userpanel', loadComponent: () =>
   import('./Components/Admin/user-panel/user-panel.component').then(it => it.UserPanelComponent), canActivate: [AuthGuard]},
 
-  {path: 'admin/imagepanel', loadComponent: () =>
-  import('./Components/Admin/image-panel/image-panel.component').then(it => it.ImagePanelComponent), canActivate: [AuthGuard]},
+  {path: 'admin/emailpanel', loadComponent: () =>
+  import('./Components/Admin/mailsender/mailsender.component').then(it => it.MailsenderComponent), canActivate: [AuthGuard]},
 
   {path: 'admin/eventpanel', loadComponent: () =>
   import('./Components/Admin/event-panel/event-panel.component').then(it => it.EventPanelComponent), canActivate: [AuthGuard]},
@@ -60,10 +69,19 @@ const routes: Routes = [
   {path: 'admin/newspanel', loadComponent: () =>
   import('./Components/Admin/news-panel/news-panel.component').then(it => it.NewsPanelComponent), canActivate: [AuthGuard]},
 
+  {path: 'admin/upcomingpanel', loadComponent: () =>
+  import('./Components/Admin/upcoming-panel/upcoming-panel.component').then(it => it.UpcomingPanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/frontpagepostpanel', loadComponent: () =>
+  import('./Components/Admin/frontpagepost-panel/frontpagepost-panel.component').then(it => it.FrontpagepostPanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/musicpanel', loadComponent: () =>
+  import('./Components/Admin/music-panel/music-panel.component').then(it => it.MusicPanelComponent), canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

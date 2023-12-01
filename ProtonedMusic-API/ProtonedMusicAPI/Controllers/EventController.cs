@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProtonedMusicAPI.DTO.MusicDTO;
 
 namespace ProtonedMusicAPI.Controllers
 {
@@ -34,13 +35,24 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEvent([FromBody] EventRequest newEvent)
+        public async Task<IActionResult> CreateEvent([FromForm] EventRequest newEvent)
         {
             try
             {
                 EventResponse eventResponse = await _eventService.CreateEvent(newEvent);
 
-                if(eventResponse == null)
+                if (newEvent.PictureFile != null)
+                {
+                    EventResponse eventPicture = await _eventService.UploadEventPicture(eventResponse.Id, newEvent.PictureFile);
+
+                    if (eventPicture != null)
+                    {
+                        eventResponse = eventPicture;
+                    }
+
+                }
+
+                if (eventResponse == null)
                 {
                     return Problem("Is null");
                 }
@@ -74,13 +86,24 @@ namespace ProtonedMusicAPI.Controllers
 
         [HttpPut]
         [Route("{eventId}")]
-        public async Task<IActionResult> UpdateEventById([FromRoute] int eventId, [FromBody] EventRequest updateEvent)
+        public async Task<IActionResult> UpdateEventById([FromRoute] int eventId, [FromForm] EventRequest updateEvent)
         {
             try
             {
                 var eventResponse = await _eventService.UpdateEventById(eventId, updateEvent);
 
-                if( eventResponse == null)
+                if (updateEvent.PictureFile != null)
+                {
+                    EventResponse eventPicture = await _eventService.UploadEventPicture(eventResponse.Id, updateEvent.PictureFile);
+
+                    if (eventPicture != null)
+                    {
+                        eventResponse = eventPicture;
+                    }
+
+                }
+
+                if ( eventResponse == null)
                 {
                     return NotFound();
                 }
@@ -110,6 +133,30 @@ namespace ProtonedMusicAPI.Controllers
             {
                 return Problem(ex.Message);
             }
+        }
+
+        [HttpPost]
+        [Route("upload-event-picture/{eventId}")]
+        public async Task<IActionResult> UploadProfilePicture([FromRoute] int eventId, IFormFile file)
+        {
+
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Invalid file.");
+            }
+
+            if (file != null)
+            {
+                EventResponse eventResponse = await _eventService.UploadEventPicture(eventId, file);
+
+                if (eventResponse != null)
+                {
+                    return Ok(eventResponse.EventPicturePath);
+                }
+
+            }
+
+            return BadRequest("No file was uploaded.");
         }
     }
 }

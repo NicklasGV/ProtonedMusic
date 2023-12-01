@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
-import { ProductService } from 'src/app/Services/Product.service';
+import { ProductService } from 'src/app/Services/product.service';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from 'src/app/Services/category.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,6 +23,8 @@ export class ProductPanelComponent implements OnInit {
   category: CategoryModel = resetCategory();
   categories: CategoryModel[] = [];
   selected: number[] = [];
+  selectedFile: File | undefined;
+  formData = new FormData();
   
   constructor(private productService: ProductService, private categoryService:CategoryService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 
@@ -33,7 +35,6 @@ export class ProductPanelComponent implements OnInit {
   }
 
   marked(event: any) {
-    console.log(event)
     let value = parseInt(event.target.value);
     if (this.selected.indexOf(value) == -1) {
       this.selected.push(value);
@@ -41,7 +42,6 @@ export class ProductPanelComponent implements OnInit {
       this.selected.splice(this.selected.indexOf(value), 1);
     }
     this.selected.sort((a, b) => a - b);
-    console.log("Seleted IDs ", this.selected);
   }
   resetCheckboxes(): void {
   this.categories.map(category => category.checked = false);
@@ -59,6 +59,34 @@ editProduct(product: ProductModel): void {
     }
   });
 }
+
+onPictureFileSelected(event: any): void {
+  const file = event.target.files[0];
+  this.product.pictureFile = file;
+}
+
+onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0];
+}
+
+uploadImage() {
+  if (this.selectedFile) {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.productService.uploadProductPicture(this.product.id, formData).subscribe(
+      (product: ProductModel) => {
+        this.productService.getAllProducts().subscribe(x => this.products = x);
+          this.product = resetProducts();
+          this.snackBar.openSnackBar("Product Pic Updated", '', 'success');
+      },
+      (error) => {
+        this.message = Object.values(error.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
+      }
+    );
+  }
+}
   
   deleteProduct(product: ProductModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -71,11 +99,9 @@ editProduct(product: ProductModel): void {
           this.products = this.products.filter(x => x.id != product.id);
         });
         this.snackBar.openSnackBar('Deletion successful.', '','success');
-        console.log('Product deleted!');
       } else {
         // User canceled the operation
         this.snackBar.openSnackBar('Deletion canceled.', '','warning');
-        console.log('Deletion canceled.');
       }
     });
   }

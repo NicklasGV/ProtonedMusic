@@ -58,13 +58,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "999kb",
                   "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "10kb",
+                  "maximumError": "12kb"
                 }
               ],
               "fileReplacements": [
@@ -90,10 +90,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ProtonedMusic-Client:build:production"
+              "buildTarget": "ProtonedMusic-Client:build:production"
             },
             "development": {
-              "browserTarget": "ProtonedMusic-Client:build:development"
+              "buildTarget": "ProtonedMusic-Client:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -101,7 +101,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ProtonedMusic-Client:build"
+            "buildTarget": "ProtonedMusic-Client:build"
           }
         },
         "test": {

@@ -27,12 +27,12 @@ export class EventComponent implements OnInit {
 
   addToCart(eventItem: EventModel) {
     this.itemlength += 1;
-    console.log(eventItem);
     let item: CartItem = {
       id: eventItem.id,
       price: eventItem.price,
       quantity: 1,
       name: eventItem.title,
+      picturePath: eventItem.eventPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
     this.snackbar.openSnackBar(eventItem.title + ' added to cart','','success');

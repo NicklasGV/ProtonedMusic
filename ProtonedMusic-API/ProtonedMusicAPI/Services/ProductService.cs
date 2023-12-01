@@ -15,6 +15,7 @@
                 Name = product.Name,
                 Price = product.Price,
                 Description = product.Description,
+                ProductPicturePath = product.ProductPicturePath,
 
             };
             if (product.ProductCategories.Count > 0)
@@ -34,6 +35,7 @@
                 Name = productRequest.Name,
                 Price = productRequest.Price,
                 Description = productRequest.Description,
+                ProductPicturePath = productRequest.ProductPicturePath,
                 ProductCategories = productRequest.CategoryIds.Select(c => new ProductCategory
                 {
                     CategoryId = c
@@ -93,6 +95,19 @@
                 return MapProductToProductResponse(product);
             }
             return null;
+        }
+
+        public async Task<ProductResponse> UploadProductPicture(int productId, IFormFile file)
+        {
+            Product product = await _productRepository.UploadProductPicture(productId, file);
+
+            if (product != null)
+            {
+                return MapProductToProductResponse(product);
+            }
+
+            return null;
+
         }
     }
 }

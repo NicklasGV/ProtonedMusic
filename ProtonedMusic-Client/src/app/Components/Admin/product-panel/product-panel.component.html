@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div class="form-group row">
+  <div class="form-group row  mb-3">
     <label class="col-12 col-sm-1 col-form-label">Category</label>
     <div class="col-12 col-sm-6">
       <ul class="list-group">
@@ -38,6 +38,22 @@
       </ul>
     </div>
   </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Picture</label>
+    <div class="col-12 col-sm-6">
+      <input (change)="onPictureFileSelected($event)" class="form-control w-75" type="file" accept="image/*">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Product Picture Path</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="product.productPicturePath" class="form-control w-75">
+    </div>
+  </div>
+
+  
 
   <div class="d-flex mt-5 mx-0">
     <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
@@ -54,12 +70,13 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Actions</th>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Category</th>
+            <th class="fw-medium">Actions</th>
+            <th class="fw-medium">Id</th>
+            <th class="fw-medium">Name</th>
+            <th class="fw-medium">Price</th>
+            <th class="fw-medium">Description</th>
+            <th class="fw-medium">Picture Path</th>
+            <th class="fw-medium">Category</th>
           </tr>
         </thead>
         <tbody>
@@ -74,6 +91,7 @@
             <td>{{ product.name }}</td>
             <td>{{ product.price | currency: 'DKK ' }}</td>
             <td class="text-truncate" style="max-width: 150px;">{{ product.description }}</td>
+            <td>{{ product.productPicturePath }}</td>
             <td>
                 <li *ngFor="let category of product.categories">{{category.name}}</li>
             </td>

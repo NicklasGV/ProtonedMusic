@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Repositories
+﻿using System.Net;
+
+namespace ProtonedMusicAPI.Repositories
 {
     public class ProductRepository : IProductRepository
     {
@@ -69,6 +71,7 @@
                 product.Name = updateProduct.Name;
                 product.Price = updateProduct.Price;
                 product.Description = updateProduct.Description;
+                product.ProductPicturePath = updateProduct.ProductPicturePath;
 
                 await _context.SaveChangesAsync();
                 //Vi finder produktet igen med alle de nye ændringer og sender den til produkt som vi retunere
@@ -81,12 +84,66 @@
         {
             var product = await FindByIdAsync(productId);
 
+            if (!string.IsNullOrEmpty(product.ProductPicturePath))
+            {
+                await DeleteFileOnFtpAsync(product.ProductPicturePath);
+            }
+
             if (product != null)
             {
                 _context.Remove(product);
                 await _context.SaveChangesAsync();
             }
             return product;
+        }
+
+        public async Task<Product?> UploadProductPicture(int productId, IFormFile file)
+        {
+            string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/assets/uploads/";
+
+            Product product = await FindByIdAsync(productId);
+            string oldFilePath = product.ProductPicturePath;
+
+            if (!string.IsNullOrEmpty(oldFilePath))
+            {
+                // If the product already has a product picture, delete the old image asynchronously
+                await DeleteFileOnFtpAsync(oldFilePath);
+            }
+
+            // Create an FTP request to upload the new product picture
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(new Uri(new Uri(ftpUrl), fileName));
+            ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+
+            using (var stream = file.OpenReadStream())
+            using (var ftpStream = ftpRequest.GetRequestStream())
+            {
+                stream.CopyTo(ftpStream);
+            }
+
+            // Update the product's product picture path in the database
+            product.ProductPicturePath = Path.Combine("assets/uploads/", fileName);
+            await UpdateByIdAsync(productId, product);
+
+            return product;
+        }
+
+        public async Task DeleteFileOnFtpAsync(string filePath)
+        {
+            string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/";
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(new Uri(new Uri(ftpUrl), filePath));
+            ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
+
+            try
+            {
+                FtpWebResponse ftpResponse = (FtpWebResponse)await ftpRequest.GetResponseAsync();
+                Console.WriteLine($"File deleted, status: {ftpResponse.StatusDescription}");
+                ftpResponse.Close();
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine($"Error deleting file: {ex.Message}");
+            }
         }
     }
 }

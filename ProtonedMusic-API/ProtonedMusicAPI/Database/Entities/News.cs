@@ -9,5 +9,7 @@
         [Column(TypeName = "nvarchar(600)")]
         public string Text { get; set; } = string.Empty;
         public DateTime DateTime { get; set; } = DateTime.Now;
+
+        public List<NewsLike> NewsLikes { get; set; } = new List<NewsLike>();
     }
 }

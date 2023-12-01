@@ -1,5 +1,7 @@
-export interface ImageModel {
-    id : number;
-    fileName : string;
-    filePath : string;
+export class ImageModel {
+  pictureId: number = 0;
+  publicId: string = '';
+  imageName: string = '';
+  imageUrl: string = '';
 }
+

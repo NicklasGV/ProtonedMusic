@@ -8,7 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './snack-bar.component.html',
-  styleUrls: ['./snack-bar.component.css']
+  styles: ['']
 })
 export class SnackBarComponent implements OnInit {
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) { 

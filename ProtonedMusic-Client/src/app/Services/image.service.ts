@@ -16,4 +16,8 @@ export class ImageService {
   public getImages(): Observable<ImageModel[]> {
     return this.http.get<ImageModel[]>(this.url);
   }
+
+  addPicture(formData: FormData){
+    return this.http.post(this.url + 'Image/', formData);
+  }
 }

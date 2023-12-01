@@ -17,11 +17,41 @@ export class ProductService {
   }
 
   public createProduct(product: ProductModel): Observable<ProductModel> {
-    return this.http.post<ProductModel>(this.url, product);
+    const formData = new FormData();
+  
+    formData.append('name', product.name);
+    formData.append('price', product.price.toString());
+    formData.append('description', product.description);
+    formData.append('productPicturePath', product.productPicturePath);
+    product.categoryIds.forEach(categoryId => {
+      formData.append('categoryIds', categoryId.toString());
+    });
+
+  
+    if (product.pictureFile) {
+      formData.append('pictureFile', product.pictureFile, product.pictureFile.name);
+    }
+
+    return this.http.post<ProductModel>(this.url, formData);
   }
 
   public updateProduct(productId:number, product: ProductModel): Observable<ProductModel> {
-    return this.http.put<ProductModel>(this.url + '/' + productId, product);
+    const formData = new FormData();
+  
+    formData.append('name', product.name);
+    formData.append('price', product.price.toString());
+    formData.append('description', product.description);
+    formData.append('productPicturePath', product.productPicturePath);
+    product.categoryIds.forEach(categoryId => {
+      formData.append('categoryIds', categoryId.toString());
+    });
+
+  
+    if (product.pictureFile) {
+      formData.append('pictureFile', product.pictureFile, product.pictureFile.name);
+    }
+
+    return this.http.put<ProductModel>(this.url + '/' + productId, formData);
   }
   
   public deleteProduct(productId: number): Observable<ProductModel> {
@@ -30,6 +60,10 @@ export class ProductService {
 
   public getProductById(productId: number): Observable<ProductModel> { 
     return this.http.get<ProductModel>(this.url + '/' + productId);
+  }
+
+  uploadProductPicture(productId: number, file: FormData): Observable<ProductModel> {
+    return this.http.post<ProductModel>(this.url + '/upload-product-picture/' + productId, file);
   }
 }
 

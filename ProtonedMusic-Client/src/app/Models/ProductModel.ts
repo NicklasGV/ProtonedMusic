@@ -5,7 +5,8 @@ export interface ProductModel {
     name: string;
     price: number;
     description: string;
-    image: string;
+    pictureFile: File | null;
+    productPicturePath: string;
     categories: CategoryModel[];
     categoryIds: number[];
 }
@@ -17,6 +18,8 @@ export function resetProducts() {
         price: 0,
         description: '',
         image: '',
+        pictureFile: null,
+        productPicturePath: '',
         categories: [],
         categoryIds: [],
     }

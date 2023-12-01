@@ -11,12 +11,17 @@
         public async Task<List<News>> GetAllAsync()
         {
             return await _databaseContext.News
+                .Include(n => n.NewsLikes)
+                .ThenInclude(nl => nl.User)
                 .ToListAsync();
         }
 
         public async Task<News> FindByIdAsync(int newsId)
         {
-            return await _databaseContext.News.FirstOrDefaultAsync(s => s.Id == newsId);
+            return await _databaseContext.News
+                .Include(n => n.NewsLikes)
+                .ThenInclude(nl => nl.User)
+                .FirstOrDefaultAsync(s => s.Id == newsId);
         }
 
         public async Task<News> CreateAsync(News newNews)
@@ -46,6 +51,7 @@
                 news.Title = updateNews.Title;
                 news.Text = updateNews.Text;
                 news.DateTime = updateNews.DateTime;
+                news.NewsLikes = updateNews.NewsLikes;
 
                 await _databaseContext.SaveChangesAsync();
 

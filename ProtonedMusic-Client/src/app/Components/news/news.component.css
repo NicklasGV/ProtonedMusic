@@ -1,4 +1,17 @@
-.card-body:hover {
-    background: #333333;
-    border-radius: 5px;
+.card:hover{
+    transform: scale(1.01);
+ box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.lock:hover .bi-hand-thumbs-up,
+.lock .bi-hand-thumbs-up-fill {
+    display: none;
+    color: #198754
+}
+.lock:hover .bi-hand-thumbs-up-fill {
+    display: inline;
+}
+
+.bi-hand-thumbs-up-fill {
+    color: #198754
 }

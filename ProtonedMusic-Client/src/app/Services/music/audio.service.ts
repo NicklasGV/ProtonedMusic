@@ -8,7 +8,7 @@ import * as moment from 'moment';
 })
 export class AudioService {
   private stop$ = new Subject();
-  private audioObj = new Audio();
+  private audioObj: HTMLAudioElement  = new Audio();
   audioEvents = [
     'ended', 'error', 'play', 'playing', 'pause', 'timeupdate', 'canplay', 'loadedmetadata', 'loadstart'
   ];
@@ -29,12 +29,12 @@ export class AudioService {
       this.audioObj.src = url;
       this.audioObj.load();
       this.audioObj.play();
-  
+
       const handler = (event: Event) => {
         this.updateStateEvents(event);
         observer.next(event);
       };
-  
+
       this.addEvents(this.audioObj, this.audioEvents, handler);
       return () => {
         // Stop Playing
@@ -74,6 +74,10 @@ export class AudioService {
 
   stop() {
     this.stop$.next(undefined);
+  }
+
+  setVolume(volume: number): void {
+    this.audioObj.volume = volume / 100;
   }
 
   seekTo(seconds: number) {

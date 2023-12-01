@@ -17,7 +17,12 @@
           <tbody>
               <tr *ngFor="let cart of cartItems">
                   <td class="">
-                      <img src="../../../assets/img/1.png" style="width: 25%" />
+                    <a *ngIf="cart.picturePath">
+                        <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 25%">
+                    </a>
+                    <a *ngIf="!cart.picturePath">
+                        <img src="../../../assets/img/img400.png" style="width: 25%">
+                    </a>
                   </td>
                   <td class="align-middle">{{ cart.name }}</td>
                   <td class="align-middle">{{ cart.price | currency : "DKK " }}</td>
@@ -37,7 +42,7 @@
               </tr>
           </tbody>
       </table>
-      <button class="btn btn-success btn-sm float-end">PROCEED PURCHASE</button>
+      <button class="btn btn-success btn-sm float-end" (click)="buyCartItems()">PROCEED PURCHASE</button>
       <button (click)="clearCart()" class="btn btn-danger btn-sm float-end me-2">
         EMPTY BASKET
       </button>

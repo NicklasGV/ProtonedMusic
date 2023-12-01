@@ -14,6 +14,8 @@ namespace ProtonedMusicAPI.DTO.EventDTO
         [Required]
         [Range(1, 10000, ErrorMessage = "Price cannot be higher than 10000")]
         public decimal Price { get; set; }
+        public IFormFile? PictureFile { get; set; }
+        public string? EventPicturePath { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
