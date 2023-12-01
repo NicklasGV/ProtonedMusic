@@ -90,7 +90,6 @@ export class MusicPanelComponent implements OnInit{
     
       save(): void {
         this.message = "";
-        console.log(this.song)
         if (this.song.id == 0) {
           //create
           this.musicService.create(this.song)

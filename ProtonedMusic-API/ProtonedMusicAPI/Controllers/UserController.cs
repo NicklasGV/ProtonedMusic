@@ -61,11 +61,22 @@ namespace ProtonedMusicAPI.Controllers
         [Authorize(Role.Admin, Role.Customer)]
         [HttpPut]
         [Route("{userId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromBody] UserRequest updateUser)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromForm] UserRequest updateUser)
         {
             try
             {
                 var userResponse = await _userService.UpdateByIdAsync(userId, updateUser);
+
+                if (updateUser.PictureFile != null)
+                {
+                    UserResponse userPicture = await _userService.UploadProfilePicture(userResponse.Id, updateUser.PictureFile);
+
+                    if (userPicture != null)
+                    {
+                        userResponse = userPicture;
+                    }
+
+                }
 
                 if (userResponse == null)
                 {
@@ -129,11 +140,23 @@ namespace ProtonedMusicAPI.Controllers
         [AllowAnnonymous]
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> CreateAsync([FromBody] UserRequest newUser)
+        public async Task<IActionResult> CreateAsync([FromForm] UserRequest newUser)
         {
             try
             {
                 UserResponse userResponse = await _userService.CreateAsync(newUser);
+
+                if (newUser.PictureFile != null)
+                {
+                    UserResponse userPicture = await _userService.UploadProfilePicture(userResponse.Id, newUser.PictureFile);
+
+                    if (userPicture != null)
+                    {
+                        userResponse = userPicture;
+                    }
+
+                }
+
                 return Ok(userResponse);
             }
             catch (Exception ex)

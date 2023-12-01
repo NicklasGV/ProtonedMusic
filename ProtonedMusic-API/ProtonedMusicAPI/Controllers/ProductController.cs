@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Controllers
+﻿using ProtonedMusicAPI.DTO.MusicDTO;
+
+namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,11 +32,22 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] ProductRequest newProduct)
+        public async Task<IActionResult> CreateAsync([FromForm] ProductRequest newProduct)
         {
             try
             {
                 ProductResponse productResponse = await _productService.CreateAsync(newProduct);
+
+                if (newProduct.PictureFile != null)
+                {
+                    ProductResponse productPicture = await _productService.UploadProductPicture(productResponse.Id, newProduct.PictureFile);
+
+                    if (productPicture != null)
+                    {
+                        productResponse = productPicture;
+                    }
+
+                }
 
                 if (productResponse == null)
                 {
@@ -70,11 +83,22 @@
 
         [HttpPut]
         [Route("{productId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int productId, [FromBody] ProductRequest updateProduct)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int productId, [FromForm] ProductRequest updateProduct)
         {
             try
             {
                 var productResponse = await _productService.UpdateByIdAsync(productId, updateProduct);
+
+                if (updateProduct.PictureFile != null)
+                {
+                    ProductResponse productPicture = await _productService.UploadProductPicture(productResponse.Id, updateProduct.PictureFile);
+
+                    if (productPicture != null)
+                    {
+                        productResponse = productPicture;
+                    }
+
+                }
 
                 if (productResponse == null)
                 {

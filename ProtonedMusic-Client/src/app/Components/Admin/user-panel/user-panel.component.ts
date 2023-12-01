@@ -42,9 +42,12 @@ export class UserPanelComponent implements OnInit {
       this.user = resetUser();
       this.snackBar.openSnackBar('User canceled.', '','warning');
     }
-  
-    
 
+    onPictureFileSelected(event: any): void {
+      const file = event.target.files[0];
+      this.user.pictureFile = file;
+    }
+  
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
