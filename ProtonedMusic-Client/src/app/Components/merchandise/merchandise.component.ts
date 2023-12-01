@@ -66,6 +66,7 @@ export class MerchandiseComponent implements OnInit {
       price: products.price,
       quantity: 1,
       name: products.name,
+      picturePath: products.productPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
     this.snackbar.openSnackBar(products.name + ' added to cart','','success');
