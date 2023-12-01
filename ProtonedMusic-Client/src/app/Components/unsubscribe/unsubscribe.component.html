@@ -7,7 +7,7 @@
             <div class="form-group d-flex justify-content-center">
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input [(ngModel)]="user.email" type="email" class="form-control" placeholder="name@example.com">
+                    <input [(ngModel)]="user.email" type="email" class="form-control" placeholder="name@example.com" (keydown.enter)="unsubscribeEmail(user.email)">
                 </div>
             </div>
         </div>
