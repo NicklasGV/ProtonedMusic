@@ -22,7 +22,39 @@ export class UserService {
   }
 
   create(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl + '/register', user);
+    const formData = new FormData();
+  
+    formData.append('firstName', user.firstName);
+    formData.append('lastName', user.lastName);
+    formData.append('email', user.email);
+    formData.append('password', user.password);
+    formData.append('phoneNumber', user.phoneNumber.toString());
+    formData.append('address', user.address);
+    formData.append('city', user.city);
+    formData.append('postal', user.postal.toString());
+    formData.append('country', user.country);
+    formData.append('profilePicturePath', user.profilePicturePath);
+    user.newsIds.forEach(newsIds => {
+      formData.append('newsIds', newsIds.toString());
+    });
+
+    if (user.role) {
+      formData.append('role', user.role);
+    }
+
+    if (user.addonRoles) {
+      formData.append('addonRoles', user.addonRoles);
+    }
+
+    if (user.token) {
+      formData.append('token', user.token);
+    }
+  
+    if (user.pictureFile) {
+      formData.append('pictureFile', user.pictureFile, user.pictureFile.name);
+    }
+
+    return this.http.post<User>(this.apiUrl + '/register', formData);
   }
 
   subscribe(userMail: string): Observable<User> {
@@ -34,7 +66,39 @@ export class UserService {
   }
 
   update(user: User): Observable<User> {
-    return this.http.put<User>(this.apiUrl + '/' + user.id, user);
+    const formData = new FormData();
+  
+    formData.append('firstName', user.firstName);
+    formData.append('lastName', user.lastName);
+    formData.append('email', user.email);
+    formData.append('password', user.password);
+    formData.append('phoneNumber', user.phoneNumber.toString());
+    formData.append('address', user.address);
+    formData.append('city', user.city);
+    formData.append('postal', user.postal.toString());
+    formData.append('country', user.country);
+    formData.append('profilePicturePath', user.profilePicturePath);
+    user.newsIds.forEach(newsIds => {
+      formData.append('newsIds', newsIds.toString());
+    });
+
+    if (user.role) {
+      formData.append('role', user.role);
+    }
+
+    if (user.addonRoles) {
+      formData.append('addonRoles', user.addonRoles);
+    }
+
+    if (user.token) {
+      formData.append('token', user.token);
+    }
+  
+    if (user.pictureFile) {
+      formData.append('pictureFile', user.pictureFile, user.pictureFile.name);
+    }
+
+    return this.http.put<User>(this.apiUrl + '/' + user.id, formData);
   }
 
   findById(userId: number): Observable<User> {

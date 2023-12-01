@@ -7,6 +7,7 @@
         public string Text { get; set; }
         [Required]
         public Banner Banner { get; set; }
+        public IFormFile? PictureFile { get; set; }
         public string? FrontpagePicturePath { get; set; }
     }
 }
