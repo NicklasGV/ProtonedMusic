@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="g-4 m-5 align-content-center" *ngIf="this.products.length <= 0">
+    <div class="g-4 m-5 align-content-center" *ngIf="checkIfEmpty() == true">
         <div class="card bg-dark text-light">
           <div class="card-body text-center">
             <h2>No Products are available at the moment come back later!</h2>

@@ -22,6 +22,15 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(x => this.events = x);
+    this.checkIfEmpty();
+  }
+
+  checkIfEmpty() {
+    if (this.events.length <= 0)
+    {
+      return true;
+    }
+    return false;
   }
 
   addToCart(events: EventModel) {

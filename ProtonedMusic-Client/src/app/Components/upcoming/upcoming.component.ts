@@ -31,5 +31,14 @@ export class UpcomingComponent implements OnInit {
 
   ngOnInit(): void {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+    this.checkIfEmpty();
+  }
+
+  checkIfEmpty() {
+    if (this.upcomings.length <= 0)
+    {
+      return true;
+    }
+    return false;
   }
 }

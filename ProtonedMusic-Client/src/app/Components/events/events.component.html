@@ -1,10 +1,10 @@
-<div class="m-2">
-  <div class="d-flex justify-content-around">
+<div class="m-5">
+  <div class="d-flex justify-content-around col-md-12">
     <div class="display-4 fw-medium mt-4">EVENTS</div>
   </div>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="this.checkIfEmpty() != true">
   <div id="carousel" class="carousel slide border border-black container" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -65,7 +65,7 @@
     </div>
   </div>
 </div>
-<div class="g-4 m-5 align-content-center" *ngIf="this.events.length <= 0">
+<div class="g-4 m-5 align-content-center" *ngIf="this.checkIfEmpty() == true">
   <div class="card bg-dark text-light">
     <div class="card-body text-center">
       <h2>No News are available at the moment come back later!</h2>
