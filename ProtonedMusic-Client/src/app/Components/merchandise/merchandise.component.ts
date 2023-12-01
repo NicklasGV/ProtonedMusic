@@ -53,15 +53,6 @@ export class MerchandiseComponent implements OnInit {
       }, // This is the callback function that will be executed when the service returns the data.
     });
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
-    this.checkIfEmpty()
-  }
-
-  checkIfEmpty() {
-    if (this.products.length <= 0)
-    {
-      return true;
-    }
-    return false;
   }
 
   CartTotal(): number {
