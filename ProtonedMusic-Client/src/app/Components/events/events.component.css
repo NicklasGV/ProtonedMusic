@@ -16,8 +16,5 @@
 }
 
 .carousel-item img {
-  height: auto;
-  max-height: 100%;
-  width: auto;
-  max-width: 100%;
+  max-height: 550px;
 }

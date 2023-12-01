@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProtonedMusicAPI.Database.NonDatabaseEntities;
 using Stripe;
 using Stripe.Checkout;
@@ -13,6 +14,16 @@ namespace ProtonedMusicAPI.Services
         {
             _stripeSecretKey = stripeSecretKey;
             StripeConfiguration.ApiKey = _stripeSecretKey;
+        }
+
+        public string CreateCombinedSession(CustomerInfoData customerInfo, string previousSessionId, List<CartItemData> cartItems)
+        {
+            var accountInfoSessionId = CreateAccountInfoSession(customerInfo.Email, customerInfo.Name, customerInfo.Address, customerInfo.Phone);
+            var deliveryAddressSessionId = CreateDeliveryAddressSession(previousSessionId);
+            var checkoutSessionId = CreateCheckoutSession(cartItems);
+
+            // Returner session-IDs til klienten
+            return $"{accountInfoSessionId},{deliveryAddressSessionId},{checkoutSessionId}";
         }
 
         public string CreateAccountInfoSession(string customerEmail, string customerName, string customerAddress, string customerPhone)
@@ -41,11 +52,7 @@ namespace ProtonedMusicAPI.Services
                 CancelUrl = "https://your-website.com/cancel",
             };
 
-            // Gem session-ID i en variabel, database, eller andet, så det kan bruges senere
-            var accountInfoSessionId = CreateSession(options);
-
-            // Returner session-ID til klienten
-            return accountInfoSessionId;
+            return CreateSession(options);
         }
 
         public string CreateDeliveryAddressSession(string previousSessionId)
@@ -55,9 +62,7 @@ namespace ProtonedMusicAPI.Services
                 BillingAddressCollection = "required",
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions
                 {
-                    
-                    AllowedCountries = new List<string> { "DK" }, 
-                    
+                    AllowedCountries = new List<string> { "DK" },
                 },
                 Mode = "setup",
                 Currency = "dkk",
@@ -95,7 +100,7 @@ namespace ProtonedMusicAPI.Services
             return CreateSession(options);
         }
 
-        private string CreateSession(SessionCreateOptions options)
+        public string CreateSession(SessionCreateOptions options)
         {
             var service = new SessionService();
             var session = service.Create(options);
@@ -103,8 +108,7 @@ namespace ProtonedMusicAPI.Services
             return session.Id;
         }
 
-
-        private string CreateSession(SessionCreateOptions options, string previousSessionId)
+        public string CreateSession(SessionCreateOptions options, string previousSessionId)
         {
             // Log ud af previousSessionId for fejlfinding
             Console.WriteLine($"Previous Session ID: {previousSessionId}");
@@ -119,6 +123,5 @@ namespace ProtonedMusicAPI.Services
 
             return session.Id;
         }
-
     }
 }

@@ -1,9 +1,12 @@
 <div class="container-fluid">
 <div class="d-flex justify-content-center">
-    <img src="https://i.makeagif.com/media/10-20-2021/0Vxlez.gif" alt="HEHEHE">
+    <img src="../../../assets/img/Lady hear me tonight.gif" alt="HEHEHE">
 </div>
 <div class="btn-group-sm">
     <button type="button" class="btn btn-success btn-sm" (click)="startSound()">Start</button>
-    <button type="button" class="btn btn-success btn-sm ms-2" (click)="pauseSound()">Pause</button>
+    <button type="button" class="btn btn-success btn-sm ms-2 me-2" (click)="pauseSound()">Pause</button>
+    <mat-slider class="volume-slider" min="0" max="100" step="1" discrete>
+        <input id="volumeThumb" matSliderThumb #slider [value]="volume" (input)="volumeChange(ngSliderThumb2.value)" #ngSliderThumb2="matSliderThumb">
+    </mat-slider>
 </div>
 </div>

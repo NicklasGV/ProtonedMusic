@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-testing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatSliderModule],
   templateUrl: './testing.component.html',
   styleUrls: ['./testing.component.css']
 })
 export class TestingComponent implements OnInit {
   audio = new Audio();
+  volume: number = 50;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.playSound();
@@ -33,4 +35,7 @@ export class TestingComponent implements OnInit {
     this.audio.play();
   }
 
+  volumeChange(volume: number) {
+    this.audio.volume = volume / 100;
+  }
 }

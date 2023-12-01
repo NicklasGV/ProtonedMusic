@@ -14,8 +14,9 @@ import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 })
 export class UpcomingComponent implements OnInit {
   upcomings: UpcomingModel[] = [];
-  upcoming: boolean = false;
+  checkEmpty: boolean = false;
 
+  constructor(private upcomingService: UpcomingService) { }
 
   getUpcomingShows(): any[] {
     const currentTime = new Date();
@@ -28,20 +29,22 @@ export class UpcomingComponent implements OnInit {
     });
   }
 
-  constructor(private upcomingService: UpcomingService, private snackbar:SnackBarService) { }
-
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
   }
 
-  checkUpcomings() {
-    if (this.getUpcomingShows().length === 0)
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  checkIfEmpty() {
+    if (this.upcomings.length <= 0)
     {
-      this.upcoming = false;
+      return true;
     }
-    if (this.getUpcomingShows().length <= 1)
-    {
-      this.upcoming = true;
-    }
+    return false;
   }
 }

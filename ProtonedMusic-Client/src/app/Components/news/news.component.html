@@ -1,7 +1,6 @@
-<!-- News -->
 <div class="m-5">
     <div class="d-flex justify-content-around col-md-12">
-        <div class="display-4 fw-medium mt-">NEWS</div>
+        <div class="display-4 fw-medium mt-4">NEWS</div>
     </div>
 </div>
 <div class="container mt-5" style="width: 80%;">
@@ -29,4 +28,11 @@
             </div>
         </div>
     </div>
+    <div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
+        <div class="card bg-dark text-light">
+          <div class="card-body text-center">
+            <h2>No news are available right now check back later!</h2>
+          </div>
+        </div>
+      </div>
 </div>

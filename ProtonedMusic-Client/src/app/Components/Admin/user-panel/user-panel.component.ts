@@ -5,6 +5,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { Role, constRoles } from 'src/app/Models/role';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { AddonRoles, constAddonRoles } from 'src/app/Models/AddonRole';
 
 @Component({
   selector: 'app-user-panel',
@@ -19,6 +20,7 @@ export class UserPanelComponent implements OnInit {
   users: User[] = [];
   user: User = resetUser();
   roles: Role[] = [];
+  addonRoles: AddonRoles[] = [];
   selectedFile: File | undefined;
   formData = new FormData();
   
@@ -28,6 +30,7 @@ export class UserPanelComponent implements OnInit {
     ngOnInit(): void {
       this.userService.getAll().subscribe(x => this.users = x);
       this.roles = constRoles;
+      this.addonRoles = constAddonRoles;
     }
   
   
@@ -39,9 +42,12 @@ export class UserPanelComponent implements OnInit {
       this.user = resetUser();
       this.snackBar.openSnackBar('User canceled.', '','warning');
     }
-  
-    
 
+    onPictureFileSelected(event: any): void {
+      const file = event.target.files[0];
+      this.user.pictureFile = file;
+    }
+  
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }

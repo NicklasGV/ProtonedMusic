@@ -20,6 +20,7 @@ export class MerchandiseComponent implements OnInit {
   private _cart: Cart = { items: [] };
   itemlength = 0;
   itemsQuantity = 0;
+  checkEmpty: boolean = false;
 
   @Input()
   get carts(): Cart {
@@ -42,7 +43,7 @@ export class MerchandiseComponent implements OnInit {
     private snackbar: SnackBarService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.productService.getAllProducts().subscribe({
       // This is the call to the service to get all products.
       next: (result) => {
@@ -53,7 +54,23 @@ export class MerchandiseComponent implements OnInit {
       }, // This is the callback function that will be executed when the service returns the data.
     });
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
+
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  checkIfEmpty() {
+    if (this.products.length <= 0)
+    {
+      return true;
+    }
+    return false;
+  }
+  
 
   CartTotal(): number {
     return this.cartService.getCartTotal();
@@ -66,6 +83,7 @@ export class MerchandiseComponent implements OnInit {
       price: products.price,
       quantity: 1,
       name: products.name,
+      picturePath: products.productPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
     this.snackbar.openSnackBar(products.name + ' added to cart','','success');

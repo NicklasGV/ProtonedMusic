@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting.Internal;
+﻿using Microsoft.EntityFrameworkCore.Update.Internal;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace ProtonedMusicAPI.Controllers
 {
@@ -60,11 +61,22 @@ namespace ProtonedMusicAPI.Controllers
         [Authorize(Role.Admin, Role.Customer)]
         [HttpPut]
         [Route("{userId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromBody] UserRequest updateUser)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromForm] UserRequest updateUser)
         {
             try
             {
                 var userResponse = await _userService.UpdateByIdAsync(userId, updateUser);
+
+                if (updateUser.PictureFile != null)
+                {
+                    UserResponse userPicture = await _userService.UploadProfilePicture(userResponse.Id, updateUser.PictureFile);
+
+                    if (userPicture != null)
+                    {
+                        userResponse = userPicture;
+                    }
+
+                }
 
                 if (userResponse == null)
                 {
@@ -128,11 +140,23 @@ namespace ProtonedMusicAPI.Controllers
         [AllowAnnonymous]
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> CreateAsync([FromBody] UserRequest newUser)
+        public async Task<IActionResult> CreateAsync([FromForm] UserRequest newUser)
         {
             try
             {
                 UserResponse userResponse = await _userService.CreateAsync(newUser);
+
+                if (newUser.PictureFile != null)
+                {
+                    UserResponse userPicture = await _userService.UploadProfilePicture(userResponse.Id, newUser.PictureFile);
+
+                    if (userPicture != null)
+                    {
+                        userResponse = userPicture;
+                    }
+
+                }
+
                 return Ok(userResponse);
             }
             catch (Exception ex)
@@ -163,6 +187,70 @@ namespace ProtonedMusicAPI.Controllers
             }
 
             return BadRequest("No file was uploaded.");
+        }
+
+        [AllowAnnonymous]
+        [HttpPost]
+        [Route("Newsletter/Subscribe/{email}")]
+        public async Task<IActionResult> SubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                AddonRoles newsletter = (AddonRoles)1;
+                UserResponse user = await _userService.SubscribeNewsletter(email, newsletter);
+
+                if (user != null)
+                {
+                    return Ok(user.AddonRoles);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [AllowAnnonymous]
+        [HttpPost]
+        [Route("Newsletter/Unsubscribe/{email}")]
+        public async Task<IActionResult> UnsubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                AddonRoles newsletter = 0;
+                UserResponse user = await _userService.SubscribeNewsletter(email, newsletter);
+
+                if (user != null)
+                {
+                    return Ok(user.AddonRoles);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("Email/{email}")]
+        public async Task<IActionResult> FindByEmailAsync([FromRoute] string email)
+        {
+            try
+            {
+                UserResponse userResponse = await _userService.FindByEmailAsync(email);
+
+                if (userResponse == null)
+                {
+                    return NotFound();
+                }
+                return Ok(userResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
     }
 }

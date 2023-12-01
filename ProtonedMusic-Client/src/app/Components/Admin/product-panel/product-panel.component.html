@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div class="form-group row">
+  <div class="form-group row  mb-3">
     <label class="col-12 col-sm-1 col-form-label">Category</label>
     <div class="col-12 col-sm-6">
       <ul class="list-group">
@@ -40,14 +40,20 @@
   </div>
 
   <div class="form-group row mb-3">
-    <label class="col-12 col-sm-1 col-form-label">Image</label>
+    <label class="col-12 col-sm-1 col-form-label">Picture</label>
     <div class="col-12 col-sm-6">
-      <form (ngSubmit)="uploadImage()" #imageUploadForm class="form-control w-75">
-        <input class="form-control" type="file" (change)="onFileSelected($event)" name="fileInput" accept="image/*" />
-        <button type="submit" class="btn btn-sm btn-success">Upload Image</button>
-      </form>
+      <input (change)="onPictureFileSelected($event)" class="form-control w-75" type="file" accept="image/*">
     </div>
   </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Product Picture Path</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="product.productPicturePath" class="form-control w-75">
+    </div>
+  </div>
+
+  
 
   <div class="d-flex mt-5 mx-0">
     <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>

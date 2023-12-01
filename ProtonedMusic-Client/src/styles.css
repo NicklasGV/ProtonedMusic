@@ -37,9 +37,25 @@ h1, h2, h3, h4, h5 , h6, p {
   background-color: #333333;
 }
 
+.mat-ripple {
+  --mat-mdc-slider-hover-ripple-color: #198754 !important;
+  opacity: 10%;
+  --mat-mdc-slider-focus-ripple-color: #105736 !important;
+  --mat-mdc-slider-ripple-color: #0a3823 !important;
+}
+
+.panel-tooltip {
+  --mdc-plain-tooltip-container-color: transparent !important;
+}
 
 
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: var(--bs-dark-rgb) !important;
+}
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -21,11 +21,33 @@ export class FrontpagePostService {
   }
 
   create(frontpagePost: FrontpagePost): Observable<FrontpagePost> {
-    return this.http.post<FrontpagePost>(this.apiUrl + '/create', frontpagePost);
+    const formData = new FormData();
+  
+    formData.append('text', frontpagePost.text);
+    formData.append('frontpagePicturePath', frontpagePost.frontpagePicturePath);
+    formData.append('banner', frontpagePost.banner);
+
+  
+    if (frontpagePost.pictureFile) {
+      formData.append('pictureFile', frontpagePost.pictureFile, frontpagePost.pictureFile.name);
+    }
+
+    return this.http.post<FrontpagePost>(this.apiUrl + '/create', formData);
   }
 
   update(frontpagePost: FrontpagePost): Observable<FrontpagePost> {
-    return this.http.put<FrontpagePost>(this.apiUrl + '/' + frontpagePost.id, frontpagePost);
+    const formData = new FormData();
+  
+    formData.append('text', frontpagePost.text);
+    formData.append('frontpagePicturePath', frontpagePost.frontpagePicturePath);
+    formData.append('banner', frontpagePost.banner);
+
+  
+    if (frontpagePost.pictureFile) {
+      formData.append('pictureFile', frontpagePost.pictureFile, frontpagePost.pictureFile.name);
+    }
+
+    return this.http.put<FrontpagePost>(this.apiUrl + '/' + frontpagePost.id, formData);
   }
 
   findById(frontpagePostId: number): Observable<FrontpagePost> {

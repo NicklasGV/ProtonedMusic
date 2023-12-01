@@ -44,6 +44,11 @@ export class EventPanelComponent implements OnInit {
     Object.assign(this.event, event);
   }
 
+  onPictureFileSelected(event: any): void {
+    const file = event.target.files[0];
+    this.event.pictureFile = file;
+  }
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }

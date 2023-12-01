@@ -5,6 +5,9 @@ import { FrontpagePost, resetFrontpage } from 'src/app/Models/FrontpagePostModel
 import { Banner, constBanners } from 'src/app/Models/banner';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+
 
 @Component({
   selector: 'app-frontpagepost-panel',
@@ -23,7 +26,7 @@ export class FrontpagepostPanelComponent implements OnInit {
   formData = new FormData();
   
   
-    constructor(private frontpagePostService: FrontpagePostService, private snackBar: SnackBarService) { }
+    constructor(private frontpagePostService: FrontpagePostService, private snackBar: SnackBarService, private dialog: MatDialog) { }
   
     ngOnInit(): void {
       this.frontpagePostService.getAll().subscribe(x => this.frontpagePosts = x);
@@ -37,6 +40,28 @@ export class FrontpagepostPanelComponent implements OnInit {
     cancel(): void {
       this.post = resetFrontpage();
       this.snackBar.openSnackBar('User canceled.', '','warning');
+    }
+
+    delete(frontpagepost: FrontpagePost): void {
+      const dialogRef = this.dialog.open(DialogComponent, {
+        data: { title: "Delete Song", message: "Are you sure you want to delete this song?" }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.frontpagePostService.delete(frontpagepost.id).subscribe(x => {
+            this.frontpagePosts = this.frontpagePosts.filter(x => x.id != frontpagepost.id);
+          });
+          this.snackBar.openSnackBar('Deletion successful.', '','success');
+        } else {
+          this.snackBar.openSnackBar('Deletion canceled.', '','warning');
+        }
+      });
+    }
+
+    onPictureFileSelected(event: any): void {
+      const file = event.target.files[0];
+      this.post.pictureFile = file;
     }
   
   onFileSelected(event: any) {

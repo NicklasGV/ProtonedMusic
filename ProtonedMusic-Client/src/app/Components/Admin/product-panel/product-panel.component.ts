@@ -60,6 +60,11 @@ editProduct(product: ProductModel): void {
   });
 }
 
+onPictureFileSelected(event: any): void {
+  const file = event.target.files[0];
+  this.product.pictureFile = file;
+}
+
 onFileSelected(event: any) {
   this.selectedFile = event.target.files[0];
 }
