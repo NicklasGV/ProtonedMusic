@@ -1,4 +1,4 @@
-﻿using ProtonedMusicAPI.Database.Entities;
+﻿using ProtonedMusicAPI.DTO.EmailDTO;
 
 namespace ProtonedMusicAPI.Services
 {
@@ -6,12 +6,14 @@ namespace ProtonedMusicAPI.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IJwtUtils _jwtUtils;
+        private readonly IEmailService _emailService;
 
 
-        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils, IEmailService emailService)
         {
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
+            _emailService = emailService;
         }
 
         public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
@@ -163,6 +165,15 @@ namespace ProtonedMusicAPI.Services
 
             if (user != null)
             {
+                if (user.AddonRoles == (AddonRoles)1)
+                {
+                    EmailResponse mailData = new EmailResponse();
+                    mailData.To = user.Email;
+                    mailData.Subject = "Welcome to Protoned Music";
+                    mailData.Body = "Welcome " + user.FirstName + "<br> <br>" + "We'll be sending you a newsletter every month containing new shows, merchandise and more!" + "<br><br>" +
+                        "We can't wait for you to join us in this journey, and we are beyond excited to have you join this newsletter.";
+                    _emailService.SendEMail(mailData);
+                }
                 return MapUserToUserResponse(user);
             }
             return null;

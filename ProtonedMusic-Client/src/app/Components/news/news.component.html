@@ -29,4 +29,11 @@
             </div>
         </div>
     </div>
+    <div class="g-4 m-5 align-content-center" *ngIf="this.news.length <= 0">
+        <div class="card bg-dark text-light">
+          <div class="card-body text-center">
+            <h2>No News are available at the moment come back later!</h2>
+          </div>
+        </div>
+    </div>
 </div>

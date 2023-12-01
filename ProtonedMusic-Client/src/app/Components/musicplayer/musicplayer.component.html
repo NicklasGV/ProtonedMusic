@@ -3,7 +3,14 @@
     <div class="display-4 fw-medium mt-2">MUSIC PLAYER</div>
   </div>
 </div>
-<div class="container-fluid">
+<div class="g-4 m-5 align-content-center" *ngIf="this.files.length <= 0">
+  <div class="card bg-dark text-light">
+    <div class="card-body text-center">
+      <h2>No Music is available at the moment come back later!</h2>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="this.files.length > 0">
   <div class="d-flex justify-content-center">
     <div class="card-body">
       <div class="d-flex justify-content-center mb-3">
@@ -34,7 +41,7 @@
     </div>
   </div>
 </div>
-<div class="container-fluid" data-bs-theme="dark">
+<div class="container-fluid" data-bs-theme="dark" *ngIf="this.files.length > 0">
   <div class="table-responsive">
     <div class="table-wrapper">
       <table class="table table-hover">
