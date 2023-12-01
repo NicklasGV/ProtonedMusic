@@ -39,14 +39,6 @@ export class NewsComponent implements OnInit {
     });
 
     this.currentUserId = this.authService.currentUserValue.id;
-    this.checkIfEmpty();
-  }
-  checkIfEmpty() {
-   if (this.news.length <= 0)
-    {
-      return true;
-    }
-    return false;
   }
 
   filterAndSortNews() {
