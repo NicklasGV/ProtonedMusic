@@ -48,6 +48,14 @@ export class MerchandiseComponent implements OnInit {
       // This is the call to the service to get all products.
       next: (result) => {
         this.products = result;
+        if (result.length > 0){
+          result.forEach((product) => {
+            product.beforePrice = product.price;
+            if (product.discountProcent > 0) {
+              product.price = product.price - (product.price / 100 * product.discountProcent);
+            }
+          });
+        }
         this.cart.forEach((element) => {
           this.itemlength += element.quantity;
         });

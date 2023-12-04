@@ -14,7 +14,7 @@
         [StringLength(600, ErrorMessage = "Description cannot be longer than 500 characters")]
         public string Description { get; set; }
         public IFormFile? PictureFile { get; set; }
-        public string? ProductPicturePath { get; set; }
+        public string? ProductPicturePath { get; set; } = string.Empty;
 
         public List<int> CategoryIds { get; set; } = new();
         public bool IsDiscounted { get; set; }

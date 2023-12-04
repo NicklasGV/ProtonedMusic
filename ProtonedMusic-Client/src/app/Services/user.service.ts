@@ -33,7 +33,9 @@ export class UserService {
     formData.append('city', user.city);
     formData.append('postal', user.postal.toString());
     formData.append('country', user.country);
-    formData.append('profilePicturePath', user.profilePicturePath);
+    if (user.profilePicturePath != null) {
+      formData.append('profilePicturePath', user.profilePicturePath);
+    }
     user.newsIds.forEach(newsIds => {
       formData.append('newsIds', newsIds.toString());
     });

@@ -1,7 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { UpcomingService } from 'src/app/Services/upcoming.service';
 import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 
@@ -32,8 +31,12 @@ export class UpcomingComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
 
-    await this.delay(200);
-    this.checkEmpty = this.checkIfEmpty();
+    if (this.upcomings == null)
+    {
+      await this.delay(200);
+      this.checkEmpty = this.checkIfEmpty();
+    }
+
   }
 
   delay(ms: number) {

@@ -11,6 +11,7 @@ export interface ProductModel {
     categoryIds: number[];
     isDiscounted: boolean;
     discountProcent: number;
+    beforePrice: number;
 }
 
 export function resetProducts() {
@@ -26,5 +27,6 @@ export function resetProducts() {
         categoryIds: [],
         isDiscounted: false,
         discountProcent: 0,
+        beforePrice: 0,
     }
 }

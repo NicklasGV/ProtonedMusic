@@ -6,7 +6,6 @@ import { CategoryService } from 'src/app/Services/category.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { FormsModule } from '@angular/forms';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
-import { DialogService } from 'src/app/Services/dialog.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
