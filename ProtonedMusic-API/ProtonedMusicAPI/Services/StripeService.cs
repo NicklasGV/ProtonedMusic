@@ -38,7 +38,10 @@ namespace ProtonedMusicAPI.Services
                 PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
                 Mode = "payment",
+
+                //Invoice succesas url
                 SuccessUrl = "http://localhost:4200/#/",
+
                 CancelUrl = "https://your-website.com/cancel",
                 Locale = "auto",  // Set language to Danish
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions
@@ -101,6 +104,9 @@ namespace ProtonedMusicAPI.Services
                     }
                 }
             };
+
+            var invoiceService = new InvoiceService();
+            invoiceService.SendInvoice("id");
 
             var service = new SessionService();
             return service.Create(options).Id;
