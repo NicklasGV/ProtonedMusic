@@ -45,6 +45,8 @@ export class ProductService {
     product.categoryIds.forEach(categoryId => {
       formData.append('categoryIds', categoryId.toString());
     });
+    formData.append('isDiscounted', JSON.stringify(product.isDiscounted));
+    formData.append('discountProcent', product.discountProcent.toString());
 
   
     if (product.pictureFile) {

@@ -68,7 +68,9 @@ namespace ProtonedMusicAPI.Database
                 Id = 1,
                 Name = "Rock Shirt",
                 Price = 399.95M,
-                Description = "Testproduct for seeing 2 categories"
+                Description = "Testproduct for seeing 2 categories",
+                IsDiscounted = true,
+                DiscountProcent = 20,
             },
             new Product
             {
@@ -90,6 +92,8 @@ namespace ProtonedMusicAPI.Database
                 Name = "Pop song",
                 Price = 760,
                 Description = "Testproduct song",
+                IsDiscounted = true,
+                DiscountProcent = 80,
             });
 
             modelBuilder.Entity<Category>().HasData(new Category

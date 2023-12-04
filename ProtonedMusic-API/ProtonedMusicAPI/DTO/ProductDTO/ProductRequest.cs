@@ -17,5 +17,7 @@
         public string? ProductPicturePath { get; set; }
 
         public List<int> CategoryIds { get; set; } = new();
+        public bool IsDiscounted { get; set; }
+        public double DiscountProcent { get; set; }
     }
 }

@@ -9,6 +9,8 @@ export interface ProductModel {
     productPicturePath: string;
     categories: CategoryModel[];
     categoryIds: number[];
+    isDiscounted: boolean;
+    discountProcent: number;
 }
 
 export function resetProducts() {
@@ -22,5 +24,7 @@ export function resetProducts() {
         productPicturePath: '',
         categories: [],
         categoryIds: [],
+        isDiscounted: false,
+        discountProcent: 0,
     }
 }
