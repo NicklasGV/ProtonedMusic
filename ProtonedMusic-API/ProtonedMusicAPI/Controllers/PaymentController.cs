@@ -18,31 +18,7 @@ public class CheckoutController : ControllerBase
     }
 
     [HttpPost("CreateDeliveryAddressSession")]
-    public IActionResult CreateDeliveryAddressSession()
-    {
-        try
-        {
-            // Forsøg at oprette betalingssessionen
-            var sessionId = _stripeService.CreateDeliveryAddressSession();
-
-            // Returner session ID til klienten ved succes
-            return Ok(new { SessionId = sessionId });
-        }
-        catch (StripeException e)
-        {
-            // Håndter fejl fra Stripe API
-            return BadRequest(new { ErrorMessage = e.Message });
-        }
-        catch (Exception ex)
-        {
-            // Håndter andre uventede fejl
-            // Log ex.Message og ex.StackTrace eller håndter på en anden måde
-            return StatusCode(500, new { ErrorMessage = "Internal server error" });
-        }
-    }
-
-    [HttpPost("CreateCheckoutSession")]
-    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems)
+    public IActionResult CreateDeliveryAddressSession([FromBody] List<CartItemData> cartItems)
     {
         try
         {
@@ -52,7 +28,7 @@ public class CheckoutController : ControllerBase
                 Console.WriteLine($"Name: {item.Name}, Quantity: {item.Quantity}, Unit Amount: {item.UnitAmount}");
             }
 
-            var sessionId = _stripeService.CreateCheckoutSession(cartItems);
+            var sessionId = _stripeService.CreateDeliveryAddressSession(cartItems);
             return Ok(new { SessionId = sessionId });
         }
         catch (Exception ex)
@@ -62,5 +38,4 @@ public class CheckoutController : ControllerBase
             return BadRequest(new { Error = ex.Message });
         }
     }
-
 }
