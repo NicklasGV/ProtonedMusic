@@ -15,7 +15,8 @@ namespace ProtonedMusicAPI.Services
             _stripeSecretKey = stripeSecretKey;
             StripeConfiguration.ApiKey = _stripeSecretKey;
         }
-        public string CreateDeliveryAddressSession(List<CartItemData> cartItems)
+
+        public string CreateCheckoutSession(List<CartItemData> cartItems)
         {
             var lineItems = cartItems.Select(item => new SessionLineItemOptions
             {
@@ -44,60 +45,60 @@ namespace ProtonedMusicAPI.Services
                     AllowedCountries = new List<string> { "DK" },
                 },
                 ShippingOptions = new List<SessionShippingOptionOptions>
-        {
-            new SessionShippingOptionOptions
-            {
-                ShippingRateData = new SessionShippingOptionShippingRateDataOptions
                 {
-                    Type = "fixed_amount",
-                    FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                    new SessionShippingOptionOptions
                     {
-                        Amount = 0,
-                        Currency = "dkk",  // Set currency to DKK (Danish Krone)
-                    },
-                    DisplayName = "Gratis fragt",
-                    DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
-                    {
-                        Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
                         {
-                            Unit = "business_day",
-                            Value = 5,
-                        },
-                        Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
-                        {
-                            Unit = "business_day",
-                            Value = 7,
-                        },
-                    },
-                },
-            },
-            new SessionShippingOptionOptions
-            {
-                ShippingRateData = new SessionShippingOptionShippingRateDataOptions
-                {
-                    Type = "fixed_amount",
-                    FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
-                    {
-                        Amount = 1500,
-                        Currency = "dkk",  // Set currency to DKK
-                    },
-                    DisplayName = "Næste dags levering",
-                    DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
-                    {
-                        Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
-                        {
-                            Unit = "business_day",
-                            Value = 1,
-                        },
-                        Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
-                        {
-                            Unit = "business_day",
-                            Value = 1,
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 0,
+                                Currency = "dkk",  // Set currency to DKK (Danish Krone)
+                            },
+                            DisplayName = "Gratis fragt",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 5,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 7,
+                                },
+                            },
                         },
                     },
-                },
-            },
-        },
+                    new SessionShippingOptionOptions
+                    {
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
+                        {
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 1500,
+                                Currency = "dkk",  // Set currency to DKK
+                            },
+                            DisplayName = "Næste dags levering",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             var service = new SessionService();

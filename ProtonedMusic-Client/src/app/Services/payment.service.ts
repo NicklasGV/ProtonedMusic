@@ -14,19 +14,7 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  public createDeliveryAddressSession(cartItems: StripeChekoutModel[]): Observable<any> {
-    const stripeAPIURL = this.url + 'CreateDeliveryAddressSession';
-    const httpOptions = {
-      headers: {
-        'Authorization': `Bearer ${PaymentService.stripeAPIKey}`,
-        'Content-Type': 'application/json'
-      }
-    };
-    console.log('Sending createDeliveryAddressSession request with data:', cartItems);
-    return this.http.post<any>(stripeAPIURL, cartItems, httpOptions);
-  }
-
-  public createCheckoutSession(cartItems: StripeChekoutModel[]): Observable<any> {
+  public CreateCheckoutSession(cartItems: StripeChekoutModel[]): Observable<any> {
     const stripeAPIURL = this.url + 'CreateCheckoutSession';
     const httpOptions = {
       headers: {
@@ -34,8 +22,7 @@ export class PaymentService {
         'Content-Type': 'application/json'
       }
     };
-    console.log('Sending createCheckoutSession request with data:', cartItems);
+    console.log('Sending CreateCheckoutSession request with data:', cartItems);
     return this.http.post<any>(stripeAPIURL, cartItems, httpOptions);
   }
-
 }

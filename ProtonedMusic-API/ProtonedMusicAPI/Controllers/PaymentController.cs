@@ -17,8 +17,8 @@ public class CheckoutController : ControllerBase
         _stripeService = new StripeService("sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F");
     }
 
-    [HttpPost("CreateDeliveryAddressSession")]
-    public IActionResult CreateDeliveryAddressSession([FromBody] List<CartItemData> cartItems)
+    [HttpPost("CreateCheckoutSession")]
+    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems)
     {
         try
         {
@@ -28,7 +28,7 @@ public class CheckoutController : ControllerBase
                 Console.WriteLine($"Name: {item.Name}, Quantity: {item.Quantity}, Unit Amount: {item.UnitAmount}");
             }
 
-            var sessionId = _stripeService.CreateDeliveryAddressSession(cartItems);
+            var sessionId = _stripeService.CreateCheckoutSession(cartItems);
             return Ok(new { SessionId = sessionId });
         }
         catch (Exception ex)

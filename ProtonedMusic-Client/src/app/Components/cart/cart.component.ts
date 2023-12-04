@@ -107,7 +107,7 @@ export class CartComponent implements OnInit {
     });
 
     // Opdater til at bruge createDeliveryAddressSession
-    this.paymentService.createDeliveryAddressSession(stripeCheckoutItems).subscribe(
+    this.paymentService.CreateCheckoutSession(stripeCheckoutItems).subscribe(
       (response) => {
         console.log('Session oprettet:', response);
         this.initiateStripeCheckout(response);
