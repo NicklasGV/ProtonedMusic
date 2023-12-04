@@ -26,6 +26,7 @@ namespace ProtonedMusicAPI.Services
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
                         Name = item.Name,
+                        
                     },
                     UnitAmount = item.UnitAmount * 100,
                 },
@@ -53,10 +54,10 @@ namespace ProtonedMusicAPI.Services
                             Type = "fixed_amount",
                             FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
                             {
-                                Amount = 0,
+                                Amount = 5500,
                                 Currency = "dkk",  // Set currency to DKK (Danish Krone)
                             },
-                            DisplayName = "Gratis fragt",
+                            DisplayName = "Forsendelse ",
                             DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
                             {
                                 Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
@@ -79,7 +80,7 @@ namespace ProtonedMusicAPI.Services
                             Type = "fixed_amount",
                             FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
                             {
-                                Amount = 1500,
+                                Amount = 8500,
                                 Currency = "dkk",  // Set currency to DKK
                             },
                             DisplayName = "Næste dags levering",
