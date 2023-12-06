@@ -15,5 +15,7 @@ namespace ProtonedMusicAPI.Database.Entities
         public string Description { get; set; } = string.Empty;
         public string? ProductPicturePath { get; set; }
         public List<ProductCategory> ProductCategories { get; set; } = new();
+        public bool IsDiscounted { get; set; } = false;
+        public double DiscountProcent { get; set; } = 0;
     }
 }

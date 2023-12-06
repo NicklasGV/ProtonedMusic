@@ -44,7 +44,7 @@ export class FrontpagepostPanelComponent implements OnInit {
 
     delete(frontpagepost: FrontpagePost): void {
       const dialogRef = this.dialog.open(DialogComponent, {
-        data: { title: "Delete Song", message: "Are you sure you want to delete this song?" }
+        data: { title: "Delete page", message: "Are you sure you want to delete this page?" }
       });
   
       dialogRef.afterClosed().subscribe(result => {
@@ -77,7 +77,7 @@ export class FrontpagepostPanelComponent implements OnInit {
         (post: FrontpagePost) => {
           this.frontpagePostService.getAll().subscribe(x => this.frontpagePosts = x);
             this.post = resetFrontpage();
-            this.snackBar.openSnackBar("Post Pic Updated", '', 'success');
+            this.snackBar.openSnackBar("Frontpage pic Updated", '', 'success');
         },
         (error) => {
           this.message = Object.values(error.error.errors).join(", ");
@@ -98,7 +98,7 @@ export class FrontpagepostPanelComponent implements OnInit {
           next: (x) => {
             this.frontpagePosts.push(x);
             this.post = resetFrontpage();
-            this.snackBar.openSnackBar("Post created", '', 'success');
+            this.snackBar.openSnackBar("Page created", '', 'success');
           },
           error: (err) => {
             console.log(err);
@@ -117,7 +117,7 @@ export class FrontpagepostPanelComponent implements OnInit {
           complete: () => {
             this.frontpagePostService.getAll().subscribe(x => this.frontpagePosts = x);
             this.post = resetFrontpage();
-            this.snackBar.openSnackBar("Post updated", '', 'success');
+            this.snackBar.openSnackBar("Page updated", '', 'success');
           }
         });
       }

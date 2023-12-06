@@ -31,6 +31,8 @@ export class ProductService {
     if (product.pictureFile) {
       formData.append('pictureFile', product.pictureFile, product.pictureFile.name);
     }
+    formData.append('isDiscounted', JSON.stringify(product.isDiscounted));
+    formData.append('discountProcent', product.discountProcent.toString());
 
     return this.http.post<ProductModel>(this.url, formData);
   }
@@ -41,10 +43,14 @@ export class ProductService {
     formData.append('name', product.name);
     formData.append('price', product.price.toString());
     formData.append('description', product.description);
-    formData.append('productPicturePath', product.productPicturePath);
+    if (product.productPicturePath != null) {
+      formData.append('productPicturePath', product.productPicturePath);
+    }
     product.categoryIds.forEach(categoryId => {
       formData.append('categoryIds', categoryId.toString());
     });
+    formData.append('isDiscounted', JSON.stringify(product.isDiscounted));
+    formData.append('discountProcent', product.discountProcent.toString());
 
   
     if (product.pictureFile) {

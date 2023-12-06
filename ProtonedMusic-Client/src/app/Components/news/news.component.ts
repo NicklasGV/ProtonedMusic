@@ -21,6 +21,7 @@ export class NewsComponent implements OnInit {
   news: NewsModel[] = [];
   anews: NewsModel = resetNews();
   user: User = resetUser();
+  checkEmpty: boolean = false;
 
   constructor(
     private newsService: NewsService,
@@ -30,7 +31,7 @@ export class NewsComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.newsService.getAllNews().subscribe({
       next: (result) => {
         this.news = result;
@@ -39,6 +40,21 @@ export class NewsComponent implements OnInit {
     });
 
     this.currentUserId = this.authService.currentUserValue.id;
+
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  checkIfEmpty() {
+    if (this.news.length <= 0)
+    {
+      return true;
+    }
+    return false;
   }
 
   filterAndSortNews() {

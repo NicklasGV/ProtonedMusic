@@ -46,8 +46,8 @@ export class UpcomingPanelComponent implements OnInit {
   deleteUpcoming(upcoming: UpcomingModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        title: 'Delete Event',
-        message: 'Are you sure you want to delete this event?',
+        title: 'Delete Upcoming',
+        message: 'Are you sure you want to delete this upcoming?',
       },
     });
 
@@ -77,7 +77,7 @@ export class UpcomingPanelComponent implements OnInit {
         next: (x) => {
           this.upcomings.push(x);
           this.upcoming = resetUpcoming();
-          this.snackBar.openSnackBar('Event created', '', 'success');
+          this.snackBar.openSnackBar('Upcoming created', '', 'success');
         },
         error: (err) => {
           console.log(err);
@@ -90,12 +90,13 @@ export class UpcomingPanelComponent implements OnInit {
       this.upcomingService.updateUpcoming(this.upcoming.id, this.upcoming).subscribe({
         error: (err) => {
           this.message = Object.values(err.error.errors).join(', ');
+          this.upcoming = resetUpcoming();
           this.snackBar.openSnackBar(this.message, '', 'error');
         },
         complete: () => {
           this.upcomingService.getAllUpcomings().subscribe((x) => (this.upcomings = x));
           this.upcoming = resetUpcoming();
-          this.snackBar.openSnackBar('Event updated', '', 'success');
+          this.snackBar.openSnackBar('Upcoming updated', '', 'success');
         },
       });
     }

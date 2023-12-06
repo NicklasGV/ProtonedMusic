@@ -12,6 +12,8 @@
         public string? ProductPicturePath { get; set; }
 
         public List<ProductCategoryResponse> Categories { get; set; } = new();
+        public bool IsDiscounted { get; set; } = false;
+        public double DiscountProcent { get; set; } = 0;
 
     }
 

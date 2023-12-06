@@ -1,15 +1,19 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using ProtonedMusicAPI.DTO.EmailDTO;
+
+namespace ProtonedMusicAPI.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IJwtUtils _jwtUtils;
+        private readonly IEmailService _emailService;
 
 
-        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils, IEmailService emailService)
         {
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
+            _emailService = emailService;
         }
 
         public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
@@ -155,14 +159,35 @@
 
         }
 
-        public async Task<UserResponse> SubscribeNewsletter(int userId, AddonRoles updateNewsletter)
+        public async Task<UserResponse> SubscribeNewsletter(string email, AddonRoles updateNewsletter)
         {
-            User user = await _userRepository.SubscribeNewsletter(userId, updateNewsletter);
+            User user = await _userRepository.SubscribeNewsletter(email, updateNewsletter);
+
+            if (user != null)
+            {
+                if (user.AddonRoles == (AddonRoles)1)
+                {
+                    EmailResponse mailData = new EmailResponse();
+                    mailData.To = user.Email;
+                    mailData.Subject = "Welcome to Protoned Music";
+                    mailData.Body = "Welcome " + user.FirstName + "<br> <br>" + "We'll be sending you a newsletter every month containing new shows, merchandise and more!" + "<br><br>" +
+                        "We can't wait for you to join us in this journey, and we are beyond excited to have you join this newsletter.";
+                    _emailService.SendEMail(mailData);
+                }
+                return MapUserToUserResponse(user);
+            }
+            return null;
+        }
+
+        public async Task<UserResponse> FindByEmailAsync(string email)
+        {
+            var user = await _userRepository.FindByEmail(email);
 
             if (user != null)
             {
                 return MapUserToUserResponse(user);
             }
+
             return null;
         }
     }

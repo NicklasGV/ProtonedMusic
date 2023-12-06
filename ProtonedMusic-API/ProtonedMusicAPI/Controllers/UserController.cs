@@ -189,19 +189,63 @@ namespace ProtonedMusicAPI.Controllers
             return BadRequest("No file was uploaded.");
         }
 
+        [AllowAnnonymous]
         [HttpPost]
-        [Route("Newsletter/{userId}")]
-        public async Task<IActionResult> SubscribeNewsletter([FromRoute] int userId, [FromBody] AddonRoles newsletter)
+        [Route("Newsletter/Subscribe/{email}")]
+        public async Task<IActionResult> SubscribeNewsletter([FromRoute] string email)
         {
             try
             {
-                UserResponse user = await _userService.SubscribeNewsletter(userId, newsletter);
+                AddonRoles newsletter = (AddonRoles)1;
+                UserResponse user = await _userService.SubscribeNewsletter(email, newsletter);
 
                 if (user != null)
                 {
                     return Ok(user.AddonRoles);
                 }
                 return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [AllowAnnonymous]
+        [HttpPost]
+        [Route("Newsletter/Unsubscribe/{email}")]
+        public async Task<IActionResult> UnsubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                AddonRoles newsletter = 0;
+                UserResponse user = await _userService.SubscribeNewsletter(email, newsletter);
+
+                if (user != null)
+                {
+                    return Ok(user.AddonRoles);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("Email/{email}")]
+        public async Task<IActionResult> FindByEmailAsync([FromRoute] string email)
+        {
+            try
+            {
+                UserResponse userResponse = await _userService.FindByEmailAsync(email);
+
+                if (userResponse == null)
+                {
+                    return NotFound();
+                }
+                return Ok(userResponse);
             }
             catch (Exception ex)
             {

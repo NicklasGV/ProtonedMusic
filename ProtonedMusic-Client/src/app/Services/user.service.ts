@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../Models/UserModel';
+import { AddonRoles } from '../Models/AddonRole';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,9 @@ export class UserService {
     formData.append('city', user.city);
     formData.append('postal', user.postal.toString());
     formData.append('country', user.country);
-    formData.append('profilePicturePath', user.profilePicturePath);
+    if (user.profilePicturePath != null) {
+      formData.append('profilePicturePath', user.profilePicturePath);
+    }
     user.newsIds.forEach(newsIds => {
       formData.append('newsIds', newsIds.toString());
     });
@@ -54,6 +57,14 @@ export class UserService {
     }
 
     return this.http.post<User>(this.apiUrl + '/register', formData);
+  }
+
+  subscribe(userMail: string): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/Newsletter/Subscribe/' + userMail, userMail);
+  }
+
+  unsubscribe(userMail: string): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/Newsletter/Unsubscribe/' + userMail, userMail);
   }
 
   update(user: User): Observable<User> {
@@ -94,6 +105,10 @@ export class UserService {
 
   findById(userId: number): Observable<User> {
     return this.http.get<User>(this.apiUrl + '/' + userId);
+  }
+
+  findByEmail(userMail: string): Observable<User> {
+    return this.http.get<User>(this.apiUrl + '/Email/' + userMail);
   }
 
   uploadProfilePicture(userId: number, file: FormData): Observable<User> {

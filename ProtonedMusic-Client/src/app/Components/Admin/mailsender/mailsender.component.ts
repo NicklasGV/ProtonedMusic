@@ -24,7 +24,7 @@ export class MailsenderComponent implements OnInit {
   sendToAll: boolean = false;
   selected: string[] = [];
   date: any = new Date();
-  footerContent = '<br><br><br><br>' + '<footer><a style="display: flex; align-content: center;" href="http://localhost:4200/#/unsubscribe">Unsubscribe</a></footer>';
+  footerContent = '<br><br><br><br>' + '<footer><a style="font-size: smaller;" href="https://protonedmusic.com/#/unsubscribe">Unsubscribe</a></footer>';
 
   constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService, private datePipe: DatePipe) { }
 
@@ -42,7 +42,7 @@ export class MailsenderComponent implements OnInit {
 
   cancel(): void {
     this.mail = resetEmail();
-    this.snackBar.openSnackBar('Upcoming canceled.', '', 'info');
+    this.snackBar.openSnackBar('Mail canceled.', '', 'info');
   }
 
   sendTo(user: User): void {

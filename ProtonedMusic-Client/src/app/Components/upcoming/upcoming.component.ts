@@ -1,7 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { UpcomingService } from 'src/app/Services/upcoming.service';
 import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 
@@ -14,7 +13,9 @@ import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 })
 export class UpcomingComponent implements OnInit {
   upcomings: UpcomingModel[] = [];
+  checkEmpty: boolean = false;
 
+  constructor(private upcomingService: UpcomingService) { }
 
   getUpcomingShows(): any[] {
     const currentTime = new Date();
@@ -27,9 +28,26 @@ export class UpcomingComponent implements OnInit {
     });
   }
 
-  constructor(private upcomingService: UpcomingService) { }
-
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+
+    if (this.upcomings == null)
+    {
+      await this.delay(200);
+      this.checkEmpty = this.checkIfEmpty();
+    }
+
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  checkIfEmpty() {
+    if (this.upcomings.length <= 0)
+    {
+      return true;
+    }
+    return false;
   }
 }

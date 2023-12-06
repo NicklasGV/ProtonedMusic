@@ -1,1 +1,23 @@
-<p>unsubscribe works!</p>
+<div class="g-4 m-5 align-content-center">
+    <div class="card bg-dark text-light">
+        <div class="card-header text-center">
+            <h1>Unsubscribe</h1>
+        </div>
+        <div class="card-body text-center">
+            <div class="form-group d-flex justify-content-center">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input [(ngModel)]="user.email" type="email" class="form-control" placeholder="name@example.com" (keydown.enter)="unsubscribeEmail(user.email)">
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-sm btn-success me-4" (click)="unsubscribeEmail(user.email)">
+                Unsubscribe
+            </button>
+            <button class="btn btn-sm btn-danger" [routerLink]="['']">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
