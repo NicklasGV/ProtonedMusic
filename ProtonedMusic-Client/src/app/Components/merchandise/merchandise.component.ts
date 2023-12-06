@@ -6,11 +6,12 @@ import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @Component({
   selector: 'app-merchandise',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatBadgeModule],
   templateUrl: './merchandise.component.html',
   styleUrls: ['./merchandise.component.css'],
 })
