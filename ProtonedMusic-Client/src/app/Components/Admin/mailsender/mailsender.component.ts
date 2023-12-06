@@ -42,7 +42,7 @@ export class MailsenderComponent implements OnInit {
 
   cancel(): void {
     this.mail = resetEmail();
-    this.snackBar.openSnackBar('Upcoming canceled.', '', 'info');
+    this.snackBar.openSnackBar('Mail canceled.', '', 'info');
   }
 
   sendTo(user: User): void {
