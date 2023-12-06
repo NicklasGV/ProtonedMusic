@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -18,7 +17,6 @@ import { CheckoutModel } from 'src/app/Models/CheckoutModel';
 import { PaymentService } from 'src/app/Services/payment.service';
 
 import { StripeChekoutModel } from 'src/app/Models/StripeChekoutItems';
-
 
 @Component({
   selector: 'app-cart',
