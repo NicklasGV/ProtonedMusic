@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ProtonedMusicAPI.Database.NonDatabaseEntities;
+﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
 using Stripe;
 using Stripe.Checkout;
+using Product = ProtonedMusicAPI.Database.Entities.Product;
 
 namespace ProtonedMusicAPI.Services
 {
@@ -10,7 +9,6 @@ namespace ProtonedMusicAPI.Services
     {
         private readonly string _stripeSecretKey;
         private Customer _customer;
-
 
         public StripeService(string stripeSecretKey)
         {
@@ -34,6 +32,9 @@ namespace ProtonedMusicAPI.Services
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
                         Name = item.Name,
+                        Images = new List<string> {},
+                        Description = "",
+
                     },
                     UnitAmount = item.UnitAmount * 100,
                 },
@@ -48,7 +49,7 @@ namespace ProtonedMusicAPI.Services
                 //Invoice succesas url
                 SuccessUrl = "http://localhost:4200/#/",
                 CancelUrl = "https://your-website.com/cancel",
-                Locale = "auto",  // Set language to Danish
+                Locale = "auto",  // Set language to local language 
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions
                 {
                     AllowedCountries = new List<string> { "DK" },
@@ -109,7 +110,7 @@ namespace ProtonedMusicAPI.Services
                     }
 
                 },
-                Customer = _customer.Id,
+                Customer = _customer.Id,               
             };
 
             var service = new SessionService();
@@ -120,7 +121,7 @@ namespace ProtonedMusicAPI.Services
             {
                 Customer = _customer.Id,
                 CollectionMethod = "send_invoice",
-                DaysUntilDue = 0,
+
             };
 
             var invoiceService = new InvoiceService();
@@ -131,6 +132,7 @@ namespace ProtonedMusicAPI.Services
             return sessionId;
         }
 
+        //Guest Customer
         private Customer GetOrCreateCustomer(string email)
         {
             var existingCustomer = FindCustomerByEmail(email);
@@ -149,7 +151,6 @@ namespace ProtonedMusicAPI.Services
             var customerService = new CustomerService();
             return customerService.Create(customerOptions);
         }
-
 
         private Customer FindCustomerByEmail(string email)
         {
