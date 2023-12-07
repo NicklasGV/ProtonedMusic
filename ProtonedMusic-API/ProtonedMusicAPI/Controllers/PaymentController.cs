@@ -18,7 +18,7 @@ public class CheckoutController : ControllerBase
     }
 
     [HttpPost("CreateCheckoutSession")]
-    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems)
+    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems, [FromQuery] string customerEmail)
     {
         try
         {
@@ -28,7 +28,7 @@ public class CheckoutController : ControllerBase
                 Console.WriteLine($"Name: {item.Name}, Quantity: {item.Quantity}, Unit Amount: {item.UnitAmount}");
             }
 
-            var sessionId = _stripeService.CreateCheckoutSession(cartItems);
+            var sessionId = _stripeService.CreateCheckoutSession(cartItems, customerEmail);
             return Ok(new { SessionId = sessionId });
         }
         catch (Exception ex)
