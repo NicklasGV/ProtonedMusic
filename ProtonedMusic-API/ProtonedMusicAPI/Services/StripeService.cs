@@ -105,9 +105,6 @@ namespace ProtonedMusicAPI.Services
                 }
             };
 
-            var invoiceService = new InvoiceService();
-            invoiceService.SendInvoice("id");
-
             var service = new SessionService();
             return service.Create(options).Id;
         }
