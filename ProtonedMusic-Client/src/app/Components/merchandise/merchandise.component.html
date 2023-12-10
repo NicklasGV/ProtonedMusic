@@ -17,9 +17,15 @@
                 <div class="card-header d-flex justify-content-center">
                     <a *ngIf="product.productPicturePath">
                         <img src="https://protonedmusic.com/{{ product.productPicturePath }}" class="rounded-2">
+                        <span class="overlay translate-middle-y rounded-pill badge text-black bg-danger fs-6" *ngIf="product.isDiscounted">{{product.discountProcent}}%</span>
+                        <span class="badge translate-middle-y text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Discounted Item</span>
+                        <span class="badge translate-middle-y text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Before: {{product.beforePrice}}</span>
                     </a>
                     <a *ngIf="!product.productPicturePath">
                         <img src="../../../assets/img/img400.png" class="rounded-2">
+                        <span class="overlay translate-middle-y rounded-pill badge text-black bg-danger fs-6" *ngIf="product.isDiscounted">{{product.discountProcent}}%</span>
+                        <span class="overlay2 translate-middle-y badge text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Discounted Item</span>
+                        <span class="overlay2 translate-middle-y badge text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Before: {{product.beforePrice}}</span>
                     </a>
                 </div>
                 <div class="card-body" style="display: flex; flex-direction: column; min-width: 200px;">
@@ -40,4 +46,11 @@
             </div>
         </div>
     </div>
+    <div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
+        <div class="card bg-dark text-light">
+          <div class="card-body text-center">
+            <h2>No products are available right now check back later!</h2>
+          </div>
+        </div>
+      </div>
 </div>

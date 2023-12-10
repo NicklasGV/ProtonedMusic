@@ -1,3 +1,4 @@
+import { AddonRoles } from './AddonRole';
 import { NewsModel } from "./NewsModel";
 
 export interface User {
@@ -11,6 +12,7 @@ export interface User {
   city: string;
   postal: number;
   country: string;
+  pictureFile: File | null;
   profilePicturePath: string;
   role?: string;
   addonRoles?: string;
@@ -31,6 +33,7 @@ export function resetUser() {
     city: '', 
     postal: 0, 
     country: '',
+    pictureFile: null,
     profilePicturePath: '',
     newsLikes: [],
     newsIds: []

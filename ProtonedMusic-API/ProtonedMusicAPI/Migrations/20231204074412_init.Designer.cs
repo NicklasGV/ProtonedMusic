@@ -12,8 +12,8 @@ using ProtonedMusicAPI.Database;
 namespace ProtonedMusicAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231124065003_data")]
-    partial class data
+    [Migration("20231204074412_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,7 +100,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 11, 24, 7, 50, 3, 177, DateTimeKind.Local).AddTicks(9765),
+                            Created = new DateTime(2023, 12, 4, 8, 44, 12, 629, DateTimeKind.Local).AddTicks(6191),
                             Description = "Test event",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -109,7 +109,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 11, 24, 7, 50, 3, 177, DateTimeKind.Local).AddTicks(9777),
+                            Created = new DateTime(2023, 12, 4, 8, 44, 12, 629, DateTimeKind.Local).AddTicks(6197),
                             Description = "Test 2 for testing making events",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -241,7 +241,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 24, 7, 50, 3, 377, DateTimeKind.Local).AddTicks(9230),
+                            DateTime = new DateTime(2023, 12, 4, 8, 44, 12, 879, DateTimeKind.Local).AddTicks(9750),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -290,7 +290,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 11, 24, 7, 50, 3, 377, DateTimeKind.Local).AddTicks(9300),
+                            DateTime = new DateTime(2023, 12, 4, 8, 44, 12, 879, DateTimeKind.Local).AddTicks(9795),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -307,6 +307,12 @@ namespace ProtonedMusicAPI.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(600)");
+
+                    b.Property<double>("DiscountProcent")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsDiscounted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -327,6 +333,8 @@ namespace ProtonedMusicAPI.Migrations
                         {
                             Id = 1,
                             Description = "Testproduct for seeing 2 categories",
+                            DiscountProcent = 20.0,
+                            IsDiscounted = true,
                             Name = "Rock Shirt",
                             Price = 399.95m
                         },
@@ -334,6 +342,8 @@ namespace ProtonedMusicAPI.Migrations
                         {
                             Id = 2,
                             Description = "Testproduct cap",
+                            DiscountProcent = 0.0,
+                            IsDiscounted = false,
                             Name = "Normal Cap",
                             Price = 560m
                         },
@@ -341,6 +351,8 @@ namespace ProtonedMusicAPI.Migrations
                         {
                             Id = 3,
                             Description = "Today's video is sponsored by Raid Shadow Legends, one of the biggest mobile role-playing games of 2019 and it's totally free! Currently almost 10 million users have joined Raid over the last six months, and it's one of the most impressive games in its class with detailed models, environments and smooth 60 frames per second animations! All the champions in the game can be customized with unique gear that changes your strategic buffs and abilities! So what are you waiting for? Go to the video description! Good luck and I'll see you there!",
+                            DiscountProcent = 0.0,
+                            IsDiscounted = false,
                             Name = "Raid Shadow Legends",
                             Price = 299.95m
                         },
@@ -348,6 +360,8 @@ namespace ProtonedMusicAPI.Migrations
                         {
                             Id = 4,
                             Description = "Testproduct song",
+                            DiscountProcent = 80.0,
+                            IsDiscounted = true,
                             Name = "Pop song",
                             Price = 760m
                         });
@@ -488,7 +502,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$4mBWtZUHqs/UcA9Vbbsn.e6VRQvGSQCVijBMAiWIWa5gD85.BPAL2",
+                            Password = "$2b$10$6hsOyOwFUILMlHcEOnvhOeGRpuip7ku6aZXhD2H721rBFub7g5oMa",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -503,7 +517,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$DtfoKuuA5mDIp2JUQi4cYO4IK.IuIOD0Z0z6VUq6tVP6CC38qzwX.",
+                            Password = "$2b$10$jI1e7/yEHeZg57973i4rNOiRcZEXMtv3KoX.mgX/B/wMvYSME6a.C",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0

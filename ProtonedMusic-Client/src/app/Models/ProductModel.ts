@@ -5,10 +5,13 @@ export interface ProductModel {
     name: string;
     price: number;
     description: string;
-    image: string;
+    pictureFile: File | null;
     productPicturePath: string;
     categories: CategoryModel[];
     categoryIds: number[];
+    isDiscounted: boolean;
+    discountProcent: number;
+    beforePrice: number;
 }
 
 export function resetProducts() {
@@ -18,8 +21,12 @@ export function resetProducts() {
         price: 0,
         description: '',
         image: '',
+        pictureFile: null,
         productPicturePath: '',
         categories: [],
         categoryIds: [],
+        isDiscounted: false,
+        discountProcent: 0,
+        beforePrice: 0,
     }
 }

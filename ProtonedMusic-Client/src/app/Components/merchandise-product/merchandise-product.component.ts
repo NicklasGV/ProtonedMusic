@@ -26,7 +26,15 @@ export class MerchandiseProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {this.productService.getProductById(params['id']).subscribe(products => this.products = products);});
+    this.route.params.subscribe(params => {this.productService.getProductById(params['id']).subscribe({
+      next: (product) => {
+        this.products = product;
+            product.beforePrice = product.price;
+            if (product.discountProcent > 0) {
+              product.price = product.price - (product.price / 100 * product.discountProcent);
+            }
+        }
+    });});
   }
 
   addToCart(products: ProductModel, ItemAmount: number): void {
@@ -37,6 +45,7 @@ export class MerchandiseProductComponent implements OnInit {
       price: products.price,
       quantity: 1,
       name: products.name,
+      picturePath: products.productPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
   }

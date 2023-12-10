@@ -6,13 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { EmailModel, resetEmail } from 'src/app/Models/EmailModel';
 import { EmailService } from 'src/app/Services/email.service';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { subscribeOn } from 'rxjs';
 
 @Component({
   selector: 'app-mailsender',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './mailsender.component.html',
-  styleUrls: ['./mailsender.component.css']
+  styleUrls: ['./mailsender.component.css'],
 })
 export class MailsenderComponent implements OnInit {
   users: User[] = [];
@@ -23,6 +24,7 @@ export class MailsenderComponent implements OnInit {
   sendToAll: boolean = false;
   selected: string[] = [];
   date: any = new Date();
+  footerContent = '<br><br><br><br>' + '<footer><a style="font-size: smaller;" href="https://protonedmusic.com/#/unsubscribe">Unsubscribe</a></footer>';
 
   constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService, private datePipe: DatePipe) { }
 
@@ -40,7 +42,7 @@ export class MailsenderComponent implements OnInit {
 
   cancel(): void {
     this.mail = resetEmail();
-    this.snackBar.openSnackBar('Upcoming canceled.', '', 'info');
+    this.snackBar.openSnackBar('Mail canceled.', '', 'info');
   }
 
   sendTo(user: User): void {
@@ -52,8 +54,12 @@ export class MailsenderComponent implements OnInit {
     if (this.sendToAll) {
       this.users.forEach((user) => {
         if (user.addonRoles === 'Newsletter' && user.email) {
-          this.mail.to = user.email; // Set the recipient email in the mail object
+          this.mail.to = user.email;
           this.mail.subject = "Newsletter for " + this.transformDate(this.date);
+          if (!this.mail.body.endsWith(this.footerContent))
+          {
+            this.mail.body += this.footerContent
+          }
           this.mailService.sendEmail(this.mail).subscribe({
             next: (x) => {
               this.mails.push(x);
@@ -68,7 +74,6 @@ export class MailsenderComponent implements OnInit {
         }
       });
     } else {
-      // If not sending to all, use the existing code
       this.mailService.sendEmail(this.mail).subscribe({
         next: (x) => {
           this.mails.push(x);

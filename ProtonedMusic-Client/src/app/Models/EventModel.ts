@@ -3,6 +3,7 @@ export interface EventModel {
     title: string,
     description: string,
     price: number,
+    pictureFile: File | null;
     eventPicturePath: string;
     timeofEvent: any,
     dateofEvent: any,
@@ -15,6 +16,7 @@ export function resetEvent() {
         title: '',
         description: '',
         price: 0,
+        pictureFile: null,
         eventPicturePath: '',
         timeofEvent: new Date(),
         dateofEvent: new Date(),

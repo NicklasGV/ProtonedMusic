@@ -16,12 +16,28 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 })
 export class EventsComponent implements OnInit {
   events: EventModel[] = [];
+  checkEmpty: boolean = false;
   
 
   constructor(private eventService: EventService, private cartService:CartService, private snackbar:SnackBarService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.eventService.getAllEvents().subscribe(x => this.events = x);
+
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  checkIfEmpty() {
+    if (this.events.length <= 0)
+    {
+      return true;
+    }
+    return false;
   }
 
   addToCart(events: EventModel) {
@@ -30,6 +46,7 @@ export class EventsComponent implements OnInit {
       price: events.price,
       quantity: 1,
       name: events.title,
+      picturePath: events.eventPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
     this.snackbar.openSnackBar(events.title + ' added to cart','','success');

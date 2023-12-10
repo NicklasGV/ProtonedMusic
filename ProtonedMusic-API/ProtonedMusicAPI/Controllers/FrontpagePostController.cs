@@ -38,11 +38,18 @@ namespace ProtonedMusicAPI.Controllers
 
         [HttpPut]
         [Route("{frontpageId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int frontpageId, [FromBody] FrontpagePostRequest updateFrontpage)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int frontpageId, [FromForm] FrontpagePostRequest updateFrontpage)
         {
             try
             {
                 var frontpageResponse = await _frontpagePostService.UpdateByIdAsync(frontpageId, updateFrontpage);
+
+                if (updateFrontpage.PictureFile != null)
+                {
+                    FrontpagePostResponse frontpagePictureResponse = await _frontpagePostService.UploadFrontpagePicture(frontpageResponse.Id, updateFrontpage.PictureFile);
+
+                    if (frontpagePictureResponse != null) { frontpageResponse = frontpagePictureResponse; }
+                }
 
                 if (frontpageResponse == null)
                 {
@@ -104,11 +111,17 @@ namespace ProtonedMusicAPI.Controllers
         [AllowAnnonymous]
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateAsync([FromBody] FrontpagePostRequest newFrontPage)
+        public async Task<IActionResult> CreateAsync([FromForm] FrontpagePostRequest newFrontPage)
         {
             try
             {
                 FrontpagePostResponse frontpageResponse = await _frontpagePostService.CreateAsync(newFrontPage);
+                if (newFrontPage.PictureFile != null)
+                {
+                    FrontpagePostResponse frontpagePictureResponse = await _frontpagePostService.UploadFrontpagePicture(frontpageResponse.Id, newFrontPage.PictureFile);
+
+                    if (frontpagePictureResponse != null) { frontpageResponse = frontpagePictureResponse; }
+                }
                 return Ok(frontpageResponse);
             }
             catch (Exception ex)
