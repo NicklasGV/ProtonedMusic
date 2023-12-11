@@ -1,6 +1,8 @@
+import { FamilyScheduleComponent } from './Components/family-schedule/family-schedule.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Services/Guard/auth.guard';
+import { FamilyGuard } from './Services/Guard/family.guard';
 
 const routes: Routes = [
   {path: '', loadComponent: () => 
@@ -35,6 +37,9 @@ const routes: Routes = [
 
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
+
+  {path: 'familyschedule', loadComponent: () =>
+  import('./Components/family-schedule/family-schedule.component').then(it => it.FamilyScheduleComponent), canActivate: [FamilyGuard]},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
