@@ -31,6 +31,8 @@ h1, h2, h3, h4, h5 , h6, p {
   --secondary-color: #162328;
   --button-color: #198754;
   --back-button-color: #dc3545;
+  --calendar-color: #198754;
+  --calendar-opacity-color: #19875452;
 }
 
 .mat-mdc-dialog-container{
@@ -43,15 +45,23 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-mdc-slider-focus-ripple-color: #105736 !important;
   --mat-mdc-slider-ripple-color: #0a3823 !important;
 }
-
 .panel-tooltip {
   --mdc-plain-tooltip-container-color: transparent !important;
 }
-
-
 .mat-mdc-dialog-container {
   --mdc-dialog-container-color: var(--bs-dark-rgb) !important;
 }
+.mat-calendar{
+  --mat-datepicker-calendar-date-selected-state-background-color: var(--calendar-color) !important;
+  --mat-datepicker-calendar-date-today-selected-state-outline-color: var(--calendar-color) !important;
+  --mat-datepicker-calendar-date-hover-state-background-color: var(--calendar-opacity-color) !important;
+  --mat-datepicker-calendar-header-divider-color: rgb(71, 70, 70) !important;
+  --mat-datepicker-calendar-date-focus-state-background-color: var(--calendar-color);
+  --mat-datepicker-calendar-body-label-text-color: white !important;
+  --mat-datepicker-calendar-date-text-color: white !important;
+  --mat-datepicker-calendar-header-text-color: white !important;
+  --mat-datepicker-calendar-container-text-color: white !important;
+}    
 
 
 html, body { height: 100%; }

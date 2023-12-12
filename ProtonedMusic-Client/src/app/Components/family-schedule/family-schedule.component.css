@@ -1,0 +1,11 @@
+.Calendar {
+    max-width: 400px;
+}
+
+.bg {
+    background-color: rgba(56, 55, 55, 0.26);
+}
+button.example-custom-date-class {
+    background: orange;
+    border-radius: 100%;
+  }
