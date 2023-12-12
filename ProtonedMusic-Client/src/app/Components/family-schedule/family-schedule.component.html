@@ -1,7 +1,8 @@
 <div class="container-fluid">
     <div class="Calendar">
         <div class="bg">
-            <mat-calendar [(selected)]="selected"></mat-calendar>
+            <!-- <mat-calendar [(selected)]="selected"></mat-calendar> -->
+            <p-calendar [(ngModel)]="selected" [inline]="true" [showTime]="true"></p-calendar>
         </div>
     </div>
     <div>

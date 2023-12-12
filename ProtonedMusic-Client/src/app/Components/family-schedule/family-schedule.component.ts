@@ -9,12 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { CalendarService } from 'src/app/Services/calendar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @Component({
   selector: 'app-family-schedule',
   standalone: true,
-  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule],
+  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule, CalendarModule],
   templateUrl: './family-schedule.component.html',
   styleUrl: './family-schedule.component.css'
 })
