@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.VisualBasic;
-using System.ComponentModel;
-
-namespace ProtonedMusicAPI.Database
+﻿namespace ProtonedMusicAPI.Database
 {
     public class DatabaseContext : DbContext
     {
@@ -17,6 +13,7 @@ namespace ProtonedMusicAPI.Database
         public DbSet<FrontpagePost> Frontpages { get; set; }
         public DbSet<Upcoming> upcomings { get; set; }
         public DbSet<Music> Music { get; set; }
+        public DbSet<CalendarContent> CalendarContent { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
