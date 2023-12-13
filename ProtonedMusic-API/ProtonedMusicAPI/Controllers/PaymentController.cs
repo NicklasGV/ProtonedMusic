@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using ProtonedMusicAPI.Services;
-using ProtonedMusicAPI.Database.NonDatabaseEntities;
+﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
 using Stripe.Checkout;
-using Stripe;
 
 [ApiController]
 [Route("api")]
@@ -17,18 +12,19 @@ public class CheckoutController : ControllerBase
         _stripeService = new StripeService("sk_test_51MawfMFFxCTt81aXVC5LLXg1nzTYwEQLM20LidrDRVjR3FDF3SKhazAzDgaR9871rABLvbotyuLA14hjqYmboS2x00ujPqdm9F");
     }
 
+
     [HttpPost("CreateCheckoutSession")]
-    public IActionResult CreateCheckoutSession([FromBody] List<CartItemData> cartItems, [FromQuery] string customerEmail)
+    public IActionResult CreateCheckoutSession([FromBody] CheckoutRequest request)
     {
         try
         {
             Console.WriteLine("Received request to create Checkout Session with items:");
-            foreach (var item in cartItems)
+            foreach (var item in request.CartItems)
             {
                 Console.WriteLine($"Name: {item.Name}, Quantity: {item.Quantity}, Unit Amount: {item.UnitAmount}");
             }
 
-            var sessionId = _stripeService.CreateCheckoutSession(cartItems, customerEmail);
+            var sessionId = _stripeService.CreateCheckoutSession(request.CartItems, request.CustomerEmail);
             return Ok(new { SessionId = sessionId });
         }
         catch (Exception ex)
@@ -38,4 +34,18 @@ public class CheckoutController : ControllerBase
             return BadRequest(new { Error = ex.Message });
         }
     }
+
+    [HttpGet("GetOrderDetails")]
+    public IActionResult GetOrderDetails(string sessionId)
+    {
+        // Hent ordreoplysninger fra Stripe ved hjælp af session ID'en
+        var sessionService = new SessionService();
+        var session = sessionService.Get(sessionId);
+
+        // Her kan du få flere oplysninger om ordren fra session-objektet
+
+        return Ok(new { OrderDetails = session });
+    }
+
 }
+
