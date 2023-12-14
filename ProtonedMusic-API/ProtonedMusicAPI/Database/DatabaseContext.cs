@@ -17,6 +17,9 @@ namespace ProtonedMusicAPI.Database
         public DbSet<FrontpagePost> Frontpages { get; set; }
         public DbSet<Upcoming> upcomings { get; set; }
         public DbSet<Music> Music { get; set; }
+        public DbSet<Artist> Artist { get; set; }
+        public DbSet<Link> Link { get; set; }
+        public DbSet<ArtistSong> ArtistSong { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,7 +62,7 @@ namespace ProtonedMusicAPI.Database
                 .HasOne(nl => nl.News)
                 .WithMany(n => n.NewsLikes)
                 .HasForeignKey(nl => nl.news_Id);
-
+                
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
 
