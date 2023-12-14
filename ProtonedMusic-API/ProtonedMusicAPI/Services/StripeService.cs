@@ -42,7 +42,7 @@ namespace ProtonedMusicAPI.Services
                 PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "http://localhost:4200/#/",
+                SuccessUrl = "http://localhost:4200/#/order/success",
                 CancelUrl = "http://localhost:4200/#/cart",
                 Locale = "auto",
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions

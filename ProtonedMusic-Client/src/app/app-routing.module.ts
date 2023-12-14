@@ -51,6 +51,9 @@ const routes: Routes = [
   {path: 'profilmenu/:id/editprofil', loadComponent: ()=>
   import('./Components/Profile/editprofile/editprofile.component').then( it => it.EditprofilComponent)},
 
+  {path: 'profilmenu/:id/orderhistory', loadComponent: ()=>
+  import('./Components/Profile/orderHistory/order-history/order-history.component').then( it => it.OrderHistoryComponent)},
+
   {path: 'admin', loadComponent: () =>
   import('./Components/Admin/admin-panel/admin-panel.component').then(it => it.AdminPanelComponent), canActivate: [AuthGuard]},
 

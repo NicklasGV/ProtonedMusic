@@ -1,4 +1,5 @@
 ﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
+using Stripe;
 using Stripe.Checkout;
 
 [ApiController]
@@ -25,7 +26,9 @@ public class CheckoutController : ControllerBase
             }
 
             var sessionId = _stripeService.CreateCheckoutSession(request.CartItems, request.CustomerEmail);
-            return Ok(new { SessionId = sessionId });
+
+            // Returner både SessionId og SuccessUrl til frontend
+            return Ok(new { SessionId = sessionId, SuccessUrl = "http://localhost:4200/#/order/success" });
         }
         catch (Exception ex)
         {
@@ -35,16 +38,26 @@ public class CheckoutController : ControllerBase
         }
     }
 
-    [HttpGet("GetOrderDetails")]
-    public IActionResult GetOrderDetails(string sessionId)
+
+    [HttpGet("order/success")]
+    public ActionResult OrderSuccess([FromQuery] string session_id)
     {
-        // Hent ordreoplysninger fra Stripe ved hjælp af session ID'en
-        var sessionService = new SessionService();
-        var session = sessionService.Get(sessionId);
+        try
+        {
+            var sessionService = new SessionService();
+            Session session = sessionService.Get(session_id);
 
-        // Her kan du få flere oplysninger om ordren fra session-objektet
+            var customerService = new CustomerService();
+            Customer customer = customerService.Get(session.CustomerId);
 
-        return Ok(new { OrderDetails = session });
+            return Content($"<html><body><h1>Thanks for your order, {customer.Name}!</h1></body></html>");
+        }
+        catch (Exception ex)
+        {
+            // Log fejl og returner BadRequest-status
+            Console.WriteLine($"Error handling successful order: {ex.Message}");
+            return BadRequest(new { Error = ex.Message });
+        }
     }
 
 }
