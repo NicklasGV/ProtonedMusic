@@ -16,6 +16,9 @@
         public DbSet<CalendarContent> CalendarContent { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ItemProduct> itemProducts { get; set; }
+        public DbSet<Artist> Artist { get; set; }
+        public DbSet<Link> Link { get; set; }
+        public DbSet<ArtistSong> ArtistSong { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,7 +61,7 @@
                 .HasOne(nl => nl.News)
                 .WithMany(n => n.NewsLikes)
                 .HasForeignKey(nl => nl.news_Id);
-
+                
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
 
