@@ -43,11 +43,11 @@ export class ProfilmenuComponent implements OnInit {
 
   WelcomeUser() {
     var today = new Date().getHours();
-    if (today >= 6 && today <= 11)
+    if (today >= 5 && today <= 11)
     {
       return this.msg = "Good Morning"
     }
-    else if (today >= 12 && today <= 13)
+    else if (today >= 12 && today <= 16)
     {
       return this.msg = "Good Afternoon"
     }

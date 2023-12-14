@@ -4,5 +4,6 @@
     {
         Customer = 0,
         Admin = 1,
+        Family = 2,
     }
 }

@@ -31,6 +31,10 @@
           routerLinkActive="active-link" (click)="collapseNavbar()"> Merchandise</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link bi-people-fill" [routerLink]="['/familyschedule']" routerLinkActive="router-link-active"
+            routerLinkActive="active-link" (click)="collapseNavbar()" *ngIf="currentUser.role == 'Family' || currentUser.role == 'Admin'"> Family Schedule</a>
+          </li>
+        <li class="nav-item">
           <a class="nav-link bi-person-fill-gear" [routerLink]="['/admin']" routerLinkActive="router-link-active"
             routerLinkActive="active-link" (click)="collapseNavbar()" *ngIf="currentUser.role == 'Admin'"> Admin panels</a>
           </li>

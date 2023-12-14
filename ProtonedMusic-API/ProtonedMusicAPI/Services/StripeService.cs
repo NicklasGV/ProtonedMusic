@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ProtonedMusicAPI.Database.NonDatabaseEntities;
+﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
 using Stripe;
 using Stripe.Checkout;
 
@@ -9,6 +7,7 @@ namespace ProtonedMusicAPI.Services
     public class StripeService
     {
         private readonly string _stripeSecretKey;
+        private Customer _customer;
 
         public StripeService(string stripeSecretKey)
         {
@@ -16,64 +15,14 @@ namespace ProtonedMusicAPI.Services
             StripeConfiguration.ApiKey = _stripeSecretKey;
         }
 
-        public string CreateCombinedSession(CustomerInfoData customerInfo, string previousSessionId, List<CartItemData> cartItems)
+        public string CreateCheckoutSession(List<CartItemData> cartItems, string customerEmail)
         {
-            var accountInfoSessionId = CreateAccountInfoSession(customerInfo.Email, customerInfo.Name, customerInfo.Address, customerInfo.Phone);
-            var deliveryAddressSessionId = CreateDeliveryAddressSession(previousSessionId);
-            var checkoutSessionId = CreateCheckoutSession(cartItems);
-
-            // Returner session-IDs til klienten
-            return $"{accountInfoSessionId},{deliveryAddressSessionId},{checkoutSessionId}";
-        }
-
-        public string CreateAccountInfoSession(string customerEmail, string customerName, string customerAddress, string customerPhone)
-        {
-            var customerOptions = new CustomerCreateOptions
+            // Opret kunden (kun hvis den ikke allerede er oprettet)
+            if (_customer == null || !string.Equals(_customer.Email, customerEmail, StringComparison.OrdinalIgnoreCase))
             {
-                Email = customerEmail,
-                Name = customerName,
-                Address = new AddressOptions
-                {
-                    Line1 = customerAddress,
-                },
-                Phone = customerPhone,
-            };
+                _customer = GetOrCreateCustomer(customerEmail);
+            }
 
-            var customerService = new CustomerService();
-            var customer = customerService.Create(customerOptions);
-
-            var options = new SessionCreateOptions
-            {
-                Customer = customer.Id,
-                BillingAddressCollection = "required",
-                Mode = "setup",
-                Currency = "dkk",
-                SuccessUrl = "http://localhost:4200/#/",
-                CancelUrl = "https://your-website.com/cancel",
-            };
-
-            return CreateSession(options);
-        }
-
-        public string CreateDeliveryAddressSession(string previousSessionId)
-        {
-            var options = new SessionCreateOptions
-            {
-                BillingAddressCollection = "required",
-                ShippingAddressCollection = new SessionShippingAddressCollectionOptions
-                {
-                    AllowedCountries = new List<string> { "DK" },
-                },
-                Mode = "setup",
-                Currency = "dkk",
-                SuccessUrl = "http://localhost:4200/#/"
-            };
-
-            return CreateSession(options, previousSessionId);
-        }
-
-        public string CreateCheckoutSession(List<CartItemData> cartItems)
-        {
             var lineItems = cartItems.Select(item => new SessionLineItemOptions
             {
                 PriceData = new SessionLineItemPriceDataOptions
@@ -93,35 +42,121 @@ namespace ProtonedMusicAPI.Services
                 PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "http://localhost:4200/#/",
-                CancelUrl = "https://your-website.com/cancel",
+                SuccessUrl = "http://localhost:4200/#/order/success",
+                CancelUrl = "http://localhost:4200/#/cart",
+                Locale = "auto",
+                ShippingAddressCollection = new SessionShippingAddressCollectionOptions
+                {
+                    AllowedCountries = new List<string> { "DK" },
+                },
+                ShippingOptions = new List<SessionShippingOptionOptions>
+                {
+                    new SessionShippingOptionOptions
+                    {
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
+                        {
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 5500,
+                                Currency = "dkk",
+                            },
+                            DisplayName = "Forsendelse",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 5,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 7,
+                                },
+                            },
+                        },
+                    },
+                    new SessionShippingOptionOptions
+                    {
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
+                        {
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 8500,
+                                Currency = "dkk",
+                            },
+                            DisplayName = "Næste dags levering",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                }
+                            }
+                        }
+                    }
+                },
+                CustomerEmail = customerEmail,  // Tilføjet for at inkludere kundens e-mail
             };
 
-            return CreateSession(options);
+            var service = new SessionService();
+            var sessionId = service.Create(options).Id;
+
+            // Opret faktura
+            var invoiceOptions = new InvoiceCreateOptions
+            {
+                Customer = _customer.Id,
+                CollectionMethod = "send_invoice",
+                DueDate = DateTime.Now,
+            };
+
+            var invoiceService = new InvoiceService();
+            var invoice = invoiceService.Create(invoiceOptions);
+
+            var sentInvoice = invoiceService.SendInvoice(invoice.Id);
+
+            return sessionId;
         }
 
-        public string CreateSession(SessionCreateOptions options)
+        //Guest Customer
+        private Customer GetOrCreateCustomer(string email)
         {
-            var service = new SessionService();
-            var session = service.Create(options);
+            var existingCustomer = FindCustomerByEmail(email);
 
-            return session.Id;
+            if (existingCustomer != null)
+            {
+                return existingCustomer;
+            }
+
+            var customerOptions = new CustomerCreateOptions
+            {
+                Email = email,
+                Description = "Guest customer",
+            };
+
+            var customerService = new CustomerService();
+            return customerService.Create(customerOptions);
         }
 
-        public string CreateSession(SessionCreateOptions options, string previousSessionId)
+        private Customer FindCustomerByEmail(string email)
         {
-            // Log ud af previousSessionId for fejlfinding
-            Console.WriteLine($"Previous Session ID: {previousSessionId}");
+            if (string.IsNullOrEmpty(email))
+            {
+                return null;
+            }
 
-            // Hvis der er en tidligere session-ID, kan du inkludere det som en reference
-            options.SetupIntentData = previousSessionId != null
-                ? new SessionSetupIntentDataOptions { Metadata = new Dictionary<string, string> { { "previous_session_id", previousSessionId } } }
-                : null;
+            var customerService = new CustomerService();
+            var customers = customerService.List(new CustomerListOptions { Email = email });
 
-            var service = new SessionService();
-            var session = service.Create(options);
-
-            return session.Id;
+            return customers.FirstOrDefault();
         }
     }
 }

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -19,7 +18,6 @@ import { PaymentService } from 'src/app/Services/payment.service';
 
 import { StripeChekoutModel } from 'src/app/Models/StripeChekoutItems';
 
-
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -36,7 +34,6 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
-    private http: HttpClient,
     private paymentService: PaymentService
   ) {}
 
@@ -98,33 +95,26 @@ export class CartComponent implements OnInit {
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
 
-    // Opret en liste af StripeCheckoutItem baseret på dine CartItem-objekter
-    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map(item => {
+    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map((item) => {
       return {
         name: item.name,
         unitAmount: item.price,
         quantity: item.quantity,
-        price: item.price
+        price: item.price,
       };
     });
 
-    // Kald din PaymentService for at oprette en Checkout Session
-    this.paymentService.createCheckoutSession(stripeCheckoutItems).subscribe(
+    this.paymentService.CreateCheckoutSession(stripeCheckoutItems, this.authService.currentUserValue.email).subscribe(
       (response) => {
-        // Håndter responsen fra API-kaldet
-        console.log('Session oprettet:', response);
-
-        // Brug Stripe.js eller lignende for at starte betalingsprocessen
-        this.initiateStripeCheckout(response); // Send hele responsen (CheckoutModel)
+        console.log('Session created:', response);
+        this.initiateStripeCheckout(response);
       },
       (error) => {
-        // Håndter eventuelle fejl under sessionoprettelsen
-        console.error('Fejl under oprettelse af session:', error);
+        console.error('Error creating session:', error);
       }
     );
   }
 
-  // Funktion til at initialisere Stripe Checkout
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
     loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
       stripe?.redirectToCheckout({
