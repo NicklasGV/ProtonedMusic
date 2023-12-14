@@ -1,6 +1,7 @@
 ﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
 using Stripe;
 using Stripe.Checkout;
+using System;
 
 [ApiController]
 [Route("api")]
@@ -38,27 +39,6 @@ public class CheckoutController : ControllerBase
         }
     }
 
-
-    [HttpGet("order/success")]
-    public ActionResult OrderSuccess([FromQuery] string session_id)
-    {
-        try
-        {
-            var sessionService = new SessionService();
-            Session session = sessionService.Get(session_id);
-
-            var customerService = new CustomerService();
-            Customer customer = customerService.Get(session.CustomerId);
-
-            return Content($"<html><body><h1>Thanks for your order, {customer.Name}!</h1></body></html>");
-        }
-        catch (Exception ex)
-        {
-            // Log fejl og returner BadRequest-status
-            Console.WriteLine($"Error handling successful order: {ex.Message}");
-            return BadRequest(new { Error = ex.Message });
-        }
-    }
 
 }
 

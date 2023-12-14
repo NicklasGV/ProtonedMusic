@@ -14,6 +14,8 @@
         public DbSet<Upcoming> upcomings { get; set; }
         public DbSet<Music> Music { get; set; }
         public DbSet<CalendarContent> CalendarContent { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ItemProduct> itemProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

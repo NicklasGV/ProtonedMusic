@@ -50,60 +50,60 @@ namespace ProtonedMusicAPI.Services
                     AllowedCountries = new List<string> { "DK" },
                 },
                 ShippingOptions = new List<SessionShippingOptionOptions>
-        {
-            new SessionShippingOptionOptions
-            {
-                ShippingRateData = new SessionShippingOptionShippingRateDataOptions
                 {
-                    Type = "fixed_amount",
-                    FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                    new SessionShippingOptionOptions
                     {
-                        Amount = 5500,
-                        Currency = "dkk",
-                    },
-                    DisplayName = "Forsendelse",
-                    DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
-                    {
-                        Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
                         {
-                            Unit = "business_day",
-                            Value = 5,
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 5500,
+                                Currency = "dkk",
+                            },
+                            DisplayName = "Forsendelse",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 5,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 7,
+                                },
+                            },
                         },
-                        Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
-                        {
-                            Unit = "business_day",
-                            Value = 7,
-                        },
                     },
-                },
-            },
-            new SessionShippingOptionOptions
-            {
-                ShippingRateData = new SessionShippingOptionShippingRateDataOptions
-                {
-                    Type = "fixed_amount",
-                    FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                    new SessionShippingOptionOptions
                     {
-                        Amount = 8500,
-                        Currency = "dkk",
-                    },
-                    DisplayName = "Næste dags levering",
-                    DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
-                    {
-                        Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                        ShippingRateData = new SessionShippingOptionShippingRateDataOptions
                         {
-                            Unit = "business_day",
-                            Value = 1,
-                        },
-                        Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
-                        {
-                            Unit = "business_day",
-                            Value = 1,
+                            Type = "fixed_amount",
+                            FixedAmount = new SessionShippingOptionShippingRateDataFixedAmountOptions
+                            {
+                                Amount = 8500,
+                                Currency = "dkk",
+                            },
+                            DisplayName = "Næste dags levering",
+                            DeliveryEstimate = new SessionShippingOptionShippingRateDataDeliveryEstimateOptions
+                            {
+                                Minimum = new SessionShippingOptionShippingRateDataDeliveryEstimateMinimumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                },
+                                Maximum = new SessionShippingOptionShippingRateDataDeliveryEstimateMaximumOptions
+                                {
+                                    Unit = "business_day",
+                                    Value = 1,
+                                }
+                            }
                         }
                     }
-                }
-            }
-        },
+                },
                 CustomerEmail = customerEmail,  // Tilføjet for at inkludere kundens e-mail
             };
 

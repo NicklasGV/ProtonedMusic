@@ -125,7 +125,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 12, 12, 13, 11, 40, 245, DateTimeKind.Local).AddTicks(516),
+                            Created = new DateTime(2023, 12, 14, 9, 52, 42, 208, DateTimeKind.Local).AddTicks(1195),
                             Description = "Test event",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -134,7 +134,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 12, 12, 13, 11, 40, 245, DateTimeKind.Local).AddTicks(530),
+                            Created = new DateTime(2023, 12, 14, 9, 52, 42, 208, DateTimeKind.Local).AddTicks(1207),
                             Description = "Test 2 for testing making events",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -186,6 +186,29 @@ namespace ProtonedMusicAPI.Migrations
                             FrontpagePicturePath = "assets/img/bannerLogo3.jpg",
                             Text = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo vel omnis sunt dolores, voluptas"
                         });
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.ItemProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("itemProducts");
                 });
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Music", b =>
@@ -266,7 +289,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 12, 12, 13, 11, 40, 383, DateTimeKind.Local).AddTicks(5397),
+                            DateTime = new DateTime(2023, 12, 14, 9, 52, 42, 348, DateTimeKind.Local).AddTicks(9896),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -315,10 +338,39 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 12, 12, 13, 11, 40, 383, DateTimeKind.Local).AddTicks(5531),
+                            DateTime = new DateTime(2023, 12, 14, 9, 52, 42, 348, DateTimeKind.Local).AddTicks(9955),
                             news_Id = 1,
                             user_Id = 1
                         });
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Product", b =>
@@ -527,7 +579,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$yCoidSNNPB9uXkNBmTw0lu4dkr6lktgjJ/VGyAthH9HvN65sCfWAW",
+                            Password = "$2b$10$n.zlMrdF6Nw/jYaJgi28AOn62AziPb9EMOAcVOW0Naej2/405u.Au",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -542,11 +594,30 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$ABdZuqFu0qr9DgcocOqSBeTrqFpDbvegJYOHay0IsxprtI/xzdH8S",
+                            Password = "$2b$10$VcuEFMfB6IiHXghjtyN5cuz4qqnkcGEyaJ4ykBB2rXBRLiEppJhX6",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0
                         });
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.ItemProduct", b =>
+                {
+                    b.HasOne("ProtonedMusicAPI.Database.Entities.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProtonedMusicAPI.Database.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.NewsLike", b =>
@@ -566,6 +637,17 @@ namespace ProtonedMusicAPI.Migrations
                     b.Navigation("News");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Order", b =>
+                {
+                    b.HasOne("ProtonedMusicAPI.Database.Entities.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.ProductCategory", b =>
@@ -595,6 +677,11 @@ namespace ProtonedMusicAPI.Migrations
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.News", b =>
                 {
                     b.Navigation("NewsLikes");
+                });
+
+            modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Order", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("ProtonedMusicAPI.Database.Entities.Product", b =>
