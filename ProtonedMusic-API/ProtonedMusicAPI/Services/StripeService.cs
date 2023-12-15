@@ -116,6 +116,7 @@ namespace ProtonedMusicAPI.Services
                 Customer = _customer.Id,
                 CollectionMethod = "send_invoice",
                 DueDate = DateTime.Now,
+                
             };
 
             var invoiceService = new InvoiceService();
@@ -140,6 +141,7 @@ namespace ProtonedMusicAPI.Services
             {
                 Email = email,
                 Description = "Guest customer",
+                
             };
 
             var customerService = new CustomerService();

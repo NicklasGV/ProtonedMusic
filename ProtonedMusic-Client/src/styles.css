@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5 , h6, p {
 }
 
 :root{
-  --primary-color: #3FC060;
+  --primary-color: #3FC060 !important;
   --secondary-color: #162328;
   --button-color: #198754;
   --back-button-color: #dc3545;
