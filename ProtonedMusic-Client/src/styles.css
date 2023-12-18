@@ -1,9 +1,12 @@
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 /* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   height: 100vh;
   background-color: #292b2c;
   color: #fff;
@@ -24,10 +27,41 @@ h1, h2, h3, h4, h5 , h6, p {
 }
 
 :root{
-  --primary-color: #c70606;
+  --primary-color: #3FC060 !important;
   --secondary-color: #162328;
+  --button-color: #198754;
+  --back-button-color: #dc3545;
+}
+
+.mat-mdc-dialog-container{
+  background-color: #333333;
+}
+
+.mat-ripple {
+  --mat-mdc-slider-hover-ripple-color: #198754 !important;
+  opacity: 10%;
+  --mat-mdc-slider-focus-ripple-color: #105736 !important;
+  --mat-mdc-slider-ripple-color: #0a3823 !important;
+}
+
+.panel-tooltip {
+  --mdc-plain-tooltip-container-color: transparent !important;
 }
 
 
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: var(--bs-dark-rgb) !important;
+}
 
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

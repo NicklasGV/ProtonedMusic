@@ -1,0 +1,83 @@
+<div class="container">
+    <h1 class="m-2">Frontpage Post Administration</h1>
+  </div>
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Text</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="post.text" class="form-control w-75">
+      </div>
+    </div>
+  
+    <div class="form-group row">
+      <label class="col-12 col-sm-1 col-form-label">Banner Formations</label>
+      <div class="col-12 col-sm-6 d-flex flex-wrap">
+        <div *ngFor="let banner of banners" class="form-check me-3 mb-3">
+          <label class="form-check-label text-center">
+            <i *ngIf="banner.name === 'LeftBanner'" class="bi bi-text-left" style="font-size: 1.3rem;"></i>
+            <i *ngIf="banner.name === 'RightBanner'" class="bi bi-text-right" style="font-size: 1.3rem;"></i>
+            <i *ngIf="banner.name === 'MiddleBanner'" class="bi bi-text-center" style="font-size: 1.3rem;"></i>
+            {{ banner.name }}
+          </label>
+          <div class="d-flex justify-content-center">
+            <input class="form-check-input" type="radio" name="category" [(ngModel)]="post.banner" [value]="banner.name">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Picture</label>
+      <div class="col-12 col-sm-6">
+        <input (change)="onPictureFileSelected($event)" class="form-control w-75" type="file" accept="image/*">
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Frontpage Picture Path</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="post.frontpagePicturePath" class="form-control w-75">
+      </div>
+    </div>
+    
+    <div class="d-flex mt-5 mx-0">
+      <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+      <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+    </div>
+  </div>
+  
+  <div class="container mt-2 mb-2">
+  </div>
+  
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="fw-medium">Actions</th>
+              <th class="fw-medium">Id</th>
+              <th class="fw-medium">Text</th>
+              <th class="fw-medium">Picture Path</th>
+              <th class="fw-medium">Banner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of frontpagePosts">
+              <td>
+                <div class="d-flex justify-content-start">
+                  <button (click)="edit(post)" class="btn bi-gear-fill btn-sm btn-success"> EDIT</button>
+                  <button (click)="delete(post)" class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
+                </div>
+              </td>
+              <td>{{ post.id }}</td>
+              <td>{{ post.text }}</td>
+              <td>{{ post.frontpagePicturePath }}</td>
+              <td>{{ post.banner }}</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

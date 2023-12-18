@@ -1,25 +1,22 @@
-.banner{
-    background-image: url('../../../assets/img/bannerLogo.jpg');
+.LeftBanner{
     height: 750px;
     background-position: center ;
     background-size: cover;
   }
   
-  .banner2{
-    background-image: url('../../../assets/img/bannerLogo2.jpg');
+  .RightBanner{
     height: 750px;
     background-position: center ;
     background-size: cover;
   }
   
-  .banner3{
-    background-image: url('../../../assets/img/bannerLogo3.jpg');
+  .MiddleBanner{
     height: 750px;
     background-position: center ;
     background-size: cover;
   }
   
-  .banner h1{
+  .LeftBanner h1{
     color: #fff;
     font-size: 50px;
     font-weight: bold;
@@ -28,7 +25,7 @@
     margin-left: 10%;
   }
   
-  .banner2 h1{
+  .RightBanner h1{
     color: #fff;
     font-size: 50px;
     font-weight: bold;
@@ -39,7 +36,7 @@
     line-height: 1;
   }
   
-  .banner3 h1{
+  .MiddleBanner h1{
     color: #fff;
     font-size: 50px;
     font-weight: bold;

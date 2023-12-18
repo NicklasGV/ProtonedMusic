@@ -1,0 +1,33 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-12 mb-5"> <!-- Adjusted column widths for responsiveness -->
+            <div class="card bg-dark">
+                <div class="card-header text-center">
+                    <h1 class="display-6">{{ products.name }}</h1>
+                </div>
+                <a *ngIf="products.productPicturePath">
+                    <img class="card-img-top" src="https://protonedmusic.com/{{ products.productPicturePath }}" alt="Product Image">
+                </a>
+                <a *ngIf="!products.productPicturePath">
+                    <img class="card-img-top" src="../../../assets/img/img400.png" alt="Product Image">
+                </a>
+                <div class="card-body">
+                    <hr class="border-success border-2">
+                    <h4>Description:</h4>
+                    <p class="card-text">{{ products.description }}</p>
+                    <hr class="border-success border-2">
+                    <h4>Category:</h4>
+                    <span *ngFor="let category of products.categories" class="badge rounded-pill text-black text-bg-success">{{category.name}}</span>
+                    <hr class="border-success border-2">
+                    <h3 *ngIf="products.isDiscounted" class="card-text"><span class="badge text-black bg-success float-start">Before {{ products.beforePrice | currency: 'DKK ' }}</span></h3>
+                    <h3 *ngIf="products.isDiscounted" class="card-text"><span class="badge text-black float-end" style="background-color: orangered;">{{ products.price | currency: 'DKK ' }}</span></h3>
+                    <h3 *ngIf="!products.isDiscounted" class="card-text"><span class="badge text-black bg-success float-end">{{ products.price | currency: 'DKK ' }}</span></h3>
+                </div>
+                <div class="card-footer">
+                    <a type="button" class="btn bi-x-circle-fill btn-outline-success float-start" [routerLink]="['/merchandise']"> Back</a>
+                    <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end" (click)="addToCart(products, itemlength)"> Add to basket</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

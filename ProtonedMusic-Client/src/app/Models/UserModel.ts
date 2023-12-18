@@ -1,31 +1,41 @@
-import { Role } from "./role";
+import { AddonRoles } from './AddonRole';
+import { NewsModel } from "./NewsModel";
 
 export interface User {
   id: number;
-  username: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  firstname: string;
-  lastname: string;
-  phonenumber: string;
+  password: string;
+  phoneNumber: number;
   address: string;
   city: string;
-  postal: string;
+  postal: number;
   country: string;
-  role?: Role;
+  pictureFile: File | null;
+  profilePicturePath: string;
+  role?: string;
+  addonRoles?: string;
   token?: string;
+  newsLikes: NewsModel[];
+  newsIds: number[];
 }
 
 export function resetUser() {
   return { 
     id: 0, 
-    username: '', 
+    firstName: '', 
+    lastName: '', 
     email: '', 
-    firstname: '', 
-    lastname: '', 
-    phonenumber: '', 
+    password: '', 
+    phoneNumber: 0, 
     address: '', 
     city: '', 
-    postal: '', 
+    postal: 0, 
     country: '',
+    pictureFile: null,
+    profilePicturePath: '',
+    newsLikes: [],
+    newsIds: []
 };
 }

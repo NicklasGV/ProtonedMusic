@@ -1,0 +1,74 @@
+<div class="m-5">
+  <div class="d-flex justify-content-around col-md-12">
+    <div class="display-4 fw-medium mt-4">EVENTS</div>
+  </div>
+</div>
+
+<div class="container" *ngIf="this.checkIfEmpty() != true">
+  <div id="carousel" class="carousel slide border border-black container" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../../assets/img/img400.png" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/img/bannerLogo1.jpg" class="d-block w-100">
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/img/bannerLogo3.jpg" class="d-block w-100">
+      </div>
+    </div>
+    <div class="carousel-control-prev">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark btn btn-sm btn-outline-dark" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="carousel-control-next">
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark btn btn-sm btn-outline-dark" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row row-cols-auto row-cols-lg-2 g-4 m-2">
+    <div *ngFor="let event of events">
+      <div class="card bg-dark text-light cardbody" [routerLink]="['/events', event.id]"
+        style="grid-template-rows: auto 1fr; min-width: 300px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a *ngIf="event.eventPicturePath">
+              <img src="https://protonedmusic.com/{{ event.eventPicturePath }}" class="img-fluid rounded-start">
+          </a>
+          <a *ngIf="!event.eventPicturePath">
+              <img src="../../../assets/img/img400.png" class="img-fluid rounded-start">
+          </a>
+        </div>
+        <div class="col-md-8">
+          <div class="card-header">
+            <h2 class="card-title">{{ event.title }}</h2>
+          </div>
+          <div class="card-body" style="min-width: 300px;">
+            <h5>Description: </h5>
+            <p class="card-text text-truncate">{{event.description}}</p>
+          </div>
+          <div class="card-footer">
+            <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}
+            </h5>
+            <h5 class="badge text-black bg-success mx-2 align-middle float-end">{{ event.price | currency: 'DKK '}}
+            </h5>
+            <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3 float-end"
+              (click)="addToCart(event); $event.stopPropagation()"> Purchase</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
+  <div class="card bg-dark text-light">
+    <div class="card-body text-center">
+      <h2>No events are available right now check back later!</h2>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div mat-dialog class="rounded-5">
+  <div mat-dialog-title class="m-2">
+    <h2 class="text-light">{{data.title}}</h2>
+  </div>
+    <div mat-dialog-content>
+      <h4 class="text-light m-2">{{ data.message }}</h4>
+    </div>
+    <div mat-dialog-actions class="m-2">
+      <button mat-button (click)="dialogRef.close(true)" class="btn btn-success me-2">Confirm</button>
+      <button mat-button (click)="dialogRef.close(false)" class="btn btn-danger">Cancel</button>
+    </div>
+</div>

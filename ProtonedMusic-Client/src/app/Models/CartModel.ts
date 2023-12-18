@@ -1,3 +1,5 @@
+import { ProductModel } from "./ProductModel";
+
 export interface Cart {
     items: Array<CartItem>;
 }
@@ -7,4 +9,6 @@ export interface CartItem {
     name: string;
     price: number;
     quantity: number;
+    picturePath: string;
+    productModel: ProductModel;
 }

@@ -1,24 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { ProductService } from 'src/app/Services/Product.service';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ProductService } from 'src/app/Services/product.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @Component({
   selector: 'app-merchandise',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatBadgeModule],
   templateUrl: './merchandise.component.html',
   styleUrls: ['./merchandise.component.css'],
 })
 export class MerchandiseComponent implements OnInit {
   products: ProductModel[] = []; // This is the array of products that will be displayed on the page.
   cart: CartItem[] = [];
-  itemlength = 0;
   private _cart: Cart = { items: [] };
+  itemlength = 0;
   itemsQuantity = 0;
+  checkEmpty: boolean = false;
 
   @Input()
   get carts(): Cart {
@@ -32,39 +35,67 @@ export class MerchandiseComponent implements OnInit {
       .map((item) => item.quantity)
       .reduce((prev, current) => prev + current, 0);
   }
+  
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private snackbar: SnackBarService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.productService.getAllProducts().subscribe({
       // This is the call to the service to get all products.
       next: (result) => {
         this.products = result;
-        console.log( this.cart.length);
-        this.cart.forEach(element => {
+        if (result.length > 0){
+          result.forEach((product) => {
+            product.beforePrice = product.price;
+            if (product.discountProcent > 0) {
+              product.price = product.price - (product.price / 100 * product.discountProcent);
+            }
+          });
+        }
+        this.cart.forEach((element) => {
           this.itemlength += element.quantity;
-          
         });
       }, // This is the callback function that will be executed when the service returns the data.
     });
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
+
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  checkIfEmpty() {
+    if (this.products.length <= 0)
+    {
+      return true;
+    }
+    return false;
+  }
+  
 
   CartTotal(): number {
     return this.cartService.getCartTotal();
   }
 
   addToCart(products: ProductModel) {
+    this.itemlength += 1;
     let item: CartItem = {
       id: products.id,
-      price: products.productPrice,
+      price: products.price,
       quantity: 1,
-      name: products.productName,
+      name: products.name,
+      picturePath: products.productPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
-    this.itemlength +=1;
+    this.snackbar.openSnackBar(products.name + ' added to cart','','success');
   }
+
 }

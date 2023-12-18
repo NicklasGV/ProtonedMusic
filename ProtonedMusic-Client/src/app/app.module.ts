@@ -5,23 +5,38 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './Shared/navbar/navbar.component';
 import { FooterComponent } from './Shared/footer/footer.component';
-import { ShopComponent } from './Components/shop/shop.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './Services/Guard/jwt.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShopComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NavbarComponent,
     FooterComponent,
-    HttpClientModule
-    
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    SnackBarComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+  },
+  {
+    provide: DatePipe
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
