@@ -18,10 +18,10 @@
               <tr *ngFor="let cart of cartItems">
                   <td class="">
                     <a *ngIf="cart.picturePath">
-                        <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 25%">
+                        <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 40%; height: 10rem;">
                     </a>
                     <a *ngIf="!cart.picturePath">
-                        <img src="../../../assets/img/img400.png" style="width: 25%">
+                        <img src="../../../assets/img/img400.png" style="width: 25%; height: 40%; height: 10rem;">
                     </a>
                   </td>
                   <td class="align-middle">{{ cart.name }}</td>
