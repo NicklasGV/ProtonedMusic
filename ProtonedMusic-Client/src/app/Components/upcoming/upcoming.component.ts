@@ -31,12 +31,9 @@ export class UpcomingComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
 
-    if (this.upcomings == null)
-    {
-      await this.delay(200);
-      this.checkEmpty = this.checkIfEmpty();
-    }
-
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
+    
   }
 
   delay(ms: number) {

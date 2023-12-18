@@ -1,16 +1,17 @@
 <div class="container-fluid">
-    <div class="Calendar">
-        <div class="bg">
-            <!-- <mat-calendar [(selected)]="selected"></mat-calendar> -->
-            <p-calendar [(ngModel)]="selected" [inline]="true" [showTime]="true"></p-calendar>
-        </div>
+    <div>
+      <p-calendar class="" [(ngModel)]="selected" [inline]="true" [showTime]="true" dateFormat="dd.mm.yy">
+        <ng-template pTemplate="date" let-date>
+          <span *ngFor="let dates of content" [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
+        </ng-template>
+      </p-calendar>
     </div>
     <div>
         <button class="btn btn-success my-2" (click)="showEvent()">New Event</button>
     </div>
 </div>
 
-<div class="my-4" *ngIf="showEventBool">
+<div class="my-4">
     <div class="container-fluid" data-bs-theme="dark">
         <div class="form-group row mb-3">
             <label class="col-12 col-sm-1 col-form-label">Title</label>
