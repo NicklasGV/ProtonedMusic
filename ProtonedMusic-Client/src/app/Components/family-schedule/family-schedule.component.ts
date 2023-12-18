@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { CalendarModel, resetCalendar } from 'src/app/Models/CalendarModel';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, UntypedFormArray } from '@angular/forms';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { CalendarService } from 'src/app/Services/calendar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
@@ -27,11 +27,13 @@ export class FamilyScheduleComponent implements OnInit {
   currentUser: User = resetUser();
   user: User = resetUser();
   showEventBool: boolean = false;
+  crossedOutDates: string[] = [];
 
   constructor(
     private snackBar: SnackBarService,
     private dialog: MatDialog,
     private calendarService: CalendarService,
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit() {
@@ -47,6 +49,21 @@ export class FamilyScheduleComponent implements OnInit {
       this.selected = new Date();
       return this.showEventBool = false;
     }
+  }
+
+  transformDate(date: any) {
+    return this.datePipe.transform(date, 'dd');
+  }
+
+  calendarDates(date: any): boolean {
+    let isDateTrue = false;
+    this.content.forEach(calDate => {
+      if (this.transformDate(calDate.date) == date) {
+        isDateTrue = true;
+      }
+    });
+
+    return isDateTrue;
   }
 
   editEvent(event: CalendarModel) {

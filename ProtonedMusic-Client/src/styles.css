@@ -1,6 +1,6 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import "primeng/resources/themes/saga-green/theme.css";
+@import "~primeng/resources/themes/bootstrap4-dark-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
 /* You can add global styles to this file, and also import other style files */
@@ -63,7 +63,28 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-datepicker-calendar-date-text-color: white !important;
   --mat-datepicker-calendar-header-text-color: white !important;
   --mat-datepicker-calendar-container-text-color: white !important;
-}    
+}
+
+.p-datepicker, .p-datepicker-header {
+  color: white !important;
+}
+
+.p-element:hover {
+  color: var(--secondary-color) !important;
+}
+
+.p-datepicker, .p-datepicker-header {
+  background-color: var(--secondary-color) !important;
+}
+
+.p-scrolltop.p-link {
+  background: rgb(0 0 0 / 0%) !important;
+}
+
+.p-scrolltop-icon {
+  font-size: 2.5rem !important;
+  color: var(--primary-color) !important;
+}
 
 
 html, body { height: 100%; }
