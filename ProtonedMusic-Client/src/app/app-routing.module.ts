@@ -38,6 +38,7 @@ const routes: Routes = [
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
 
+  //WIP
   {path: 'order/success', loadComponent: () =>
   import('./Components/ordersuccess/ordersuccess.component').then(it => it.OrdersuccessComponent)},
 
