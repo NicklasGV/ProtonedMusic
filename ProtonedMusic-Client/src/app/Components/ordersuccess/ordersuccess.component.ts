@@ -20,18 +20,7 @@ export class OrdersuccessComponent {
     private paymentService: PaymentService) {}
 
     ngOnInit(): void {
-      // Hent sessionId fra ruteparametre
-      this.route.params.subscribe(params => {
-        const sessionId = params['sessionId'];
 
-        // Hent ordreoplysninger baseret på sessionId fra din backend
-        this.getOrderDetails(sessionId);
-      });
     }
-    getOrderDetails(orderId: string) {
-      // Implementer logik for at hente ordreoplysninger fra din backend
-      // Brug orderId til at hente data fra din backend
-      // Du kan kalde en ny backend-tjeneste eller opdatere din nuværende service til at håndtere dette
-      // Opdater cartItems med de hentede oplysninger
-    }
+
 }
