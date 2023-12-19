@@ -16,7 +16,8 @@
           </thead>
           <tbody>
               <tr *ngFor="let cart of cartItems">
-                  <td class="">
+                <!--Skjuler billedet kun på telefonen-->
+                  <td class="d-none d-md-table-cell">
                     <a *ngIf="cart.picturePath">
                         <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 40%; height: 10rem;">
                     </a>
