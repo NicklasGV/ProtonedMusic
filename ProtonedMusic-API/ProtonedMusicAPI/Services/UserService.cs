@@ -114,15 +114,10 @@ namespace ProtonedMusicAPI.Services
 
         public async Task<UserResponse> CreateAsync(UserRequest newUser)
         {
-            var mail = await _userRepository.FindByEmail(newUser.Email);
             var user = await _userRepository.CreateAsync(MapUserRequestToUser(newUser));
             if (user == null)
             {
                 throw new ArgumentNullException();
-            }
-            else if (user.Email == mail.Email)
-            {
-                throw new InvalidDataException();
             }
             return MapUserToUserResponse(user);
         }

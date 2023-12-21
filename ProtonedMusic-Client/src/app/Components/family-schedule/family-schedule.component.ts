@@ -5,13 +5,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { CalendarModel, resetCalendar } from 'src/app/Models/CalendarModel';
-import { FormsModule, UntypedFormArray } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { CalendarService } from 'src/app/Services/calendar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { CalendarModule } from 'primeng/calendar';
-
-
 @Component({
   selector: 'app-family-schedule',
   standalone: true,
@@ -39,7 +37,6 @@ export class FamilyScheduleComponent implements OnInit {
   ngOnInit() {
     this.calendarService.getAllContent().subscribe((x) => (this.content = x));
   }
-
   showEvent() {
     if (this.showEventBool == false) {
       return this.showEventBool = true;
@@ -54,15 +51,23 @@ export class FamilyScheduleComponent implements OnInit {
   transformDate(date: any) {
     return this.datePipe.transform(date, 'dd');
   }
+  transformMonth(date: any) {
+    return this.datePipe.transform(date, 'M');
+  }
 
-  calendarDates(date: any): boolean {
+  calendarDates(date: any, month: any): boolean {
     let isDateTrue = false;
-    this.content.forEach(calDate => {
-      if (this.transformDate(calDate.date) == date) {
-        isDateTrue = true;
-      }
-    });
-
+    if (this.content)
+    {
+      this.content.forEach(calDate => {
+        if (this.transformDate(calDate.date) == date) {
+          if (this.transformMonth(calDate.date) == month) 
+          {
+            isDateTrue = true;
+          }
+        }
+      });
+    }
     return isDateTrue;
   }
 
@@ -70,7 +75,6 @@ export class FamilyScheduleComponent implements OnInit {
     this.selected = event.date;
     Object.assign(this.calendarContent, event);
   }
-
   deleteEvent(event: CalendarModel) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
@@ -78,7 +82,6 @@ export class FamilyScheduleComponent implements OnInit {
         message: 'Are you sure you want to delete this event?',
       },
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.calendarService.deleteEvent(event.id).subscribe((x) => {
@@ -91,12 +94,10 @@ export class FamilyScheduleComponent implements OnInit {
       }
     });
   }
-
   cancel() {
     this.calendarContent = resetCalendar();
     this.showEvent();
   }
-
   save() {
     this.message = '';
     if (this.calendarContent.id == 0) {
@@ -131,5 +132,4 @@ export class FamilyScheduleComponent implements OnInit {
     }
     this.calendarContent = resetCalendar();
   }
-
 }

@@ -3,7 +3,6 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
-/* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
 
 body {
@@ -64,7 +63,39 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-datepicker-calendar-date-text-color: white !important;
   --mat-datepicker-calendar-header-text-color: white !important;
   --mat-datepicker-calendar-container-text-color: white !important;
-}    
+}   
+
+.p-datepicker, .p-datepicker-header {
+  color: white !important;
+}
+.p-datepicker:active {
+  color: var(--button-color);
+}
+
+.p-datepicker table td > span.p-highlight {
+  color: #ffffff;
+  background-color: #114d32ab;
+}
+
+.p-datepicker table td > span.p-element:hover {
+  color: white !important;
+  background-color: #114d32ab !important;
+}
+
+.p-element:hover{
+  background-color: #114d32ab  !important;
+}
+
+.p-datepicker, .p-datepicker-header {
+  background-color: var(--secondary-color) !important;
+}
+.p-scrolltop.p-link {
+  background: rgb(0 0 0 / 0%) !important;
+}
+.p-scrolltop-icon {
+  font-size: 2.5rem !important;
+  color: var(--primary-color) !important;
+}
 
 
 html, body { height: 100%; }

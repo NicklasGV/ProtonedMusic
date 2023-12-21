@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.Extensions.Hosting.Internal;
+using Stripe.Tax;
 
 namespace ProtonedMusicAPI.Controllers
 {
@@ -144,6 +145,12 @@ namespace ProtonedMusicAPI.Controllers
         {
             try
             {
+                var mail = await _userService.FindByEmailAsync(newUser.Email);
+                if (mail != null)
+                {
+                    return Problem("Email is already in use");
+                }
+
                 UserResponse userResponse = await _userService.CreateAsync(newUser);
 
                 if (newUser.PictureFile != null)

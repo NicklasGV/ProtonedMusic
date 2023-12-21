@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class dsfdsdf : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -147,17 +147,17 @@ namespace ProtonedMusicAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(500)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     AddonRoles = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    Postal = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Postal = table.Column<int>(type: "int", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     ProfilePicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -266,9 +266,7 @@ namespace ProtonedMusicAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Artist_Id = table.Column<int>(type: "int", nullable: false),
                     ArtistId = table.Column<int>(type: "int", nullable: false),
-                    music_Id = table.Column<int>(type: "int", nullable: false),
                     MusicId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -351,8 +349,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "EventPicturePath", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 12, 14, 10, 56, 16, 624, DateTimeKind.Local).AddTicks(177), "Test event", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "First Event" },
-                    { 2, new DateTime(2023, 12, 14, 10, 56, 16, 624, DateTimeKind.Local).AddTicks(192), "Test 2 for testing making events", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Super Event" }
+                    { 1, new DateTime(2023, 12, 21, 10, 21, 16, 26, DateTimeKind.Local).AddTicks(759), "Test event", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "First Event" },
+                    { 2, new DateTime(2023, 12, 21, 10, 21, 16, 26, DateTimeKind.Local).AddTicks(765), "Test 2 for testing making events", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Super Event" }
                 });
 
             migrationBuilder.InsertData(
@@ -379,7 +377,7 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 12, 14, 10, 56, 16, 795, DateTimeKind.Local).AddTicks(2285), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
+                    { 1, new DateTime(2023, 12, 21, 10, 21, 16, 250, DateTimeKind.Local).AddTicks(5419), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
                     { 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
                     { 3, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
                 });
@@ -400,8 +398,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "AddonRoles", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "ProfilePicturePath", "Role" },
                 values: new object[,]
                 {
-                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$1xE5ch3IIG1hdKAnunBceue8lf/VOAGWMk6qNNn/GBKDKFXuCjsKu", 12345678, 1234, null, 1 },
-                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$wZYK8Yx6gLuzuy33NUUxruHSSVAflZE98uzqom9Hr2nCf3K7vlLua", 12345679, 1234, null, 0 }
+                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$X4YOq7077rmJnJ/OeFhiHuLF79IVy3qX17aB6kwWxAdnK10XXzsje", 12345678, 1234, null, 1 },
+                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$wXFcLdepk2u0MNJJzdqUG.fICqL/AbH4xR8rEmuY5slmWLIWXJUre", 12345679, 1234, null, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -419,7 +417,7 @@ namespace ProtonedMusicAPI.Migrations
             migrationBuilder.InsertData(
                 table: "newsLikes",
                 columns: new[] { "Id", "DateTime", "news_Id", "user_Id" },
-                values: new object[] { 1, new DateTime(2023, 12, 14, 10, 56, 16, 795, DateTimeKind.Local).AddTicks(2414), 1, 1 });
+                values: new object[] { 1, new DateTime(2023, 12, 21, 10, 21, 16, 250, DateTimeKind.Local).AddTicks(5561), 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Artist_UserId",

@@ -62,13 +62,7 @@ namespace ProtonedMusicAPI.Migrations
                     b.Property<int>("ArtistId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Artist_Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("MusicId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("music_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -183,7 +177,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 12, 14, 10, 56, 16, 624, DateTimeKind.Local).AddTicks(177),
+                            Created = new DateTime(2023, 12, 21, 10, 21, 16, 26, DateTimeKind.Local).AddTicks(759),
                             Description = "Test event",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -192,7 +186,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 12, 14, 10, 56, 16, 624, DateTimeKind.Local).AddTicks(192),
+                            Created = new DateTime(2023, 12, 21, 10, 21, 16, 26, DateTimeKind.Local).AddTicks(765),
                             Description = "Test 2 for testing making events",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -373,7 +367,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 12, 14, 10, 56, 16, 795, DateTimeKind.Local).AddTicks(2285),
+                            DateTime = new DateTime(2023, 12, 21, 10, 21, 16, 250, DateTimeKind.Local).AddTicks(5419),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -422,7 +416,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 12, 14, 10, 56, 16, 795, DateTimeKind.Local).AddTicks(2414),
+                            DateTime = new DateTime(2023, 12, 21, 10, 21, 16, 250, DateTimeKind.Local).AddTicks(5561),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -609,15 +603,12 @@ namespace ProtonedMusicAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Email")
@@ -625,21 +616,19 @@ namespace ProtonedMusicAPI.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("PhoneNumber")
+                    b.Property<int?>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("Postal")
+                    b.Property<int?>("Postal")
                         .HasColumnType("int");
 
                     b.Property<string>("ProfilePicturePath")
@@ -663,7 +652,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$1xE5ch3IIG1hdKAnunBceue8lf/VOAGWMk6qNNn/GBKDKFXuCjsKu",
+                            Password = "$2b$10$X4YOq7077rmJnJ/OeFhiHuLF79IVy3qX17aB6kwWxAdnK10XXzsje",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -678,7 +667,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$wZYK8Yx6gLuzuy33NUUxruHSSVAflZE98uzqom9Hr2nCf3K7vlLua",
+                            Password = "$2b$10$wXFcLdepk2u0MNJJzdqUG.fICqL/AbH4xR8rEmuY5slmWLIWXJUre",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0
