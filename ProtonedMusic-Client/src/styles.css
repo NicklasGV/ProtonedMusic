@@ -68,9 +68,22 @@ h1, h2, h3, h4, h5 , h6, p {
 .p-datepicker, .p-datepicker-header {
   color: white !important;
 }
+.p-datepicker:active {
+  color: var(--button-color);
+}
 
-.p-element:hover {
-  color: var(--secondary-color) !important;
+.p-datepicker table td > span.p-highlight {
+  color: #ffffff;
+  background-color: #114d32ab;
+}
+
+.p-datepicker table td > span.p-element:hover {
+  color: #ffffff !important;
+  background-color: #114d32ab !important;
+}
+
+.p-element:hover{
+  background-color: #ffffff48 !important;
 }
 
 .p-datepicker, .p-datepicker-header {
