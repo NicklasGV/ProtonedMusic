@@ -1,11 +1,11 @@
-import { FamilyScheduleComponent } from './Components/family-schedule/family-schedule.component';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Services/Guard/auth.guard';
 import { FamilyGuard } from './Services/Guard/family.guard';
 
 const routes: Routes = [
-  {path: '', loadComponent: () => 
+  {path: '', loadComponent: () =>
   import('./Components/home/home.component').then(it => it.HomepageComponent)},
 
   {path: 'login', loadComponent: () =>
@@ -38,8 +38,6 @@ const routes: Routes = [
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
 
-  {path: 'familyschedule', loadComponent: () =>
-  import('./Components/family-schedule/family-schedule.component').then(it => it.FamilyScheduleComponent), canActivate: [FamilyGuard]},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
@@ -47,11 +45,14 @@ const routes: Routes = [
   {path: 'newsDetailed/:id', loadComponent: () =>
   import('./Components/news-detailed/news-detailed.component').then(it => it.NewsDetailedComponent)},
 
-  {path: 'profilmenu/:id', loadComponent: ()=> 
+  {path: 'profilmenu/:id', loadComponent: ()=>
   import('./Components/Profile/profilmenu/profilmenu.component').then( it => it.ProfilmenuComponent)},
 
-  {path: 'profilmenu/:id/editprofil', loadComponent: ()=> 
+  {path: 'profilmenu/:id/editprofil', loadComponent: ()=>
   import('./Components/Profile/editprofile/editprofile.component').then( it => it.EditprofilComponent)},
+
+  {path: 'profilmenu/:id/orderhistory', loadComponent: ()=>
+  import('./Components/Profile/orderHistory/order-history/order-history.component').then( it => it.OrderHistoryComponent)},
 
   {path: 'admin', loadComponent: () =>
   import('./Components/Admin/admin-panel/admin-panel.component').then(it => it.AdminPanelComponent), canActivate: [AuthGuard]},

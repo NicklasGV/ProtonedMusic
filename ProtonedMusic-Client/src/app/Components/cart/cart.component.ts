@@ -95,23 +95,22 @@ export class CartComponent implements OnInit {
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
 
-    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map(item => {
+    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map((item) => {
       return {
         name: item.name,
         unitAmount: item.price,
         quantity: item.quantity,
-        price: item.price
+        price: item.price,
       };
     });
 
-    // Opdater til at bruge createDeliveryAddressSession
-    this.paymentService.CreateCheckoutSession(stripeCheckoutItems).subscribe(
+    this.paymentService.CreateCheckoutSession(stripeCheckoutItems, this.authService.currentUserValue.email).subscribe(
       (response) => {
-        console.log('Session oprettet:', response);
+        console.log('Session created:', response);
         this.initiateStripeCheckout(response);
       },
       (error) => {
-        console.error('Fejl under oprettelse af session:', error);
+        console.error('Error creating session:', error);
       }
     );
   }

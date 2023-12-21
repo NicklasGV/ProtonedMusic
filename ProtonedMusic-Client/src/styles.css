@@ -1,6 +1,6 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import "~primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
 /* You can add global styles to this file, and also import other style files */
@@ -8,7 +8,7 @@ html, body { height: 100%; }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   height: 100vh;
   background-color: #292b2c;
   color: #fff;
@@ -33,8 +33,6 @@ h1, h2, h3, h4, h5 , h6, p {
   --secondary-color: #162328;
   --button-color: #198754;
   --back-button-color: #dc3545;
-  --calendar-color: #198754;
-  --calendar-opacity-color: #19875452;
 }
 
 .mat-mdc-dialog-container{
@@ -47,9 +45,12 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-mdc-slider-focus-ripple-color: #105736 !important;
   --mat-mdc-slider-ripple-color: #0a3823 !important;
 }
+
 .panel-tooltip {
   --mdc-plain-tooltip-container-color: transparent !important;
 }
+
+
 .mat-mdc-dialog-container {
   --mdc-dialog-container-color: var(--bs-dark-rgb) !important;
 }
@@ -63,41 +64,7 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-datepicker-calendar-date-text-color: white !important;
   --mat-datepicker-calendar-header-text-color: white !important;
   --mat-datepicker-calendar-container-text-color: white !important;
-}
-
-.p-datepicker, .p-datepicker-header {
-  color: white !important;
-}
-.p-datepicker:active {
-  color: var(--button-color);
-}
-
-.p-datepicker table td > span.p-highlight {
-  color: #ffffff;
-  background-color: #114d32ab;
-}
-
-.p-datepicker table td > span.p-element:hover {
-  color: #ffffff !important;
-  background-color: #114d32ab !important;
-}
-
-.p-element:hover{
-  background-color: #ffffff48 !important;
-}
-
-.p-datepicker, .p-datepicker-header {
-  background-color: var(--secondary-color) !important;
-}
-
-.p-scrolltop.p-link {
-  background: rgb(0 0 0 / 0%) !important;
-}
-
-.p-scrolltop-icon {
-  font-size: 2.5rem !important;
-  color: var(--primary-color) !important;
-}
+}    
 
 
 html, body { height: 100%; }
