@@ -69,7 +69,6 @@ namespace ProtonedMusicAPI.Services
         {
             Artist artist = new Artist
             {
-                Id = artistRequest.Id,
                 Name = artistRequest.Name,
                 Info = artistRequest.Info,
                 PicturePath = artistRequest.PicturePath,
@@ -78,7 +77,7 @@ namespace ProtonedMusicAPI.Services
 
             if (artistRequest.Links != null && artistRequest.Links.Count > 0)
             {
-                artist.Links.AddRange((IEnumerable<Link>)artistRequest.Links.Select(x => new Link
+                artist.Links.AddRange(artistRequest.Links.Select(x => new Link
                 {
                     ArtistId = x.ArtistId,
                     Title = x.Title,
