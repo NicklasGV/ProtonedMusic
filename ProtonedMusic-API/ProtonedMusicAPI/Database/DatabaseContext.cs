@@ -268,6 +268,29 @@
                 SongFilePath = "assets/music/audio2.mp3",
                 SongPicturePath = ""
             });
+
+            modelBuilder.Entity<Artist>().HasData(new Artist
+            {
+                Id = 1,
+                UserId = 1,
+                Name = "Joey Moe",
+                Info = "Bedste Sanger",
+            });
+
+            modelBuilder.Entity<ArtistSong>().HasData(new ArtistSong
+            {
+                Id = 1,
+                ArtistId = 1,
+                MusicId = 1,
+            });
+
+            modelBuilder.Entity<Link>().HasData(new Link
+            {
+                Id = 1,
+                ArtistId = 1,
+                Title = "Discord",
+                LinkAddress = "https://discord.gg/Jt4rwUZGGS"
+            });
         }
     }
 }
