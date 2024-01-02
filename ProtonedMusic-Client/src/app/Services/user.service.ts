@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../Models/UserModel';
-import { AddonRoles } from '../Models/AddonRole';
 
 @Injectable({
   providedIn: 'root'
@@ -33,10 +32,9 @@ export class UserService {
     formData.append('city', user.city);
     formData.append('postal', user.postal.toString());
     formData.append('country', user.country);
-    formData.append('profilePicturePath', user.profilePicturePath);
-    user.newsIds.forEach(newsIds => {
-      formData.append('newsIds', newsIds.toString());
-    });
+    if (user.profilePicturePath != null) {
+      formData.append('profilePicturePath', user.profilePicturePath);
+    }
 
     if (user.role) {
       formData.append('role', user.role);
@@ -78,9 +76,6 @@ export class UserService {
     formData.append('postal', user.postal.toString());
     formData.append('country', user.country);
     formData.append('profilePicturePath', user.profilePicturePath);
-    user.newsIds.forEach(newsIds => {
-      formData.append('newsIds', newsIds.toString());
-    });
 
     if (user.role) {
       formData.append('role', user.role);

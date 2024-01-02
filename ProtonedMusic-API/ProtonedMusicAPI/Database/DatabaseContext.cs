@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.VisualBasic;
-using System.ComponentModel;
-
-namespace ProtonedMusicAPI.Database
+﻿namespace ProtonedMusicAPI.Database
 {
     public class DatabaseContext : DbContext
     {
@@ -17,6 +13,12 @@ namespace ProtonedMusicAPI.Database
         public DbSet<FrontpagePost> Frontpages { get; set; }
         public DbSet<Upcoming> upcomings { get; set; }
         public DbSet<Music> Music { get; set; }
+        public DbSet<CalendarContent> CalendarContent { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ItemProduct> itemProducts { get; set; }
+        public DbSet<Artist> Artist { get; set; }
+        public DbSet<Link> Link { get; set; }
+        public DbSet<ArtistSong> ArtistSong { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,7 +61,7 @@ namespace ProtonedMusicAPI.Database
                 .HasOne(nl => nl.News)
                 .WithMany(n => n.NewsLikes)
                 .HasForeignKey(nl => nl.news_Id);
-
+                
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
 
@@ -68,7 +70,9 @@ namespace ProtonedMusicAPI.Database
                 Id = 1,
                 Name = "Rock Shirt",
                 Price = 399.95M,
-                Description = "Testproduct for seeing 2 categories"
+                Description = "Testproduct for seeing 2 categories",
+                IsDiscounted = true,
+                DiscountProcent = 20,
             },
             new Product
             {
@@ -90,6 +94,8 @@ namespace ProtonedMusicAPI.Database
                 Name = "Pop song",
                 Price = 760,
                 Description = "Testproduct song",
+                IsDiscounted = true,
+                DiscountProcent = 80,
             });
 
             modelBuilder.Entity<Category>().HasData(new Category

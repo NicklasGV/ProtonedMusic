@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-around col-md-12">
         <div class="display-6 fw-medium mt-4">MERCHANDISE</div>
         <div class="btnImg btn-group mt-2 flex-column align-items-center">
-            <span class="position-absolute start-50 translate-middle badge rounded-pill bg-danger mt-1 ms-4" 
+            <span class="position-absolute start-50 translate-middle badge rounded-pill bg-danger mt-1 ms-4"
             style="font-size: 0.8rem;">{{itemlength}}</span>
             <i class="bi bi-cart3" [routerLink]="['/cart']" style="font-size: 2.5rem;"></i>
             <p class="Total fw-medium m-0">{{ CartTotal() | currency:'DKK ' }}</p>
@@ -17,9 +17,15 @@
                 <div class="card-header d-flex justify-content-center">
                     <a *ngIf="product.productPicturePath">
                         <img src="https://protonedmusic.com/{{ product.productPicturePath }}" class="rounded-2">
+                        <span class="overlay translate-middle-y rounded-pill badge text-black bg-danger fs-6" *ngIf="product.isDiscounted">{{product.discountProcent}}%</span>
+                        <span class="badge translate-middle-y text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Discounted Item</span>
+                        <span class="badge translate-middle-y text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Before: {{product.beforePrice | currency: "dkk"}}</span>
                     </a>
                     <a *ngIf="!product.productPicturePath">
                         <img src="../../../assets/img/img400.png" class="rounded-2">
+                        <span class="overlay translate-middle-y rounded-pill badge text-black bg-danger fs-6" *ngIf="product.isDiscounted">{{product.discountProcent}}%</span>
+                        <span class="overlay2 translate-middle-y badge text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Discounted Item</span>
+                        <span class="overlay2 translate-middle-y badge text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Before: {{product.beforePrice | currency: "dkk"}}</span>
                     </a>
                 </div>
                 <div class="card-body" style="display: flex; flex-direction: column; min-width: 200px;">
@@ -48,3 +54,5 @@
         </div>
       </div>
 </div>
+
+

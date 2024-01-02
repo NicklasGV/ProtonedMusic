@@ -6,11 +6,12 @@ import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @Component({
   selector: 'app-merchandise',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatBadgeModule],
   templateUrl: './merchandise.component.html',
   styleUrls: ['./merchandise.component.css'],
 })
@@ -48,6 +49,14 @@ export class MerchandiseComponent implements OnInit {
       // This is the call to the service to get all products.
       next: (result) => {
         this.products = result;
+        if (result.length > 0){
+          result.forEach((product) => {
+            product.beforePrice = product.price;
+            if (product.discountProcent > 0) {
+              product.price = product.price - (product.price / 100 * product.discountProcent);
+            }
+          });
+        }
         this.cart.forEach((element) => {
           this.itemlength += element.quantity;
         });

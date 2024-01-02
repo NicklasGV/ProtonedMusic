@@ -1,7 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { UpcomingService } from 'src/app/Services/upcoming.service';
 import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 
@@ -18,22 +17,25 @@ export class UpcomingComponent implements OnInit {
 
   constructor(private upcomingService: UpcomingService) { }
 
-  getUpcomingShows(): any[] {
+  getUpcomingShows() {
     const currentTime = new Date();
     currentTime.setDate(currentTime.getDate() - 1);
     currentTime.setHours(23, 59, 59, 999);
-
-    return this.upcomings.filter(upcoming => {
-      const showDate = new Date(upcoming.timeof);
-      return showDate > currentTime;
-    });
+    if (this.upcomings != null)
+    {
+      return this.upcomings.filter(upcoming => {
+        const showDate = new Date(upcoming.timeof);
+        return showDate > currentTime;
+      });
+    }
+    return null;
   }
 
   async ngOnInit(): Promise<void> {
-    this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+      this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
 
-    await this.delay(200);
-    this.checkEmpty = this.checkIfEmpty();
+      await this.delay(200);
+      this.checkEmpty = this.checkIfEmpty();
   }
 
   delay(ms: number) {
@@ -41,7 +43,7 @@ export class UpcomingComponent implements OnInit {
   }
 
   checkIfEmpty() {
-    if (this.upcomings.length <= 0)
+    if (this.upcomings == null || this.upcomings.length <= 0)
     {
       return true;
     }

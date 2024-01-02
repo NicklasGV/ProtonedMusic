@@ -23,6 +23,19 @@ export class FooterComponent implements OnInit {
 
   constructor(private authService: AuthService, private router:Router, private userService: UserService, private snackBar: SnackBarService) {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    if (this.currentUser.id <= 0){
+      console.error("No user found");
+    }
+    else if (this.currentUser.id > 0)
+    {
+      this.userService.findById(this.authService.currentUserValue.id).subscribe({
+        next: (x) => {
+          this.user = x;
+        },
+        error: (err) => {
+        }
+      });
+    }
   }
 
   ngOnInit(): void {

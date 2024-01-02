@@ -72,6 +72,8 @@ namespace ProtonedMusicAPI.Repositories
                 product.Price = updateProduct.Price;
                 product.Description = updateProduct.Description;
                 product.ProductPicturePath = updateProduct.ProductPicturePath;
+                product.IsDiscounted = updateProduct.IsDiscounted;
+                product.DiscountProcent = updateProduct.DiscountProcent;
 
                 await _context.SaveChangesAsync();
                 //Vi finder produktet igen med alle de nye ændringer og sender den til produkt som vi retunere

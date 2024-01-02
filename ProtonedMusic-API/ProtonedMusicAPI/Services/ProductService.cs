@@ -16,6 +16,8 @@
                 Price = product.Price,
                 Description = product.Description,
                 ProductPicturePath = product.ProductPicturePath,
+                IsDiscounted = product.IsDiscounted,
+                DiscountProcent = product.DiscountProcent,
 
             };
             if (product.ProductCategories.Count > 0)
@@ -36,10 +38,12 @@
                 Price = productRequest.Price,
                 Description = productRequest.Description,
                 ProductPicturePath = productRequest.ProductPicturePath,
+                IsDiscounted = productRequest.IsDiscounted,
+                DiscountProcent = productRequest.DiscountProcent,
                 ProductCategories = productRequest.CategoryIds.Select(c => new ProductCategory
                 {
                     CategoryId = c
-                }).ToList()
+                }).ToList(),
             };
         }
 

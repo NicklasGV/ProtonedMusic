@@ -8,11 +8,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProtonedMusicAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CalendarContent",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(80)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(255)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FamilyMember = table.Column<string>(type: "nvarchar(80)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CalendarContent", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
@@ -100,7 +116,9 @@ namespace ProtonedMusicAPI.Migrations
                     Name = table.Column<string>(type: "nvarchar(80)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(600)", nullable: false),
-                    ProductPicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ProductPicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDiscounted = table.Column<bool>(type: "bit", nullable: false),
+                    DiscountProcent = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,17 +147,17 @@ namespace ProtonedMusicAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(500)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     AddonRoles = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    Postal = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Postal = table.Column<int>(type: "int", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     ProfilePicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -172,6 +190,28 @@ namespace ProtonedMusicAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Artist",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Info = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    PicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Artist", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Artist_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "newsLikes",
                 columns: table => new
                 {
@@ -198,6 +238,101 @@ namespace ProtonedMusicAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_User_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArtistSong",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ArtistId = table.Column<int>(type: "int", nullable: false),
+                    MusicId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArtistSong", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ArtistSong_Artist_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artist",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArtistSong_Music_MusicId",
+                        column: x => x.MusicId,
+                        principalTable: "Music",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Link",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ArtistId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    LinkAddress = table.Column<string>(type: "nvarchar(200)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Link", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Link_Artist_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artist",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "itemProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_itemProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_itemProducts_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_itemProducts_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Category",
                 columns: new[] { "Id", "Name" },
@@ -214,8 +349,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "Created", "Description", "EventPicturePath", "Price", "TimeofEvent", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 24, 7, 50, 3, 177, DateTimeKind.Local).AddTicks(9765), "Test event", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "First Event" },
-                    { 2, new DateTime(2023, 11, 24, 7, 50, 3, 177, DateTimeKind.Local).AddTicks(9777), "Test 2 for testing making events", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Super Event" }
+                    { 1, new DateTime(2024, 1, 2, 8, 33, 39, 772, DateTimeKind.Local).AddTicks(6422), "Test event", null, 249.95m, new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified), "First Event" },
+                    { 2, new DateTime(2024, 1, 2, 8, 33, 39, 772, DateTimeKind.Local).AddTicks(6435), "Test 2 for testing making events", null, 546.95m, new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified), "Super Event" }
                 });
 
             migrationBuilder.InsertData(
@@ -242,20 +377,20 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "DateTime", "Text", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 24, 7, 50, 3, 377, DateTimeKind.Local).AddTicks(9230), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
+                    { 1, new DateTime(2024, 1, 2, 8, 33, 39, 909, DateTimeKind.Local).AddTicks(7829), "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset", "DATABASE GOT RESET" },
                     { 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "So ProtonedMusic's website is now up and running!", "Website Running!" },
                     { 3, new DateTime(2023, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Check out my new song in merchandise", "NEW SONG OUT" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "Id", "Description", "Name", "Price", "ProductPicturePath" },
+                columns: new[] { "Id", "Description", "DiscountProcent", "IsDiscounted", "Name", "Price", "ProductPicturePath" },
                 values: new object[,]
                 {
-                    { 1, "Testproduct for seeing 2 categories", "Rock Shirt", 399.95m, null },
-                    { 2, "Testproduct cap", "Normal Cap", 560m, null },
-                    { 3, "Today's video is sponsored by Raid Shadow Legends, one of the biggest mobile role-playing games of 2019 and it's totally free! Currently almost 10 million users have joined Raid over the last six months, and it's one of the most impressive games in its class with detailed models, environments and smooth 60 frames per second animations! All the champions in the game can be customized with unique gear that changes your strategic buffs and abilities! So what are you waiting for? Go to the video description! Good luck and I'll see you there!", "Raid Shadow Legends", 299.95m, null },
-                    { 4, "Testproduct song", "Pop song", 760m, null }
+                    { 1, "Testproduct for seeing 2 categories", 20.0, true, "Rock Shirt", 399.95m, null },
+                    { 2, "Testproduct cap", 0.0, false, "Normal Cap", 560m, null },
+                    { 3, "Today's video is sponsored by Raid Shadow Legends, one of the biggest mobile role-playing games of 2019 and it's totally free! Currently almost 10 million users have joined Raid over the last six months, and it's one of the most impressive games in its class with detailed models, environments and smooth 60 frames per second animations! All the champions in the game can be customized with unique gear that changes your strategic buffs and abilities! So what are you waiting for? Go to the video description! Good luck and I'll see you there!", 0.0, false, "Raid Shadow Legends", 299.95m, null },
+                    { 4, "Testproduct song", 80.0, true, "Pop song", 760m, null }
                 });
 
             migrationBuilder.InsertData(
@@ -263,8 +398,8 @@ namespace ProtonedMusicAPI.Migrations
                 columns: new[] { "Id", "AddonRoles", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "Postal", "ProfilePicturePath", "Role" },
                 values: new object[,]
                 {
-                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$4mBWtZUHqs/UcA9Vbbsn.e6VRQvGSQCVijBMAiWIWa5gD85.BPAL2", 12345678, 1234, null, 1 },
-                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$DtfoKuuA5mDIp2JUQi4cYO4IK.IuIOD0Z0z6VUq6tVP6CC38qzwX.", 12345679, 1234, null, 0 }
+                    { 1, 0, "Test Vej 1", "Test By", "Denmark", "testmail1", "Joey", "Test", "$2b$10$O0QDlj4wIjt01vf9B.D2w.QgeTADH6NZqY3bFRc0tF6VlrQca68PW", 12345678, 1234, null, 1 },
+                    { 2, 0, "Test Vej 2", "Test By", "Denmark", "testmail2", "Børge", "Jep", "$2b$10$aSVCKChmxb9Skb7t1qr2EORIdi8/6bOytJF.l98.J2u8DgWXb4XwG", 12345679, 1234, null, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -282,7 +417,37 @@ namespace ProtonedMusicAPI.Migrations
             migrationBuilder.InsertData(
                 table: "newsLikes",
                 columns: new[] { "Id", "DateTime", "news_Id", "user_Id" },
-                values: new object[] { 1, new DateTime(2023, 11, 24, 7, 50, 3, 377, DateTimeKind.Local).AddTicks(9300), 1, 1 });
+                values: new object[] { 1, new DateTime(2024, 1, 2, 8, 33, 39, 909, DateTimeKind.Local).AddTicks(7897), 1, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Artist_UserId",
+                table: "Artist",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArtistSong_ArtistId",
+                table: "ArtistSong",
+                column: "ArtistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArtistSong_MusicId",
+                table: "ArtistSong",
+                column: "MusicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_itemProducts_OrderId",
+                table: "itemProducts",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_itemProducts_ProductId",
+                table: "itemProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Link_ArtistId",
+                table: "Link",
+                column: "ArtistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_newsLikes_news_Id",
@@ -295,6 +460,11 @@ namespace ProtonedMusicAPI.Migrations
                 column: "user_Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerId",
+                table: "Orders",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_CategoryId",
                 table: "ProductCategories",
                 column: "CategoryId");
@@ -304,13 +474,22 @@ namespace ProtonedMusicAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ArtistSong");
+
+            migrationBuilder.DropTable(
+                name: "CalendarContent");
+
+            migrationBuilder.DropTable(
                 name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Frontpages");
 
             migrationBuilder.DropTable(
-                name: "Music");
+                name: "itemProducts");
+
+            migrationBuilder.DropTable(
+                name: "Link");
 
             migrationBuilder.DropTable(
                 name: "newsLikes");
@@ -322,16 +501,25 @@ namespace ProtonedMusicAPI.Migrations
                 name: "upcomings");
 
             migrationBuilder.DropTable(
-                name: "News");
+                name: "Music");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Artist");
+
+            migrationBuilder.DropTable(
+                name: "News");
 
             migrationBuilder.DropTable(
                 name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

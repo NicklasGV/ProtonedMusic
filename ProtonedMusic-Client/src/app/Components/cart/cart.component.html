@@ -4,7 +4,7 @@
       <table class="table table-dark">
           <thead>
               <tr>
-                  <th>Image</th>
+                  <th class="d-none d-md-table-cell">Image</th>
                   <th>Name</th>
                   <th>Quantity</th>
                   <th>Amount</th>
@@ -16,7 +16,7 @@
           </thead>
           <tbody>
               <tr *ngFor="let cart of cartItems">
-                  <td class="">
+                  <td class="d-none d-md-table-cell">
                     <a *ngIf="cart.picturePath">
                         <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 25%">
                     </a>

@@ -1,8 +1,4 @@
-﻿using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using MimeKit.Text;
-using ProtonedMusicAPI.DTO.EmailDTO;
+﻿using ProtonedMusicAPI.DTO.EmailDTO;
 
 namespace ProtonedMusicAPI.Controllers
 {

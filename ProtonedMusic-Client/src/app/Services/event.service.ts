@@ -22,7 +22,9 @@ export class EventService {
     formData.append('title', event.title);
     formData.append('description', event.description);
     formData.append('price', event.price.toString());
-    formData.append('eventPicturePath', event.eventPicturePath);
+    if (event.eventPicturePath != null) {
+      formData.append('eventPicturePath', event.eventPicturePath);
+    }
     formData.append('timeofEvent', event.timeofEvent);
     formData.append('dateofEvent', event.dateofEvent);
     formData.append('created', event.created.toISOString());
@@ -41,10 +43,12 @@ export class EventService {
     formData.append('title', event.title);
     formData.append('description', event.description);
     formData.append('price', event.price.toString());
-    formData.append('eventPicturePath', event.eventPicturePath);
+    if (event.eventPicturePath != null) {
+      formData.append('eventPicturePath', event.eventPicturePath);
+    }
     formData.append('timeofEvent', event.timeofEvent);
     formData.append('dateofEvent', event.dateofEvent);
-    formData.append('created', event.created.toISOString());
+    formData.append('created', event.created.toString());
 
   
     if (event.pictureFile) {
