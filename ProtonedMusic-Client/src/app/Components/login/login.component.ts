@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
           this.snackBar.openSnackBar('User registered','','success');
         },
         error: err => {
-          if (err.status === 400 || err.status === 409 || err.status === 500) {
+          if (err.status === 400 || err.status === 409) {
             this.message = 'Email is already in use';
             this.userForm.reset();
             this.snackBar.openSnackBar(this.message, '', 'error');
