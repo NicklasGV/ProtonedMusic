@@ -10,7 +10,8 @@ import { JwtInterceptor } from './Services/Guard/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DatePipe } from '@angular/common';
 import { ScrollTopModule } from 'primeng/scrolltop';
 
@@ -29,7 +30,8 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     MatSnackBarModule,
     MatDialogModule,
     SnackBarComponent,
-    ScrollTopModule
+    ScrollTopModule,
+    ConfirmDialogModule
   ],
   providers: [
     {
