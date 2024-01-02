@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
-import { Role, constRoles } from 'src/app/Models/role';
+import { Role } from 'src/app/Models/role';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
 @Component({
@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
     private userService: UserService,
     private formBuilder: FormBuilder,
     private snackBar: SnackBarService,
@@ -70,10 +69,10 @@ export class LoginComponent implements OnInit {
         console.error('Login error:', err);
         if (err.status === 400 || err.status === 401 || err.status === 500) {
           this.message = 'Incorrect email or password. Please try again.';
-          this.snackBar.openSnackBar(this.message, 'asdfasd', 'error');
+          this.snackBar.openSnackBar(this.message, '', 'error');
         } else {
           this.message = 'An unexpected error occurred.';
-          this.snackBar.openSnackBar(this.message, 'asd', 'error');
+          this.snackBar.openSnackBar(this.message, '', 'error');
         }
       }
     });
@@ -83,36 +82,25 @@ export class LoginComponent implements OnInit {
     if (this.userForm.valid && this.userForm.touched) {
       this.userForm.value.role = 'Customer'
       this.userForm.value.addonRole = 'None'
-      if (this.user.id == 0) {
-        this.userService.create(this.userForm.value).subscribe({
-          next: (x) => {
-            this.users.push(x);
-            this.cancel();
+      this.userService.create(this.userForm.value).subscribe({
+        next: (x) => {
+          this.users.push(x);
+          this.cancel();
+          this.userForm.reset();
+          this.snackBar.openSnackBar('User registered','','success');
+        },
+        error: err => {
+          if (err.status === 400 || err.status === 409 || err.status === 500) {
+            this.message = 'Email is already in use';
             this.userForm.reset();
-            this.snackBar.openSnackBar('User registered','','success');
-          },
-          error: (err) => {
-            this.message = Object.values(err.error.errors).join(", ");
-            this.snackBar.openSnackBar(this.message,'','error');
-          },
-        });
-      } else {
-        this.userService.update(this.userForm.value).subscribe({
-          error: (err) => {
-            this.message = Object.values(err.error.errors).join(", ");
             this.snackBar.openSnackBar(this.message, '', 'error');
-
-          },
-          complete: () => {
-            this.userService.getAll().subscribe((x) => (this.users = x));
+          } else {
+            this.message = 'An unexpected error occurred.';
             this.userForm.reset();
-            window.location.reload();
-            this.snackBar.openSnackBar('User registered','','success');
-            this.cancel();
-          },
-        });
-      }
-
+            this.snackBar.openSnackBar(this.message, '', 'error');
+          }
+        }
+      });
     }
   }
 

@@ -177,7 +177,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 12, 21, 10, 21, 16, 26, DateTimeKind.Local).AddTicks(759),
+                            Created = new DateTime(2024, 1, 2, 8, 33, 39, 772, DateTimeKind.Local).AddTicks(6422),
                             Description = "Test event",
                             Price = 249.95m,
                             TimeofEvent = new DateTime(2023, 5, 2, 23, 23, 0, 0, DateTimeKind.Unspecified),
@@ -186,7 +186,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 12, 21, 10, 21, 16, 26, DateTimeKind.Local).AddTicks(765),
+                            Created = new DateTime(2024, 1, 2, 8, 33, 39, 772, DateTimeKind.Local).AddTicks(6435),
                             Description = "Test 2 for testing making events",
                             Price = 546.95m,
                             TimeofEvent = new DateTime(2023, 9, 17, 13, 20, 0, 0, DateTimeKind.Unspecified),
@@ -367,7 +367,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 12, 21, 10, 21, 16, 250, DateTimeKind.Local).AddTicks(5419),
+                            DateTime = new DateTime(2024, 1, 2, 8, 33, 39, 909, DateTimeKind.Local).AddTicks(7829),
                             Text = "Sorry if you lost important data or something funny, but hey whoever needed to resetting the database needed it. You can see under here when it last got reset",
                             Title = "DATABASE GOT RESET"
                         },
@@ -416,7 +416,7 @@ namespace ProtonedMusicAPI.Migrations
                         new
                         {
                             Id = 1,
-                            DateTime = new DateTime(2023, 12, 21, 10, 21, 16, 250, DateTimeKind.Local).AddTicks(5561),
+                            DateTime = new DateTime(2024, 1, 2, 8, 33, 39, 909, DateTimeKind.Local).AddTicks(7897),
                             news_Id = 1,
                             user_Id = 1
                         });
@@ -652,7 +652,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail1",
                             FirstName = "Joey",
                             LastName = "Test",
-                            Password = "$2b$10$X4YOq7077rmJnJ/OeFhiHuLF79IVy3qX17aB6kwWxAdnK10XXzsje",
+                            Password = "$2b$10$O0QDlj4wIjt01vf9B.D2w.QgeTADH6NZqY3bFRc0tF6VlrQca68PW",
                             PhoneNumber = 12345678,
                             Postal = 1234,
                             Role = 1
@@ -667,7 +667,7 @@ namespace ProtonedMusicAPI.Migrations
                             Email = "testmail2",
                             FirstName = "Børge",
                             LastName = "Jep",
-                            Password = "$2b$10$wXFcLdepk2u0MNJJzdqUG.fICqL/AbH4xR8rEmuY5slmWLIWXJUre",
+                            Password = "$2b$10$aSVCKChmxb9Skb7t1qr2EORIdi8/6bOytJF.l98.J2u8DgWXb4XwG",
                             PhoneNumber = 12345679,
                             Postal = 1234,
                             Role = 0
