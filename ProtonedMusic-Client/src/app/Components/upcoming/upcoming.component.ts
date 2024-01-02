@@ -17,23 +17,25 @@ export class UpcomingComponent implements OnInit {
 
   constructor(private upcomingService: UpcomingService) { }
 
-  getUpcomingShows(): any[] {
+  getUpcomingShows() {
     const currentTime = new Date();
     currentTime.setDate(currentTime.getDate() - 1);
     currentTime.setHours(23, 59, 59, 999);
-
-    return this.upcomings.filter(upcoming => {
-      const showDate = new Date(upcoming.timeof);
-      return showDate > currentTime;
-    });
+    if (this.upcomings != null)
+    {
+      return this.upcomings.filter(upcoming => {
+        const showDate = new Date(upcoming.timeof);
+        return showDate > currentTime;
+      });
+    }
+    return null;
   }
 
   async ngOnInit(): Promise<void> {
-    this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+      this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
 
-    await this.delay(200);
-    this.checkEmpty = this.checkIfEmpty();
-    
+      await this.delay(200);
+      this.checkEmpty = this.checkIfEmpty();
   }
 
   delay(ms: number) {
@@ -41,7 +43,7 @@ export class UpcomingComponent implements OnInit {
   }
 
   checkIfEmpty() {
-    if (this.upcomings.length <= 0)
+    if (this.upcomings == null || this.upcomings.length <= 0)
     {
       return true;
     }
