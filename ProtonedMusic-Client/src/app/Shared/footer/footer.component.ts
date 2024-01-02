@@ -1,6 +1,6 @@
 import { UserService } from 'src/app/Services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
@@ -20,8 +20,10 @@ export class FooterComponent implements OnInit {
   user: User = resetUser();
   currentUser: User = resetUser();
   roleChecker: string = 'Admin';
+  currentYear: Date = new Date();
+  currentYearString: any;
 
-  constructor(private authService: AuthService, private router:Router, private userService: UserService, private snackBar: SnackBarService) {
+  constructor(private authService: AuthService, private router:Router, private userService: UserService, private snackBar: SnackBarService, private datePipe: DatePipe) {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     if (this.currentUser.id <= 0){
       console.error("No user found");
@@ -38,7 +40,12 @@ export class FooterComponent implements OnInit {
     }
   }
 
+  transformYear(date: any) {
+    return this.datePipe.transform(date, 'YYYY');
+  }
+
   ngOnInit(): void {
+    this.currentYearString = this.transformYear(this.currentYear)?.toString();
   }
 
   roleCheck(): boolean {
