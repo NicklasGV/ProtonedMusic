@@ -20,18 +20,18 @@ export class TestingComponent implements OnInit {
   }
 
   playSound() {
-    this.audio.src = "../../assets/music/Lady.mp3";
+    this.audio.src = "../../assets/music/Chippi.mp3";
     this.audio.load();
     this.audio.play();
   }
 
   pauseSound() {
-    this.audio.src = "../../assets/music/Lady.mp3";
+    this.audio.src = "../../assets/music/Chippi.mp3";
     this.audio.pause
   }
 
   startSound() {
-    this.audio.src = "../../assets/music/Lady.mp3";
+    this.audio.src = "../../assets/music/Chippi.mp3";
     this.audio.play();
   }
 
