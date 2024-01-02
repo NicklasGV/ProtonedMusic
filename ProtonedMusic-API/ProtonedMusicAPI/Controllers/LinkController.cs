@@ -105,7 +105,7 @@ namespace ProtonedMusicAPI.Controllers
 
         [AllowAnnonymous]
         [HttpPost]
-        [Route("register")]
+        [Route("create")]
         public async Task<IActionResult> CreateAsync([FromBody] LinkRequest newLink)
         {
             try
