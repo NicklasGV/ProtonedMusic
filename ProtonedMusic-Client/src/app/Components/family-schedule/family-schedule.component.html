@@ -2,7 +2,7 @@
     <div>
       <p-calendar [(ngModel)]="selected" [showWeek]="true" [inline]="true" [showTime]="true" [showSeconds]="true" [showOtherMonths]="false">
         <ng-template pTemplate="date" let-date>
-          <span class="bg" [ngStyle]="{background: (calendarDates(date.day, (date.month + 1))) ? '#1987548f' : ''}">{{date.day}}</span>
+          <span class="bg"  [ngStyle]="{'background': (calendarDates(date.day, (date.month + 1))) ? '#1987548f' : ''}">{{date.day}}</span>
         </ng-template>
       </p-calendar>
     </div>
