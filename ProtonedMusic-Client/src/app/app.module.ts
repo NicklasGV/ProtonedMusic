@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { DatePipe } from '@angular/common';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
-    SnackBarComponent
+    SnackBarComponent,
+    ScrollTopModule
   ],
   providers: [
     {

@@ -2,7 +2,6 @@
 {
     public class ArtistRequest
     {
-        public int Id { get; set; }
         [StringLength(32, ErrorMessage = "Name cannot be longer than 32 chars")]
         public string Name { get; set; }
 

@@ -13,6 +13,7 @@
         public string Info { get; set; }
 
         public string? PicturePath { get; set; }
+
         
 
         public List<ArtistSong> Songs { get; set; } = new List<ArtistSong>();

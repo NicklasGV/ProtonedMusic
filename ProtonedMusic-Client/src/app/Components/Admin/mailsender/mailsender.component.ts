@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { UserService } from 'src/app/Services/user.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { EmailModel, resetEmail } from 'src/app/Models/EmailModel';
 import { EmailService } from 'src/app/Services/email.service';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
-import { subscribeOn } from 'rxjs';
+
 
 @Component({
   selector: 'app-mailsender',
@@ -24,12 +24,17 @@ export class MailsenderComponent implements OnInit {
   sendToAll: boolean = false;
   selected: string[] = [];
   date: any = new Date();
+  formGroup: FormGroup | undefined;
   footerContent = '<br><br><br><br>' + '<footer><a style="font-size: smaller;" href="https://protonedmusic.com/#/unsubscribe">Unsubscribe</a></footer>';
 
   constructor(private userService: UserService, private mailService: EmailService, private snackBar: SnackBarService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.userService.getAll().subscribe(x => this.users = x);
+
+    this.formGroup = new FormGroup({
+      text: new FormControl()
+  });
   }
 
   transformDate(date: any) {

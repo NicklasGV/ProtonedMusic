@@ -10,11 +10,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-news-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, CalendarModule],
   templateUrl: './news-panel.component.html',
   styles: []
 })
