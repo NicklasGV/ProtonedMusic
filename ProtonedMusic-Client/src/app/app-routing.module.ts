@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Services/Guard/auth.guard';
+import { FamilyGuard } from './Services/Guard/family.guard';
 
 const routes: Routes = [
   {path: '', loadComponent: () =>
