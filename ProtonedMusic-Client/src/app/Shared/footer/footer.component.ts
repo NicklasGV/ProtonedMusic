@@ -1,5 +1,5 @@
 import { UserService } from 'src/app/Services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
@@ -14,14 +14,14 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
   templateUrl: './footer.component.html',
   styles: ['']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent{ 
   message: string = '';
   users: User[] = [];
   user: User = resetUser();
   currentUser: User = resetUser();
   roleChecker: string = 'Admin';
   currentYear: Date = new Date();
-  currentYearString: any;
+  currentYearString: any = this.transformYear(this.currentYear)?.toString();
 
   constructor(private authService: AuthService, private router:Router, private userService: UserService, private snackBar: SnackBarService, private datePipe: DatePipe) {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
@@ -42,10 +42,6 @@ export class FooterComponent implements OnInit {
 
   transformYear(date: any) {
     return this.datePipe.transform(date, 'YYYY');
-  }
-
-  ngOnInit(): void {
-    this.currentYearString = this.transformYear(this.currentYear)?.toString();
   }
 
   roleCheck(): boolean {
