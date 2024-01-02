@@ -41,7 +41,7 @@ export class FooterComponent{
   }
 
   transformYear(date: any) {
-    return this.datePipe.transform(date, 'YYYY');
+    return this.datePipe.transform(date, 'Y');
   }
 
   roleCheck(): boolean {
