@@ -91,8 +91,8 @@ const routes: Routes = [
   import('./Components/Admin/music-panel/music-panel.component').then(it => it.MusicPanelComponent), canActivate: [AuthGuard]},
 
   //Page not found component. must be at bottom
-  // {path: '**', loadComponent: () =>
-  // import ('./Components/page-not-found/page-not-found.component').then(it => it.PageNotFoundComponent)},
+   {path: '**', loadComponent: () =>
+   import ('./Components/page-not-found/page-not-found.component').then(it => it.PageNotFoundComponent)},
 
 ];
 
