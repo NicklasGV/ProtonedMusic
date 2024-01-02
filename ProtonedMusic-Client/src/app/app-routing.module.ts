@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Services/Guard/auth.guard';
-import { FamilyGuard } from './Services/Guard/family.guard';
 
 const routes: Routes = [
   {path: '', loadComponent: () =>
@@ -86,6 +85,10 @@ const routes: Routes = [
 
   {path: 'admin/musicpanel', loadComponent: () =>
   import('./Components/Admin/music-panel/music-panel.component').then(it => it.MusicPanelComponent), canActivate: [AuthGuard]},
+
+  //Page not found component. must be at bottom
+  // {path: '**', loadComponent: () =>
+  // import ('./Components/page-not-found/page-not-found.component').then(it => it.PageNotFoundComponent)},
 
 ];
 
