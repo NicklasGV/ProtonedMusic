@@ -1,7 +1,8 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
 
-/* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
 
 body {
@@ -27,9 +28,10 @@ h1, h2, h3, h4, h5 , h6, p {
 }
 
 :root{
-  --primary-color: #3FC060;
+  --primary-color: #3FC060 !important;
   --secondary-color: #162328;
   --button-color: #198754;
+  --green-color: #198754;
   --back-button-color: #dc3545;
 }
 
@@ -52,10 +54,65 @@ h1, h2, h3, h4, h5 , h6, p {
 .mat-mdc-dialog-container {
   --mdc-dialog-container-color: var(--bs-dark-rgb) !important;
 }
+.mat-calendar{
+  --mat-datepicker-calendar-date-selected-state-background-color: var(--calendar-color) !important;
+  --mat-datepicker-calendar-date-today-selected-state-outline-color: var(--calendar-color) !important;
+  --mat-datepicker-calendar-date-hover-state-background-color: var(--calendar-opacity-color) !important;
+  --mat-datepicker-calendar-header-divider-color: rgb(71, 70, 70) !important;
+  --mat-datepicker-calendar-date-focus-state-background-color: var(--calendar-color);
+  --mat-datepicker-calendar-body-label-text-color: white !important;
+  --mat-datepicker-calendar-date-text-color: white !important;
+  --mat-datepicker-calendar-header-text-color: white !important;
+  --mat-datepicker-calendar-container-text-color: white !important;
+}   
 
+.p-datepicker, .p-datepicker-header, .p-datepicker-month, .p-datepicker-year {
+  color: white !important;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.p-datepicker-today > span.p-element {
+  color: #ffffff;
+  background-color: #239461ab !important;
+}
+
+.p-datepicker table td > span.p-highlight {
+  color: #ffffff;
+  background-color: #114d32ab !important;
+}
+
+.p-yearpicker > span.p-highlight {
+  color: white !important;
+  background-color: #114d32ab !important;
+}
+
+.p-datepicker table td > span.p-element:hover {
+  color: white !important;
+  background-color: #114d32ab !important;
+}
+
+.p-datepicker > .p-element:hover{
+  background-color: #114d32ab  !important;
+}
+
+.p-datepicker, .p-datepicker-header {
+  background-color: var(--secondary-color) !important;
+}
+.p-scrolltop.p-link {
+  background: rgb(0 0 0 / 0%) !important;
+}
+.p-scrolltop-icon {
+  font-size: 2.5rem !important;
+  color: var(--primary-color) !important;
+}
+
+.p-datepicker-month:hover, .p-datepicker-year:hover {
+  color: var(--green-color)  !important;
+}
+
+.p-ripple:hover {
+  background-color: #114d32ab !important;
+}
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

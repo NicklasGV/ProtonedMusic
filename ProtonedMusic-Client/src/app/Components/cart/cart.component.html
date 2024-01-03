@@ -4,7 +4,7 @@
       <table class="table table-dark">
           <thead>
               <tr>
-                  <th>Image</th>
+                  <th class="d-none d-md-table-cell">Image</th>
                   <th>Name</th>
                   <th>Quantity</th>
                   <th>Amount</th>
@@ -16,12 +16,13 @@
           </thead>
           <tbody>
               <tr *ngFor="let cart of cartItems">
-                  <td class="">
+                <!--Skjuler billedet kun på telefonen-->
+                  <td class="d-none d-md-table-cell">
                     <a *ngIf="cart.picturePath">
-                        <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 25%">
+                        <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 40%; height: 10rem;">
                     </a>
                     <a *ngIf="!cart.picturePath">
-                        <img src="../../../assets/img/img400.png" style="width: 25%">
+                        <img src="../../../assets/img/img400.png" style="width: 25%; height: 40%; height: 10rem;">
                     </a>
                   </td>
                   <td class="align-middle">{{ cart.name }}</td>
@@ -42,7 +43,7 @@
               </tr>
           </tbody>
       </table>
-      <button class="btn btn-success btn-sm float-end" (click)="buyCartItems()">PROCEED PURCHASE</button>
+      <button class="btn btn-success btn-sm float-end mb-3" (click)="buyCartItems()">PROCEED PURCHASE</button>
       <button (click)="clearCart()" class="btn btn-danger btn-sm float-end me-2">
         EMPTY BASKET
       </button>
