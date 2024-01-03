@@ -18,7 +18,6 @@ namespace ProtonedMusicAPI.Services
             {
                 Id = music.Id,
                 SongName = music.SongName,
-                Artist = music.Artist,
                 Album = music.Album,
                 SongFilePath = music.SongFilePath,
                 SongPicturePath = music.SongPicturePath,
@@ -31,11 +30,10 @@ namespace ProtonedMusicAPI.Services
             Music music = new Music
             {
                 SongName = musicRequest.SongName,
-                Artist = musicRequest.Artist,
                 Album = musicRequest.Album,
                 SongFilePath = musicRequest.SongFilePath ?? string.Empty,
                 SongPicturePath = musicRequest.SongPicturePath ?? string.Empty,
-                Songs = artistRequest.SongIds.Select(s => new ArtistSong
+                Artist = musicRequest.ArtistIds.Select(s => new ArtistSong
                 {
                     ArtistId = s
                 }).ToList(),
