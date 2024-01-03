@@ -1,0 +1,9 @@
+.bg:hover {
+  color: #ffffff;
+  background-color: #114d32ab !important;
+}
+
+:host .background {
+  color: #ffffff;
+  background-color: #114d32ab !important;
+}
