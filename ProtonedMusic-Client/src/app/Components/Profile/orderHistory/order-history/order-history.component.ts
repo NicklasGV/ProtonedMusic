@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Order } from 'src/app/Models/Order';
 
 @Component({
   selector: 'app-order-history',
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './order-history.component.css'
 })
 export class OrderHistoryComponent {
-
+orderHistory: Order[] = [];
 
 
 }

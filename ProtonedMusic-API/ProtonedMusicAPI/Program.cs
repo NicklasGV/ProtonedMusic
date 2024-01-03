@@ -43,6 +43,10 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IFrontpagePostRepository, FrontpagePostRepository>();
             builder.Services.AddScoped<IFrontpagePostService, FrontpagePostService>();
 
+            builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
+            builder.Services.AddScoped<IOrderHistoryService, OrderHistoryService>();
+
+
             builder.Services.AddScoped<IEmailService, EmailService>();
 
             builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));

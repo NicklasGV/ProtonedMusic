@@ -2,6 +2,8 @@
 {
     public class OrderHistoryRequest
     {
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
+        public List<ItemProduct> Items { get; set; }
+        public string OrderNumber { get; set; }
     }
 }
