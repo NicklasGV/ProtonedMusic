@@ -32,6 +32,7 @@ export class MusicplayerComponent implements OnInit{
     
     async ngOnInit(): Promise<void> {
       this.musicService.getAll().subscribe(x => this.files = x);
+      
 
 
     // listen to stream state
@@ -63,6 +64,7 @@ export class MusicplayerComponent implements OnInit{
 
   openFile(file: MusicModel, index: number) {
     this.currentFile = { index, file};
+    console.log(this.files);
     this.audioService.stop();
     this.playStream("https://protonedmusic.com/" + this.currentFile.file.songFilePath);
     this.currentSongName = this.currentFile.file.songName;

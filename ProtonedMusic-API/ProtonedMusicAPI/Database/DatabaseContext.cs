@@ -279,7 +279,7 @@
             {
                 Id = 1,
                 UserId = 1,
-                Name = "Joey Moe",
+                Name = "Joey Testoe",
                 Info = "Bedste Sanger",
             });
 

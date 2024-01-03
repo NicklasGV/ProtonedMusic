@@ -54,7 +54,13 @@
               </div>
             </td>
             <td>{{ file.songName }}</td>
-            <td>{{file.artist}}</td>
+            <td>
+              <table><tr *ngFor="let art of file.artist;">
+                <td class="name">
+                    {{art.name}}
+                </td>
+               </tr></table>  
+            </td>
             <td>{{file.album}}</td>
           </tr>
         </tbody>
