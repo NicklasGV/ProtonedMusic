@@ -6,7 +6,6 @@
         public int Id { get; set; } 
         public string OrderNumber { get; set; }
         public List<ItemProduct> Items { get; set; }
-        public string Status { get; set; }
         [ForeignKey("User.Id")]
         public int CustomerId { get; set; }
         public User Customer { get; set; }
