@@ -20,7 +20,7 @@ export class ProductService {
     const formData = new FormData();
   
     formData.append('name', product.name);
-    formData.append('price', product.price.toString());
+    formData.append('price', product.price.toString().replace('.',','));
     formData.append('description', product.description);
     formData.append('productPicturePath', product.productPicturePath);
     product.categoryIds.forEach(categoryId => {
@@ -41,7 +41,7 @@ export class ProductService {
     const formData = new FormData();
   
     formData.append('name', product.name);
-    formData.append('price', product.price.toString());
+    formData.append('price', product.price.toString().replace('.',','));
     formData.append('description', product.description);
     if (product.productPicturePath != null) {
       formData.append('productPicturePath', product.productPicturePath);
