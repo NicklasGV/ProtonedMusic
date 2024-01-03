@@ -1,6 +1,9 @@
+import { Order } from './../../../../Models/Order';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from 'src/app/Models/Order';
+import { User, resetUser } from 'src/app/Models/UserModel';
+import { UserService } from 'src/app/Services/user.service';
+
 
 @Component({
   selector: 'app-order-history',
@@ -10,7 +13,13 @@ import { Order } from 'src/app/Models/Order';
   styleUrl: './order-history.component.css'
 })
 export class OrderHistoryComponent {
-orderHistory: Order[] = [];
+  user: User = resetUser();
+  orderHistory: Order[] = [];
 
+  constructor(private userService: UserService) {}
 
+  ngOnInit(): void{
+    this.userService.findById(1).subscribe(x => this.user = x);
+  }
+  
 }

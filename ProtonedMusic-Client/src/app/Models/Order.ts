@@ -4,4 +4,5 @@ export interface Order {
   quantity: number;
   amount: number;
   total: number;
+  date: Date;
 }
