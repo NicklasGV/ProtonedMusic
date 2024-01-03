@@ -31,6 +31,7 @@ h1, h2, h3, h4, h5 , h6, p {
   --primary-color: #3FC060 !important;
   --secondary-color: #162328;
   --button-color: #198754;
+  --green-color: #198754;
   --back-button-color: #dc3545;
 }
 
@@ -65,16 +66,23 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-datepicker-calendar-container-text-color: white !important;
 }   
 
-.p-datepicker, .p-datepicker-header {
+.p-datepicker, .p-datepicker-header, .p-datepicker-month, .p-datepicker-year {
   color: white !important;
 }
-.p-datepicker:active {
-  color: var(--button-color);
+
+.p-datepicker-today > span.p-element {
+  color: #ffffff;
+  background-color: #239461ab !important;
 }
 
 .p-datepicker table td > span.p-highlight {
   color: #ffffff;
-  background-color: #114d32ab;
+  background-color: #114d32ab !important;
+}
+
+.p-yearpicker > span.p-highlight {
+  color: white !important;
+  background-color: #114d32ab !important;
 }
 
 .p-datepicker table td > span.p-element:hover {
@@ -95,6 +103,14 @@ h1, h2, h3, h4, h5 , h6, p {
 .p-scrolltop-icon {
   font-size: 2.5rem !important;
   color: var(--primary-color) !important;
+}
+
+.p-datepicker-month:hover, .p-datepicker-year:hover {
+  color: var(--green-color)  !important;
+}
+
+.p-ripple:hover {
+  background-color: #114d32ab !important;
 }
 
 
