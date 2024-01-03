@@ -9,7 +9,7 @@
         public string SongName { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
-        public string Artist { get; set; }
+        public List<ArtistSong> Artist { get; set; } = new List<ArtistSong>();
 
         [Column(TypeName = "nvarchar(50)")]
         public string Album { get; set; }

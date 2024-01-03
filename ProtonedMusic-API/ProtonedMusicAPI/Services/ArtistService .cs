@@ -1,5 +1,6 @@
 ﻿using ProtonedMusicAPI.Database.Entities;
 using ProtonedMusicAPI.DTO.EmailDTO;
+using ProtonedMusicAPI.DTO.ProductDTO;
 
 namespace ProtonedMusicAPI.Services
 {
@@ -72,18 +73,16 @@ namespace ProtonedMusicAPI.Services
                 Name = artistRequest.Name,
                 Info = artistRequest.Info,
                 PicturePath = artistRequest.PicturePath,
-                Links = new List<Link>()
-            };
-
-            if (artistRequest.Links != null && artistRequest.Links.Count > 0)
-            {
-                artist.Links.AddRange(artistRequest.Links.Select(x => new Link
+                UserId = artistRequest.User,
+                Songs = artistRequest.SongIds.Select(s => new ArtistSong
                 {
-                    ArtistId = x.ArtistId,
-                    Title = x.Title,
-                    LinkAddress = x.LinkAddress
-                }));
-            }
+                    ArtistId = s
+                }).ToList(),
+                Links = artistRequest.LinksIds.Select(l => new Link
+                {
+                    ArtistId = l
+                }).ToList(),
+            };
 
             return artist;
         }

@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using ProtonedMusicAPI.DTO.ArtistDTO;
+
+namespace ProtonedMusicAPI.Services
 {
     public class MusicService : IMusicService
     {
@@ -33,6 +35,10 @@
                 Album = musicRequest.Album,
                 SongFilePath = musicRequest.SongFilePath ?? string.Empty,
                 SongPicturePath = musicRequest.SongPicturePath ?? string.Empty,
+                Songs = artistRequest.SongIds.Select(s => new ArtistSong
+                {
+                    ArtistId = s
+                }).ToList(),
             };
             return music;
         }
