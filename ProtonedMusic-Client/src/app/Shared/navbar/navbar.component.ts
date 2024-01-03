@@ -1,13 +1,15 @@
+import { UserService } from './../../Services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { AuthService } from 'src/app/Services/auth.service';
+import { Avatar, AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, AvatarModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
@@ -16,7 +18,7 @@ export class NavbarComponent implements OnInit {
   roleChecker: string = 'Admin';
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService, private router:Router) {
+  constructor(private authService: AuthService, private router:Router, private userService:UserService) {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
   }
 
@@ -26,6 +28,25 @@ export class NavbarComponent implements OnInit {
         this.isLoggedIn = true;
       }
     });
+
+    this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.currentUser = x);
+  }
+
+  avatarCheck(userRole: any, userPicpath: string): number {
+    if (userRole != null && userPicpath != null) {
+      return 1;
+    }
+    if (userRole != null && userPicpath == null) {
+      return 2;
+    }
+    return 0;
+  }
+
+  avatarLetterCheck(userName: string, userPicpath: string) {
+    if (userName != null && userPicpath == null) {
+      return userName.charAt(0)
+    }
+    return userName;
   }
 
   roleCheck(): boolean {
