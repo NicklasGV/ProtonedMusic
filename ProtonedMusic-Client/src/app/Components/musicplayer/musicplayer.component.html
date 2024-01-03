@@ -9,7 +9,8 @@
       <div class="d-flex justify-content-center mb-3">
         <img src="https://protonedmusic.com/{{ this.currentPicture }}" class="card-img">
       </div>
-      <h5 class="card-title d-flex justify-content-center">Current song: <p *ngIf="this.currentSongName" class="card-text ms-2"> {{this.currentSongName}} by {{this.currentArtist}}</p></h5>
+      <h5 class="card-title d-flex justify-content-center">Current song: <p *ngIf="this.currentSongName" class="card-text ms-2"> {{this.currentSongName}} by {{this.currentArtist}}
+      </p></h5>
       <div id="Duration" class="d-flex justify-content-center">
         {{ state?.readableCurrentTime }}
         <mat-slider style="width: 250px;" class="time-slider" min="0" [max]="state?.duration" step="1" [disabled]="state?.error || currentFile.index === undefined" #ngSlider>
