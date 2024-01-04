@@ -34,7 +34,8 @@
     <ng-template let-product pTemplate="item">
         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
             <div class="mb-3">
-                <img src="https://protonedmusic.com/{{ product.eventPicturePath }}" [alt]="product.name" class="w-6" style="max-height: 420px;" />
+                <img *ngIf="product.eventPicturePath != null" src="https://protonedmusic.com/{{ product.eventPicturePath }}" [alt]="product.name" class="w-6" style="max-height: 420px;" />
+                <img *ngIf="product.eventPicturePath == null" src="../../../assets/img/Error.jpg" alt="Can't find Picture path" class="w-6" style="max-height: 420px;" />
             </div>
             <div>
                 <h3 class="mb-1">{{ product.title }}</h3>
@@ -60,7 +61,7 @@
               <img src="https://protonedmusic.com/{{ event.eventPicturePath }}" class="img-fluid rounded-start">
           </a>
           <a *ngIf="!event.eventPicturePath">
-              <img src="../../../assets/img/img400.png" class="img-fluid rounded-start">
+              <img src="../../../assets/img/Error.jpg" class="img-fluid rounded-start">
           </a>
         </div>
         <div class="col-md-8">

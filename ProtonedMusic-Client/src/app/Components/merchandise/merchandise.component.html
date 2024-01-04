@@ -22,7 +22,7 @@
                         <span class="badge translate-middle-y text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Before: {{product.beforePrice | currency: "dkk"}}</span>
                     </a>
                     <a *ngIf="!product.productPicturePath">
-                        <img src="../../../assets/img/img400.png" class="rounded-2">
+                        <img src="../../../assets/img/Error.jpg" class="rounded-2">
                         <span class="overlay translate-middle-y rounded-pill badge text-black bg-danger fs-6" *ngIf="product.isDiscounted">{{product.discountProcent}}%</span>
                         <span class="overlay2 translate-middle-y badge text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Discounted Item</span>
                         <span class="overlay2 translate-middle-y badge text-black rounded-pill" style="background-color: orangered;" *ngIf="product.isDiscounted">Before: {{product.beforePrice | currency: "dkk"}}</span>
