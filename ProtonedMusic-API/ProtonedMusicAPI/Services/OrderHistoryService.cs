@@ -47,7 +47,7 @@ namespace ProtonedMusicAPI.Services
 
 
         // Hjælpefunktion til at mappe en Order til en OrderHistoryResponse
-        private OrderHistoryResponse MapOrderToOrderHistoryResponse(Order order)
+        public OrderHistoryResponse MapOrderToOrderHistoryResponse(Order order)
         {
             if (order == null)
             {
@@ -65,7 +65,7 @@ namespace ProtonedMusicAPI.Services
         }
 
         // Hjælpefunktion til at beregne den samlede pris for alle elementer i en ordre
-        private int CalculateTotalPrice(List<ItemProduct> items)
+        public int CalculateTotalPrice(List<ItemProduct> items)
         {
             if (items == null || items.Count == 0)
             {
@@ -76,7 +76,7 @@ namespace ProtonedMusicAPI.Services
         }
 
         // Hjælpefunktion til at beregne den samlede mængde af alle elementer i en ordre
-        private int CalculateTotalQuantity(List<ItemProduct> items)
+        public int CalculateTotalQuantity(List<ItemProduct> items)
         {
             if (items == null || items.Count == 0)
             {
