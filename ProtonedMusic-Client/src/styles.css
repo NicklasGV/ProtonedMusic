@@ -2,6 +2,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
 html, body { height: 100%; }
 
@@ -31,25 +32,23 @@ h1, h2, h3, h4, h5 , h6, p {
   --primary-color: #3FC060 !important;
   --secondary-color: #162328;
   --button-color: #198754;
+  --green-color: #198754;
   --back-button-color: #dc3545;
 }
 
+/*#region Angular-Mat*/
 .mat-mdc-dialog-container{
   background-color: #333333;
 }
-
 .mat-ripple {
   --mat-mdc-slider-hover-ripple-color: #198754 !important;
   opacity: 10%;
   --mat-mdc-slider-focus-ripple-color: #105736 !important;
   --mat-mdc-slider-ripple-color: #0a3823 !important;
 }
-
 .panel-tooltip {
   --mdc-plain-tooltip-container-color: transparent !important;
 }
-
-
 .mat-mdc-dialog-container {
   --mdc-dialog-container-color: var(--bs-dark-rgb) !important;
 }
@@ -64,17 +63,26 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-datepicker-calendar-header-text-color: white !important;
   --mat-datepicker-calendar-container-text-color: white !important;
 }   
+/*#endregion*/
 
-.p-datepicker, .p-datepicker-header {
+/*#region PrimeNG*/
+.p-datepicker, .p-datepicker-header, .p-datepicker-month, .p-datepicker-year {
   color: white !important;
 }
-.p-datepicker:active {
-  color: var(--button-color);
+
+.p-datepicker-today > span.p-element {
+  color: #ffffff;
+  background-color: #239461ab !important;
 }
 
 .p-datepicker table td > span.p-highlight {
   color: #ffffff;
-  background-color: #114d32ab;
+  background-color: #114d32ab !important;
+}
+
+.p-yearpicker > span.p-highlight {
+  color: white !important;
+  background-color: #114d32ab !important;
 }
 
 .p-datepicker table td > span.p-element:hover {
@@ -96,6 +104,21 @@ h1, h2, h3, h4, h5 , h6, p {
   font-size: 2.5rem !important;
   color: var(--primary-color) !important;
 }
+
+.p-datepicker-month:hover, .p-datepicker-year:hover {
+  color: var(--green-color)  !important;
+}
+
+.p-ripple:hover {
+  background-color: #114d32ab !important;
+}
+
+.p-avatar {
+  background-color: var(--green-color) !important;
+  cursor: pointer !important;
+}
+
+/*#endregion*/
 
 
 html, body { height: 100%; }
