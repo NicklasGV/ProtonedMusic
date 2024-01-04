@@ -39,7 +39,7 @@
             <td>{{order.quantity}}</td>
             <td>{{order.amount}}</td>
             <td>{{order.total}}</td>
-            <td>{{order.date}}</td>
+            <td>{{order.date | date: 'dd/MM/yyyy'}}</td>
           </tr>
         </tbody>
       </table>

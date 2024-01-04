@@ -11,6 +11,11 @@
 
         public async Task<Order> CreateOrder(int customerId, List<ItemProduct> items, string orderNumber)
         {
+            if (string.IsNullOrWhiteSpace(orderNumber))
+            {
+                throw new ArgumentException("Invalid orderNumber");
+            }
+
             Order newOrder = new Order
             {
                 CustomerId = customerId,
@@ -27,18 +32,23 @@
 
         public async Task<Order> GetOrdersByCustomerId(string customerId)
         {
-            // Returner alle ordrer for en bestemt kunde
             return await _context.Orders
-                .Include(o => o.Items) // Inkluder relationen til Items i ordren
+                .Include(o => o.Items)
                 .FirstOrDefaultAsync(o => o.CustomerId.ToString() == customerId);
         }
 
         public async Task<Order> GetOrdersById(int orderId)
         {
-            // Returner en specifik ordre baseret på ID
             return await _context.Orders
-                .Include(o => o.Items) // Inkluder relationen til Items i ordren
+                .Include(o => o.Items)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
+        }
+
+        public async Task<Order> GetOrdersByPaymentId(string paymentId)
+        {
+            return await _context.Orders
+                .Include(o => o.Items)
+                .FirstOrDefaultAsync(o => o.PaymentId == paymentId);
         }
     }
 }

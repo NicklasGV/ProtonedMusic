@@ -20,13 +20,16 @@ namespace ProtonedMusicAPI.Controllers
         {
             try
             {
-                // Her kan du eventuelt validere customerId-format eller håndtere det efter behov
+                if (string.IsNullOrWhiteSpace(customerId))
+                {
+                    return BadRequest("Invalid customerId");
+                }
+
                 var orderHistory = await _orderHistoryService.GetOrdersByCustomerIdAsync(customerId);
                 return Ok(orderHistory);
             }
             catch (Exception ex)
             {
-                // Håndter fejl og send en passende fejlmeddelelse
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
