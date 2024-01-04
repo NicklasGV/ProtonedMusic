@@ -4,10 +4,10 @@
   </div>
 </div>
 <div class="container-fluid" *ngIf="this.files.length > 0">
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center" *ngIf="this.currentPicture != '../../../assets/img/1.png'">
     <div class="card-body">
       <div class="d-flex justify-content-center mb-3">
-        <img src="https://protonedmusic.com/{{ this.currentPicture }}" class="card-img">
+        <img src="https://protonedmusic.com/{{this.currentPicture}}" class="card-img">
       </div>
       <h5 class="card-title d-flex justify-content-center">Current song: <p *ngIf="this.currentSongName" class="card-text ms-2"> {{this.currentSongName}} by {{this.currentArtist}}</p></h5>
       <div id="Duration" class="d-flex justify-content-center">
