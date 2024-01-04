@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-datepicker-calendar-header-text-color: white !important;
   --mat-datepicker-calendar-container-text-color: white !important;
 }   
-/*#endregion Angular-Mat*/
+/*#endregion*/
 
 /*#region PrimeNG*/
 .p-datepicker, .p-datepicker-header, .p-datepicker-month, .p-datepicker-year {
@@ -118,7 +118,7 @@ h1, h2, h3, h4, h5 , h6, p {
   cursor: pointer !important;
 }
 
-/*#endregion PrimeNG*/
+/*#endregion*/
 
 
 html, body { height: 100%; }
