@@ -36,22 +36,19 @@ h1, h2, h3, h4, h5 , h6, p {
   --back-button-color: #dc3545;
 }
 
+/*#region Angular-Mat*/
 .mat-mdc-dialog-container{
   background-color: #333333;
 }
-
 .mat-ripple {
   --mat-mdc-slider-hover-ripple-color: #198754 !important;
   opacity: 10%;
   --mat-mdc-slider-focus-ripple-color: #105736 !important;
   --mat-mdc-slider-ripple-color: #0a3823 !important;
 }
-
 .panel-tooltip {
   --mdc-plain-tooltip-container-color: transparent !important;
 }
-
-
 .mat-mdc-dialog-container {
   --mdc-dialog-container-color: var(--bs-dark-rgb) !important;
 }
@@ -66,7 +63,9 @@ h1, h2, h3, h4, h5 , h6, p {
   --mat-datepicker-calendar-header-text-color: white !important;
   --mat-datepicker-calendar-container-text-color: white !important;
 }   
+/*#endregion Angular-Mat*/
 
+/*#region PrimeNG*/
 .p-datepicker, .p-datepicker-header, .p-datepicker-month, .p-datepicker-year {
   color: white !important;
 }
@@ -118,6 +117,8 @@ h1, h2, h3, h4, h5 , h6, p {
   background-color: var(--green-color) !important;
   cursor: pointer !important;
 }
+
+/*#endregion PrimeNG*/
 
 
 html, body { height: 100%; }
