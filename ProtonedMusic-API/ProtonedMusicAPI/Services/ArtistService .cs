@@ -76,11 +76,11 @@ namespace ProtonedMusicAPI.Services
                 UserId = artistRequest.User,
                 Songs = artistRequest.SongIds.Select(s => new ArtistSong
                 {
-                    ArtistId = s
+                    MusicId = s
                 }).ToList(),
                 Links = artistRequest.LinksIds.Select(l => new Link
                 {
-                    ArtistId = l
+                    Id = l
                 }).ToList(),
             };
 
