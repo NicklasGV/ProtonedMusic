@@ -13,14 +13,7 @@
 
         public int User { get; set; } = new();
         public List<int> SongIds { get; set; } = new();
-        public List<ArtistLinksRequest> Links { get; set; } = new();
+        public List<int> LinksIds { get; set; } = new();
 
-    }
-
-    public class ArtistLinksRequest
-    {
-        public int ArtistId { get; set; }
-        public string Title { get; set; }
-        public string LinkAddress { get; set; }
     }
 }

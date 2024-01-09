@@ -7,8 +7,7 @@
         public string SongName { get; set; }
 
         [Required]
-        [StringLength(32, ErrorMessage = "Artist name cannot be longer than 64 chars")]
-        public string Artist { get; set; }
+        public List<int> ArtistIds { get; set; } = new();
 
         [Required]
         [StringLength(50, ErrorMessage = "Album cannot be longer than 50 chars")]

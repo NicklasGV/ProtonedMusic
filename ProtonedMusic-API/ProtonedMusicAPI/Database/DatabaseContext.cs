@@ -264,20 +264,61 @@
             modelBuilder.Entity<Music>().HasData(new Music
             {
                 Id = 1,
-                SongName = "Chatter",
-                Artist = "Connor Price",
-                Album = "Around the worlds",
-                SongFilePath = "assets/music/audio1.mp3",
-                SongPicturePath = ""
+                SongName = "Chipi chipi chapa chapa",
+                Album = "Chipi chipi",
+                SongFilePath = "assets/music/chibichibi.mp3",
+                SongPicturePath = "assets/img/chipichapa.gif"
             },
             new Music
             {
                 Id = 2,
                 SongName = "FlipFlop",
-                Artist = "Sigurd",
                 Album = "Bjørn",
                 SongFilePath = "assets/music/audio2.mp3",
                 SongPicturePath = ""
+            },
+            new Music
+            {
+                Id = 3,
+                SongName = "Chatter",
+                Album = "Around the worlds",
+                SongFilePath = "assets/music/audio1.mp3",
+                SongPicturePath = ""
+            });
+
+            modelBuilder.Entity<Artist>().HasData(new Artist
+            {
+                Id = 1,
+                UserId = 1,
+                Name = "Joey Testoe",
+                Info = "Bedste Sanger",
+            });
+
+            modelBuilder.Entity<ArtistSong>().HasData(new ArtistSong
+            {
+                Id = 1,
+                ArtistId = 1,
+                MusicId = 1,
+            },
+            new ArtistSong
+            {
+                Id = 2,
+                ArtistId = 1,
+                MusicId = 2,
+            },
+            new ArtistSong
+            {
+                Id = 3,
+                ArtistId = 1,
+                MusicId = 3,
+            });
+
+            modelBuilder.Entity<Link>().HasData(new Link
+            {
+                Id = 1,
+                ArtistId = 1,
+                Title = "Discord",
+                LinkAddress = "https://discord.gg/Jt4rwUZGGS"
             });
         }
     }

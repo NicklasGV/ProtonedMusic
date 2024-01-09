@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Services/Guard/auth.guard';
@@ -40,6 +39,10 @@ const routes: Routes = [
 
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
+
+  //WIP
+  {path: 'order/success', loadComponent: () =>
+  import('./Components/ordersuccess/ordersuccess.component').then(it => it.OrdersuccessComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
@@ -85,6 +88,10 @@ const routes: Routes = [
 
   {path: 'admin/musicpanel', loadComponent: () =>
   import('./Components/Admin/music-panel/music-panel.component').then(it => it.MusicPanelComponent), canActivate: [AuthGuard]},
+
+  //Page not found component. must be at bottom
+   {path: '**', loadComponent: () =>
+   import ('./Components/page-not-found/page-not-found.component').then(it => it.PageNotFoundComponent)},
 
 ];
 

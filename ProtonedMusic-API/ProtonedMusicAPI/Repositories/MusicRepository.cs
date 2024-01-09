@@ -12,12 +12,18 @@
 
         public async Task<List<Music>> GetAllAsync()
         {
-            return await _databaseContext.Music.ToListAsync();
+            return await _databaseContext.Music
+                .Include(m => m.Artist)
+                .ThenInclude(a => a.Artist)
+                .ToListAsync();
         }
 
         public async Task<Music> FindByIdAsync(int musicId)
         {
-            return await _databaseContext.Music.FirstOrDefaultAsync(m => m.Id == musicId);
+            return await _databaseContext.Music
+                .Include(m => m.Artist)
+                .ThenInclude(a => a.Artist)
+                .FirstOrDefaultAsync(m => m.Id == musicId);
         }
 
         public async Task<Music> CreateAsync(Music newMusic)
