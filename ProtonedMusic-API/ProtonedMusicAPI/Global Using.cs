@@ -19,6 +19,10 @@ global using ProtonedMusicAPI.Interfaces.IMusic;
 global using ProtonedMusicAPI.DTO.MusicDTO;
 global using ProtonedMusicAPI.Interfaces.IArtist;
 global using ProtonedMusicAPI.DTO.ArtistDTO;
+global using ProtonedMusicAPI.DTO.LinkDTO;
+global using ProtonedMusicAPI.Interfaces.ILink;
+global using ProtonedMusicAPI.DTO.FooterPostDTO;
+global using ProtonedMusicAPI.Interfaces.IFooter;
 
 //Microsoft
 global using Microsoft.EntityFrameworkCore;

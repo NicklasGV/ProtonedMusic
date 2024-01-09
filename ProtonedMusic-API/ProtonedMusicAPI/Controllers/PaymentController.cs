@@ -38,7 +38,5 @@ public class CheckoutController : ControllerBase
             return BadRequest(new { Error = ex.Message });
         }
     }
-
-
 }
 

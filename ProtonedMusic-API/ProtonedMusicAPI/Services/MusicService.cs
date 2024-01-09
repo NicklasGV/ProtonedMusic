@@ -1,4 +1,7 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using ProtonedMusicAPI.Database.Entities;
+using ProtonedMusicAPI.DTO.ArtistDTO;
+
+namespace ProtonedMusicAPI.Services
 {
     public class MusicService : IMusicService
     {
@@ -16,11 +19,20 @@
             {
                 Id = music.Id,
                 SongName = music.SongName,
-                Artist = music.Artist,
                 Album = music.Album,
                 SongFilePath = music.SongFilePath,
                 SongPicturePath = music.SongPicturePath,
             };
+            if (music.Artist.Count > 0)
+            {
+                response.Artist = music.Artist.Select(x => new MusicArtistResponse
+                {
+                    Id = x.Id,
+                    Name = x.Artist.Name,
+                    Info = x.Artist.Info,
+                    PicturePath = x.Artist.PicturePath,
+                }).ToList();
+            }
             return response;
         }
 
@@ -29,10 +41,13 @@
             Music music = new Music
             {
                 SongName = musicRequest.SongName,
-                Artist = musicRequest.Artist,
                 Album = musicRequest.Album,
                 SongFilePath = musicRequest.SongFilePath ?? string.Empty,
                 SongPicturePath = musicRequest.SongPicturePath ?? string.Empty,
+                Artist = musicRequest.ArtistIds.Select(s => new ArtistSong
+                {
+                    ArtistId = s
+                }).ToList(),
             };
             return music;
         }

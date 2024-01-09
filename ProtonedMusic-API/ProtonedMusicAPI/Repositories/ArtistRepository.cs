@@ -34,6 +34,7 @@
         {
             _databaseContext.Artist.Add(newArtist);
             await _databaseContext.SaveChangesAsync();
+            newArtist = await FindByIdAsync(newArtist.Id);
             return newArtist;
         }
 

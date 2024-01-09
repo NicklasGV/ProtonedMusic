@@ -8,6 +8,8 @@
         [ForeignKey("Artist.Id")]
         public int ArtistId { get; set; }
 
+        public Artist Artist { get; set; }
+
         [Column(TypeName = "nvarchar(50)")]
         public string Title { get; set; } = string.Empty;
         [Column(TypeName = "nvarchar(200)")]

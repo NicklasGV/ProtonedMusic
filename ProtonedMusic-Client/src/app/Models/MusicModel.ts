@@ -1,7 +1,10 @@
+import { ArtistModel } from "./ArtistModel";
+
 export interface MusicModel {
     id: number;
     songName: string;
-    artist: string;
+    artist: ArtistModel[];
+    artistIds: number[];
     album: string;
     songFile: File | null;
     songFilePath: string;
@@ -13,7 +16,8 @@ export function resetMusic() {
     return { 
       id: 0, 
       songName: '', 
-      artist: '', 
+      artist: [],
+      artistIds: [], 
       album: '', 
       songFile: null,
       songFilePath: '',
