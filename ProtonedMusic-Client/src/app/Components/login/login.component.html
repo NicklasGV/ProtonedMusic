@@ -44,27 +44,25 @@
                     <div class="mb-3">
                         <label for="firstName" class="form-label bi-person-vcard-fill"> Firstname</label>
                         <input type="text" formControlName="firstName" class="form-control" id="firstName">
-                        <span class="error" *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched">Udfyld!</span>
                     </div>
                     <div class="mb-3">
                         <label for="lastName" class="form-label bi-person-vcard"> Lastname</label>
                         <input type="text" formControlName="lastName" class="form-control" id="lastName">
-                        <span class="error" *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">Udfyld!</span>
                     </div>
                     <div class="mb-3">
-                        <label for="SignUpEmail" class="form-label bi-postcard-fill"> E-Mail</label>
+                        <label for="SignUpEmail" class="form-label bi-postcard-fill"> E-Mail *</label>
                         <input type="email" formControlName="email" placeholder="E-mail" class="form-control" id="SignUpEmail">
                         <span class="error" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">Udfyld!</span>
                     </div>
                     <div class="mb-3">
-                        <label for="SignUpPassword" class="form-label bi-key-fill"> Password</label>
+                        <label for="SignUpPassword" class="form-label bi-key-fill"> Password *</label>
                         <div class="input-group">
                             <input *ngIf="!showPassword" type="password" class="form-control" name="password" placeholder="password" formControlName="password">
                             <input *ngIf="showPassword" type="text" class="form-control" name="password" placeholder="password" formControlName="password">
                             <button *ngIf="this.showPassword == false" class="btn btn-outline-secondary bi-eye-fill" (click)="togglePasswordVisibility()" type="button"></button>
-                        <button *ngIf="this.showPassword == true" class="btn btn-outline-secondary bi-eye-slash-fill" (click)="togglePasswordVisibility()" type="button"></button>
+                            <button *ngIf="this.showPassword == true" class="btn btn-outline-secondary bi-eye-slash-fill" (click)="togglePasswordVisibility()" type="button"></button>
                         </div>
-                        <span class="error" *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">Udfyld!</span>
+                        <span class="error" *ngIf="password == null && userForm.get('password')?.touched">Udfyld!</span>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -8,11 +8,13 @@ import { UserService } from 'src/app/Services/user.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { Role } from 'src/app/Models/role';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { DividerModule } from 'primeng/divider'; 
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DividerModule, PasswordModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit {
   roles:Role[] = []
   loginForm: FormGroup;
   showPassword: boolean = false;
+  passwordError: string = '';
 
   constructor(
     private authService: AuthService,
