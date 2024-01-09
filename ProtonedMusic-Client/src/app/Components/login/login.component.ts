@@ -10,6 +10,7 @@ import { Role } from 'src/app/Models/role';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DividerModule } from 'primeng/divider'; 
 import { PasswordModule } from 'primeng/password';
+import { StrongPasswordRegx } from 'src/app/Models/PasswordReqs';
 
 @Component({
   selector: 'app-login',
@@ -116,7 +117,7 @@ export class LoginComponent implements OnInit {
       firstName: new FormControl(null),
       lastName: new FormControl(''),
       email: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
+      password: new FormControl(null, [Validators.required, Validators.pattern(StrongPasswordRegx)]),
       phoneNumber: new FormControl(0),
       address: new FormControl(''),
       city: new FormControl(''),
@@ -124,6 +125,10 @@ export class LoginComponent implements OnInit {
       country: new FormControl(''),
       profilePicturePath: new FormControl('')
     })
+  }
+
+  get passwordFormField() {
+    return this.userForm.get('password');
   }
 
 }

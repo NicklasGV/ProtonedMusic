@@ -62,7 +62,17 @@
                             <button *ngIf="this.showPassword == false" class="btn btn-outline-secondary bi-eye-fill" (click)="togglePasswordVisibility()" type="button"></button>
                             <button *ngIf="this.showPassword == true" class="btn btn-outline-secondary bi-eye-slash-fill" (click)="togglePasswordVisibility()" type="button"></button>
                         </div>
-                        <span class="error" *ngIf="password == null && userForm.get('password')?.touched">Udfyld!</span>
+                    </div>
+                    <div class="card bg-dark text-danger border-2" *ngIf="passwordFormField?.dirty">
+                        <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('^(?=.*[A-Z])')}">At least uppercase letter.</span>
+
+                        <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('(?=.*[a-z])')}">At least one lowercase letter.</span>
+
+                        <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('(.*[0-9].*)')}">At least one digit.</span>
+
+                        <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('(?=.*[!@#$%^&*])')}">At least one special character.</span>
+
+                        <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('.{8,}')}">At least 8 characters long.</span>
                     </div>
                 </div>
                 <div class="modal-footer">
