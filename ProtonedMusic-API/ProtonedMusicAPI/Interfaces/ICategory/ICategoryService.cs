@@ -1,4 +1,4 @@
-﻿namespace ProtonedMusicAPI.Interfaces
+﻿namespace ProtonedMusicAPI.Interfaces.ICategory
 {
     public interface ICategoryService
     {

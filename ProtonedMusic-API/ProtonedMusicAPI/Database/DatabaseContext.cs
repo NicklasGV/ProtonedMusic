@@ -20,6 +20,8 @@
         public DbSet<Link> Link { get; set; }
         public DbSet<ArtistSong> ArtistSong { get; set; }
 
+        public DbSet<FooterPost> FooterPosts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
@@ -64,6 +66,15 @@
                 
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
+
+            modelBuilder.Entity<FooterPost>().HasData(new FooterPost
+            {
+                Description = "Immerse yourself in the pulsating beats and electrifying rhythms of Protoned Music. Elevate your auditory experience and let the music take you to new heights. Protoned Music - where every beat is a journey.",
+                Address = "Ballerup-Centret 2, 2750 Ballerup",
+                AddressMapLink = "https://maps.app.goo.gl/A9awSZe6Lm2mnzBVA",
+                Mail = "Info@protonedmusic.com",
+                Phonenumber = "+45 12345678"
+            });
 
             modelBuilder.Entity<Product>().HasData(new Product
             {

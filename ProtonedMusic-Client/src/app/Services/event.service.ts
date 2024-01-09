@@ -21,7 +21,7 @@ export class EventService {
   
     formData.append('title', event.title);
     formData.append('description', event.description);
-    formData.append('price', event.price.toString());
+    formData.append('price', event.price.toString().replace('.',','));
     if (event.eventPicturePath != null) {
       formData.append('eventPicturePath', event.eventPicturePath);
     }
@@ -42,7 +42,7 @@ export class EventService {
   
     formData.append('title', event.title);
     formData.append('description', event.description);
-    formData.append('price', event.price.toString());
+    formData.append('price', event.price.toString().replace('.',','));
     if (event.eventPicturePath != null) {
       formData.append('eventPicturePath', event.eventPicturePath);
     }

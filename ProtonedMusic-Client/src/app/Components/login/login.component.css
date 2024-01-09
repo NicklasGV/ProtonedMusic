@@ -23,3 +23,8 @@ p {
     left: 0.5em;
     margin-right: -50%;
   }
+
+  .error {
+    color: var(--back-button-color);
+    font-weight: bold;
+  }

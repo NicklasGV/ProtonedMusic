@@ -1,20 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MimeKit.Cryptography;
-using ProtonedMusicAPI.DTO.CalendarDTO;
-using ProtonedMusicAPI.Interfaces.ICalendar;
-
-namespace ProtonedMusicAPI.Controllers
+﻿namespace ProtonedMusicAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CalendarController : ControllerBase
+    public class FooterController : ControllerBase
     {
-        private readonly ICalendarService _calendarService;
-
-        public CalendarController(ICalendarService calendarService)
+        private readonly IFooterService _footerService;
+        public FooterController(IFooterService footerService)
         {
-            _calendarService = calendarService;
+            _footerService = footerService;
         }
 
         [HttpGet]
@@ -22,13 +15,13 @@ namespace ProtonedMusicAPI.Controllers
         {
             try
             {
-                List<CalendarResponse> contents = await _calendarService.GetAllAsync();
+                List<FooterResponse> posts = await _footerService.GetAllAsync();
 
-                if (contents.Count == 0)
+                if (posts.Count == 0)
                 {
                     return NoContent();
                 }
-                return Ok(contents);
+                return Ok(posts);
             }
             catch (Exception ex)
             {
@@ -37,15 +30,15 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateContent([FromBody] CalendarRequest newContent)
+        public async Task<IActionResult> Create([FromBody] FooterRequest newFooter)
         {
             try
             {
-                CalendarResponse response = await _calendarService.CreateAsync(newContent);
+                FooterResponse response = await _footerService.CreateAsync(newFooter);
 
                 if (response == null)
                 {
-                    return Problem("Is Null");
+                    return Problem("Is null");
                 }
                 return Ok(response);
             }
@@ -56,12 +49,12 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpGet]
-        [Route("{calendarId}")]
-        public async Task<IActionResult> FindCalendarById([FromRoute] int calendarId)
+        [Route("{footerId}")]
+        public async Task<IActionResult> FindById([FromRoute] int footerId)
         {
             try
             {
-                var response = await _calendarService.FindByIdAsync(calendarId);
+                var response = await _footerService.FindByIdAsync(footerId);
 
                 if (response == null)
                 {
@@ -76,12 +69,12 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpPut]
-        [Route("{calendarId}")]
-        public async Task<IActionResult> UpdateCalendarById([FromRoute] int calendarId, [FromBody] CalendarRequest updateContent)
+        [Route("{footerId}")]
+        public async Task<IActionResult> UpdateById([FromRoute] int footerId, [FromBody] FooterRequest updateFooter)
         {
             try
             {
-                var response = await _calendarService.UpdateByIdAsync(calendarId, updateContent);
+                var response = await _footerService.UpdateByIdAsync(footerId, updateFooter);
 
                 if (response == null)
                 {
@@ -96,14 +89,14 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("{calendarId}")]
-        public async Task<IActionResult> DeleteCalendarById([FromRoute] int calendarId)
+        [Route("{footerId}")]
+        public async Task<IActionResult> DeleteById([FromRoute] int footerId)
         {
             try
             {
-                var response = await _calendarService.DeleteByIdAsync(calendarId);
+                var response = await _footerService.DeleteByIdAsync(footerId);
 
-                if(response == null)
+                if (response == null)
                 {
                     return NotFound();
                 }

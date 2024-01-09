@@ -1,6 +1,6 @@
 ﻿using ProtonedMusicAPI.DTO.CalendarDTO;
 
-namespace ProtonedMusicAPI.Interfaces
+namespace ProtonedMusicAPI.Interfaces.ICalendar
 {
     public interface ICalendarService
     {
