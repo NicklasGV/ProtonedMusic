@@ -1,4 +1,5 @@
 ﻿using ProtonedMusicAPI.Database.Entities;
+using ProtonedMusicAPI.Interfaces.IEvent;
 
 namespace ProtonedMusicAPI.Services
 {
