@@ -11,7 +11,7 @@
         public IFormFile? PictureFile { get; set; }
         public string? PicturePath { get; set; }
 
-        public int User { get; set; } = new();
+        public int UserId { get; set; } = new();
         public List<int> SongIds { get; set; } = new();
         public List<int> LinksIds { get; set; } = new();
 
