@@ -4,6 +4,7 @@
     {
         [ForeignKey("User.Id")]
         public int Id { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
@@ -13,6 +14,7 @@
         public string Info { get; set; }
 
         public string? PicturePath { get; set; }
+
         
 
         public List<ArtistSong> Songs { get; set; } = new List<ArtistSong>();

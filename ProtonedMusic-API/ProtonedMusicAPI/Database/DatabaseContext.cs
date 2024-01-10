@@ -20,6 +20,8 @@
         public DbSet<Link> Link { get; set; }
         public DbSet<ArtistSong> ArtistSong { get; set; }
 
+        public DbSet<FooterPost> FooterPosts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
@@ -64,6 +66,16 @@
                 
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
+
+            modelBuilder.Entity<FooterPost>().HasData(new FooterPost
+            {
+                Id = 1,
+                Description = "Immerse yourself in the pulsating beats and electrifying rhythms of Protoned Music. Elevate your auditory experience and let the music take you to new heights. Protoned Music - where every beat is a journey.",
+                Address = "Ballerup-Centret 2, 2750 Ballerup",
+                AddressMapLink = "https://maps.app.goo.gl/A9awSZe6Lm2mnzBVA",
+                Mail = "Info@protonedmusic.com",
+                Phonenumber = "+45 12345678"
+            });
 
             modelBuilder.Entity<Product>().HasData(new Product
             {
@@ -253,20 +265,61 @@
             modelBuilder.Entity<Music>().HasData(new Music
             {
                 Id = 1,
-                SongName = "Chatter",
-                Artist = "Connor Price",
-                Album = "Around the worlds",
-                SongFilePath = "assets/music/audio1.mp3",
-                SongPicturePath = ""
+                SongName = "Chipi chipi chapa chapa",
+                Album = "Chipi chipi",
+                SongFilePath = "assets/music/chibichibi.mp3",
+                SongPicturePath = "assets/img/chipichapa.gif"
             },
             new Music
             {
                 Id = 2,
                 SongName = "FlipFlop",
-                Artist = "Sigurd",
                 Album = "Bjørn",
                 SongFilePath = "assets/music/audio2.mp3",
                 SongPicturePath = ""
+            },
+            new Music
+            {
+                Id = 3,
+                SongName = "Chatter",
+                Album = "Around the worlds",
+                SongFilePath = "assets/music/audio1.mp3",
+                SongPicturePath = ""
+            });
+
+            modelBuilder.Entity<Artist>().HasData(new Artist
+            {
+                Id = 1,
+                UserId = 1,
+                Name = "Joey Testoe",
+                Info = "Bedste Sanger",
+            });
+
+            modelBuilder.Entity<ArtistSong>().HasData(new ArtistSong
+            {
+                Id = 1,
+                ArtistId = 1,
+                MusicId = 1,
+            },
+            new ArtistSong
+            {
+                Id = 2,
+                ArtistId = 1,
+                MusicId = 2,
+            },
+            new ArtistSong
+            {
+                Id = 3,
+                ArtistId = 1,
+                MusicId = 3,
+            });
+
+            modelBuilder.Entity<Link>().HasData(new Link
+            {
+                Id = 1,
+                ArtistId = 1,
+                Title = "Discord",
+                LinkAddress = "https://discord.gg/Jt4rwUZGGS"
             });
         }
     }

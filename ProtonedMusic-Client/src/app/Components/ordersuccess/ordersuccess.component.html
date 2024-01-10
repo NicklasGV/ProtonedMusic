@@ -1,0 +1,32 @@
+<div class="container mt-5 text-center fw-semibold">
+  <div class="fs-5">THANK YOU FOR YOUR PURCHASE!</div>
+  <div class="container mt-3">
+    <div class="table-responsive">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cart of cartItems">
+            <td>
+              <a *ngIf="cart.picturePath">
+                <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 40%; height: 10rem;">
+              </a>
+            </td>
+            <td>{{ cart.name }}</td>
+            <td>{{ cart.quantity }}</td>
+            <td>{{ cart.price | currency:'DKK'}}</td>
+            <td>{{ cart.quantity * cart.price | currency:'DKK'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

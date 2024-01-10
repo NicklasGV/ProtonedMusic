@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Services/Guard/auth.guard';
@@ -35,9 +34,15 @@ const routes: Routes = [
   {path: 'syke', loadComponent: () =>
   import('./Components/testing/testing.component').then(it => it.TestingComponent)},
 
+  {path: 'familyschedule', loadComponent: () =>
+  import('./Components/family-schedule/family-schedule.component').then(it => it.FamilyScheduleComponent), canActivate: [FamilyGuard]},
+
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
 
+  //WIP
+  {path: 'order/success', loadComponent: () =>
+  import('./Components/ordersuccess/ordersuccess.component').then(it => it.OrdersuccessComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
   import('./Components/merchandise-product/merchandise-product.component').then(it => it.MerchandiseProductComponent)},
@@ -53,7 +58,7 @@ const routes: Routes = [
 
   {path: 'profilmenu/:id/orderhistory', loadComponent: ()=>
   import('./Components/Profile/orderHistory/order-history/order-history.component').then( it => it.OrderHistoryComponent)},
-
+//#region Admin interface
   {path: 'admin', loadComponent: () =>
   import('./Components/Admin/admin-panel/admin-panel.component').then(it => it.AdminPanelComponent), canActivate: [AuthGuard]},
 
@@ -83,6 +88,15 @@ const routes: Routes = [
 
   {path: 'admin/musicpanel', loadComponent: () =>
   import('./Components/Admin/music-panel/music-panel.component').then(it => it.MusicPanelComponent), canActivate: [AuthGuard]},
+
+  {path: 'admin/footerpanel', loadComponent: () =>
+  import('./Components/Admin/footer-panel/footer-panel.component').then(it => it.FooterPanelComponent), canActivate: [AuthGuard]},
+
+  //#endregion
+
+  //Page not found component. must be at bottom
+   {path: '**', loadComponent: () =>
+   import ('./Components/page-not-found/page-not-found.component').then(it => it.PageNotFoundComponent)},
 
 ];
 

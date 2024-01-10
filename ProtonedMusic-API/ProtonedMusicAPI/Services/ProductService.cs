@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using ProtonedMusicAPI.Interfaces.IProduct;
+
+namespace ProtonedMusicAPI.Services
 {
     public class ProductService : IProductService
     {

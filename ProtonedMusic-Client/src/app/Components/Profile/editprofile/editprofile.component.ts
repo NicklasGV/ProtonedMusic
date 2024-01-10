@@ -43,37 +43,6 @@ export class EditprofilComponent{
     this.router.navigate(['../../../profilmenu', this.user.id, 'editprofil']);
   }
 
-  newsletterEvent() {
-    if (this.user.addonRoles == "None")
-    {
-      this.user.addonRoles = "Newsletter";
-      this.userService.update(this.user)
-      .subscribe({
-        error: (err) => {
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, '', 'error');
-        },
-        complete: () => {
-          this.user = resetUser();
-        }
-      });
-    }
-    else if (this.user.addonRoles == "Newsletter")
-    {
-      this.user.addonRoles = "None";
-      this.userService.update(this.user)
-      .subscribe({
-        error: (err) => {
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, '', 'error');
-        },
-        complete: () => {
-          this.user = resetUser();
-        }
-      });
-    }
-  }
-
   resetPassword(): User {
     return resetUser();
   }
@@ -97,7 +66,6 @@ export class EditprofilComponent{
           this.errorOnChanges();
         },
         complete: () => {
-          this.newsletterEvent();
           this.user = this.resetPassword();
           this.snackBar.openSnackBar("Profile updated", "","success")
         }

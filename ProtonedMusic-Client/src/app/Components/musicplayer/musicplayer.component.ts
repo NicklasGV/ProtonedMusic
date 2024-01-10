@@ -23,7 +23,7 @@ export class MusicplayerComponent implements OnInit{
   currentFile: any = {};
   currentSong: string = '';
   currentSongName: string = '';
-  currentArtist: string = '';
+  currentArtist: string[] = [];
   currentPicture: string = "../../../assets/img/1.png";
   volume: number = 50;
   checkEmpty: boolean = false;
@@ -32,6 +32,7 @@ export class MusicplayerComponent implements OnInit{
     
     async ngOnInit(): Promise<void> {
       this.musicService.getAll().subscribe(x => this.files = x);
+      
 
 
     // listen to stream state
@@ -66,7 +67,7 @@ export class MusicplayerComponent implements OnInit{
     this.audioService.stop();
     this.playStream("https://protonedmusic.com/" + this.currentFile.file.songFilePath);
     this.currentSongName = this.currentFile.file.songName;
-    this.currentArtist = this.currentFile.file.artist;
+    this.currentArtist = this.currentFile.file.artist[0].name;
     if (this.currentFile.file.songPicturePath){
       this.currentPicture = this.currentFile.file.songPicturePath;
     }

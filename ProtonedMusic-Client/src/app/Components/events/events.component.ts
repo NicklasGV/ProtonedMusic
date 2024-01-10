@@ -7,10 +7,15 @@ import { CartService } from 'src/app/Services/cart.service';
 import { CartItem } from 'src/app/Models/CartModel';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
+
+
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, CarouselModule, ButtonModule, TagModule],
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css']
 })

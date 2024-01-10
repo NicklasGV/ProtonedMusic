@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
+import { SliderModule } from 'primeng/slider';
 
 @Component({
   selector: 'app-testing',
   standalone: true,
-  imports: [CommonModule, MatSliderModule],
+  imports: [CommonModule, MatSliderModule, SliderModule],
   templateUrl: './testing.component.html',
   styleUrls: ['./testing.component.css']
 })
@@ -20,18 +21,18 @@ export class TestingComponent implements OnInit {
   }
 
   playSound() {
-    this.audio.src = "../../assets/music/Lady.mp3";
+    this.audio.src = "../../assets/music/Chippi.mp3";
     this.audio.load();
     this.audio.play();
   }
 
   pauseSound() {
-    this.audio.src = "../../assets/music/Lady.mp3";
+    this.audio.src = "../../assets/music/Chippi.mp3";
     this.audio.pause
   }
 
   startSound() {
-    this.audio.src = "../../assets/music/Lady.mp3";
+    this.audio.src = "../../assets/music/Chippi.mp3";
     this.audio.play();
   }
 

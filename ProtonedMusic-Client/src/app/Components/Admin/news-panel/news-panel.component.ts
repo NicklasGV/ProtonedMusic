@@ -10,22 +10,22 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-news-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, CalendarModule],
   templateUrl: './news-panel.component.html',
   styles: []
 })
 export class NewsPanelComponent implements OnInit {
-
   message: string = "";
   news: NewsModel[] = [];
   anews: NewsModel = resetNews();
   selected: number[] = [];
   
-  constructor(private newsService: NewsService, private cdr: ChangeDetectorRef, private snackBar: SnackBarService, private dialog: MatDialog) { }
+  constructor(private newsService: NewsService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newsService.getAllNews().subscribe(x => this.news = x);
