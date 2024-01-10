@@ -43,7 +43,10 @@ export class OrderHistoryComponent {
 
         // Fetch order history
         this.orderHistoryService.GetAllOrderHistory(this.user.id.toString()).subscribe(
-          x => this.orderHistory = x,
+          x => {
+            console.log("Order history response:", x);
+            this.orderHistory = x;
+          },
           error => {
             console.error("Error fetching order history:", error);
           }

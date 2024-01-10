@@ -5,5 +5,4 @@ export interface Order {
   amount: number;
   total: number;
   date: Date;
-  paymentId: string;
 }

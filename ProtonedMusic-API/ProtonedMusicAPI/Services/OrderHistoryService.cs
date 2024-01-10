@@ -1,4 +1,5 @@
-﻿using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
+﻿using ProtonedMusicAPI.Database.Entities;
+using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
 
 namespace ProtonedMusicAPI.Services
 {
@@ -53,15 +54,26 @@ namespace ProtonedMusicAPI.Services
             {
                 return null;
             }
-
-            return new OrderHistoryResponse
+            OrderHistoryResponse response = new OrderHistoryResponse
             {
                 Id = order.Id,
                 OrderNumber = order.OrderNumber,
-                Items = order.Items, // Dette kan også kræve en separat mapping af ItemProduct til ItemProductResponse
                 price = CalculateTotalPrice(order.Items),
                 quantity = CalculateTotalQuantity(order.Items)
+
+
             };
+            if (order.Items.Count > 0)
+            {
+                response.Items = order.Items.Select(x => new OrderItemsResponse
+                {
+                    Id = x.Id,
+                    ProductId = x.ProductId,
+                    OrderId = x.OrderId,
+                    quantity = x.quantity,
+                }).ToList();
+            }
+            return response;
         }
 
         // Hjælpefunktion til at beregne den samlede pris for alle elementer i en ordre

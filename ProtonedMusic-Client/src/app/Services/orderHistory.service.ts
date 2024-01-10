@@ -13,6 +13,7 @@ export class OrderHistoryService {
   constructor(private http: HttpClient ) {}
 
   public GetAllOrderHistory(customerId: string): Observable<Order[]> {
+    console.log(customerId);
     return this.http.get<Order[]>(`${this.url}/${customerId}`);
   }
 }

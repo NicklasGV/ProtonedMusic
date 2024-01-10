@@ -34,6 +34,7 @@
         {
             return await _context.Orders
                 .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.CustomerId.ToString() == customerId);
         }
 
@@ -41,6 +42,7 @@
         {
             return await _context.Orders
                 .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
         }
 
