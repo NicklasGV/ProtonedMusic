@@ -10,6 +10,7 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -21,8 +22,8 @@
             </td>
             <td>{{ cart.name }}</td>
             <td>{{ cart.quantity }}</td>
-            <td>{{ cart.price | currency:'DKK':'symbol':'1.2-2' }}</td>
-            <td>{{ cart.quantity * cart.price | currency:'DKK':'symbol':'1.2-2' }}</td>
+            <td>{{ cart.price | currency:'DKK'}}</td>
+            <td>{{ cart.quantity * cart.price | currency:'DKK'}}</td>
           </tr>
         </tbody>
       </table>
