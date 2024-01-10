@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProtonedMusicAPI.Interfaces.IUpcoming;
 
 namespace ProtonedMusicAPI.Repositories
 {

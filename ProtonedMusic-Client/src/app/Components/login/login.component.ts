@@ -8,11 +8,14 @@ import { UserService } from 'src/app/Services/user.service';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { Role } from 'src/app/Models/role';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { DividerModule } from 'primeng/divider'; 
+import { PasswordModule } from 'primeng/password';
+import { StrongPasswordRegx } from 'src/app/Models/PasswordReqs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DividerModule, PasswordModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -26,6 +29,7 @@ export class LoginComponent implements OnInit {
   roles:Role[] = []
   loginForm: FormGroup;
   showPassword: boolean = false;
+  passwordError: string = '';
 
   constructor(
     private authService: AuthService,
@@ -113,7 +117,7 @@ export class LoginComponent implements OnInit {
       firstName: new FormControl(null),
       lastName: new FormControl(''),
       email: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
+      password: new FormControl(null, [Validators.required, Validators.pattern(StrongPasswordRegx)]),
       phoneNumber: new FormControl(0),
       address: new FormControl(''),
       city: new FormControl(''),
@@ -121,6 +125,10 @@ export class LoginComponent implements OnInit {
       country: new FormControl(''),
       profilePicturePath: new FormControl('')
     })
+  }
+
+  get passwordFormField() {
+    return this.userForm.get('password');
   }
 
 }

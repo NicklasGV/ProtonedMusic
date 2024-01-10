@@ -24,7 +24,9 @@ export class MusicService {
     const formData = new FormData();
   
     formData.append('songName', music.songName);
-    formData.append('artist', music.artist);
+    music.artistIds.forEach(artistId => {
+      formData.append('artist', artistId.toString());
+    });
     formData.append('album', music.album);
     formData.append('songFilePath', music.songFilePath);
     formData.append('songPicturePath', music.songPicturePath);
@@ -44,7 +46,9 @@ export class MusicService {
     const formData = new FormData();
   
     formData.append('songName', music.songName);
-    formData.append('artist', music.artist);
+    music.artistIds.forEach(artistId => {
+      formData.append('artist', artistId.toString());
+    });
     formData.append('album', music.album);
     formData.append('songFilePath', music.songFilePath);
     formData.append('songPicturePath', music.songPicturePath);

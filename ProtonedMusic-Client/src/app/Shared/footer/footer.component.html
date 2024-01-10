@@ -10,16 +10,14 @@
                 <i class="fas fa-gem me-3"></i>Protoned Music
               </h5>
               <p>
-                Immerse yourself in the pulsating beats and electrifying rhythms of Protoned Music.
-                Elevate your auditory experience and let the music take you to new heights. Protoned Music - where every beat is a journey.
+                {{footer.description}}
               </p>
             </div>
             <div class="col-md-3 col-lg-2 col-xl-3 mx-auto mb-2">
-              <!--? Empty row between Description and Contact   -->
               <h5 class="text-uppercase fw-bold mb-4">Contact</h5>
-              <p><i class="bi bi-house-fill me-3"></i> <a href="https://maps.app.goo.gl/A9awSZe6Lm2mnzBVA" target="_blank">Ballerup-Centret 2, 2750 Ballerup</a></p>
-              <p><i class="bi bi-envelope-fill me-3"></i> <a href="mailto: info@protonedmusic.com">Info&#64;protonedmusic.com</a></p>
-              <p><i class="bi bi-phone-fill me-3"></i> <a href="tel:+4512345678">+45 12345678</a></p>
+              <p><i class="bi bi-house-fill me-3"></i> <a href="{{footer.addressMapLink}}" target="_blank">{{footer.address}}</a></p>
+              <p><i class="bi bi-envelope-fill me-3"></i> <a href="mailto: info@protonedmusic.com">{{footer.mail}}</a></p>
+              <p><i class="bi bi-phone-fill me-3"></i> <a href="tel:+4512345678">{{footer.phonenumber}}</a></p>
             </div>
             <div class="col-md-2 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-2" *ngIf="currentUser.role != null">
               <div class="mb-3" *ngIf="user.addonRoles == 'None'">

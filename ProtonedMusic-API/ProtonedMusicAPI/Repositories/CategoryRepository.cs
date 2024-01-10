@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Repositories
+﻿using ProtonedMusicAPI.Interfaces.ICategory;
+
+namespace ProtonedMusicAPI.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {

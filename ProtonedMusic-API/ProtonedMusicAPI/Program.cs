@@ -1,3 +1,10 @@
+using ProtonedMusicAPI.Interfaces.ICalendar;
+using ProtonedMusicAPI.Interfaces.ICategory;
+using ProtonedMusicAPI.Interfaces.IEvent;
+using ProtonedMusicAPI.Interfaces.IFooter;
+using ProtonedMusicAPI.Interfaces.INews;
+using ProtonedMusicAPI.Interfaces.IProduct;
+using ProtonedMusicAPI.Interfaces.IUpcoming;
 using Stripe;
 using EventService = ProtonedMusicAPI.Services.EventService;
 using ProductService = ProtonedMusicAPI.Services.ProductService;
@@ -28,6 +35,12 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
+            builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
+            builder.Services.AddScoped<IArtistService, ArtistService>();
+
+            builder.Services.AddScoped<ILinkRepository, LinkRepository>();
+            builder.Services.AddScoped<ILinkService, LinkService>();
+
             builder.Services.AddScoped<IMusicRepository, MusicRepository>();
             builder.Services.AddScoped<IMusicService, MusicService>();
 
@@ -43,9 +56,8 @@ namespace ProtonedMusicAPI
             builder.Services.AddScoped<IFrontpagePostRepository, FrontpagePostRepository>();
             builder.Services.AddScoped<IFrontpagePostService, FrontpagePostService>();
 
-            builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
-            builder.Services.AddScoped<IOrderHistoryService, OrderHistoryService>();
-
+            builder.Services.AddScoped<IFooterRepository, FooterRepository>();
+            builder.Services.AddScoped<IFooterService, FooterService>();
 
             builder.Services.AddScoped<IEmailService, EmailService>();
 
