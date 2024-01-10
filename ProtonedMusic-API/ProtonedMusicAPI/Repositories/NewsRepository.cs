@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Repositories
+﻿using ProtonedMusicAPI.Interfaces.INews;
+
+namespace ProtonedMusicAPI.Repositories
 {
     public class NewsRepository : INewsRepository
     {

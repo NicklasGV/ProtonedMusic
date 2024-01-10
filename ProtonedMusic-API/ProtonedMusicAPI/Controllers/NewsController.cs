@@ -1,4 +1,5 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using ProtonedMusicAPI.Interfaces.INews;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProtonedMusicAPI.Controllers
 {

@@ -2,6 +2,7 @@
 using ProtonedMusicAPI.Database.Entities;
 using ProtonedMusicAPI.Database;
 using System.Net;
+using ProtonedMusicAPI.Interfaces.IEvent;
 
 namespace ProtonedMusicAPI.Repositories
 {

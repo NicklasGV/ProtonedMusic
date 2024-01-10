@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProtonedMusicAPI.DTO.MusicDTO;
+using ProtonedMusicAPI.Interfaces.IEvent;
 
 namespace ProtonedMusicAPI.Controllers
 {

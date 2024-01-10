@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Services
+﻿using ProtonedMusicAPI.Interfaces.ICategory;
+
+namespace ProtonedMusicAPI.Services
 {
     public class CategoriService : ICategoryService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace ProtonedMusicAPI.Interfaces
+namespace ProtonedMusicAPI.Interfaces.ICalendar
 {
     public interface ICalendarRepository
     {

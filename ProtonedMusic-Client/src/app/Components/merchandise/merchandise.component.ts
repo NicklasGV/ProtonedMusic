@@ -8,12 +8,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import {MatBadgeModule} from '@angular/material/badge';
 
+
 @Component({
   selector: 'app-merchandise',
   standalone: true,
   imports: [CommonModule, RouterModule, MatBadgeModule],
   templateUrl: './merchandise.component.html',
-  styleUrls: ['./merchandise.component.css'],
+  styleUrls: ['./merchandise.component.css']
 })
 export class MerchandiseComponent implements OnInit {
   products: ProductModel[] = []; // This is the array of products that will be displayed on the page.
