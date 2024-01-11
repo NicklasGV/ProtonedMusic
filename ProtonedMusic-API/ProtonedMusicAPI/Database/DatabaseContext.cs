@@ -69,6 +69,7 @@
 
             modelBuilder.Entity<FooterPost>().HasData(new FooterPost
             {
+                Id = 1,
                 Description = "Immerse yourself in the pulsating beats and electrifying rhythms of Protoned Music. Elevate your auditory experience and let the music take you to new heights. Protoned Music - where every beat is a journey.",
                 Address = "Ballerup-Centret 2, 2750 Ballerup",
                 AddressMapLink = "https://maps.app.goo.gl/A9awSZe6Lm2mnzBVA",

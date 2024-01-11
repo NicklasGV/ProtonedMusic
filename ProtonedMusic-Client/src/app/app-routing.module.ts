@@ -58,7 +58,7 @@ const routes: Routes = [
 
   {path: 'profilmenu/:id/orderhistory', loadComponent: ()=>
   import('./Components/Profile/orderHistory/order-history/order-history.component').then( it => it.OrderHistoryComponent)},
-
+//#region Admin interface
   {path: 'admin', loadComponent: () =>
   import('./Components/Admin/admin-panel/admin-panel.component').then(it => it.AdminPanelComponent), canActivate: [AuthGuard]},
 
@@ -89,6 +89,10 @@ const routes: Routes = [
   {path: 'admin/musicpanel', loadComponent: () =>
   import('./Components/Admin/music-panel/music-panel.component').then(it => it.MusicPanelComponent), canActivate: [AuthGuard]},
 
+  {path: 'admin/footerpanel', loadComponent: () =>
+  import('./Components/Admin/footer-panel/footer-panel.component').then(it => it.FooterPanelComponent), canActivate: [AuthGuard]},
+
+  //#endregion
   {path: 'admin/artistpanel', loadComponent: () =>
   import('./Components/Admin/artist-panel/artist-panel.component').then(it => it.ArtistPanelComponent), canActivate: [AuthGuard]},
 

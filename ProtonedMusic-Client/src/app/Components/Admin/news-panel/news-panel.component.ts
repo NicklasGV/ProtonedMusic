@@ -20,13 +20,12 @@ import { CalendarModule } from 'primeng/calendar';
   styles: []
 })
 export class NewsPanelComponent implements OnInit {
-
   message: string = "";
   news: NewsModel[] = [];
   anews: NewsModel = resetNews();
   selected: number[] = [];
   
-  constructor(private newsService: NewsService, private cdr: ChangeDetectorRef, private snackBar: SnackBarService, private dialog: MatDialog) { }
+  constructor(private newsService: NewsService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newsService.getAllNews().subscribe(x => this.news = x);

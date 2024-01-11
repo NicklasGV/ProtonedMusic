@@ -18,7 +18,7 @@ export class CartService {
     );
     this.currentCart = this.currentCartSubject.asObservable();
   }
-
+//dthhdtg
   get currentBasketValue(): CartItem[] {
     return this.currentCartSubject.value;
   }
