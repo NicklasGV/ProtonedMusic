@@ -8,14 +8,15 @@
     <div *ngFor="let upcoming of getUpcomingShows()">
       <div class="card bg-dark text-light" style="grid-template-rows: auto 1fr;">
         <div class="card-header">
-          <h2 class="card-title">{{ upcoming.title }}</h2>
+          <h2 class="card-title">{{upcoming.title}}</h2>
+          <h3 class="card-subtitle">With {{upcoming.artist.name}}</h3>
         </div>
         <div class="card-body">
-          <h5>Description: </h5>
-          <p class="card-text text-truncate" style="max-width: 230px;">{{upcoming.description}}</p>
+          <h4>Description: </h4>
+          <p class="card-text text-truncate" style="max-width: 230px;">{{upcoming.content}}</p>
         </div>
         <div class="card-footer">
-          <h5 class="card-subtitle small mt-3 me-3">Release date: {{ upcoming.timeof | date: 'dd MMM yyyy, HH:mm' }}</h5>
+          <h5 class="card-subtitle small mt-3 me-3">Release date: {{ upcoming.date | date: 'dd MMM yyyy, HH:mm' }}</h5>
         </div>
       </div>
     </div>

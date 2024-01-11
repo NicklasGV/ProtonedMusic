@@ -131,10 +131,9 @@ export class FamilyScheduleComponent implements OnInit {
         this.calendarContent.artistId = this.calendarContent.artist.id;
       };
       console.log(this.calendarContent);
-    if (this.calendarContent.id == 0) {
-      //create
+      if (this.calendarContent.id == 0) {
+        //create
       this.calendarContent.date = this.transformDateTime(this.selected);
-      console.log(this.calendarContent.date)
       this.calendarService.create(this.calendarContent).subscribe({
         next: (x) => {
           this.content.push(x);
@@ -149,7 +148,7 @@ export class FamilyScheduleComponent implements OnInit {
       });
     } else {
       //update
-      this.calendarContent.date = this.selected;
+      this.calendarContent.date = this.transformDateTime(this.selected);
       this.calendarService.update(this.calendarContent.id, this.calendarContent).subscribe({
         error: (err) => {
           this.message = Object.values(err.error.errors).join(', ');

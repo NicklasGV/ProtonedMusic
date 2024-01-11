@@ -22,7 +22,6 @@ export class CalendarService {
     formData.append('id', calendarContent.id.toString());
     formData.append('title', calendarContent.title);
     formData.append('content', calendarContent.content);
-    console.log(calendarContent);
     formData.append('date', calendarContent.date);
     formData.append('artistId', calendarContent.artistId.toString());
 

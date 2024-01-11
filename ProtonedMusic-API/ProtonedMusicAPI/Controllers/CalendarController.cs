@@ -77,7 +77,7 @@ namespace ProtonedMusicAPI.Controllers
 
         [HttpPut]
         [Route("{calendarId}")]
-        public async Task<IActionResult> UpdateCalendarById([FromRoute] int calendarId, [FromBody] CalendarRequest updateContent)
+        public async Task<IActionResult> UpdateCalendarById([FromRoute] int calendarId, [FromForm] CalendarRequest updateContent)
         {
             try
             {
