@@ -33,11 +33,15 @@
               <input type="text" [(ngModel)]="selected" class="form-control">
             </div>
         </div>
-        <div class="form-group row mb-3">
-            <label class="col-12 col-sm-1 col-form-label">Artist name</label>
-            <div class="col-12 col-sm-6">
-              <input [(ngModel)]="calendarContent.familyMember" class="form-control">
+        <div class="form-group row mb-3" *ngIf="this.currentUser.role != 'Family'">
+          <label class="col-12 col-sm-1 col-form-label">Role</label>
+          <div class="col-12 col-sm-6">
+            <div class="dropdown">
+              <select [(ngModel)]="calendarContent.artist" class="form-select">
+                <option class="dropdown-item" *ngFor="let artist of Artists" [ngValue]="artist">{{ artist.name }}</option>
+              </select>
             </div>
+          </div>
         </div>
         <div class="d-flex mt-5 mx-0">
             <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
@@ -72,7 +76,7 @@
               <td>{{ contents.title }}</td>
               <td class="text-truncate" style="max-width: 300px;">{{ contents.content }}</td>
               <td>{{contents.date | date:'dd-MM-yyyy | HH:mm'}}</td>
-              <td>{{contents.familyMember}}</td>
+              <td>{{contents.artist.name}}</td>
             </tr>
           </tbody>
         </table>

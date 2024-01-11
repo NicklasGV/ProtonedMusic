@@ -33,17 +33,17 @@ export class NavbarComponent implements OnInit {
   }
 
   avatarCheck(userRole: any, userPicpath: string): number {
-    if (userRole != null && userPicpath != null && userPicpath.length > 0) {
+    if (userRole != '' && userPicpath != undefined || userPicpath != null) {
       return 1;
     }
-    if (userRole != null && userPicpath == '') {
+    if (userRole != null && userPicpath == undefined || userPicpath == null) {
       return 2;
     }
     return 0;
   }
 
   avatarLetterCheck(userName: string, userPicpath: string) {
-    if (userName != null && userPicpath == '') {
+    if (userName != null && userPicpath == undefined) {
       return userName.charAt(0)
     }
     return userName;

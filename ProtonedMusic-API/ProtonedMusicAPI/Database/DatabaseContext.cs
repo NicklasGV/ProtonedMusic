@@ -67,6 +67,15 @@
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
 
+            modelBuilder.Entity<CalendarContent>().HasData(new CalendarContent
+            {
+                Id =1,
+                Title = "Title",
+                Content = "This is a test content of a calendar content",
+                Date = new DateTime(),
+                ArtistId = 1,
+            });
+
             modelBuilder.Entity<FooterPost>().HasData(new FooterPost
             {
                 Id = 1,

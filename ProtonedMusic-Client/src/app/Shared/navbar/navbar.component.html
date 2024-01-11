@@ -44,6 +44,7 @@
           <li class="nav-item">
             <p-avatar *ngIf="avatarCheck(currentUser.role, currentUser.profilePicturePath) == 2" label="{{avatarLetterCheck(currentUser.firstName, currentUser.profilePicturePath)}}" styleClass="mr-2" size="large" shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
             <p-avatar *ngIf="avatarCheck(currentUser.role, currentUser.profilePicturePath) == 1" image="https://protonedmusic.com/{{currentUser.profilePicturePath}}" size="large" styleClass="mr-2" siz shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
+            <p-avatar *ngIf="avatarCheck(currentUser.role, currentUser.profilePicturePath) == 0" icon="bi-person-fill" size="large" styleClass="mr-2" siz shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
             <a *ngIf="currentUser.role == null" [routerLink]="['/login']" class="btn btn-outline-success me-2" (click)="collapseNavbar()">LOG IND</a>
           </li>
         </ul>
