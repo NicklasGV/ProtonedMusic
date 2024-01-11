@@ -36,14 +36,14 @@ export class NavbarComponent implements OnInit {
     if (userRole != null && userPicpath != null && userPicpath.length > 0) {
       return 1;
     }
-    if (userRole != null && userPicpath.length <= 0) {
+    if (userRole != null && userPicpath == '') {
       return 2;
     }
     return 0;
   }
 
   avatarLetterCheck(userName: string, userPicpath: string) {
-    if (userName != null && userPicpath.length <= 0) {
+    if (userName != null && userPicpath == '') {
       return userName.charAt(0)
     }
     return userName;

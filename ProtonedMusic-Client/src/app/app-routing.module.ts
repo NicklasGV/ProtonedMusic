@@ -7,6 +7,7 @@ const routes: Routes = [
   {path: '', loadComponent: () =>
   import('./Components/home/home.component').then(it => it.HomepageComponent)},
 
+//#region Navbar
   {path: 'login', loadComponent: () =>
   import('./Components/login/login.component').then(it => it.LoginComponent)},
 
@@ -34,11 +35,9 @@ const routes: Routes = [
   {path: 'syke', loadComponent: () =>
   import('./Components/testing/testing.component').then(it => it.TestingComponent)},
 
-  {path: 'familyschedule', loadComponent: () =>
-  import('./Components/family-schedule/family-schedule.component').then(it => it.FamilyScheduleComponent), canActivate: [FamilyGuard]},
-
   {path: 'events/:id', loadComponent: () =>
   import('./Components/event/event.component').then(it => it.EventComponent)},
+//#endregion
 
   //WIP
   {path: 'order/success', loadComponent: () =>
@@ -50,6 +49,13 @@ const routes: Routes = [
   {path: 'newsDetailed/:id', loadComponent: () =>
   import('./Components/news-detailed/news-detailed.component').then(it => it.NewsDetailedComponent)},
 
+  {path: 'family', loadComponent: () =>
+  import('./Components/Family/family-panel/family-panel.component').then(it => it.FamilyPanelComponent), canActivate: [FamilyGuard]},
+
+  {path: 'family/familyschedule', loadComponent: () =>
+  import('./Components/Family/family-schedule/family-schedule.component').then(it => it.FamilyScheduleComponent), canActivate: [FamilyGuard]},
+
+//#region Profile
   {path: 'profilmenu/:id', loadComponent: ()=>
   import('./Components/Profile/profilmenu/profilmenu.component').then( it => it.ProfilmenuComponent)},
 
@@ -58,6 +64,8 @@ const routes: Routes = [
 
   {path: 'profilmenu/:id/orderhistory', loadComponent: ()=>
   import('./Components/Profile/orderHistory/order-history/order-history.component').then( it => it.OrderHistoryComponent)},
+//#endregion
+
 //#region Admin interface
   {path: 'admin', loadComponent: () =>
   import('./Components/Admin/admin-panel/admin-panel.component').then(it => it.AdminPanelComponent), canActivate: [AuthGuard]},
@@ -92,11 +100,11 @@ const routes: Routes = [
   {path: 'admin/footerpanel', loadComponent: () =>
   import('./Components/Admin/footer-panel/footer-panel.component').then(it => it.FooterPanelComponent), canActivate: [AuthGuard]},
 
-  //#endregion
   {path: 'admin/artistpanel', loadComponent: () =>
   import('./Components/Admin/artist-panel/artist-panel.component').then(it => it.ArtistPanelComponent), canActivate: [AuthGuard]},
+  //#endregion
 
-  //Page not found component. must be at bottom
+  //! Page not found component. must be at bottom
    {path: '**', loadComponent: () =>
    import ('./Components/page-not-found/page-not-found.component').then(it => it.PageNotFoundComponent)},
 
