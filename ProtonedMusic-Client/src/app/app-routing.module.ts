@@ -93,6 +93,8 @@ const routes: Routes = [
   import('./Components/Admin/footer-panel/footer-panel.component').then(it => it.FooterPanelComponent), canActivate: [AuthGuard]},
 
   //#endregion
+  {path: 'admin/artistpanel', loadComponent: () =>
+  import('./Components/Admin/artist-panel/artist-panel.component').then(it => it.ArtistPanelComponent), canActivate: [AuthGuard]},
 
   //Page not found component. must be at bottom
    {path: '**', loadComponent: () =>

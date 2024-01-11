@@ -1,16 +1,20 @@
+import { LinkModel } from "./LinkModel";
 import { MusicModel } from "./MusicModel";
 import { User } from "./UserModel";
 
 export interface ArtistModel {
     id: number;
-    user: User;
+    user: User | null;
     userId: number;
     name: string;
     info: string;
     pictureFile: File | null;
-    songPicturePath: string;
+    picturePath: string;
     songs: MusicModel[];
     songIds: number[];
+    links: LinkModel[];
+    linkIds: number[];
+    checked: boolean;
 }
 
 export function resetArtist() {
@@ -21,8 +25,11 @@ export function resetArtist() {
       name: '', 
       info: '', 
       pictureFile: null,
-      songPicturePath: '',
+      picturePath: '',
       songs: [],
-      songIds: []
+      songIds: [],
+      links: [],
+      linkIds: [],
+      checked: false
   };
   }
