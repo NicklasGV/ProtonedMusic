@@ -73,7 +73,7 @@ namespace ProtonedMusicAPI.Services
                 Name = artistRequest.Name,
                 Info = artistRequest.Info,
                 PicturePath = artistRequest.PicturePath,
-                UserId = artistRequest.User,
+                UserId = artistRequest.UserId,
                 Songs = artistRequest.SongIds.Select(s => new ArtistSong
                 {
                     MusicId = s
