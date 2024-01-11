@@ -34,12 +34,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let order of orderHistory">
-            <td><img src="{{order.image}}" class="img-fluid" style="max-height: 50px;"></td>
-            <td>{{order.name}}</td>
-            <td>{{order.quantity}}</td>
-            <td>{{order.amount}}</td>
-            <td>{{order.total}}</td>
-            <td>{{order.date | date: 'dd/MM/yyyy'}}</td>
+            <td>{{ order.id }}</td>
+            <td>{{ order.orderNumber }}</td>
+            <td>{{ order.price }}</td>
+            <td>{{ order.quantity }}</td>
           </tr>
         </tbody>
       </table>

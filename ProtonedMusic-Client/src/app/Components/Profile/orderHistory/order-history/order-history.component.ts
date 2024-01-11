@@ -1,11 +1,12 @@
-import { Order } from './../../../../Models/Order';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { UserService } from 'src/app/Services/user.service';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { OrderHistoryService } from 'src/app/Services/orderHistory.service';
+import { OrderHistory } from 'src/app/Models/OrderHistoryModel';
+
 
 @Component({
   selector: 'app-order-history',
@@ -14,10 +15,10 @@ import { OrderHistoryService } from 'src/app/Services/orderHistory.service';
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css']
 })
-export class OrderHistoryComponent {
+export class OrderHistoryComponent implements OnInit {
   message: string = "";
   user: User = resetUser();
-  orderHistory: Order[] = [];
+  orderHistory: OrderHistory[] = []
 
   constructor(
     private userService: UserService,
@@ -40,18 +41,17 @@ export class OrderHistoryComponent {
       } else {
         // Store user in variable
         this.user = this.authService.currentUserValue;
-
-        // Fetch order history
-        this.orderHistoryService.GetAllOrderHistory(this.user.id.toString()).subscribe(
-          x => {
-            console.log("Order history response:", x);
-            this.orderHistory = x;
-          },
-          error => {
-            console.error("Error fetching order history:", error);
-          }
-        );
       }
+      this.orderHistoryService.GetOrdersByCustomerId(this.user.id).subscribe(x => {
+  console.log('Data fra tjenesten:', x);
+
+  if (Array.isArray(x)) {
+    this.orderHistory = x;
+  } else {
+    // Håndter fejlen eller juster din service, hvis x ikke er et array
+    console.error('Fejl: Forventede et array, men modtog:', x);
+  }
+      });
     });
   }
 }
