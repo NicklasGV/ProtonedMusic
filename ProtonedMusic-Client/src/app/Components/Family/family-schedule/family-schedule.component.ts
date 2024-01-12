@@ -84,7 +84,7 @@ export class FamilyScheduleComponent implements OnInit {
   }
 
   getBackgroundColor(date: any): string {
-    return this.calendarDates(date.day, date.month + 1) ? '#1987548f' : '';
+    return this.calendarDates(date.day, date.month + 1) ? '#2de291c9' : '';
   }
 
   editEvent(event: CalendarModel) {
