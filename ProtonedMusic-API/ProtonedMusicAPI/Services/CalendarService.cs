@@ -1,4 +1,5 @@
-﻿using ProtonedMusicAPI.DTO.CalendarDTO;
+﻿using ProtonedMusicAPI.Database.Entities;
+using ProtonedMusicAPI.DTO.CalendarDTO;
 using ProtonedMusicAPI.Interfaces.ICalendar;
 
 namespace ProtonedMusicAPI.Services
@@ -19,8 +20,15 @@ namespace ProtonedMusicAPI.Services
                 Title = contents.Title,
                 Content = contents.Content,
                 Date = contents.Date,
-                FamilyMember = contents.FamilyMember,
             };
+            if (contents.Artist != null)
+            {
+                response.Artist = new ArtistCalendarResponse
+                {
+                    Id = contents.Artist.Id,
+                    Name = contents.Artist.Name,
+                };
+            }
             return response;
         }
 
@@ -31,7 +39,7 @@ namespace ProtonedMusicAPI.Services
                 Title = calendarRequest.Title,
                 Content = calendarRequest.Content,
                 Date = calendarRequest.Date,
-                FamilyMember = calendarRequest.FamilyMember
+                ArtistId = calendarRequest.ArtistId,
             };
         }
         public async Task<CalendarResponse> CreateAsync(CalendarRequest newCalendar)

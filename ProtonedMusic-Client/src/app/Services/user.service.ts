@@ -27,11 +27,21 @@ export class UserService {
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
     formData.append('password', user.password);
-    formData.append('phoneNumber', user.phoneNumber.toString());
-    formData.append('address', user.address);
-    formData.append('city', user.city);
-    formData.append('postal', user.postal.toString());
-    formData.append('country', user.country);
+    if (user.phoneNumber != null) {
+      formData.append('phoneNumber', user.phoneNumber.toString());
+    }
+    if (user.address != null) {
+      formData.append('address', user.address);
+    }
+    if (user.city != null) {
+      formData.append('city', user.city);
+    }
+    if (user.postal != null) {
+      formData.append('postal', user.postal.toString()); 
+    }
+    if (user.country != null) {
+      formData.append('country', user.country);
+    }
     if (user.profilePicturePath != null) {
       formData.append('profilePicturePath', user.profilePicturePath);
     }
@@ -70,19 +80,23 @@ export class UserService {
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
     formData.append('password', user.password);
-    formData.append('phoneNumber', user.phoneNumber.toString());
-    formData.append('address', user.address);
-    formData.append('city', user.city);
-    formData.append('postal', user.postal.toString());
-    formData.append('country', user.country);
-    formData.append('profilePicturePath', user.profilePicturePath);
-
-    if (user.role) {
-      formData.append('role', user.role);
+    if (user.phoneNumber != null) {
+      formData.append('phoneNumber', user.phoneNumber.toString());
     }
-
-    if (user.addonRoles) {
-      formData.append('addonRoles', user.addonRoles);
+    if (user.address != null) {
+      formData.append('address', user.address);
+    }
+    if (user.city != null) {
+      formData.append('city', user.city);
+    }
+    if (user.postal != null) {
+      formData.append('postal', user.postal.toString()); 
+    }
+    if (user.country != null) {
+      formData.append('country', user.country);
+    }
+    if (user.profilePicturePath != null) {
+      formData.append('profilePicturePath', user.profilePicturePath);
     }
 
     if (user.token) {
@@ -94,6 +108,42 @@ export class UserService {
     }
 
     return this.http.put<User>(this.apiUrl + '/' + user.id, formData);
+  }
+
+  updateNoPassword(user: User): Observable<User> {
+    const formData = new FormData();
+  
+    formData.append('firstName', user.firstName);
+    formData.append('lastName', user.lastName);
+    formData.append('email', user.email);
+    if (user.phoneNumber != null) {
+      formData.append('phoneNumber', user.phoneNumber.toString());
+    }
+    if (user.address != null) {
+      formData.append('address', user.address);
+    }
+    if (user.city != null) {
+      formData.append('city', user.city);
+    }
+    if (user.postal != null) {
+      formData.append('postal', user.postal.toString()); 
+    }
+    if (user.country != null) {
+      formData.append('country', user.country);
+    }
+    if (user.profilePicturePath != null) {
+      formData.append('profilePicturePath', user.profilePicturePath);
+    }
+
+    if (user.token) {
+      formData.append('token', user.token);
+    }
+  
+    if (user.pictureFile) {
+      formData.append('pictureFile', user.pictureFile, user.pictureFile.name);
+    }
+    
+    return this.http.post<User>(this.apiUrl + '/Update/' + user.id, formData);
   }
 
   findById(userId: number): Observable<User> {

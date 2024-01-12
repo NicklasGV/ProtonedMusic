@@ -1,10 +1,10 @@
 import { UserService } from './../../Services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { AuthService } from 'src/app/Services/auth.service';
-import { Avatar, AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   roleChecker: string = 'Admin';
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService, private router:Router, private userService:UserService) {
+  constructor(private authService: AuthService, private userService:UserService) {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
   }
 
@@ -28,22 +28,32 @@ export class NavbarComponent implements OnInit {
         this.isLoggedIn = true;
       }
     });
-
-    this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.currentUser = x);
+    if(this.currentUser.id > 0) {
+      this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.currentUser = x);
+    }
   }
 
-  avatarCheck(userRole: any, userPicpath: string): number {
-    if (userRole != null && userPicpath != null) {
-      return 1;
+  avatarCheck(thisuser: User): string {
+    if (thisuser.id > 0)
+    {
+      if (thisuser.profilePicturePath == '') {
+        return 'Letter'
+      }
+      else if (thisuser.profilePicturePath != '') {
+        return 'PicPath'
+      }
+      else if (thisuser.profilePicturePath == '' && thisuser.firstName == '')
+      {
+        return 'No name'
+      }
+      return 'Nothing'
     }
-    if (userRole != null && userPicpath == null) {
-      return 2;
-    }
-    return 0;
+    return 'DontShow'
+
   }
 
-  avatarLetterCheck(userName: string, userPicpath: string) {
-    if (userName != null && userPicpath == null) {
+  avatarLetterCheck(userName: string) {
+    if (userName != null) {
       return userName.charAt(0)
     }
     return userName;
