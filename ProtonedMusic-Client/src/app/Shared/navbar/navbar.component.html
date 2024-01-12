@@ -31,8 +31,8 @@
           routerLinkActive="active-link" (click)="collapseNavbar()"> Merchandise</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link bi-people-fill" [routerLink]="['/familyschedule']" routerLinkActive="router-link-active"
-            routerLinkActive="active-link" (click)="collapseNavbar()" *ngIf="currentUser.role == 'Family' || currentUser.role == 'Admin'"> Family Schedule</a>
+          <a class="nav-link bi-people-fill" [routerLink]="['/family']" routerLinkActive="router-link-active"
+            routerLinkActive="active-link" (click)="collapseNavbar()" *ngIf="currentUser.role == 'Family' || currentUser.role == 'Admin'"> Family</a>
           </li>
         <li class="nav-item">
           <a class="nav-link bi-person-fill-gear" [routerLink]="['/admin']" routerLinkActive="router-link-active"
@@ -42,8 +42,9 @@
       <form class="d-flex">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <p-avatar *ngIf="avatarCheck(currentUser.role, currentUser.profilePicturePath) == 2" label="{{avatarLetterCheck(currentUser.firstName, currentUser.profilePicturePath)}}" styleClass="mr-2" size="large" shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
-            <p-avatar *ngIf="avatarCheck(currentUser.role, currentUser.profilePicturePath) == 1" image="https://protonedmusic.com/{{currentUser.profilePicturePath}}" size="large" styleClass="mr-2" siz shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
+            <p-avatar *ngIf="avatarCheck(currentUser) == 'Letter'" label="{{avatarLetterCheck(currentUser.firstName)}}" styleClass="mr-2" size="large" shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
+            <p-avatar *ngIf="avatarCheck(currentUser) == 'PicPath'" image="https://protonedmusic.com/{{currentUser.profilePicturePath}}" size="large" styleClass="mr-2" siz shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
+            <p-avatar *ngIf="avatarCheck(currentUser) == 'Nothing'" icon="bi-person-fill" size="large" styleClass="mr-2" siz shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
             <a *ngIf="currentUser.role == null" [routerLink]="['/login']" class="btn btn-outline-success me-2" (click)="collapseNavbar()">LOG IND</a>
           </li>
         </ul>

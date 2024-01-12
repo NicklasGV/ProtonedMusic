@@ -9,7 +9,8 @@
         [Column(TypeName = "nvarchar(255)")]
         public string Content { get; set; }
         public DateTime Date { get; set; }
-        [Column(TypeName = "nvarchar(80)")]
-        public string FamilyMember { get; set; }
+        [ForeignKey("Artist.Id")]
+        public int ArtistId { get; set; }
+        public Artist Artist { get; set; }
     }
 }

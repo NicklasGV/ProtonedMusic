@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
@@ -11,7 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
   styles: ['']
 })
 export class SnackBarComponent implements OnInit {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) { 
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any, private snackBarRef: MatSnackBarRef<SnackBarComponent>) { 
   }
 
   ngOnInit() {}
@@ -31,6 +31,6 @@ export class SnackBarComponent implements OnInit {
   }
 
   closeSnackbar() {
-    this.data.snackBar.dismiss();
+    this.snackBarRef.dismiss();
   }
 }

@@ -91,7 +91,24 @@ export class UserPanelComponent implements OnInit {
         });
       } else {
         //update
-        this.userService.update(this.user)
+        if (this.user.password != '')
+        {
+          this.userService.update(this.user)
+          .subscribe({
+            error: (err) => {
+              this.message = Object.values(err.error.errors).join(", ");
+              this.snackBar.openSnackBar(this.message, '', 'error');
+            },
+            complete: () => {
+              this.userService.getAll().subscribe(x => this.users = x);
+              this.user = resetUser();
+              this.snackBar.openSnackBar("User updated", '', 'success');
+            }
+          });
+        }
+        else if (this.user.password == '')
+        {
+          this.userService.updateNoPassword(this.user)
         .subscribe({
           error: (err) => {
             this.message = Object.values(err.error.errors).join(", ");
@@ -103,6 +120,7 @@ export class UserPanelComponent implements OnInit {
             this.snackBar.openSnackBar("User updated", '', 'success');
           }
         });
+        }
       }
       this.user = resetUser();
     }

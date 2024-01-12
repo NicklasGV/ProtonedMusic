@@ -1,3 +1,4 @@
+import { Role } from 'src/app/Models/role';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -10,6 +11,10 @@ import { User, resetUser } from 'src/app/Models/UserModel';
 import { CalendarService } from 'src/app/Services/calendar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { CalendarModule } from 'primeng/calendar';
+import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
+import { ArtistService } from 'src/app/Services/artist.service';
+import { UserService } from 'src/app/Services/user.service';
+import { AuthService } from 'src/app/Services/auth.service';
 @Component({
   selector: 'app-family-schedule',
   standalone: true,
@@ -22,6 +27,8 @@ export class FamilyScheduleComponent implements OnInit {
   message: string = '';
   content: CalendarModel[] = [];
   calendarContent: CalendarModel = resetCalendar();
+  artist: ArtistModel = resetArtist();
+  Artists: ArtistModel[] = [];
   currentUser: User = resetUser();
   user: User = resetUser();
   showEventBool: boolean = false;
@@ -32,10 +39,15 @@ export class FamilyScheduleComponent implements OnInit {
     private dialog: MatDialog,
     private calendarService: CalendarService,
     private datePipe: DatePipe,
+    private artistService: ArtistService,
+    private userService: UserService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.calendarService.getAllContent().subscribe((x) => (this.content = x));
+    this.artistService.getAll().subscribe((x) => (this.Artists = x));
+    this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.currentUser = x);
   }
   showEvent() {
     if (this.showEventBool == false) {
@@ -72,7 +84,7 @@ export class FamilyScheduleComponent implements OnInit {
   }
 
   getBackgroundColor(date: any): string {
-    return this.calendarDates(date.day, date.month + 1) ? '#1987548f' : '';
+    return this.calendarDates(date.day, date.month + 1) ? '#2de291c9' : '';
   }
 
   editEvent(event: CalendarModel) {
@@ -98,16 +110,31 @@ export class FamilyScheduleComponent implements OnInit {
       }
     });
   }
+
   cancel() {
     this.calendarContent = resetCalendar();
     this.showEvent();
   }
+
+  transformDateTime(date: any) {
+    return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm:ss');
+  }
+
   save() {
     this.message = '';
-    if (this.calendarContent.id == 0) {
-      //create
-      this.calendarContent.date = this.selected;
-      this.calendarService.createEvent(this.calendarContent).subscribe({
+    if (this.currentUser.role == 'Family')
+      {
+        this.calendarContent.artistId = this.currentUser.id;
+      };
+      if (this.currentUser.role == 'Admin')
+      {
+        this.calendarContent.artistId = this.calendarContent.artist.id;
+      };
+      console.log(this.calendarContent);
+      if (this.calendarContent.id == 0) {
+        //create
+      this.calendarContent.date = this.transformDateTime(this.selected);
+      this.calendarService.create(this.calendarContent).subscribe({
         next: (x) => {
           this.content.push(x);
           this.calendarContent = resetCalendar();
@@ -121,8 +148,8 @@ export class FamilyScheduleComponent implements OnInit {
       });
     } else {
       //update
-      this.calendarContent.date = this.selected;
-      this.calendarService.updateEvent(this.calendarContent.id, this.calendarContent).subscribe({
+      this.calendarContent.date = this.transformDateTime(this.selected);
+      this.calendarService.update(this.calendarContent.id, this.calendarContent).subscribe({
         error: (err) => {
           this.message = Object.values(err.error.errors).join(', ');
           this.snackBar.openSnackBar(this.message, '', 'error');
