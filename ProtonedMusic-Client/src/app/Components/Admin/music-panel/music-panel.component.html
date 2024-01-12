@@ -13,7 +13,7 @@
     <div class="form-group row  mb-3">
       <label class="col-12 col-sm-1 col-form-label">Artist</label>
       <div class="col-12 col-sm-6">
-        <ul class="list-group">
+        <ul class="list-group w-75">
           <li class="list-group-item" *ngFor="let artist of artists">
             <input class="form-check-input me-1" type="checkbox" (change)="marked($event)" [(ngModel)]="artist.checked"
               [value]="artist.id">

@@ -1,4 +1,5 @@
-﻿using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
+﻿using ProtonedMusicAPI.Database.Entities;
+using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
 
 namespace ProtonedMusicAPI.Services
 {
@@ -34,15 +35,21 @@ namespace ProtonedMusicAPI.Services
             return response;
         }
 
-        public async Task<OrderHistoryResponse> GetOrdersByCustomerIdAsync(string customerId)
+        public async Task<List<OrderHistoryResponse>> GetOrdersByCustomerIdAsync(string customerId)
         {
             // Hent alle ordrer for en bestemt kunde fra databasen
-            Order customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
+            List<Order> customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
 
             // Lav en respons baseret på de hentede ordrer
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(customerOrders);
+            List<OrderHistoryResponse> responseList = new List<OrderHistoryResponse>();
 
-            return response;
+            foreach (Order order in customerOrders)
+            {
+                OrderHistoryResponse response = MapOrderToOrderHistoryResponse(order);
+                responseList.Add(response);
+            }
+
+            return responseList;
         }
 
 
@@ -53,15 +60,29 @@ namespace ProtonedMusicAPI.Services
             {
                 return null;
             }
-
-            return new OrderHistoryResponse
+            OrderHistoryResponse response = new OrderHistoryResponse
             {
                 Id = order.Id,
                 OrderNumber = order.OrderNumber,
-                Items = order.Items, // Dette kan også kræve en separat mapping af ItemProduct til ItemProductResponse
+                OrderDate = order.OrderDate,
                 price = CalculateTotalPrice(order.Items),
                 quantity = CalculateTotalQuantity(order.Items)
+                
+
+
             };
+            if (order.Items.Count > 0)
+            {
+                response.Items = order.Items.Select(x => new OrderItemsResponse
+                {
+                    Id = x.Id,
+                    ProductId = x.ProductId,
+                    OrderId = x.OrderId,
+                    quantity = x.quantity,
+                    ProductName = x.Product.Name,
+                }).ToList();
+            }
+            return response;
         }
 
         // Hjælpefunktion til at beregne den samlede pris for alle elementer i en ordre
