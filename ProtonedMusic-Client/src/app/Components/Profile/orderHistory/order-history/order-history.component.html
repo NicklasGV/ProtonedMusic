@@ -25,18 +25,18 @@
           <thead>
             <tr>
               <th>ORDRE NUMBER</th>
-              <th>NAME</th>
-              <th>QUANTITY</th>
+              <th>PRODUCT</th>
+              <th>TOTAL QUANTITY</th>
               <th>TOTAL</th>
-              <th>Date</th>
+              <th>DATE</th>
             </tr>
           </thead>
           <tbody *ngFor="let order of orderHistory">
-            <tr *ngFor="let item of order.items;">
+            <tr>
               <td>{{ order.orderNumber }}</td>
               <td>
                 <table>
-                  <tr >
+                  <tr *ngFor="let item of order.items;">
                     <td>{{item.productName}}
                   </tr>
                 </table>
