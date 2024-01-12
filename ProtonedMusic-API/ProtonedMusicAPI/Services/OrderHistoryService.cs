@@ -58,8 +58,10 @@ namespace ProtonedMusicAPI.Services
             {
                 Id = order.Id,
                 OrderNumber = order.OrderNumber,
+                OrderDate = order.OrderDate,
                 price = CalculateTotalPrice(order.Items),
                 quantity = CalculateTotalQuantity(order.Items)
+                
 
 
             };
@@ -71,6 +73,7 @@ namespace ProtonedMusicAPI.Services
                     ProductId = x.ProductId,
                     OrderId = x.OrderId,
                     quantity = x.quantity,
+                    ProductName = x.Product.Name,
                 }).ToList();
             }
             return response;

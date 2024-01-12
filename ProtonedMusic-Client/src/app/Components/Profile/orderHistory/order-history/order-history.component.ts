@@ -7,18 +7,17 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { OrderHistoryService } from 'src/app/Services/orderHistory.service';
 import { OrderHistory } from 'src/app/Models/OrderHistoryModel';
 
-
 @Component({
   selector: 'app-order-history',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.css']
+  styleUrls: ['./order-history.component.css'],
 })
 export class OrderHistoryComponent implements OnInit {
-  message: string = "";
+  message: string = '';
   user: User = resetUser();
-  orderHistory: OrderHistory[] = []
+  orderHistory: OrderHistory[] = [];
 
   constructor(
     private userService: UserService,
@@ -29,9 +28,11 @@ export class OrderHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.user = x);
+    this.userService
+      .findById(this.authService.currentUserValue.id)
+      .subscribe((x) => (this.user = x));
 
-    this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.subscribe((params) => {
       if (
         this.authService.currentUserValue == null ||
         this.authService.currentUserValue.id == 0 ||
@@ -42,16 +43,22 @@ export class OrderHistoryComponent implements OnInit {
         // Store user in variable
         this.user = this.authService.currentUserValue;
       }
-      this.orderHistoryService.GetOrdersByCustomerId(this.user.id).subscribe(x => {
-  console.log('Data fra tjenesten:', x);
+      this.orderHistoryService
+        .GetOrdersByCustomerId(this.user.id)
+        .subscribe((x) => {
+          console.log('Data fra tjenesten:', x);
 
-  if (Array.isArray(x)) {
-    this.orderHistory = x;
-  } else {
-    // Håndter fejlen eller juster din service, hvis x ikke er et array
-    console.error('Fejl: Forventede et array, men modtog:', x);
-  }
-      });
+          if (Array.isArray(x)) {
+            this.orderHistory = x;
+          } else {
+            // Håndter fejlen eller juster din service, hvis x ikke er et array
+            console.error('Fejl: Forventede et array, men modtog:', x);
+          }
+        });
     });
+  }
+
+  formatCurrency(amount: number): string {
+    return amount.toLocaleString('da-DK') + ' DKK';
   }
 }

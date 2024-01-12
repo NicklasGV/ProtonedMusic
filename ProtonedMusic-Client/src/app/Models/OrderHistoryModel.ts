@@ -6,4 +6,15 @@ export interface OrderHistory{
   items: ItemProduct[];
   price: number;
   quantity: number;
+  orderDate: Date;
+}
+export function resetOrderHistory() {
+  return {
+    id: 0,
+    orderNumber: 0,
+    items: [],
+    price: 0,
+    quantity: 0,
+    orderDate: new Date()
+  };
 }

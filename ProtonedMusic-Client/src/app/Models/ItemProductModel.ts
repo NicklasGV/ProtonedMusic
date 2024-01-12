@@ -3,4 +3,5 @@ export interface ItemProduct{
   name: string;
   orderId: number;
   quantity: number;
+  productName: string;
 }
