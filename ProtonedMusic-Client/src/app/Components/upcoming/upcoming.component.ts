@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UpcomingService } from 'src/app/Services/upcoming.service';
 import { UpcomingModel } from 'src/app/Models/UpcomingModel';
+import { ArtistService } from 'src/app/Services/artist.service';
+import { ArtistModel } from 'src/app/Models/ArtistModel';
+
 
 @Component({
   selector: 'app-upcoming',
@@ -13,9 +16,10 @@ import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 })
 export class UpcomingComponent implements OnInit {
   upcomings: UpcomingModel[] = [];
+  artists: ArtistModel[] = [];
   checkEmpty: boolean = false;
 
-  constructor(private upcomingService: UpcomingService) { }
+  constructor(private upcomingService: UpcomingService, private artistService: ArtistService) { }
 
   getUpcomingShows() {
     const currentTime = new Date();
@@ -33,6 +37,8 @@ export class UpcomingComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
       this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+      this.artistService.getAll().subscribe(x => this.artists = x);
+
 
       await this.delay(200);
       this.checkEmpty = this.checkIfEmpty();
