@@ -5,11 +5,12 @@ import { User, resetUser } from '../../../Models/UserModel';
 import { AuthService } from 'src/app/Services/auth.service';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-profilmenu',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, AvatarModule],
   templateUrl: './profilmenu.component.html',
   styleUrls: ['./profilmenu.component.css']
 })
@@ -39,6 +40,13 @@ export class ProfilmenuComponent implements OnInit {
 
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
+avatarLetterCheck(userName: string) {
+  if (userName != null) {
+    return userName.charAt(0)
+  }
+  return userName;
 }
 
   WelcomeUser() {
