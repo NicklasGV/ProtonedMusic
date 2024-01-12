@@ -4,7 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UpcomingService } from 'src/app/Services/upcoming.service';
 import { UpcomingModel } from 'src/app/Models/UpcomingModel';
-import { CalendarModel } from 'src/app/Models/CalendarModel';
+import { ArtistService } from 'src/app/Services/artist.service';
+import { ArtistModel } from 'src/app/Models/ArtistModel';
+
 
 @Component({
   selector: 'app-upcoming',
@@ -14,10 +16,11 @@ import { CalendarModel } from 'src/app/Models/CalendarModel';
   styleUrls: ['./upcoming.component.css']
 })
 export class UpcomingComponent implements OnInit {
-  upcomings: CalendarModel[] = [];
+  upcomings: UpcomingModel[] = [];
+  artists: ArtistModel[] = [];
   checkEmpty: boolean = false;
 
-  constructor(private calendarService: CalendarService) { }
+  constructor(private upcomingService: UpcomingService, private artistService: ArtistService) { }
 
   getUpcomingShows() {
     const currentTime = new Date();
@@ -34,7 +37,9 @@ export class UpcomingComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-      this.calendarService.getAllContent().subscribe(x => this.upcomings = x);
+      this.upcomingService.getAllUpcomings().subscribe(x => this.upcomings = x);
+      this.artistService.getAll().subscribe(x => this.artists = x);
+
 
       await this.delay(200);
       this.checkEmpty = this.checkIfEmpty();
