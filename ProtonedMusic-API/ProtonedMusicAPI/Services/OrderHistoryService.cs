@@ -35,15 +35,21 @@ namespace ProtonedMusicAPI.Services
             return response;
         }
 
-        public async Task<OrderHistoryResponse> GetOrdersByCustomerIdAsync(string customerId)
+        public async Task<List<OrderHistoryResponse>> GetOrdersByCustomerIdAsync(string customerId)
         {
             // Hent alle ordrer for en bestemt kunde fra databasen
-            Order customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
+            List<Order> customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
 
             // Lav en respons baseret på de hentede ordrer
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(customerOrders);
+            List<OrderHistoryResponse> responseList = new List<OrderHistoryResponse>();
 
-            return response;
+            foreach (Order order in customerOrders)
+            {
+                OrderHistoryResponse response = MapOrderToOrderHistoryResponse(order);
+                responseList.Add(response);
+            }
+
+            return responseList;
         }
 
 

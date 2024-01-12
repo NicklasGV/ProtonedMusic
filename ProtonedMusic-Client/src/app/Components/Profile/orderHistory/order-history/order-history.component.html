@@ -31,12 +31,12 @@
               <th>Date</th>
             </tr>
           </thead>
-          <tbody>
-            <tr *ngFor="let order of orderHistory">
+          <tbody *ngFor="let order of orderHistory">
+            <tr *ngFor="let item of order.items;">
               <td>{{ order.orderNumber }}</td>
               <td>
                 <table>
-                  <tr *ngFor="let item of order.items;">
+                  <tr >
                     <td>{{item.productName}}
                   </tr>
                 </table>
