@@ -108,7 +108,6 @@ export class UserPanelComponent implements OnInit {
         }
         else if (this.user.password == '')
         {
-          console.log(this.user)
           this.userService.updateNoPassword(this.user)
         .subscribe({
           error: (err) => {

@@ -87,7 +87,6 @@ export class EditprofilComponent{
         }
         else if (this.user.password == '')
         {
-          console.log(this.user)
           this.userService.updateNoPassword(this.user)
         .subscribe({
           error: (err) => {
