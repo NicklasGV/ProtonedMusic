@@ -51,7 +51,7 @@
 </div>
 
 <div class="container-fluid" data-bs-theme="dark">
-    <div class="table-responsive">
+    <!-- <div class="table-responsive">
       <div class="table-wrapper">
         <table class="table table-hover">
           <thead>
@@ -81,5 +81,25 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </div> -->
+  <p-table [value]="content">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id" style="width:20%">Id <p-sortIcon field="id"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="title" style="width:20%">Title <p-sortIcon field="title"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="content" style="width:20%">Content <p-sortIcon field="content"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="date" style="width:20%">Date <p-sortIcon field="date"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="artist" style="width:20%">Artist <p-sortIcon field="artist"></p-sortIcon><p-divider></p-divider></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-content>
+      <tr>
+        <td>{{content.id}}</td>
+        <td>{{content.title}}</td>
+        <td class="text-truncate" style="max-width: 300px;">{{content.content}}</td>
+        <td>{{content.date | date:'dd-MM-yyyy | HH:mm'}}</td>
+        <td>{{content.artist.name}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

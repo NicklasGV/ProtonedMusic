@@ -17,11 +17,13 @@ import { UserService } from 'src/app/Services/user.service';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FilterService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
+import { DividerModule } from 'primeng/divider';
+
 
 @Component({
   selector: 'app-family-schedule',
   standalone: true,
-  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule, CalendarModule, TableModule],
+  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule, CalendarModule, TableModule, DividerModule],
   templateUrl: './family-schedule.component.html',
   styleUrl: './family-schedule.component.css'
 })
