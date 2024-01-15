@@ -80,6 +80,9 @@ export class UserService {
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
     formData.append('password', user.password);
+    if (user.role != null) {
+      formData.append('role', user.role); 
+    }
     if (user.phoneNumber != null) {
       formData.append('phoneNumber', user.phoneNumber.toString());
     }
@@ -116,6 +119,12 @@ export class UserService {
     formData.append('firstName', user.firstName);
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
+    if (user.role != null) {
+      formData.append('role', user.role); 
+    }
+    if (user.addonRoles != null) {
+      formData.append('addonRoles', user.addonRoles); 
+    }
     if (user.phoneNumber != null) {
       formData.append('phoneNumber', user.phoneNumber.toString());
     }

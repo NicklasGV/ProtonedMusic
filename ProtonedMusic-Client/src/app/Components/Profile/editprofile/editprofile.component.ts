@@ -56,21 +56,50 @@ export class EditprofilComponent{
 
   save(): void {
     this.message = "";
-    if (this.user.id != 0) {
-      //update
-      this.userService.update(this.user)
-      .subscribe({
-        error: (err) => {
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, "","error");
-          this.errorOnChanges();
-        },
-        complete: () => {
-          this.user = this.resetPassword();
-          this.snackBar.openSnackBar("Profile updated", "","success")
+    // if (this.user.id != 0) {
+    //   //update
+    //   this.userService.update(this.user)
+    //   .subscribe({
+    //     error: (err) => {
+    //       this.message = Object.values(err.error.errors).join(", ");
+    //       this.snackBar.openSnackBar(this.message, "","error");
+    //       this.errorOnChanges();
+    //     },
+    //     complete: () => {
+    //       this.user = this.resetPassword();
+    //       this.snackBar.openSnackBar("Profile updated", "","success")
+    //     }
+    //   });
+    // }
+    if (this.user.password != '')
+        {
+          this.userService.update(this.user)
+          .subscribe({
+            error: (err) => {
+              this.message = Object.values(err.error.errors).join(", ");
+              this.snackBar.openSnackBar(this.message, '', 'error');
+            },
+            complete: () => {
+              this.user = resetUser();
+              this.snackBar.openSnackBar("Profile updated", '', 'success');
+            }
+          });
         }
-      });
-    }
+        else if (this.user.password == '')
+        {
+          console.log(this.user)
+          this.userService.updateNoPassword(this.user)
+        .subscribe({
+          error: (err) => {
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
+          },
+          complete: () => {
+            this.user = resetUser();
+            this.snackBar.openSnackBar("Profile updated", '', 'success');
+          }
+        });
+        }
     this.router.navigate(['../../../profilmenu', this.user.id]);
   }
 }
