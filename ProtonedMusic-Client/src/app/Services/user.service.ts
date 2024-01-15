@@ -45,19 +45,15 @@ export class UserService {
     if (user.profilePicturePath != null) {
       formData.append('profilePicturePath', user.profilePicturePath);
     }
-
     if (user.role) {
       formData.append('role', user.role);
     }
-
     if (user.addonRoles) {
       formData.append('addonRoles', user.addonRoles);
     }
-
     if (user.token) {
       formData.append('token', user.token);
     }
-  
     if (user.pictureFile) {
       formData.append('pictureFile', user.pictureFile, user.pictureFile.name);
     }
@@ -101,11 +97,9 @@ export class UserService {
     if (user.profilePicturePath != null) {
       formData.append('profilePicturePath', user.profilePicturePath);
     }
-
     if (user.token) {
       formData.append('token', user.token);
     }
-  
     if (user.pictureFile) {
       formData.append('pictureFile', user.pictureFile, user.pictureFile.name);
     }
@@ -143,11 +137,9 @@ export class UserService {
     if (user.profilePicturePath != null) {
       formData.append('profilePicturePath', user.profilePicturePath);
     }
-
     if (user.token) {
       formData.append('token', user.token);
     }
-  
     if (user.pictureFile) {
       formData.append('pictureFile', user.pictureFile, user.pictureFile.name);
     }
