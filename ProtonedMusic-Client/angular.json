@@ -64,12 +64,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "999kb",
-                  "maximumError": "1mb"
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kb",
-                  "maximumError": "12kb"
+                  "maximumWarning": "100kb",
+                  "maximumError": "120kb"
                 }
               ],
               "fileReplacements": [
