@@ -15,10 +15,13 @@ import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
 import { ArtistService } from 'src/app/Services/artist.service';
 import { UserService } from 'src/app/Services/user.service';
 import { AuthService } from 'src/app/Services/auth.service';
+import { FilterService } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+
 @Component({
   selector: 'app-family-schedule',
   standalone: true,
-  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule, CalendarModule],
+  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule, CalendarModule, TableModule],
   templateUrl: './family-schedule.component.html',
   styleUrl: './family-schedule.component.css'
 })
@@ -41,7 +44,8 @@ export class FamilyScheduleComponent implements OnInit {
     private datePipe: DatePipe,
     private artistService: ArtistService,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private filterService: FilterService,
   ) {}
 
   ngOnInit() {
