@@ -44,8 +44,9 @@
 </style>
 <div class="offcanvas offcanvas-end bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Artist list</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <h2 class="offcanvas-title" id="offcanvasScrollingLabel">Artist list</h2>
+    <h3></h3>
   </div>
   <div class="offcanvas-body">
     <div *ngFor="let artist of artists">
@@ -60,9 +61,9 @@
           </div>
           <div class="card-body" style="display: flex; flex-direction: column; min-width: 20px;">
               <div class="align-items-start">
-                <h1>{{artist.name}}</h1>
+                <h2>{{artist.name}}</h2>
                   
-                  <h3 class="text-truncate" style="max-width: 200px;">{{artist.info}}</h3>
+                  <h4 class="text-truncate" style="max-width: 200px;">{{artist.info}}</h4>
                   <div class="float">
                     <a class="text fw-bold" *ngFor="let link of artist.links" href="{{link.linkAddress}}" target="_blank">{{link.title}}</a>
                 </div>
