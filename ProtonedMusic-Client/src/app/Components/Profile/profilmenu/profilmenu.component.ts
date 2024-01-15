@@ -78,9 +78,10 @@ avatarLetterCheck(userName: string) {
 
   async uploadImage() {
     if (this.selectedFile) {
+      console.log(this.selectedFile)
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-
+  
       this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe();
     }
     await this.delay(500);

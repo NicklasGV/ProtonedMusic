@@ -128,11 +128,9 @@ h1, h2, h3, h4, h5 , h6, p {
   margin-bottom: 2.5rem;
 }
 
-.p-datatable > .p-datatable-gridlines{
-  color: #0a3823;
+.p-datatable .p-sortable-column-icon{
+  color: var(--green-color) !important;
 }
-
-
 /*#endregion*/
 
 
