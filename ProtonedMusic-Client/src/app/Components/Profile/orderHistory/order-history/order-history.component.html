@@ -18,33 +18,36 @@
       </div>
     </div>
   </div>
-<div class="card text-bg-dark mb-3">
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-dark">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let order of orderHistory">
-            <td><img src="{{order.image}}" class="img-fluid" style="max-height: 50px;"></td>
-            <td>{{order.name}}</td>
-            <td>{{order.quantity}}</td>
-            <td>{{order.amount}}</td>
-            <td>{{order.total}}</td>
-            <td>{{order.date | date: 'dd/MM/yyyy'}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="card text-bg-dark mb-3">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>ORDRE NUMBER</th>
+              <th>PRODUCT</th>
+              <th>TOTAL QUANTITY</th>
+              <th>TOTAL</th>
+              <th>DATE</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let order of orderHistory">
+            <tr>
+              <td>{{ order.orderNumber }}</td>
+              <td>
+                <table>
+                  <tr *ngFor="let item of order.items;">
+                    <td>{{item.productName}}
+                  </tr>
+                </table>
+              </td>
+              <td>{{ order.quantity }}</td>
+              <td>{{ order.price.toLocaleString('da-DK') }} DKK</td>
+              <td>{{ order.orderDate | date: 'dd/MM/yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  </div>
 </div>
-

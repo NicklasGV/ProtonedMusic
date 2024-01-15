@@ -30,17 +30,20 @@
             return newOrder;
         }
 
-        public async Task<Order> GetOrdersByCustomerId(string customerId)
+        public async Task<List<Order>> GetOrdersByCustomerId(string customerId)
         {
             return await _context.Orders
                 .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.CustomerId.ToString() == customerId);
+                .ThenInclude(i => i.Product)
+                .Where(o => o.CustomerId.ToString() == customerId)
+                .ToListAsync();
         }
 
         public async Task<Order> GetOrdersById(int orderId)
         {
             return await _context.Orders
                 .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
         }
 
