@@ -49,6 +49,10 @@ const routes: Routes = [
   {path: 'newsDetailed/:id', loadComponent: () =>
   import('./Components/news-detailed/news-detailed.component').then(it => it.NewsDetailedComponent)},
 
+  {path: 'artist/:id', loadComponent: () =>
+  import('./Components/artist-detailed/artist-detailed.component').then(it => it.ArtistDetailedComponent)},
+
+
   {path: 'family', loadComponent: () =>
   import('./Components/Family/family-panel/family-panel.component').then(it => it.FamilyPanelComponent), canActivate: [FamilyGuard]},
 
