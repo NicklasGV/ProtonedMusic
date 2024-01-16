@@ -40,7 +40,7 @@
   </div>
   <div class="offcanvas-body">
     <div *ngFor="let artist of artists">
-      <div class="card h-10 w-auto bg-dark text-light" [routerLink]="['/artist', artist.id]" style="display: grid; grid-template-rows: auto 1fr; max-width: 400px;">
+      <div class="card h-10 w-auto bg-dark text-light" [routerLink]="['/artist', artist.id]" style="display: grid; grid-template-rows: auto 1fr; max-width: 400px; cursor: pointer !important;">
           <div class="card-header d-flex justify-content-center">
               <a *ngIf="artist.picturePath">
                   <img src="https://protonedmusic.com/{{ artist.picturePath }}" class="rounded-2" style="width: 20rem; height: 20rem">
