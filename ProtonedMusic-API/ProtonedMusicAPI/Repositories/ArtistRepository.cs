@@ -64,13 +64,13 @@
                 artist.Info = updateArtist.Info;
                 artist.PicturePath = updateArtist.PicturePath;
                 
-                artist.User = updateArtist.User;
+                artist.UserId = updateArtist.UserId;
                 artist.Songs = updateArtist.Songs;
                 artist.Links = updateArtist.Links;
 
                 await _databaseContext.SaveChangesAsync();
 
-                artist = await FindByIdAsync(artist.Id);
+                artist = await FindByIdAsync(artistId);
             }
             return artist;
         }

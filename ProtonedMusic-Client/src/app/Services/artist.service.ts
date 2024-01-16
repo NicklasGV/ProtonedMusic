@@ -23,12 +23,18 @@ export class ArtistService {
     formData.append('name', artist.name);
     formData.append('info', artist.info);
     formData.append('picturePath', artist.picturePath);
-    artist.songIds.forEach(songId => {
-      formData.append('songIds', songId.toString());
-    });
-    artist.linkIds.forEach(linkId => {
-      formData.append('linkIds', linkId.toString());
-    });
+    if (artist.songIds)
+    {
+      artist.songIds.forEach(songId => {
+        formData.append('songIds', songId.toString());
+      });
+    }
+    if (artist.linkIds)
+    {
+      artist.linkIds.forEach(linkId => {
+        formData.append('linkIds', linkId.toString());
+      });
+    }
 
   
     if (artist.pictureFile) {
@@ -45,12 +51,18 @@ export class ArtistService {
     formData.append('name', artist.name);
     formData.append('info', artist.info);
     formData.append('picturePath', artist.picturePath);
-    artist.songIds.forEach(songId => {
-      formData.append('songIds', songId.toString());
-    });
-    artist.linkIds.forEach(linkId => {
-      formData.append('linkIds', linkId.toString());
-    });
+    if (artist.songIds)
+    {
+      artist.songIds.forEach(songId => {
+        formData.append('songIds', songId.toString());
+      });
+    }
+    if (artist.linkIds)
+    {
+      artist.linkIds.forEach(linkId => {
+        formData.append('linkIds', linkId.toString());
+      });
+    }
 
   
     if (artist.pictureFile) {

@@ -1,0 +1,73 @@
+<div class="container mt-4" style="width: 90%;">
+    <div class="row justify-content-center">
+        <div class="d-flex flex-column">
+            <div class="card bg-dark">
+                <div class="card-header text-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a type="button" class="bi bi-arrow-return-left btn btn-success"
+                            [routerLink]="['/upcoming']"></a>
+                            <a type="button" class="bi bi-pencil-square btn btn-success"
+                            [routerLink]="['/upcoming']"></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a *ngIf="artist.picturePath">
+                            <img src="https://protonedmusic.com/{{ artist.picturePath }}" class="rounded-2"
+                                style="width: 20rem; height: 20rem; margin-left: 15%; ">
+                        </a>
+                        <a *ngIf="!artist.picturePath">
+                            <img src="../../../assets/img/Error.jpg" class="rounded-2"
+                                style="width: 20rem; height: 20rem; margin-right: 15%;">
+                        </a>
+                        <div style=" margin-right: 20%; margin-bottom: -100px;">
+                            <h1 class="overlay-text display-6 mt-4">{{ artist.name }}</h1>
+                            <a class="text-success fw-bold me-2" *ngFor="let link of artist.links"
+                                href="{{link.linkAddress}}" target="_blank"
+                                (click)="$event.stopPropagation()">{{link.title}}</a>
+                        </div>
+                        <a></a>
+                    </div>
+                    <hr class="border-success border-2">
+                    <p class="card-text" style="margin-left: 5%;">{{ artist.info }}</p>
+                    <hr class="border-success border-2">
+                    <div class="container-fluid">
+                        <div class="row row-cols-auto g-4 m-5" style="overflow-x: auto; white-space: nowrap;">
+                            <div *ngFor="let song of artist.songs" class="col-lg-4" style="display: inline-block;">
+                                <div class="card border-success bg-dark mb-3">
+                                    <div class="card-header d-flex justify-content-center border-secondary">
+                                        <a *ngIf="song.songPicturePath">
+                                            <img src="https://protonedmusic.com/{{ song.songPicturePath }}"
+                                                class="rounded-2" style="width: 10rem; height: 10rem;">
+                                        </a>
+                                        <a *ngIf="!song.songPicturePath">
+                                            <img src="../../../assets/img/Error.jpg" class="rounded-2"
+                                                style="width: 10rem; height: 10rem;">
+                                        </a>
+                                    </div>
+                                    <div class="card-body"
+                                        style="display: flex; flex-direction: column; min-width: 200px;">
+                                        <div class="align-items-start">
+                                            <div class="justify-content-between">
+                                                <p>{{song.songName}}</p>
+                                            </div>
+                                            <p class="text-truncate" style="max-width: 300px;">{{song.album}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
+                            <div class="card bg-dark text-light">
+                                <div class="card-body text-center">
+                                    <h2>No songs are available right now check back later!</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
