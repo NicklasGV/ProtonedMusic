@@ -1,31 +1,38 @@
 <div class="container-fluid w-100  mt-5">
-    <div class="row row-cols-auto row-cols-lg-1 g-4 m-5">
-        <div class="d-inline-flex justify-content-center">
-            <a class="d-inline-flex justify-content-center" *ngIf="products.productPicturePath">
-                <img class="img w-25" src="https://protonedmusic.com/{{ products.productPicturePath }}" alt="Product Image">
-            </a>
-            <a class="d-inline-flex justify-content-center p-0" *ngIf="!products.productPicturePath">
-                <img class="img w-25" src="../../../assets/img/Error.jpg" alt="Product Image">
-            </a>
-            <div class="justify-content-end">
-                <h1>{{products.name}}</h1>
+    <div class="row row-cols-auto row-cols-lg-2 g-4 m-5">
+        <div class="col">
+            <div class="card text-bg-dark" *ngIf="products.productPicturePath">
+                <img class="card-img" src="https://protonedmusic.com/{{ products.productPicturePath }}" alt="Product Image">
+            </div>
+            <div class="card text-bg-dark" *ngIf="!products.productPicturePath">
+                <img class="card-img" src="../../../assets/img/Error.jpg" alt="Product Image">
             </div>
         </div>
-        <div class="card-body">
-            <hr class="border-success border-2">
-            <h4>Description:</h4>
-            <p class="card-text">{{ products.description }}</p>
-            <hr class="border-success border-2">
-            <h4>Category:</h4>
-            <span *ngFor="let category of products.categories" class="badge rounded-pill text-black text-bg-success">{{category.name}}</span>
-            <hr class="border-success border-2">
-            <h3 *ngIf="products.isDiscounted" class="card-text"><span class="badge text-black bg-success float-start">Before {{ products.beforePrice | currency: 'DKK ' }}</span></h3>
-            <h3 *ngIf="products.isDiscounted" class="card-text"><span class="badge text-black float-end" style="background-color: orangered;">{{ products.price | currency: 'DKK ' }}</span></h3>
-            <h3 *ngIf="!products.isDiscounted" class="card-text"><span class="badge text-black bg-success float-end">{{ products.price | currency: 'DKK ' }}</span></h3>
-        </div>
-        <div class="card-footer">
-            <a type="button" class="btn bi-x-circle-fill btn-outline-success float-start" [routerLink]="['/merchandise']"> Back</a>
-            <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end" (click)="addToCart(products, itemlength)"> Add to basket</a>
+        <div class="col">
+            <h1 class="fs-1 fw-semibold">{{products.name}}</h1>
+
+            <div class="mt-5">
+                <p class="fw-medium">
+                    {{products.description}}
+                </p>
+            </div>
+
+            <div class="mt-5">
+                <h3 class="fw-lighter">Categories:</h3>
+                <span *ngFor="let category of products.categories" class="badge rounded-pill text-black text-bg-success fs-6">{{category.name}}</span>
+            </div>
+
+            <hr class="border-success border-2 opacity-25 mt-5 mb-4">
+
+            <div class="row row-cols-2">
+                <div class="col">
+                    <span class="badge fs-4 fw-medium">{{products.price | currency: 'DKK '}}</span>
+                </div>
+                <div class="col">
+                    <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end" (click)="addToCart(products, itemlength)"> Add to basket</a>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
