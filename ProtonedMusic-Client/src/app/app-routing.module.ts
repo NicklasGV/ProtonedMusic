@@ -36,7 +36,7 @@ const routes: Routes = [
   import('./Components/testing/testing.component').then(it => it.TestingComponent)},
 
   {path: 'events/:id', loadComponent: () =>
-  import('./Components/event/event.component').then(it => it.EventComponent)},
+  import('./Components/event-detail/event-detail.component').then(it => it.EventComponent)},
 //#endregion
 
   //WIP
