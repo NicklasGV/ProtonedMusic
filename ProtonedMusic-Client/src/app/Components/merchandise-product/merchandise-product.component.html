@@ -19,14 +19,21 @@
 
             <div class="mt-5">
                 <h3 class="fw-lighter">Categories:</h3>
-                <span *ngFor="let category of products.categories" class="badge rounded-pill text-black text-bg-success fs-6">{{category.name}}</span>
+                <span *ngFor="let category of products.categories" class="badge rounded-pill text-black text-bg-success fs-6 ms-2">{{category.name}}</span>
+                <span *ngIf="products.isDiscounted" class="badge rounded-pill text-black fs-6 ms-2" style="background-color: orangered;">Discounted Item</span>
             </div>
 
             <hr class="border-success border-2 opacity-25 mt-5 mb-4">
 
             <div class="row row-cols-2">
                 <div class="col">
-                    <span class="badge fs-4 fw-medium">{{products.price | currency: 'DKK '}}</span>
+                    <div *ngIf="products.isDiscounted">
+                        <span class="badge fs-4 fw-medium">{{ products.price | currency: 'DKK ' }}</span>
+                        <span class="badge fs-6 fw-medium" style="text-decoration: line-through;">Before {{ products.beforePrice | currency: 'DKK ' }}</span>
+                    </div>
+                    <div *ngIf="!products.isDiscounted">
+                        <span class="badge fs-4 fw-medium">{{products.price | currency: 'DKK '}}</span>
+                    </div>
                 </div>
                 <div class="col">
                     <a type="button" class="btn bi-bag-check-fill btn-outline-success float-end" (click)="addToCart(products, itemlength)"> Add to basket</a>
