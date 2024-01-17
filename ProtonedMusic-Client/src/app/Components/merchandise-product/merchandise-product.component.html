@@ -19,8 +19,8 @@
 
             <div class="mt-5">
                 <h3 class="fw-lighter">Categories:</h3>
-                <span *ngFor="let category of products.categories" class="badge rounded-pill text-black text-bg-success fs-6 ms-2">{{category.name}}</span>
                 <span *ngIf="products.isDiscounted" class="badge rounded-pill text-black fs-6 ms-2" style="background-color: orangered;">Discounted Item</span>
+                <span *ngFor="let category of products.categories" class="badge rounded-pill text-black text-bg-success fs-6 ms-2">{{category.name}}</span>
             </div>
 
             <hr class="border-success border-2 opacity-25 mt-5 mb-4">
