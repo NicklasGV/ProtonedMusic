@@ -1,4 +1,5 @@
 ﻿using ProtonedMusicAPI.Database;
+using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
 namespace ProtonedMusicAPI.Repositories
 {
@@ -27,12 +28,11 @@ namespace ProtonedMusicAPI.Repositories
                 .FirstOrDefaultAsync(u => u.Id == orderId);
         }
 
-        public async Task<List<Order>> GetOrdersByCustomerId(string customerId)
+        public async Task<List<Order>> GetOrdersByCustomerId(int customerId)
         {
             return await _context.Orders
                 .Include(o => o.Items)
-                .ThenInclude(i => i.Product)
-                .Where(o => o.CustomerId.ToString() == customerId)
+                .Where(o => o.CustomerId == customerId)
                 .ToListAsync();
         }
 
@@ -40,15 +40,7 @@ namespace ProtonedMusicAPI.Repositories
         {
             return await _context.Orders
                 .Include(o => o.Items)
-                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
-        }
-
-        public async Task<Order> GetOrdersByPaymentId(string paymentId)
-        {
-            return await _context.Orders
-                .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.PaymentId == paymentId);
         }
     }
 }

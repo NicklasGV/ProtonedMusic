@@ -19,8 +19,8 @@
         public DbSet<Artist> Artist { get; set; }
         public DbSet<Link> Link { get; set; }
         public DbSet<ArtistSong> ArtistSong { get; set; }
-
         public DbSet<FooterPost> FooterPosts { get; set; }
+        public DbSet<ProductOrder> ProductOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,9 +63,10 @@
                 .HasOne(nl => nl.News)
                 .WithMany(n => n.NewsLikes)
                 .HasForeignKey(nl => nl.news_Id);
-                
+
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
+            modelBuilder.Entity<ProductOrder>().HasKey(pc => new { pc.ProductId, pc.Id });
 
             modelBuilder.Entity<CalendarContent>().HasData(new CalendarContent
             {
@@ -329,6 +330,20 @@
                 ArtistId = 1,
                 Title = "Discord",
                 LinkAddress = "https://discord.gg/Jt4rwUZGGS"
+            });
+
+            modelBuilder.Entity<Order>().HasData(new Order
+            {
+                Id = 1,
+                CustomerId = 1,
+                OrderDate = DateTime.Now,
+                OrderNumber = "4654322",
+                quantity = 5,
+            });
+            modelBuilder.Entity<ProductOrder>().HasData(new ProductOrder
+            {
+                OrderId = 1,
+                ProductId = 1,
             });
         }
     }
