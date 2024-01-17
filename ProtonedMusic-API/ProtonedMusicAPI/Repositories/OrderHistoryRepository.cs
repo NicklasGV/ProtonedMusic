@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Repositories
+﻿using ProtonedMusicAPI.Database;
+
+namespace ProtonedMusicAPI.Repositories
 {
     public class OrderHistoryRepository : IOrderHistoryRepository
     {
@@ -9,25 +11,20 @@
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Order> CreateOrder(int customerId, List<ItemProduct> items, string orderNumber)
+        public async Task<Order> CreateOrder(Order newOrder)
         {
-            if (string.IsNullOrWhiteSpace(orderNumber))
-            {
-                throw new ArgumentException("Invalid orderNumber");
-            }
-
-            Order newOrder = new Order
-            {
-                CustomerId = customerId,
-                Items = items,
-                OrderNumber = orderNumber,
-                OrderDate = DateTime.Now,
-            };
-
             _context.Orders.Add(newOrder);
             await _context.SaveChangesAsync();
-
+            newOrder = await FindByIdAsync(newOrder.Id);
             return newOrder;
+        }
+
+        public async Task<Order> FindByIdAsync(int orderId)
+        {
+            return await _context.Orders
+                .Include(a => a.Customer)
+                .Include(a => a.Items)
+                .FirstOrDefaultAsync(u => u.Id == orderId);
         }
 
         public async Task<List<Order>> GetOrdersByCustomerId(string customerId)
