@@ -10,5 +10,6 @@
         public int CustomerId { get; set; }
         public User Customer { get; set; }
         public DateTime OrderDate { get; set; }
+        public int quantity { get; set; }
     }
 }

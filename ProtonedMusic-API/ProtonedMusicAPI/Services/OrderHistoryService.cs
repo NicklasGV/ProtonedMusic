@@ -1,5 +1,4 @@
 ﻿using ProtonedMusicAPI.Database.Entities;
-using ProtonedMusicAPI.DTO.ArtistDTO;
 using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
 using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
@@ -56,6 +55,7 @@ namespace ProtonedMusicAPI.Services
                 OrderDate = order.OrderDate,
                 price = CalculateTotalPrice(order.Items),
                 Quantity = CalculateTotalQuantity(order.Items),
+                
             };
 
             if (order.Items.Count > 0)
@@ -67,6 +67,7 @@ namespace ProtonedMusicAPI.Services
                     OrderId = x.OrderId,
                     quantity = x.quantity,
                     ProductName = x.Product.Name,
+                    
                 }).ToList();
             }
 
@@ -82,7 +83,7 @@ namespace ProtonedMusicAPI.Services
 
             return (int)items.Sum(item => item.Product.Price * item.quantity);
         }
-        
+
         public int CalculateTotalQuantity(List<ItemProduct> items)
         {
             if (items == null || items.Count == 0)

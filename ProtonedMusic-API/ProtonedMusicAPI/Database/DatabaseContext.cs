@@ -339,19 +339,19 @@
                 LinkAddress = "https://discord.gg/Jt4rwUZGGS"
             });
 
-            //modelBuilder.Entity<Order>().HasData(new Order
-            //{
-            //    Id = 1,
-            //    CustomerId = 1,
-            //    OrderDate = DateTime.Now,
-            //    OrderNumber = "4654322",
-            //    quantity = 5,
-            //});
-            //modelBuilder.Entity<ProductOrder>().HasData(new ProductOrder
-            //{
-            //    OrderId = 1,
-            //    ProductId = 1,
-            //});
+            modelBuilder.Entity<Order>().HasData(new Order
+            {
+                Id = 1,
+                CustomerId = 1,
+                OrderDate = DateTime.Now,
+                OrderNumber = "4654322",
+                //quantity = 5,
+            });
+            modelBuilder.Entity<ProductOrder>().HasData(new ProductOrder
+            {
+                OrderId = 1,
+                ProductId = 1,
+            });
         }
     }
 }

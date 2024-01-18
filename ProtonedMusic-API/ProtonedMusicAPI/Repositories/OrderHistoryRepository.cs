@@ -19,8 +19,8 @@ namespace ProtonedMusicAPI.Repositories
             {
                 CustomerId = customerId,
                 OrderNumber = orderNumber,
-                OrderDate = DateTime.Now,  
-                
+                OrderDate = DateTime.Now,
+
             };
 
             foreach (var item in items)
@@ -40,6 +40,7 @@ namespace ProtonedMusicAPI.Repositories
 
             return newOrder;
         }
+
 
         public async Task<List<Order>> GetOrdersByCustomerId(string customerId)
         {
