@@ -60,6 +60,10 @@ export class CartComponent implements OnInit {
     });
   }
 
+  formatCurrency(amount: number): string {
+    return amount.toLocaleString('da-DK') + ' DKK';
+  } 
+
   updateCart(item: CartItem): void {
     const index = this.cartItems.findIndex(
       (cartItem) => cartItem.id === item.id

@@ -34,13 +34,13 @@
 
 <div class="offcanvas offcanvas-end bg-dark rounded" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
   <div class="offcanvas-header">
-    <button type="button" class="btn-close bi bi-x-square" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     <h2 class="offcanvas-title" id="offcanvasScrollingLabel">Artist list</h2>
     <h3></h3>
   </div>
   <div class="offcanvas-body">
     <div *ngFor="let artist of artists">
-      <div class="card h-10 w-auto bg-dark text-light" [routerLink]="['/artist', artist.id]" style="display: grid; grid-template-rows: auto 1fr; max-width: 400px;">
+      <div class="card h-10 w-auto bg-dark text-light" [routerLink]="['/artist', artist.id]" style="display: grid; grid-template-rows: auto 1fr; max-width: 400px; cursor: pointer !important;">
           <div class="card-header d-flex justify-content-center">
               <a *ngIf="artist.picturePath">
                   <img src="https://protonedmusic.com/{{ artist.picturePath }}" class="rounded-2" style="width: 20rem; height: 20rem">

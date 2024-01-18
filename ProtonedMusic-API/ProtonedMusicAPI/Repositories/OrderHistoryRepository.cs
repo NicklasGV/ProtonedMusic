@@ -1,4 +1,7 @@
-﻿namespace ProtonedMusicAPI.Repositories
+﻿using ProtonedMusicAPI.Database;
+using ProtonedMusicAPI.Interfaces.IOrderHistory;
+
+namespace ProtonedMusicAPI.Repositories
 {
     public class OrderHistoryRepository : IOrderHistoryRepository
     {
@@ -9,33 +12,24 @@
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Order> CreateOrder(int customerId, List<ItemProduct> items, string orderNumber)
+        public async Task<Order> CreateOrder(Order newOrder)
         {
-            if (string.IsNullOrWhiteSpace(orderNumber))
-            {
-                throw new ArgumentException("Invalid orderNumber");
-            }
-
-            Order newOrder = new Order
-            {
-                CustomerId = customerId,
-                Items = items,
-                OrderNumber = orderNumber,
-                OrderDate = DateTime.Now,
-            };
-
             _context.Orders.Add(newOrder);
             await _context.SaveChangesAsync();
-
+            newOrder = await FindByIdAsync(newOrder.Id);
             return newOrder;
         }
 
-        public async Task<List<Order>> GetOrdersByCustomerId(string customerId)
+        public async Task<Order> FindByIdAsync(int customerId)
+        {
+            return await _context.Orders.FirstOrDefaultAsync(u => u.CustomerId == customerId);
+        }
+
+        public async Task<List<Order>> GetOrdersByCustomerId(int customerId)
         {
             return await _context.Orders
                 .Include(o => o.Items)
-                .ThenInclude(i => i.Product)
-                .Where(o => o.CustomerId.ToString() == customerId)
+                .Where(o => o.CustomerId == customerId)
                 .ToListAsync();
         }
 
@@ -43,15 +37,7 @@
         {
             return await _context.Orders
                 .Include(o => o.Items)
-                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
-        }
-
-        public async Task<Order> GetOrdersByPaymentId(string paymentId)
-        {
-            return await _context.Orders
-                .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.PaymentId == paymentId);
         }
     }
 }

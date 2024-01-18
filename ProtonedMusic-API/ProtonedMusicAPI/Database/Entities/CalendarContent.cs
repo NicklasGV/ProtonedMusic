@@ -6,7 +6,6 @@
         public int Id { get; set; }
         [Column(TypeName = "nvarchar(80)")]
         public string Title { get; set; }
-        [Column(TypeName = "nvarchar(255)")]
         public string Content { get; set; }
         public DateTime Date { get; set; }
         [ForeignKey("Artist.Id")]

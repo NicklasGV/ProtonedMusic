@@ -10,4 +10,6 @@
     color: var(--primary-color);
   }
 
-  
+  .btnImg {
+    cursor: pointer;
+  }

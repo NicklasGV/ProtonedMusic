@@ -4,9 +4,9 @@
   </div>
 </div>
 <div class="container" *ngIf="this.checkIfEmpty() != true">
-  <p-carousel [showIndicators]="false" [value]="events" [numVisible]="1" [numScroll]="1" [circular]="true">
+  <p-carousel [showIndicators]="false" [value]="events" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="8000">
     <ng-template let-product pTemplate="item">
-        <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+        <div class="border-1 border-success border-round m-2 text-center py-5 px-3">
             <div class="mb-3">
                 <img *ngIf="product.eventPicturePath != null" src="https://protonedmusic.com/{{ product.eventPicturePath }}" [alt]="product.name" class="w-6" style="max-height: 420px;" />
                 <img *ngIf="product.eventPicturePath == null" src="../../../assets/img/Error.jpg" alt="Can't find Picture path" class="w-6" style="max-height: 420px;" />
