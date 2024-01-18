@@ -13,8 +13,7 @@ export class SnackBarService {
     const _snackType = type !== undefined ? type : 'success';
     this.snackBar.openFromComponent(SnackBarComponent, {
       duration: 4000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
+      verticalPosition: 'bottom',
       data: { message: message, action: action , snackType: _snackType }
     });
   }

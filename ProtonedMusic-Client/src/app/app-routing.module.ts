@@ -36,7 +36,7 @@ const routes: Routes = [
   import('./Components/testing/testing.component').then(it => it.TestingComponent)},
 
   {path: 'events/:id', loadComponent: () =>
-  import('./Components/event/event.component').then(it => it.EventComponent)},
+  import('./Components/event-detail/event-detail.component').then(it => it.EventComponent)},
 //#endregion
 
   //WIP
@@ -48,6 +48,10 @@ const routes: Routes = [
 
   {path: 'newsDetailed/:id', loadComponent: () =>
   import('./Components/news-detailed/news-detailed.component').then(it => it.NewsDetailedComponent)},
+
+  {path: 'artist/:id', loadComponent: () =>
+  import('./Components/artist-detailed/artist-detailed.component').then(it => it.ArtistDetailedComponent)},
+
 
   {path: 'family', loadComponent: () =>
   import('./Components/Family/family-panel/family-panel.component').then(it => it.FamilyPanelComponent), canActivate: [FamilyGuard]},

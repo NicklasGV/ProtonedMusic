@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
+using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
 namespace ProtonedMusicAPI.Controllers
 {
@@ -16,21 +17,37 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpGet("{customerId}")]
-        public async Task<ActionResult<OrderHistoryResponse>> GetOrdersByCustomerId(string customerId)
+        public async Task<ActionResult<OrderHistoryResponse>> GetOrdersByCustomerId(int customerId)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(customerId))
-                {
-                    return BadRequest("Invalid customerId");
-                }
+                OrderHistoryResponse response = await _orderHistoryService.GetOrdersByCustomerIdAsync(customerId);
 
-                var orderHistory = await _orderHistoryService.GetOrdersByCustomerIdAsync(customerId);
-                return Ok(orderHistory);
+                if (response == null)
+                {
+                    return NotFound();
+                }
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Create")]
+        public async Task<IActionResult> CreateAsync([FromForm] OrderHistoryRequest newOrder)
+        {
+            try
+            {
+                OrderHistoryResponse response = await _orderHistoryService.CreateOrderAsync(newOrder);
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
             }
         }
 

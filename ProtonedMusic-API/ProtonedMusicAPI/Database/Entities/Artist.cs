@@ -19,7 +19,7 @@
 
         public List<ArtistSong> Songs { get; set; } = new List<ArtistSong>();
 
-        public List<Link> Links { get; set; } = new List<Link>();
+        public List<ArtistLink> Links { get; set; } = new List<ArtistLink>();
 
     }
 }

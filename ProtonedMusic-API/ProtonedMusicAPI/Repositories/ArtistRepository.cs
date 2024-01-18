@@ -16,6 +16,7 @@
                 .Include(a => a.Songs)
                 .ThenInclude(s => s.Music)
                 .Include(a => a.Links)
+                .ThenInclude(l => l.Link)
                 .Include(a => a.User)
                 .ToListAsync();
         }
@@ -26,6 +27,7 @@
                 .Include(a => a.Songs)
                 .ThenInclude(s => s.Music)
                 .Include(a => a.Links)
+                .ThenInclude(l => l.Link)
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(u => u.Id == artistId);
         }
@@ -64,13 +66,13 @@
                 artist.Info = updateArtist.Info;
                 artist.PicturePath = updateArtist.PicturePath;
                 
-                artist.User = updateArtist.User;
+                artist.UserId = updateArtist.UserId;
                 artist.Songs = updateArtist.Songs;
                 artist.Links = updateArtist.Links;
 
                 await _databaseContext.SaveChangesAsync();
 
-                artist = await FindByIdAsync(artist.Id);
+                artist = await FindByIdAsync(artistId);
             }
             return artist;
         }

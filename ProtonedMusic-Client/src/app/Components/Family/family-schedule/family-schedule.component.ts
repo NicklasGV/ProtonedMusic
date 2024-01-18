@@ -15,10 +15,17 @@ import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
 import { ArtistService } from 'src/app/Services/artist.service';
 import { UserService } from 'src/app/Services/user.service';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableModule } from 'primeng/table';
+import { DividerModule } from 'primeng/divider';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuItem } from 'primeng/api';
+
+
+
 @Component({
   selector: 'app-family-schedule',
   standalone: true,
-  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule, CalendarModule],
+  imports: [CommonModule, MatNativeDateModule, MatDatepickerModule, FormsModule, CalendarModule, TableModule, DividerModule, SplitButtonModule],
   templateUrl: './family-schedule.component.html',
   styleUrl: './family-schedule.component.css'
 })
@@ -33,6 +40,7 @@ export class FamilyScheduleComponent implements OnInit {
   user: User = resetUser();
   showEventBool: boolean = false;
   crossedOutDates: string[] = [];
+  items: MenuItem[];
 
   constructor(
     private snackBar: SnackBarService,
@@ -41,8 +49,25 @@ export class FamilyScheduleComponent implements OnInit {
     private datePipe: DatePipe,
     private artistService: ArtistService,
     private userService: UserService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+  ) {
+    this.items = [
+      {
+          label: 'Update',
+          icon: 'pi pi-refresh',
+          command: () => {
+              this.editEvent(this.calendarContent);
+          }
+      },
+      {
+          label: 'Delete',
+          icon: 'pi pi-times',
+          command: () => {
+              this.deleteEvent(this.calendarContent);
+          }
+      }
+  ];
+  }
 
   ngOnInit() {
     this.calendarService.getAllContent().subscribe((x) => (this.content = x));

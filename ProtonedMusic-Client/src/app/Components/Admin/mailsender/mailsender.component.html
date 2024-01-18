@@ -169,7 +169,7 @@
             <th class="fw-medium">Subscription</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="table-group-divider">
             <tr *ngFor="let user of getNewsletterUsers()">
                 <td><button (click)="sendTo(user)" class="btn bi-send-plus-fill btn-success btn-sm"></button></td>
                 <td>{{ user.id }}</td>

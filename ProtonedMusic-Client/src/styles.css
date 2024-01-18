@@ -34,6 +34,7 @@ h1, h2, h3, h4, h5 , h6, p {
   --button-color: #198754;
   --green-color: #198754;
   --back-button-color: #dc3545;
+  --background-color: #1f2122;
 }
 
 /*#region Angular-Mat*/
@@ -118,6 +119,18 @@ h1, h2, h3, h4, h5 , h6, p {
   cursor: pointer !important;
 }
 
+.p-datatable .p-datatable-tbody > tr, th{
+	background: var(--background-color);
+  color: white;
+}
+
+.p-datatable {
+  margin-bottom: 2.5rem;
+}
+
+.p-datatable .p-sortable-column-icon{
+  color: var(--green-color) !important;
+}
 /*#endregion*/
 
 

@@ -3,6 +3,7 @@ using ProtonedMusicAPI.Interfaces.ICategory;
 using ProtonedMusicAPI.Interfaces.IEvent;
 using ProtonedMusicAPI.Interfaces.IFooter;
 using ProtonedMusicAPI.Interfaces.INews;
+using ProtonedMusicAPI.Interfaces.IOrderHistory;
 using ProtonedMusicAPI.Interfaces.IProduct;
 using ProtonedMusicAPI.Interfaces.IUpcoming;
 using Stripe;

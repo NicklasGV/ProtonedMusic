@@ -11,8 +11,8 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
   selector: 'app-event',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  templateUrl: './event-detail.component.html',
+  styleUrls: ['./event-detail.component.css']
 })
 export class EventComponent implements OnInit {
   events: EventModel = resetEvent();

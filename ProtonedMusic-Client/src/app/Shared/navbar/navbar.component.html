@@ -32,7 +32,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link bi-people-fill" [routerLink]="['/family']" routerLinkActive="router-link-active"
-            routerLinkActive="active-link" (click)="collapseNavbar()" *ngIf="currentUser.role == 'Family' || currentUser.role == 'Admin'"> Family</a>
+            routerLinkActive="active-link" (click)="collapseNavbar()" *ngIf="currentUser.role == 'Family'"> Family</a>
           </li>
         <li class="nav-item">
           <a class="nav-link bi-person-fill-gear" [routerLink]="['/admin']" routerLinkActive="router-link-active"
@@ -41,12 +41,24 @@
       </ul>
       <form class="d-flex">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
-            <p-avatar *ngIf="avatarCheck(currentUser) == 'Letter'" label="{{avatarLetterCheck(currentUser.firstName)}}" styleClass="mr-2" size="large" shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
-            <p-avatar *ngIf="avatarCheck(currentUser) == 'PicPath'" image="https://protonedmusic.com/{{currentUser.profilePicturePath}}" size="large" styleClass="mr-2" siz shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
-            <p-avatar *ngIf="avatarCheck(currentUser) == 'Nothing'" icon="bi-person-fill" size="large" styleClass="mr-2" siz shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
-            <a *ngIf="currentUser.role == null" [routerLink]="['/login']" class="btn btn-outline-success me-2" (click)="collapseNavbar()">LOG IND</a>
-          </li>
+          <div class="row row-cols-auto row-cols-2">
+            <div class="col pb-0">
+                <div [routerLink]="['/cart']" class="btnImg btn-group me-2 flex-column align-items-center align-self-center">
+                  <span class="position-absolute start-50 translate-middle badge rounded-pill bg-danger mt-1 ms-4"
+                  style="font-size: 0.8rem;">{{CartItemTotal()}}</span>
+                  <i class="bi bi-cart3" style="font-size: 2rem;"></i>
+                  <p class="Total fw-medium m-0" style="font-size: 0.9rem;">{{ CartTotal().toLocaleString('da-DK')}} DKK</p>
+                </div>
+            </div>
+            <div class="col pb-0">
+              <div class="d-flex justify-content-center">
+                <p-avatar *ngIf="avatarCheck(currentUser) == 'Letter'" label="{{avatarLetterCheck(currentUser.firstName)}}" styleClass="mr-2" size="large" shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
+                <p-avatar *ngIf="avatarCheck(currentUser) == 'PicPath'" image="https://protonedmusic.com/{{currentUser.profilePicturePath}}" size="large" styleClass="mr-2" shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
+                <p-avatar *ngIf="avatarCheck(currentUser) == 'Nothing'" icon="bi-person-fill" size="large" styleClass="mr-2" shape="circle" [routerLink]="['profilmenu', currentUser.id]" (click)="collapseNavbar()"></p-avatar>
+                <a *ngIf="currentUser.role == null" [routerLink]="['/login']" class="btn btn-outline-success me-2" (click)="collapseNavbar()">LOG IND</a>
+              </div>
+            </div>
+          </div>
         </ul>
       </form>
     </div>
