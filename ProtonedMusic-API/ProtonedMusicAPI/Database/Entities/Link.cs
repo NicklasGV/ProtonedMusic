@@ -4,11 +4,8 @@
     {
         [Key]
         public int Id { get; set; }
-        
-        [ForeignKey("Artist.Id")]
-        public int ArtistId { get; set; }
 
-        public Artist Artist { get; set; }
+        public List<ArtistLink> Artist { get; set; } = new List<ArtistLink>();
 
         [Column(TypeName = "nvarchar(50)")]
         public string Title { get; set; } = string.Empty;

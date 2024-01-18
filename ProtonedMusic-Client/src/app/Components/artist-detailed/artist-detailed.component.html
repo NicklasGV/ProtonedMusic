@@ -1,39 +1,65 @@
-<div class="container mt-4" style="width: 90%;">
-    <div class="row justify-content-center">
-        <div class="d-flex flex-column">
-            <div class="card bg-dark">
-                <div class="card-header text-center">
+<div class="container-fluid w-100  mt-5">
+    <div class="row row-cols-auto row-cols-lg-1 g-4 m-2">
+        <div class="">
+
                     <div class="d-flex justify-content-between align-items-center">
                         <a type="button" class="bi bi-arrow-return-left btn btn-success"
                             [routerLink]="['/upcoming']"></a>
-                            <a type="button" class="bi bi-pencil-square btn btn-success"
-                            [routerLink]="['/upcoming']"></a>
+                            <div *ngIf="artist.user?.id == currentUserId && !editMode">
+                                <a type="button" class="bi bi-pencil-square btn btn-success"
+                                (click)="editModeChange()"></a>
+                            </div>
+                            <div *ngIf="artist.user?.id == currentUserId && editMode">
+                                <a type="button" class="bi bi-floppy btn btn-success"
+                                (click)="editModeChange()"></a>
+                            </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a *ngIf="artist.picturePath">
-                            <img src="https://protonedmusic.com/{{ artist.picturePath }}" class="rounded-2"
-                                style="width: 20rem; height: 20rem; margin-left: 15%; ">
-                        </a>
-                        <a *ngIf="!artist.picturePath">
-                            <img src="../../../assets/img/Error.jpg" class="rounded-2"
-                                style="width: 20rem; height: 20rem; margin-right: 15%;">
-                        </a>
-                        <div style=" margin-right: 20%; margin-bottom: -100px;">
-                            <h1 class="overlay-text display-6 mt-4">{{ artist.name }}</h1>
-                            <a class="text-success fw-bold me-2" *ngFor="let link of artist.links"
-                                href="{{link.linkAddress}}" target="_blank"
-                                (click)="$event.stopPropagation()">{{link.title}}</a>
+                
+                    <div class="d-flex row row-cols-auto row-cols-lg-2 align-items-center ms-5 me-5 mt-2 flex-shrink-0 mx-auto">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="card text-bg-dark image-wrapper float-start" *ngIf="artist.picturePath">
+                                <img src="https://protonedmusic.com/{{ artist.picturePath }}" class="rounded-2 img-fluid" style="width: 30rem;">
+                                <div class="edit-overlay" *ngIf="editMode" data-bs-toggle="modal"
+                                data-bs-target="#ModalPicture">
+                                    <i class="uploadicon bi-upload text-success align-bottom"></i>
+                                </div>
+                            </div>
+                            <div class="card text-bg-dark image-wrapper float-start" *ngIf="!artist.picturePath">
+                                <img src="../../../assets/img/Error.jpg" class="rounded-2 img-fluid" style="width: 30rem;">
+                                <div class="edit-overlay" *ngIf="editMode" data-bs-toggle="modal"
+                                data-bs-target="#ModalPicture">
+                                    <i class="uploadicon bi-upload text-success align-bottom" ></i>
+                                </div>
+                            </div>
                         </div>
-                        <a></a>
+                        
+                        <div class="col-xs-12 col-md-4 pull-left">
+                            <div>
+                                <p class="special-text display-6 mt-5 ms-1 me-1">{{ artist.name }}</p>
+                                <a type="button" *ngIf="editMode"  class="bi bi-pencil-square btn-sm btn btn-success me-2 ms-2 mb-2"
+                                    (click)="editModeChange()"></a>
+                            </div>
+                            <div style="height: 2rem;">
+                                <a class="text-success fw-bold mt-5 me-2 ms-1" *ngFor="let link of artist.links"
+                                href="{{link.linkAddress}}" target="_blank">{{link.title}}</a>
+                                    <a type="button" *ngIf="editMode" class="bi bi-plus btn-sm btn btn-success me-2 ms-1"
+                                    (click)="editModeChange()"></a>
+                            </div>
+                            
+                                
+                        </div>
                     </div>
+                    <div class="ms-3">
+                        <hr class="border-success border-2">
+                    <p class="text ms-5">{{ artist.info }}</p>
+                    <a type="button" *ngIf="editMode"  class="bi bi-pencil-square btn-sm btn btn-success me-2 ms-2 mb-2"
+                                    (click)="editModeChange()"></a>
                     <hr class="border-success border-2">
-                    <p class="card-text" style="margin-left: 5%;">{{ artist.info }}</p>
-                    <hr class="border-success border-2">
+                    </div>
+                    
                     <div class="container-fluid">
-                        <div class="row row-cols-auto g-4 m-5" style="overflow-x: auto; white-space: nowrap;">
-                            <div *ngFor="let song of artist.songs" class="col-lg-4" style="display: inline-block;">
+                        <div class="row row-cols-auto justify-content-center g-4 m-5" style="overflow-x: auto; white-space: nowrap;">
+                            <div *ngFor="let song of artist.songs" class="row-cols-lg-1" style="display: inline-block;">
                                 <div class="card border-success bg-dark mb-3">
                                     <div class="card-header d-flex justify-content-center border-secondary">
                                         <a *ngIf="song.songPicturePath">
@@ -51,12 +77,15 @@
                                             <div class="justify-content-between">
                                                 <p>{{song.songName}}</p>
                                             </div>
-                                            <p class="text-truncate" style="max-width: 300px;">{{song.album}}</p>
+                                            <p class="text-truncate text-success" style="max-width: 300px;">From: {{song.album}}</p>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
+                            <a type="button" class="bi bi-plus btn-l btn btn-success me-2 ms-3 mt-8 text-center"
+                            style="width: 10rem; height: 10rem; --bs-btn-font-size: 6rem;"
+                            *ngIf="editMode" (click)="editModeChange()"></a>
                         </div>
                         <div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
                             <div class="card bg-dark text-light">
@@ -66,7 +95,25 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                
+            </div>
+        </div>
+</div>
+
+<div class="modal fade" id="ModalPicture" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5" id="Modal">Change Profile Picture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="file" (change)="onFileSelected($event)" name="fileInput"
+                    accept="image/*" />
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-success" (click)="uploadImage(); $event.stopPropagation()"
+                    data-bs-dismiss="modal">Upload Image</button>
             </div>
         </div>
     </div>

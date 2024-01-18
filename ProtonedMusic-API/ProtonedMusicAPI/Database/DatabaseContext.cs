@@ -19,6 +19,7 @@
         public DbSet<Artist> Artist { get; set; }
         public DbSet<Link> Link { get; set; }
         public DbSet<ArtistSong> ArtistSong { get; set; }
+        public DbSet<ArtistLink> ArtistLink { get; set; }
         public DbSet<FooterPost> FooterPosts { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
 
@@ -324,10 +325,16 @@
                 MusicId = 3,
             });
 
-            modelBuilder.Entity<Link>().HasData(new Link
+            modelBuilder.Entity<ArtistLink>().HasData(new ArtistLink
             {
                 Id = 1,
                 ArtistId = 1,
+                LinkId = 1,
+            });
+
+            modelBuilder.Entity<Link>().HasData(new Link
+            {
+                Id = 1,
                 Title = "Discord",
                 LinkAddress = "https://discord.gg/Jt4rwUZGGS"
             });
