@@ -10,8 +10,12 @@
                                 (click)="editModeChange()"></a>
                             </div>
                             <div *ngIf="artist.user?.id == currentUserId && editMode">
-                                <a type="button" class="bi bi-floppy btn btn-success"
-                                (click)="editModeChange()"></a>
+                                <a type="button" class="bi bi-trash3-fill btn btn-danger"
+                                (click)="delete()"></a>
+                                <a type="button" class="bi bi-x-circle-fill btn btn-warning"
+                                (click)="cancel()"></a>
+                                <a type="button" class="bi bi-floppy-fill btn btn-success"
+                                (click)="save()"></a>
                             </div>
                     </div>
                 
@@ -31,13 +35,16 @@
                                     <i class="uploadicon bi-upload text-success align-bottom" ></i>
                                 </div>
                             </div>
+                            <p *ngIf="pictureChanged">Picture will be changed when save is pressed</p>
                         </div>
                         
                         <div class="col-xs-12 col-md-4 pull-left">
                             <div>
-                                <p class="special-text display-6 mt-5 ms-1 me-1">{{ artist.name }}</p>
-                                <a type="button" *ngIf="editMode"  class="bi bi-pencil-square btn-sm btn btn-success me-2 ms-2 mb-2"
-                                    (click)="editModeChange()"></a>
+                                <p class="special-text display-6 mt-5 ms-1 me-1" *ngIf="!editMode">{{ artist.name }}</p>
+                                
+                                <div class="" data-bs-theme="dark" *ngIf="editMode">
+                                    <input [(ngModel)]="artist.name" class="form-control w-50">
+                                </div>
                             </div>
                             <div style="height: 2rem;">
                                 <a class="text-success fw-bold mt-5 me-2 ms-1" *ngFor="let link of artist.links"
@@ -49,11 +56,12 @@
                                 
                         </div>
                     </div>
-                    <div class="ms-3">
-                        <hr class="border-success border-2">
-                    <p class="text ms-5">{{ artist.info }}</p>
-                    <a type="button" *ngIf="editMode"  class="bi bi-pencil-square btn-sm btn btn-success me-2 ms-2 mb-2"
-                                    (click)="editModeChange()"></a>
+                    <div class="ms-3 text-wrap">
+                    <hr class="border-success border-2">
+                    <p class="text ms-5 text-break w-75" *ngIf="!editMode">{{ artist.info }}</p>
+                    <div class="" data-bs-theme="dark" *ngIf="editMode">
+                        <textarea type="text" [(ngModel)]="artist.info" rows="3" class="form-control input-large w-100"></textarea>
+                    </div>
                     <hr class="border-success border-2">
                     </div>
                     

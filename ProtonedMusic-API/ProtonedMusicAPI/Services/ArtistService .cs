@@ -49,7 +49,7 @@ namespace ProtonedMusicAPI.Services
                     SongName = x.Music.SongName,
                     Album = x.Music.Album,
                     SongPicturePath = x.Music.SongPicturePath,
-                    SongFilePath = x.Music.SongPicturePath
+                    SongFilePath = x.Music.SongFilePath
                 }).ToList();
             }
             if (artist.Links.Count > 0)
