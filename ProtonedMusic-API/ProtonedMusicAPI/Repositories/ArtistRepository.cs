@@ -16,6 +16,7 @@
                 .Include(a => a.Songs)
                 .ThenInclude(s => s.Music)
                 .Include(a => a.Links)
+                .ThenInclude(l => l.Link)
                 .Include(a => a.User)
                 .ToListAsync();
         }
@@ -26,6 +27,7 @@
                 .Include(a => a.Songs)
                 .ThenInclude(s => s.Music)
                 .Include(a => a.Links)
+                .ThenInclude(l => l.Link)
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(u => u.Id == artistId);
         }

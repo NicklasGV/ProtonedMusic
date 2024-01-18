@@ -31,7 +31,6 @@
     {
         public int Id { get; set; }
         public string SongName { get; set; } = string.Empty;
-        public string Artist { get; set; } = string.Empty;
         public string Album { get; set; } = string.Empty;
 
         public string SongFilePath { get; set; } = string.Empty;
@@ -40,9 +39,7 @@
     public class ArtistLinkResponse
     {
         public int Id { get; set; }
-        public int ArtistId { get; set; }
         public string Title { get; set; } = string.Empty;
-
         public string LinkAddress { get; set; } = string.Empty;
     }
 }
