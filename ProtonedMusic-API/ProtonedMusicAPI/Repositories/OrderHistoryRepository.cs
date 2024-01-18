@@ -41,11 +41,12 @@ namespace ProtonedMusicAPI.Repositories
             return newOrder;
         }
 
-        public async Task<List<Order>> GetOrdersByCustomerId(int customerId)
+        public async Task<List<Order>> GetOrdersByCustomerId(string customerId)
         {
             return await _context.Orders
                 .Include(o => o.Items)
-                .Where(o => o.CustomerId == customerId)
+                .ThenInclude(i => i.Product)
+                .Where(o => o.CustomerId.ToString() == customerId)
                 .ToListAsync();
         }
 

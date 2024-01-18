@@ -14,7 +14,7 @@ namespace ProtonedMusicAPI.Services
             _orderHistoryRepository = orderHistoryRepository;
         }
 
-        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest newOrder)
+        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest request)
         {
             int customerId = Convert.ToInt32(request.CustomerId);
             Order newOrder = await _orderHistoryRepository.CreateOrder(customerId, request.Items, request.OrderNumber);
@@ -33,7 +33,7 @@ namespace ProtonedMusicAPI.Services
             return response;
         }
 
-        public async Task<OrderHistoryResponse> GetOrdersByCustomerIdAsync(int customerId)
+        public async Task<List<OrderHistoryResponse>> GetOrdersByCustomerIdAsync(string customerId)
         {
             List<Order> customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
 
@@ -41,10 +41,11 @@ namespace ProtonedMusicAPI.Services
 
             foreach (Order order in customerOrders)
             {
-                return MapOrderToOrderHistoryResponse(order);
+                OrderHistoryResponse response = MapOrderToOrderHistoryResponse(order);
+                responseList.Add(response);
             }
 
-            return null;
+            return responseList;
         }
         public OrderHistoryResponse MapOrderToOrderHistoryResponse(Order order)
         {
@@ -59,32 +60,17 @@ namespace ProtonedMusicAPI.Services
 
             if (order.Items.Count > 0)
             {
-                response.Products = order.Items.Select(x => new OrderItemsResponse
+                response.Items = order.Items.Select(x => new OrderItemsResponse
                 {
-                    Id = x.product.Id,
-                    ProductName = x.product.Name,
-                    price = x.product.Price,
+                    Id = x.Id,
+                    ProductId = x.ProductId,
+                    OrderId = x.OrderId,
+                    quantity = x.quantity,
+                    ProductName = x.Product.Name,
                 }).ToList();
             }
 
             return response;
-        }
-
-        private static Order MapOrderRequestToOrder(OrderHistoryRequest request)
-        {
-            Order order = new Order
-            {
-                Id = request.CustomerId,
-                OrderNumber = request.OrderNumber,
-                OrderDate = request.OrderDate,
-                Items = request.ProductId.Select(s => new ProductOrder
-                {
-                    ProductId = s
-                }).ToList(),
-                quantity = request.quantity,
-            };
-
-            return order;
         }
 
         public int CalculateTotalPrice(List<ItemProduct> items)
