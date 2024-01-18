@@ -10,6 +10,5 @@
         public int CustomerId { get; set; }
         public User Customer { get; set; }
         public DateTime OrderDate { get; set; }
-        public string PaymentId { get; set; } 
     }
 }

@@ -7,7 +7,7 @@
         public DateTime OrderDate { get; set; }
         public List<OrderItemsResponse> Items { get; set; }
         public int price { get; set; }
-        public int quantity { get; set; }
+        public int Quantity { get; set; }
 
     }
 

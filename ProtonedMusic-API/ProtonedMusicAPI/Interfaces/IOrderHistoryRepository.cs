@@ -1,10 +1,12 @@
-﻿namespace ProtonedMusicAPI.Interfaces
+﻿using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
+
+namespace ProtonedMusicAPI.Interfaces
 {
     public interface IOrderHistoryRepository
     {
-        Task<List<Order>> GetOrdersByCustomerId(string customerId); // Ændring her
+        Task<List<Order>> GetOrdersByCustomerId(string customerId);
         Task<Order> GetOrdersById(int orderId);
-        Task<Order> GetOrdersByPaymentId(string paymentId); // Tilføj denne metode
-        Task<Order> CreateOrder(Order order);
+        Task<Order> CreateOrder(int customerId, List<ItemProduct> items, string orderNumber);
+
     }
 }

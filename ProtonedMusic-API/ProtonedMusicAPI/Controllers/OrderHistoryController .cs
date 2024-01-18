@@ -33,5 +33,21 @@ namespace ProtonedMusicAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpPost("CreateOrder")]
+        public async Task<IActionResult> CreateOrder([FromBody] OrderHistoryRequest orderRequest)
+        {
+            try
+            {
+                var orderResponse = await _orderHistoryService.CreateOrderAsync(orderRequest);
+
+                return Ok(orderResponse);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+
     }
 }
