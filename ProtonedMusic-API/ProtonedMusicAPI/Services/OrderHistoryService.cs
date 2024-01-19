@@ -1,5 +1,4 @@
 ﻿using ProtonedMusicAPI.Database.Entities;
-using ProtonedMusicAPI.DTO.ArtistDTO;
 using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
 using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
@@ -11,44 +10,42 @@ namespace ProtonedMusicAPI.Services
 
         public OrderHistoryService(IOrderHistoryRepository orderHistoryRepository)
         {
-            _orderHistoryRepository = orderHistoryRepository ?? throw new ArgumentNullException(nameof(orderHistoryRepository));
+            _orderHistoryRepository = orderHistoryRepository;
         }
 
-        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest newOrder)
+        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest request)
         {
-            var order = await _orderHistoryRepository.CreateOrder(MapOrderRequestToOrder(newOrder));
-            if (order == null)
-            {
-                throw new ArgumentNullException();
-            }
-            return MapOrderToOrderHistoryResponse(order);
+            int customerId = Convert.ToInt32(request.CustomerId);
+            Order newOrder = await _orderHistoryRepository.CreateOrder(customerId, request.Items, request.OrderNumber);
+
+            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(newOrder);
+
+            return response;
         }
 
         public async Task<OrderHistoryResponse> GetOrderByIdAsync(int orderId)
         {
-            // Hent en bestemt ordre fra databasen
             Order orderById = await _orderHistoryRepository.GetOrdersById(orderId);
 
-            // Lav en respons baseret på den hentede ordre
             OrderHistoryResponse response = MapOrderToOrderHistoryResponse(orderById);
 
             return response;
         }
 
-        public async Task<OrderHistoryResponse> GetOrdersByCustomerIdAsync(int customerId)
+        public async Task<List<OrderHistoryResponse>> GetOrdersByCustomerIdAsync(string customerId)
         {
-            var order = await _orderHistoryRepository.FindByIdAsync(customerId);
+            List<Order> customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
 
-            if (order != null)
+            List<OrderHistoryResponse> responseList = new List<OrderHistoryResponse>();
+
+            foreach (Order order in customerOrders)
             {
-                return MapOrderToOrderHistoryResponse(order);
+                OrderHistoryResponse response = MapOrderToOrderHistoryResponse(order);
+                responseList.Add(response);
             }
 
-            return null;
+            return responseList;
         }
-
-
-        // Hjælpefunktion til at mappe en Order til en OrderHistoryResponse
         public OrderHistoryResponse MapOrderToOrderHistoryResponse(Order order)
         {
             OrderHistoryResponse response = new OrderHistoryResponse
@@ -56,38 +53,27 @@ namespace ProtonedMusicAPI.Services
                 Id = order.Id,
                 OrderNumber = order.OrderNumber,
                 OrderDate = order.OrderDate,
-                quantity = order.quantity
+                price = CalculateTotalPrice(order.Items),
+                Quantity = CalculateTotalQuantity(order.Items),
+                
             };
+
             if (order.Items.Count > 0)
             {
-                response.Products = order.Items.Select(x => new OrderItemsResponse
+                response.Items = order.Items.Select(x => new OrderItemsResponse
                 {
-                    Id = x.product.Id,
-                    ProductName = x.product.Name,
-                    price = x.product.Price,
+                    Id = x.Id,
+                    ProductId = x.ProductId,
+                    OrderId = x.OrderId,
+                    quantity = x.quantity,
+                    ProductName = x.Product.Name,
+                    
                 }).ToList();
             }
+
             return response;
         }
 
-        private static Order MapOrderRequestToOrder(OrderHistoryRequest request)
-        {
-            Order order = new Order
-            {
-                Id = request.CustomerId,
-                OrderNumber = request.OrderNumber,
-                OrderDate = request.OrderDate,
-                Items = request.ProductId.Select(s => new ProductOrder
-                {
-                    ProductId = s
-                }).ToList(),
-                quantity = request.quantity,
-            };
-
-            return order;
-        }
-
-        // Hjælpefunktion til at beregne den samlede pris for alle elementer i en ordre
         public int CalculateTotalPrice(List<ItemProduct> items)
         {
             if (items == null || items.Count == 0)
@@ -98,7 +84,6 @@ namespace ProtonedMusicAPI.Services
             return (int)items.Sum(item => item.Product.Price * item.quantity);
         }
 
-        // Hjælpefunktion til at beregne den samlede mængde af alle elementer i en ordre
         public int CalculateTotalQuantity(List<ItemProduct> items)
         {
             if (items == null || items.Count == 0)

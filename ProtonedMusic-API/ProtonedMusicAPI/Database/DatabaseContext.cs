@@ -345,7 +345,7 @@
                 CustomerId = 1,
                 OrderDate = DateTime.Now,
                 OrderNumber = "4654322",
-                quantity = 5,
+                //quantity = 5,
             });
             modelBuilder.Entity<ProductOrder>().HasData(new ProductOrder
             {
