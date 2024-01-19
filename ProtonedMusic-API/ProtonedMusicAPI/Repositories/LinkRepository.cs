@@ -14,6 +14,7 @@
         {
             return await _databaseContext.Link
                 .Include(l => l.Artist)
+                .ThenInclude(a => a.Artist)
                 .ToListAsync();
         }
 
@@ -21,6 +22,7 @@
         {
             return await _databaseContext.Link
                 .Include(l => l.Artist)
+                .ThenInclude(a => a.Artist)
                 .FirstOrDefaultAsync(l => l.Id == linkId);
         }
 
@@ -50,7 +52,7 @@
             {
                 link.Title = updateLink.Title;
                 link.LinkAddress = updateLink.LinkAddress;
-                link.ArtistId = updateLink.ArtistId;
+                link.Artist = updateLink.Artist;
 
                 await _databaseContext.SaveChangesAsync();
 

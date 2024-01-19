@@ -3,7 +3,8 @@
     public class LinkResponse
     {
         public int Id { get; set; }
-        public LinkArtistResponse Artist {  get; set; }
+        public List<LinkArtistResponse> Artist { get; set; } = new();
+
         public string Title { get; set; } = string.Empty;
 
         public string LinkAddress { get; set; } = string.Empty;

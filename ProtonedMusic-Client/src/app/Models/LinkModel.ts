@@ -2,8 +2,8 @@ import { ArtistModel } from "./ArtistModel";
 
 export interface LinkModel {
     id: number;
-    artist: ArtistModel;
-    artistId: number;
+    artist: ArtistModel[];
+    artistIds: number[];
     title: string;
     linkAddress: string;
 }
