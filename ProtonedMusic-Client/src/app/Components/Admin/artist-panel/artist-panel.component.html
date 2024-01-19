@@ -1,0 +1,102 @@
+<div class="container">
+    <h1 class="m-2">Artist Administration</h1>
+  </div>
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Artist name</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="artist.name" class="form-control w-75">
+      </div>
+    </div>
+  
+      <div class="form-group row mb-3">
+        <label class="col-12 col-sm-1 col-form-label">Info</label>
+        <div class="col-12 col-sm-6">
+          <input [(ngModel)]="artist.info" class="form-control w-75">
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">User</label>
+      <div class="col-12 col-sm-6">
+        <div class="dropdown">
+          <select [(ngModel)]="artist.user" class="form-select w-75">
+            <option class="dropdown-item" *ngFor="let user of users" [ngValue]="user">{{ user.firstName }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Picture</label>
+    <div class="col-12 col-sm-6">
+      <input (change)="onPictureFileSelected($event)" class="form-control w-75" type="file" accept="image/*">
+    </div>
+  </div>
+
+  <div class="form-group row mb-3">
+    <label class="col-12 col-sm-1 col-form-label">Artist Picture Path</label>
+    <div class="col-12 col-sm-6">
+      <input [(ngModel)]="artist.picturePath" class="form-control w-75">
+    </div>
+  </div>
+    
+    <div class="d-flex mt-5 mx-0">
+      <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+      <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+    </div>
+  </div>
+  
+  <div class="container mt-2 mb-2">
+  </div>
+  
+  
+  <div class="container-fluid" data-bs-theme="dark">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="fw-medium">Actions</th>
+              <th class="fw-medium">Id</th>
+              <th class="fw-medium">Name</th>
+              <th class="fw-medium">Info</th>
+              <th class="fw-medium">User</th>
+              <th class="fw-medium">Songs</th>
+              <th class="fw-medium">Links</th>
+              <th class="fw-medium">Picture Path</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let artist of artists">
+              <td>
+                <div class="d-flex justify-content-start">
+                  <button (click)="edit(artist)" class="btn bi-gear-fill btn-sm btn-success"> EDIT</button>
+                  <button (click)="delete(artist)" class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
+                </div>
+              </td>
+              <td>{{ artist.id }}</td>
+              <td>{{ artist.name }}</td>
+              <td>{{ artist.info }}</td>
+              <td>{{ artist.user?.firstName }}  {{artist.user?.lastName}}</td>
+              <td>
+                <table><tr *ngFor="let song of artist.songs;">
+                  <td class="name">
+                      {{song.songName}}
+                  </td>
+                 </tr></table>  
+              </td>
+              <td>
+                <table><tr *ngFor="let link of artist.links;">
+                  <td class="name">
+                      {{link.title}}
+                  </td>
+                 </tr></table>  
+              </td>
+              <td>{{ artist.picturePath }}</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

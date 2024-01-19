@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { ArtistService } from 'src/app/Services/artist.service';
+import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
 
 @Component({
   selector: 'app-music-panel',
@@ -18,18 +20,46 @@ export class MusicPanelComponent implements OnInit{
   message: string = "";
   songs: MusicModel[] = [];
   song: MusicModel = resetMusic();
+  artist: ArtistModel = resetArtist();
+  artists: ArtistModel[] = [];
+  selected: number[] = [];
   selectedFile: File | undefined;
   formData = new FormData();
 
-  constructor(private musicService: MusicService, private snackBar: SnackBarService, private dialog: MatDialog) { }
+  constructor(private musicService: MusicService, private artistService: ArtistService, private snackBar: SnackBarService, private dialog: MatDialog) { }
     
     ngOnInit(): void {
       this.musicService.getAll().subscribe(x => this.songs = x);
-
+      this.artistService.getAll().subscribe(x => this.artists = x);
+      this.selected = this.song.artist.filter(x => x.checked == true ? x.id : null).map(x => x.id);
     }
 
+    marked(event: any) {
+      let value = parseInt(event.target.value);
+      if (this.selected.indexOf(value) == -1) {
+        this.selected.push(value);
+      } else {
+        this.selected.splice(this.selected.indexOf(value), 1);
+      }
+      this.selected.sort((a, b) => a - b);
+    }
+    resetCheckboxes(): void {
+    this.artists.map(artist => artist.checked = false);
+    this.selected.length = 0;
+  }
+
     edit(music: MusicModel): void {
+      this.resetCheckboxes();
+      console.log(music)
       Object.assign(this.song, music);
+      this.song.artist.forEach(art => {
+        const existingArtist = this.artists.find(a => a.id === art.id);
+        if (existingArtist) {
+          existingArtist.checked = true;
+          this.selected.push(existingArtist.id);
+          console.log(this.selected);
+        }
+      });
     }
 
     onSongFileSelected(event: any): void {
@@ -85,11 +115,13 @@ export class MusicPanelComponent implements OnInit{
     
       cancel(): void {
         this.song = resetMusic();
+        this.resetCheckboxes();
         this.snackBar.openSnackBar('Song creation canceled.', '','info');
       }
     
       save(): void {
         this.message = "";
+        this.song.artistIds = this.selected;
         if (this.song.id == 0) {
           //create
           this.musicService.create(this.song)
@@ -97,6 +129,7 @@ export class MusicPanelComponent implements OnInit{
             next: (x) => {
               this.songs.push(x);
               this.song = resetMusic();
+              this.resetCheckboxes();
               this.snackBar.openSnackBar("Song created", '', 'success');
             },
             error: (err) => {
@@ -116,6 +149,7 @@ export class MusicPanelComponent implements OnInit{
             complete: () => {
               this.musicService.getAll().subscribe(x => this.songs = x);
               this.song = resetMusic();
+              this.resetCheckboxes();
               this.snackBar.openSnackBar("Song updated", '', 'success');
             }
           });

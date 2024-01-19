@@ -3,6 +3,7 @@ using ProtonedMusicAPI.Interfaces.ICategory;
 using ProtonedMusicAPI.Interfaces.IEvent;
 using ProtonedMusicAPI.Interfaces.IFooter;
 using ProtonedMusicAPI.Interfaces.INews;
+using ProtonedMusicAPI.Interfaces.IOrderHistory;
 using ProtonedMusicAPI.Interfaces.IProduct;
 using ProtonedMusicAPI.Interfaces.IUpcoming;
 using Stripe;
@@ -58,6 +59,9 @@ namespace ProtonedMusicAPI
 
             builder.Services.AddScoped<IFooterRepository, FooterRepository>();
             builder.Services.AddScoped<IFooterService, FooterService>();
+
+            builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
+            builder.Services.AddScoped<IOrderHistoryService, OrderHistoryService>();
 
             builder.Services.AddScoped<IEmailService, EmailService>();
 

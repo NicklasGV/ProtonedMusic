@@ -2,7 +2,7 @@
 {
     public class LinkRequest
     {
-        public int ArtistId { get; set; }
+        public List<int> ArtistIds { get; set; } = new();
         public string Title { get; set; }
         public string LinkAddress { get; set; }
     }

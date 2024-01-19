@@ -1,9 +1,12 @@
+import { ArtistModel, resetArtist } from "./ArtistModel";
+
 export interface CalendarModel {
     id: number;
     title: string;
     content: string;
-    date: Date;
-    familyMember: string;
+    date: any;
+    artistId: number;
+    artist: ArtistModel;
 }
 
 export function resetCalendar() {
@@ -12,6 +15,7 @@ export function resetCalendar() {
         title: '',
         content: '',
         date: new Date,
-        familyMember: ''
+        artistId: 0,
+        artist: resetArtist()
     };
 }

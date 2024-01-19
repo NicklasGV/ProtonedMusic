@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <div>
+      <p-calendar [(ngModel)]="selected" [showWeek]="true" [inline]="true" [showTime]="true" [showSeconds]="true" [showOtherMonths]="false">
+        <ng-template pTemplate="date" let-date>
+          <span class="bg" [style.color]="getBackgroundColor(date)">{{date.day}}</span>
+        </ng-template>
+      </p-calendar>
+    </div>
+    <div>
+        <button class="btn btn-success my-2" (click)="showEvent()">New Event</button>
+    </div>
+</div>
+
+<div class="my-4">
+    <div class="container-fluid" data-bs-theme="dark">
+        <div class="form-group row mb-3">
+            <label class="col-12 col-sm-1 col-form-label">Title</label>
+            <div class="col-12 col-sm-6">
+              <input [(ngModel)]="calendarContent.title" [ngModelOptions]="{standalone: true}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label class="col-12 col-sm-1 col-form-label">short description</label>
+            <div class="col-12 col-sm-6">
+              <textarea style="resize: none;" class="form-control" rows="5" maxlength="1500" [(ngModel)]="calendarContent.content"
+                [ngModelOptions]="{standalone: true}">
+              </textarea>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label for="datepicker" class="col-12 col-sm-1 col-form-label">Event Date</label>
+            <div class="col-12 col-sm-6">
+              <input type="text" [(ngModel)]="selected" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row mb-3" *ngIf="this.currentUser.role != 'Family'">
+          <label class="col-12 col-sm-1 col-form-label">Role</label>
+          <div class="col-12 col-sm-6">
+            <div class="dropdown">
+              <select [(ngModel)]="calendarContent.artist" class="form-select">
+                <option class="dropdown-item" *ngFor="let artist of Artists" [ngValue]="artist">{{ artist.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-5 mx-0">
+            <button (click)="save()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+            <button (click)="cancel()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" data-bs-theme="dark">
+  <p-table [value]="content" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width:8%">Actions</th>
+        <th pSortableColumn="id" style="width:10%">Id <p-sortIcon field="id"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="title" style="width:15%">Title <p-sortIcon field="title"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="content" style="width:15%">Content <p-sortIcon field="content"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="date" style="width:15%">Date <p-sortIcon field="date"></p-sortIcon><p-divider></p-divider></th>
+        <th pSortableColumn="artist" style="width:15%">Artist <p-sortIcon field="artist"></p-sortIcon><p-divider></p-divider></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-content  let-columns="columns">
+      <tr>
+        <td>
+          <button (click)="editEvent(content)" class="btn bi-gear-wide-connected btn-sm btn-success ms-2"></button>
+          <button (click)="deleteEvent(content)" class="btn bi-trash-fill btn-sm btn-danger ms-2"></button>
+        </td>
+        <td>{{content.id}}</td>
+        <td>{{content.title}}</td>
+        <td class="text-truncate" style="max-width: 300px;">{{content.content}}</td>
+        <td>{{content.date | date:'dd-MM-yyyy | HH:mm'}}</td>
+        <td>{{content.artist.name}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,44 +1,43 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
+using Microsoft.EntityFrameworkCore;
+using ProtonedMusicAPI.Database;
+using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
 namespace ProtonedMusicAPI.Repositories
 {
     public class OrderHistoryRepository : IOrderHistoryRepository
     {
-        private readonly IOrderHistoryRepository _orderHistoryRepository;
+        private readonly DatabaseContext _context;
 
-        public OrderHistoryRepository(IOrderHistoryRepository orderHistoryRepository)
+        public OrderHistoryRepository(DatabaseContext context)
         {
-            _orderHistoryRepository = orderHistoryRepository;
+            _context = context;
+        }
+        public async Task<List<Order?>> FindByIdAsync(int customerId)
+        {
+            return await _context.Orders
+                .Include(p => p.ProductOrder)
+                .ThenInclude(pc => pc.Product)
+                .Where(p => p.CustomerId == customerId)
+                .ToListAsync();
         }
 
-        //Skal laves om
-        public async Task<Order> CreateOrder(int customerId, List<ItemProduct> items, OrderHistoryResponse orderHistoryResponse)
+        public async Task<Order> CreateOrder(Order newOrder)
         {
-            return new Order
-            {
-                CustomerId = customerId,
-                Items = items,
-                OrderDate = DateTime.Now,
-                OrderNumber = orderHistoryResponse.OrderNumber,
-                
-            };
+            _context.Orders.Add(newOrder);
+
+            await _context.SaveChangesAsync();
+
+            return newOrder;
         }
 
-        //Laves om
-        public Task<Order> CreateOrder(int customerId, List<ItemProduct> items, string orderNumber)
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task<Order> GetOrdersByCustomerId(int customerId)
+        public async Task<List<Order>> GetOrdersByCustomerId(int customerId)
         {
-            return await _orderHistoryRepository.GetOrdersById(customerId);
-        }
-
-        public async Task<Order> GetOrdersById(int orderId)
-        {
-            return await _orderHistoryRepository.GetOrdersById(orderId);
+            return await _context.Orders
+                .Include(o => o.ProductOrder)
+                .ThenInclude(i => i.Product)
+                .Where(o => o.CustomerId == customerId)
+                .ToListAsync();
         }
     }
 }

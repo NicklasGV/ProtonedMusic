@@ -27,7 +27,7 @@ namespace ProtonedMusicAPI.Services
             {
                 response.Artist = music.Artist.Select(x => new MusicArtistResponse
                 {
-                    Id = x.Id,
+                    Id = x.ArtistId,
                     Name = x.Artist.Name,
                     Info = x.Artist.Info,
                     PicturePath = x.Artist.PicturePath,
@@ -44,7 +44,7 @@ namespace ProtonedMusicAPI.Services
                 Album = musicRequest.Album,
                 SongFilePath = musicRequest.SongFilePath ?? string.Empty,
                 SongPicturePath = musicRequest.SongPicturePath ?? string.Empty,
-                Artist = musicRequest.ArtistIds.Select(s => new ArtistSong
+                Artist = musicRequest.Artist.Select(s => new ArtistSong
                 {
                     ArtistId = s
                 }).ToList(),

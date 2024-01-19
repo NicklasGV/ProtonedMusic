@@ -15,12 +15,12 @@
         public DbSet<Music> Music { get; set; }
         public DbSet<CalendarContent> CalendarContent { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<ItemProduct> itemProducts { get; set; }
         public DbSet<Artist> Artist { get; set; }
         public DbSet<Link> Link { get; set; }
         public DbSet<ArtistSong> ArtistSong { get; set; }
-
+        public DbSet<ArtistLink> ArtistLink { get; set; }
         public DbSet<FooterPost> FooterPosts { get; set; }
+        public DbSet<ProductOrder> ProductOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,9 +63,19 @@
                 .HasOne(nl => nl.News)
                 .WithMany(n => n.NewsLikes)
                 .HasForeignKey(nl => nl.news_Id);
-                
+
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
+            modelBuilder.Entity<ProductOrder>().HasKey(pc => new { pc.ProductId, pc.OrderId });
+
+            modelBuilder.Entity<CalendarContent>().HasData(new CalendarContent
+            {
+                Id =1,
+                Title = "Title",
+                Content = "This is a test content of a calendar content",
+                Date = new DateTime(),
+                ArtistId = 1,
+            });
 
             modelBuilder.Entity<FooterPost>().HasData(new FooterPost
             {
@@ -314,10 +324,16 @@
                 MusicId = 3,
             });
 
-            modelBuilder.Entity<Link>().HasData(new Link
+            modelBuilder.Entity<ArtistLink>().HasData(new ArtistLink
             {
                 Id = 1,
                 ArtistId = 1,
+                LinkId = 1,
+            });
+
+            modelBuilder.Entity<Link>().HasData(new Link
+            {
+                Id = 1,
                 Title = "Discord",
                 LinkAddress = "https://discord.gg/Jt4rwUZGGS"
             });

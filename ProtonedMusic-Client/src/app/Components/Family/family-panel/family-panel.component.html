@@ -1,0 +1,20 @@
+<div class="container-fluid d-flex justify-content-center" data-bs-theme="dark">
+    <div class="mb-3">
+        <div class="text-center">
+            <i class="bi-people-fill" style="font-size: 8rem; color: white;" id="Profile"></i>
+        </div>
+        <div class="px-sm-5">
+            <h2 class="display-6 fw-medium my-5" id="name"> {{msg}} {{user.firstName}}</h2>
+        </div>
+        <div class="mt-5">
+            <button class="form-control text-center nav-button" routerLink="/family/familyschedule" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Add shows to the schedule">
+                Family Scheduler
+            </button>
+        </div>
+        <div class="mt-5">
+            <button class="form-control text-center back-button" routerLink="">
+                Back
+            </button>
+        </div>    
+    </div> 
+</div>

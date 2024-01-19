@@ -6,8 +6,8 @@
               <tr>
                   <th class="d-none d-md-table-cell">Image</th>
                   <th>Name</th>
-                  <th>Quantity</th>
                   <th>Amount</th>
+                  <th>Quantity</th>
                   <th>Total</th>
                   <th></th>
                   <th>Update Amount</th>
@@ -26,10 +26,10 @@
                     </a>
                   </td>
                   <td class="align-middle">{{ cart.name }}</td>
-                  <td class="align-middle">{{ cart.price | currency : "DKK " }}</td>
+                  <td class="align-middle">{{ cart.price.toLocaleString('da-DK')}} DKK</td>
                   <td class="align-middle">{{ cart.quantity }}</td>
                   <td class="align-middle">
-                      {{ cart.price * cart.quantity | currency : "DKK " }}
+                      {{ formatCurrency(cart.price * cart.quantity)}}
                   </td>
                   <td>
                     <button class="btn btn-sm"></button>

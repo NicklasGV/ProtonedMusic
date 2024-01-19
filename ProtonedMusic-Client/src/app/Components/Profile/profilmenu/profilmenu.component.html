@@ -5,16 +5,16 @@
                 data-bs-target="#Modal">
                 <div class="image-container rounded-circle">
                     <a *ngIf="user.profilePicturePath">
-                        <img src="https://protonedmusic.com/{{ user.profilePicturePath }}" class="rounded-circle"
-                            width="208" height="208">
-                            <div class="edit-overlay rounded-circle">
-                                <i class="uploadicon bi-upload text-success align-bottom"></i>
-                            </div>
+                        <img src="https://protonedmusic.com/{{ user.profilePicturePath }}" class="rounded-circle" width="208" height="208">
+                        <div class="edit-overlay rounded-circle">
+                            <i class="uploadicon bi-upload text-success align-bottom"></i>
+                        </div>
                     </a>
                     <a *ngIf="!user.profilePicturePath">
-                        <i class="bi-person-circle me-auto text-center" style="font-size: 13rem; color: white;"
-                            id="Profile"></i>
-                            <i class="bi-upload text-success"></i>
+                        <p-avatar label="{{avatarLetterCheck(user.firstName)}}" styleClass="xl: w-13rem h-13rem text-8xl text-white" shape="circle"></p-avatar>
+                        <div class="edit-overlay rounded-circle">
+                            <i class="uploadicon bi-upload text-success align-bottom"></i>
+                        </div>
                     </a>
                 </div>
             </button>

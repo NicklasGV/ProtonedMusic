@@ -1,5 +1,6 @@
-<div class="snack-container d-flex">
-    <div *ngIf="data.snackType === 'success'">
+<div>
+  <div class="snack-container d-flex">
+      <div *ngIf="data.snackType === 'success'">
         <mat-icon class="success-icon text-success">check_circle</mat-icon>
       </div>
       <div *ngIf="data.snackType === 'error'">
@@ -11,7 +12,7 @@
       <div *ngIf="data.snackType === 'info'">
         <mat-icon class="info-icon text-info">info</mat-icon>
       </div>
-    <div>
-      <span class="d-flex ms-3">{{data.message}}</span>
-    </div>
+      <span class="d-flexms-3">{{data.message}}</span>
+    <button type="button" class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-4" aria-label="Close" (click)="closeSnackbar()"></button>
   </div>
+</div>

@@ -1,63 +1,70 @@
-<div class="container-fluid d-flex justify-content-center" data-bs-theme="dark">
-    <div class="mb-3">
-        <div class="text-center">
-            <i class="bi-person-fill-gear" style="font-size: 8rem; color: white;" id="Profile"></i>
+<div class="container-fluid w-100" data-bs-theme="dark">
+    <div class="text-center">
+        <i class="bi-person-fill-gear" style="font-size: 8rem; color: white;" id="Profile"></i>
+    </div>
+    <div class="px-sm-5">
+        <h2 class="display-6 fw-medium my-5 text-center" id="name"> {{msg}} {{user.firstName}}</h2>
+    </div>
+    <div class="mb-3 row row-cols-auto row-cols-lg-2">
+        <div class="col-12">
+            <div class="mt-1">
+                <button class="form-control text-center nav-button" routerLink="/admin/productpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see products">
+                    Product Panel
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/categorypanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see categories">
+                    Category Panel
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/userpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create or Update a user">
+                    User Panel
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/eventpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see events">
+                    Event Panel
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/newspanel"matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see News">
+                    News Panel
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/emailpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Send emails/newsletters to people who have subscribed">
+                    Email Panel
+                </button>
+            </div>
         </div>
-        <div class="px-sm-5">
-            <h2 class="display-6 fw-medium my-5" id="name"> {{msg}} {{user.firstName}}</h2>
+        <div class="col-12">
+            <div class="mt-1">
+                <button class="form-control text-center nav-button" routerLink="/admin/frontpagepostpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update or Delete a frontpage">
+                    Frontpage Post Panel
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/footerpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Update the footer content">
+                    Footer Post Panel
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/artistpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update or Delete a artists">Artist Panel</button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/admin/musicpanel" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update or Delete a songs">Music Panel</button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center nav-button" routerLink="/family/familyschedule" matTooltipPosition="above" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see the family schedule">
+                    Family Schedule/Upcoming
+                </button>
+            </div>
+            <div class="mt-4">
+                <button class="form-control text-center back-button" routerLink="">
+                    Back
+                </button>
+            </div>
         </div>
-        <div class="mt-5">
-            <button class="form-control text-center nav-button" routerLink="/admin/productpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see products">
-                Product Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/categorypanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see categories">
-                Category Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/userpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create or Update a user">
-                User Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/upcomingpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see upcoming things">
-                Upcoming Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/eventpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see events">
-                Event Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/newspanel"matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create, Update, Delete or see News">
-                News Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/emailpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Send emails/newsletters to people who have subscribed">
-                Email Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/frontpagepostpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create, Update or Delete a frontpage">
-                Frontpage Post Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/footerpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Update the footer content">
-                Footer Post Panel
-            </button>
-        </div>
-        <div class="mt-4">
-            <button class="form-control text-center nav-button" routerLink="/admin/musicpanel" matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Create, Update or Delete a songs">Music Panel</button>
-        </div>
-        <div class="mt-5">
-            <button class="form-control text-center back-button" routerLink="">
-                Back
-            </button>
-        </div>    
-    </div> 
+    </div>
 </div>
