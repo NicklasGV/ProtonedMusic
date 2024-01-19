@@ -15,7 +15,6 @@
         public DbSet<Music> Music { get; set; }
         public DbSet<CalendarContent> CalendarContent { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<ItemProduct> itemProducts { get; set; }
         public DbSet<Artist> Artist { get; set; }
         public DbSet<Link> Link { get; set; }
         public DbSet<ArtistSong> ArtistSong { get; set; }
@@ -67,7 +66,7 @@
 
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
-            modelBuilder.Entity<ProductOrder>().HasKey(pc => new { pc.ProductId, pc.Id });
+            modelBuilder.Entity<ProductOrder>().HasKey(pc => new { pc.ProductId, pc.OrderId });
 
             modelBuilder.Entity<CalendarContent>().HasData(new CalendarContent
             {
@@ -337,20 +336,6 @@
                 Id = 1,
                 Title = "Discord",
                 LinkAddress = "https://discord.gg/Jt4rwUZGGS"
-            });
-
-            modelBuilder.Entity<Order>().HasData(new Order
-            {
-                Id = 1,
-                CustomerId = 1,
-                OrderDate = DateTime.Now,
-                OrderNumber = "4654322",
-                //quantity = 5,
-            });
-            modelBuilder.Entity<ProductOrder>().HasData(new ProductOrder
-            {
-                OrderId = 1,
-                ProductId = 1,
             });
         }
     }

@@ -12,51 +12,31 @@ namespace ProtonedMusicAPI.Repositories
         {
             _context = context;
         }
-
-        public async Task<Order> CreateOrder(int customerId, List<ItemProduct> items, string orderNumber)
+        public async Task<Order?> FindByIdAsync(int orderId)
         {
-            Order newOrder = new Order
-            {
-                CustomerId = customerId,
-                OrderNumber = orderNumber,
-                OrderDate = DateTime.Now,
+            return await _context.Orders
+                .Include(p => p.ProductOrder)
+                .ThenInclude(pc => pc.Product)
+                .FirstOrDefaultAsync(p => p.Id == orderId);
+        }
 
-            };
-
-            foreach (var item in items)
-            {
-                ItemProduct orderItem = new ItemProduct
-                {
-                    ProductId = item.ProductId,
-                    quantity = item.quantity,
-                    OrderId = item.OrderId,
-                };
-
-                newOrder.Items.Add(orderItem);
-            }
-
+        public async Task<Order> CreateOrder(Order newOrder)
+        {
             _context.Orders.Add(newOrder);
-            await _context.SaveChangesAsync();
 
+            await _context.SaveChangesAsync();
+            newOrder = await FindByIdAsync(newOrder.Id);
             return newOrder;
         }
 
 
-        public async Task<List<Order>> GetOrdersByCustomerId(string customerId)
+        public async Task<List<Order>> GetOrdersByCustomerId(int customerId)
         {
             return await _context.Orders
-                .Include(o => o.Items)
+                .Include(o => o.ProductOrder)
                 .ThenInclude(i => i.Product)
-                .Where(o => o.CustomerId.ToString() == customerId)
+                .Where(o => o.CustomerId == customerId)
                 .ToListAsync();
         }
-
-        public async Task<Order> GetOrdersById(int orderId)
-        {
-            return await _context.Orders
-                .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.Id == orderId);
-        }
-
     }
 }

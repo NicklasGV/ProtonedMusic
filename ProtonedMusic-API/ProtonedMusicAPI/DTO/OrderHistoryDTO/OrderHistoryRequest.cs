@@ -2,11 +2,10 @@
 {
     public class OrderHistoryRequest
     {
-        public string CustomerId { get; set; }
-        public List<ItemProduct> Items { get; set; }
-        public string OrderNumber { get; set; }
+        public int CustomerId { get; set; }
+        public List<int> ProductIds { get; set; } = new();
         public DateTime OrderDate { get; set; }
-        public int quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }
 

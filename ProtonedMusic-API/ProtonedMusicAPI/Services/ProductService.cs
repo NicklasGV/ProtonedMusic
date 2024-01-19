@@ -11,7 +11,7 @@ namespace ProtonedMusicAPI.Services
         }
         private static ProductResponse MapProductToProductResponse(Product product)
         {
-            ProductResponse repsonse = new ProductResponse
+            ProductResponse repsonse = new()
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -20,7 +20,6 @@ namespace ProtonedMusicAPI.Services
                 ProductPicturePath = product.ProductPicturePath,
                 IsDiscounted = product.IsDiscounted,
                 DiscountProcent = product.DiscountProcent,
-
             };
             if (product.ProductCategories.Count > 0)
             {

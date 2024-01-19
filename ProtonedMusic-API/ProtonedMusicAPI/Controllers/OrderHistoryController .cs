@@ -17,36 +17,40 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpGet("{customerId}")]
-        public async Task<ActionResult<OrderHistoryResponse>> GetOrdersByCustomerId(string customerId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int customerId)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(customerId))
-                {
-                    return BadRequest("Invalid customerId");
-                }
+                var response = await _orderHistoryService.FindByIdAsync(customerId);
 
-                var orderHistory = await _orderHistoryService.GetOrdersByCustomerIdAsync(customerId);
-                return Ok(orderHistory);
+                if (response == null)
+                {
+                    return NotFound();
+                }
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
 
         [HttpPost("CreateOrder")]
-        public async Task<IActionResult> CreateOrder([FromBody] OrderHistoryRequest orderRequest)
+        public async Task<IActionResult> CreateOrder([FromForm] OrderHistoryRequest newOrder)
         {
             try
             {
-                var orderResponse = await _orderHistoryService.CreateOrderAsync(orderRequest);
+                OrderHistoryResponse response = await _orderHistoryService.CreateOrderAsync(newOrder);
 
-                return Ok(orderResponse);
+                if (response == null)
+                {
+                    return Problem("Is null");
+                }
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
 

@@ -13,85 +13,61 @@ namespace ProtonedMusicAPI.Services
             _orderHistoryRepository = orderHistoryRepository;
         }
 
-        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest request)
+        private static OrderHistoryResponse MapOrderToOrderResponse(Order order)
         {
-            int customerId = Convert.ToInt32(request.CustomerId);
-            Order newOrder = await _orderHistoryRepository.CreateOrder(customerId, request.Items, request.OrderNumber);
-
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(newOrder);
-
-            return response;
-        }
-
-        public async Task<OrderHistoryResponse> GetOrderByIdAsync(int orderId)
-        {
-            Order orderById = await _orderHistoryRepository.GetOrdersById(orderId);
-
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(orderById);
-
-            return response;
-        }
-
-        public async Task<List<OrderHistoryResponse>> GetOrdersByCustomerIdAsync(string customerId)
-        {
-            List<Order> customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
-
-            List<OrderHistoryResponse> responseList = new List<OrderHistoryResponse>();
-
-            foreach (Order order in customerOrders)
-            {
-                OrderHistoryResponse response = MapOrderToOrderHistoryResponse(order);
-                responseList.Add(response);
-            }
-
-            return responseList;
-        }
-        public OrderHistoryResponse MapOrderToOrderHistoryResponse(Order order)
-        {
-            OrderHistoryResponse response = new OrderHistoryResponse
+            OrderHistoryResponse response = new()
             {
                 Id = order.Id,
-                OrderNumber = order.OrderNumber,
                 OrderDate = order.OrderDate,
-                price = CalculateTotalPrice(order.Items),
-                Quantity = CalculateTotalQuantity(order.Items),
-                
+                Quantity = order.Quantity
             };
-
-            if (order.Items.Count > 0)
+            if (order.ProductOrder.Count > 0)
             {
-                response.Items = order.Items.Select(x => new OrderItemsResponse
+                response.Products = order.ProductOrder.Select(x => new ProductOrderResponse
                 {
-                    Id = x.Id,
-                    ProductId = x.ProductId,
-                    OrderId = x.OrderId,
-                    quantity = x.quantity,
-                    ProductName = x.Product.Name,
-                    
+                    Id = x.Product.Id,
+                    Name = x.Product.Name,
+                    Price = x.Product.Price,
+                    IsDiscounted = x.Product.IsDiscounted,
+                    DiscountProcent = x.Product.DiscountProcent,
                 }).ToList();
             }
-
             return response;
         }
-
-        public int CalculateTotalPrice(List<ItemProduct> items)
+        private static Order MapOrderRequestToOrder(OrderHistoryRequest orderRequest)
         {
-            if (items == null || items.Count == 0)
+            return new Order
             {
-                return 0;
-            }
-
-            return (int)items.Sum(item => item.Product.Price * item.quantity);
+                CustomerId = orderRequest.CustomerId,
+                OrderDate = orderRequest.OrderDate,
+                Quantity = orderRequest.Quantity,
+                ProductOrder = orderRequest.ProductIds.Select(c => new ProductOrder
+                {
+                    ProductId = c
+                }).ToList(),
+            };
         }
 
-        public int CalculateTotalQuantity(List<ItemProduct> items)
+        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest newOrder)
         {
-            if (items == null || items.Count == 0)
-            {
-                return 0;
-            }
+            var order = await _orderHistoryRepository.CreateOrder(MapOrderRequestToOrder(newOrder));
 
-            return items.Sum(item => item.quantity);
+            if (order == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return MapOrderToOrderResponse(order);
+        }
+
+        public async Task<OrderHistoryResponse?> FindByIdAsync(int customerId)
+        {
+            var customer = await _orderHistoryRepository.FindByIdAsync(customerId);
+
+            if (customer != null)
+            {
+                return MapOrderToOrderResponse(customer);
+            }
+            return null;
         }
     }
 }
