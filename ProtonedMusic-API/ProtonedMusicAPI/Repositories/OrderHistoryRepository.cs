@@ -12,12 +12,13 @@ namespace ProtonedMusicAPI.Repositories
         {
             _context = context;
         }
-        public async Task<Order?> FindByIdAsync(int orderId)
+        public async Task<List<Order?>> FindByIdAsync(int customerId)
         {
             return await _context.Orders
                 .Include(p => p.ProductOrder)
                 .ThenInclude(pc => pc.Product)
-                .FirstOrDefaultAsync(p => p.Id == orderId);
+                .Where(p => p.CustomerId == customerId)
+                .ToListAsync();
         }
 
         public async Task<Order> CreateOrder(Order newOrder)
@@ -25,7 +26,7 @@ namespace ProtonedMusicAPI.Repositories
             _context.Orders.Add(newOrder);
 
             await _context.SaveChangesAsync();
-            newOrder = await FindByIdAsync(newOrder.Id);
+
             return newOrder;
         }
 

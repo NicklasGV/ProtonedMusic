@@ -7,7 +7,7 @@ namespace ProtonedMusicAPI.Interfaces.IOrderHistory
     public interface IOrderHistoryService
     {
         Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest request);
-        Task<OrderHistoryResponse?> FindByIdAsync(int customerId);
+        Task<List<OrderHistoryResponse?>> FindByIdAsync(int customerId);
     }
 }
     

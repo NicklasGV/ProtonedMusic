@@ -59,15 +59,14 @@ namespace ProtonedMusicAPI.Services
             return MapOrderToOrderResponse(order);
         }
 
-        public async Task<OrderHistoryResponse?> FindByIdAsync(int customerId)
+        public async Task<List<OrderHistoryResponse?>> FindByIdAsync(int customerId)
         {
-            var customer = await _orderHistoryRepository.FindByIdAsync(customerId);
-
-            if (customer != null)
+            List<Order> orders = await _orderHistoryRepository.FindByIdAsync(customerId);
+            if (orders == null)
             {
-                return MapOrderToOrderResponse(customer);
+                throw new ArgumentNullException();
             }
-            return null;
+            return orders.Select(MapOrderToOrderResponse).ToList();
         }
     }
 }
