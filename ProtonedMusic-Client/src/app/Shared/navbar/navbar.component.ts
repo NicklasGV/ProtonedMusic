@@ -89,9 +89,9 @@ export class NavbarComponent implements OnInit {
   avatarCheck(thisuser: User): string {
     if (thisuser.id > 0)
     {
-      if (thisuser.profilePicturePath != '')
+      if (thisuser.profilePicturePath == '' || thisuser.profilePicturePath == null || thisuser.profilePicturePath == undefined)
       {
-        return 'PicPath'
+        return 'Letter'
       }
       else if (thisuser.profilePicturePath != '') {
         return 'PicPath'
