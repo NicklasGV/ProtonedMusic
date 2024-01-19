@@ -89,15 +89,12 @@ export class NavbarComponent implements OnInit {
   avatarCheck(thisuser: User): string {
     if (thisuser.id > 0)
     {
-      if (thisuser.profilePicturePath == '') {
-        return 'Letter'
+      if (thisuser.profilePicturePath != '')
+      {
+        return 'PicPath'
       }
       else if (thisuser.profilePicturePath != '') {
         return 'PicPath'
-      }
-      else if (thisuser.profilePicturePath == '' && thisuser.firstName == '')
-      {
-        return 'No name'
       }
       return 'Nothing'
     }

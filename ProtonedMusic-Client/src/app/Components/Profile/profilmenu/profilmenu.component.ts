@@ -90,5 +90,4 @@ export class ProfilmenuComponent implements OnInit {
     await this.delay(500);
     window.location.reload();
   }
-
 }
