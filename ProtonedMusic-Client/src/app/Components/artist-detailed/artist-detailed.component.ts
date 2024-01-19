@@ -21,6 +21,9 @@ export class ArtistDetailedComponent implements OnInit {
   currentUserId: number = 0;
   artist: ArtistModel = resetArtist();
   checkEmpty: boolean = false;
+  editMode: boolean = false;
+  selectedFile: File | undefined;
+
 
 
 
@@ -45,5 +48,38 @@ export class ArtistDetailedComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  editModeChange() {
+    if (this.editMode)
+    {
+      this.editMode = false;
+    }
+    else
+    {
+      this.editMode = true;
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+
+
+  async uploadImage() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      this.artist.pictureFile = this.selectedFile
+      if(this.artist.user?.id)
+      {
+        this.artist.userId = this.artist.user?.id;
+      }
+
+      this.artistService.update(this.artist.id, this.artist).subscribe();
+    }
+    await this.delay(500);
+    window.location.reload();
   }
 }
