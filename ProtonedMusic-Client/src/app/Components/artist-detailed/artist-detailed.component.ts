@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
+import { LinkModel, resetLink } from 'src/app/Models/LinkModel';
 
 
 
@@ -26,10 +27,12 @@ export class ArtistDetailedComponent implements OnInit {
   currentUser: User = resetUser();
   currentUserId: number = 0;
   artist: ArtistModel = resetArtist();
+  link: LinkModel = resetLink();
   checkEmpty: boolean = false;
   editMode: boolean = false;
   pictureChanged: boolean = false;
   selectedFile: File | undefined;
+  chosenLinkId: number = 0;
 
 
 
@@ -78,6 +81,16 @@ export class ArtistDetailedComponent implements OnInit {
     const file = event.target.files[0];
     this.artist.pictureFile = file;
 
+  }
+
+  chosenLink(chosenLink: LinkModel)
+  {
+    this.link = chosenLink;
+  }
+  
+  resetLink()
+  {
+    this.link = resetLink();
   }
 
 

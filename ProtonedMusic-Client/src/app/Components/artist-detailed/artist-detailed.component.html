@@ -47,10 +47,18 @@
                                 </div>
                             </div>
                             <div style="height: 2rem;">
-                                <a class="text-success fw-bold mt-5 me-2 ms-1" *ngFor="let link of artist.links"
+                                <div *ngIf="!editMode">
+                                    <a class="text-success fw-bold mt-5 me-2 ms-1" *ngFor="let link of artist.links"
                                 href="{{link.linkAddress}}" target="_blank">{{link.title}}</a>
+                                </div>
+                                <div *ngIf="editMode">
+                                    <a class="text-warning fw-bold mt-5 me-2 ms-1" *ngFor="let link of artist.links"
+                                    data-bs-toggle="modal" data-bs-target="#ModalLink" (click)="chosenLink(link)">{{link.title}}</a>
                                     <a type="button" *ngIf="editMode" class="bi bi-plus btn-sm btn btn-success me-2 ms-1"
-                                    (click)="editModeChange()"></a>
+                                    data-bs-toggle="modal" data-bs-target="#ModalLink"></a>
+                                </div>
+                                
+                                    
                             </div>
                             
                                 
@@ -118,6 +126,37 @@
             <div class="modal-body">
                 <input class="form-control" type="file" (change)="onFileSelected($event)" name="fileInput"
                     accept="image/*" />
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-success" (click)="uploadImage(); $event.stopPropagation()"
+                    data-bs-dismiss="modal">Upload Image</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalLink" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5" id="Modal">Add/Change Link</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetLink();"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid" data-bs-theme="dark">
+                    <div class="form-group row mb-3">
+                      <label class="col-12 col-sm-1 col-form-label">Link name</label>
+                      <div class="col-12 col-sm-6">
+                        <input [(ngModel)]="link.title" class="form-control w-75">
+                      </div>
+                    </div>
+                  
+                      <div class="form-group row mb-3">
+                        <label class="col-12 col-sm-1 col-form-label">Link Address</label>
+                        <div class="col-12 col-sm-6">
+                          <input [(ngModel)]="link.linkAddress" class="form-control w-75">
+                      </div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-sm btn-success" (click)="uploadImage(); $event.stopPropagation()"
