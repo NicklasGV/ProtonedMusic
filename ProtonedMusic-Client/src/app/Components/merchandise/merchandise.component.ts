@@ -7,6 +7,8 @@ import { CartService } from 'src/app/Services/cart.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import {MatBadgeModule} from '@angular/material/badge';
+import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -42,7 +44,8 @@ export class MerchandiseComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -87,16 +90,40 @@ export class MerchandiseComponent implements OnInit {
   }
 
   addToCart(products: ProductModel) {
-    this.itemlength += 1;
-    let item: CartItem = {
-      id: products.id,
-      price: products.price,
-      quantity: 1,
-      name: products.name,
-      picturePath: products.productPicturePath
-    } as CartItem;
-    this.cartService.addToCart(item);
-    this.snackbar.openSnackBar(products.name + ' added to cart','','success');
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        title: 'Item added to cart',
+        img: products.pictureFile,
+        message: products.name,
+        secondMessage: products.price,
+        confirmYes: 'Go to cart',
+        confirmNo: 'Keep shopping'
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.itemlength += 1;
+        let item: CartItem = {
+        id: products.id,
+        price: products.price,
+        quantity: 1,
+        name: products.name,
+        picturePath: products.productPicturePath
+      } as CartItem;
+       this.cartService.addToCart(item);
+        this.snackbar.openSnackBar(products.name + ' added to cart','','success');
+      }
+    });
+    // this.itemlength += 1;
+    // let item: CartItem = {
+    //   id: products.id,
+    //   price: products.price,
+    //   quantity: 1,
+    //   name: products.name,
+    //   picturePath: products.productPicturePath
+    // } as CartItem;
+    // this.cartService.addToCart(item);
+    // this.snackbar.openSnackBar(products.name + ' added to cart','','success');
   }
 
 }
