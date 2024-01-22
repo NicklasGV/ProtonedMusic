@@ -91,12 +91,17 @@ export class NavbarComponent implements OnInit {
     {
       if (thisuser.profilePicturePath == '' || thisuser.profilePicturePath == null || thisuser.profilePicturePath == undefined)
       {
-        return 'Letter'
+        if (thisuser.firstName != null)
+        {
+          return 'Letter'
+        }
+        else {
+          return 'Nothing'
+        }
       }
       else if (thisuser.profilePicturePath != '') {
         return 'PicPath'
       }
-      return 'Nothing'
     }
     return 'DontShow'
 

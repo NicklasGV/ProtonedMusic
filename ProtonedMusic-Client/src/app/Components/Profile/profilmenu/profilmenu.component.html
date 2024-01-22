@@ -10,8 +10,14 @@
                             <i class="uploadicon bi-upload text-success align-bottom"></i>
                         </div>
                     </a>
-                    <a *ngIf="!user.profilePicturePath">
+                    <a *ngIf="!user.profilePicturePath && user.firstName != null">
                         <p-avatar label="{{avatarLetterCheck(user.firstName)}}" styleClass="xl: w-13rem h-13rem text-8xl text-white" shape="circle"></p-avatar>
+                        <div class="edit-overlay rounded-circle">
+                            <i class="uploadicon bi-upload text-success align-bottom"></i>
+                        </div>
+                    </a>
+                    <a *ngIf="!user.profilePicturePath && user.firstName == null">
+                        <p-avatar icon="bi-person-fill" styleClass="xl: w-13rem h-13rem text-white" shape="circle"></p-avatar>
                         <div class="edit-overlay rounded-circle">
                             <i class="uploadicon bi-upload text-success align-bottom"></i>
                         </div>
