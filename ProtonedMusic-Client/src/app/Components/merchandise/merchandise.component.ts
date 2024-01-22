@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { Cart, CartItem } from 'src/app/Models/CartModel';
@@ -44,6 +44,7 @@ export class MerchandiseComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private route: ActivatedRoute,
+    private router: Router,
     private snackbar: SnackBarService,
     private dialog: MatDialog
   ) {}
@@ -93,7 +94,7 @@ export class MerchandiseComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         title: 'Item added to cart',
-        img: products.pictureFile,
+        img: products.productPicturePath,
         message: products.name,
         secondMessage: products.price,
         confirmYes: 'Go to cart',
@@ -111,19 +112,20 @@ export class MerchandiseComponent implements OnInit {
         picturePath: products.productPicturePath
       } as CartItem;
        this.cartService.addToCart(item);
+       this.router.navigate(['/cart']);
         this.snackbar.openSnackBar(products.name + ' added to cart','','success');
       }
+      this.itemlength += 1;
+      let item: CartItem = {
+        id: products.id,
+        price: products.price,
+        quantity: 1,
+        name: products.name,
+        picturePath: products.productPicturePath
+     } as CartItem;
+     this.cartService.addToCart(item);
+     this.snackbar.openSnackBar(products.name + ' added to cart','','success');
     });
-    // this.itemlength += 1;
-    // let item: CartItem = {
-    //   id: products.id,
-    //   price: products.price,
-    //   quantity: 1,
-    //   name: products.name,
-    //   picturePath: products.productPicturePath
-    // } as CartItem;
-    // this.cartService.addToCart(item);
-    // this.snackbar.openSnackBar(products.name + ' added to cart','','success');
   }
 
 }
