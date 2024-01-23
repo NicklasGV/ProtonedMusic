@@ -52,7 +52,6 @@
             {
                 link.Title = updateLink.Title;
                 link.LinkAddress = updateLink.LinkAddress;
-                link.Artist = updateLink.Artist;
 
                 await _databaseContext.SaveChangesAsync();
 

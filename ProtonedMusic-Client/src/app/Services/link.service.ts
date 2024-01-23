@@ -21,18 +21,6 @@ export class LinkService {
   
     formData.append('title', link.title);
     formData.append('linkAddress', link.linkAddress);
-    if (link.artistIds)
-    {
-      link.artistIds.forEach(artistId => {
-        formData.append('artistIds', artistId.toString());
-      });
-    }
-    else if (link.artist)
-    {
-      link.artist.forEach(artistId => {
-        formData.append('artistIds', artistId.id.toString());
-      });
-    }
 
     return this.http.post<LinkModel>(this.url + '/create', formData);
   }
@@ -42,18 +30,6 @@ export class LinkService {
   
     formData.append('title', link.title);
     formData.append('linkAddress', link.linkAddress);
-    if (link.artistIds)
-    {
-      link.artistIds.forEach(artistId => {
-        formData.append('artistIds', artistId.toString());
-      });
-    }
-    else if (link.artist)
-    {
-      link.artist.forEach(artistId => {
-        formData.append('artistIds', artistId.id.toString());
-      });
-    }
 
     return this.http.put<LinkModel>(this.url + '/' + linkId, formData);
   }
