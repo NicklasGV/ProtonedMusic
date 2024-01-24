@@ -4,3 +4,7 @@
   width: 2rem;
   margin: 1rem;
 }
+
+.card{
+  cursor: pointer;
+}
