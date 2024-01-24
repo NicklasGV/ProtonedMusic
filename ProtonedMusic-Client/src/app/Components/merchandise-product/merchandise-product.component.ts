@@ -60,24 +60,28 @@ export class MerchandiseProductComponent implements OnInit {
   }
 
   loadProducts(): void {
-    const endIndex = this.currentIndex + this.itemsPerPage;
-    this.product = this.productList.slice(this.currentIndex, endIndex);
-  }
-
-  loadNextProducts(): void {
     const totalProducts = this.productList.length;
-    const nextIndex = this.currentIndex + 1;
-    if (nextIndex + this.itemsPerPage <= totalProducts) {
-      this.currentIndex = nextIndex;
+    const startIndex = this.currentIndex;
+    const endIndex = startIndex + this.itemsPerPage;
+
+    if (endIndex <= totalProducts) {
+      this.product = this.productList.slice(startIndex, endIndex);
+    } else {
+      // Løkke
+      const remainingItems = endIndex - totalProducts;
+      this.product = [
+        ...this.productList.slice(startIndex, totalProducts),
+        ...this.productList.slice(0, remainingItems)
+      ];
     }
+  }
+  nextProducts(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.productList.length;
     this.loadProducts();
   }
 
   previousProducts(): void {
-    const prevIndex = this.currentIndex - 1;
-    if (prevIndex >= 0) {
-      this.currentIndex = prevIndex;
-    }
+    this.currentIndex = (this.currentIndex - 1 + this.productList.length) % this.productList.length;
     this.loadProducts();
   }
 }
