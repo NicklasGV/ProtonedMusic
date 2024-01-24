@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -16,8 +16,13 @@ import { CartService } from 'src/app/Services/cart.service';
 })
 export class MerchandiseProductComponent implements OnInit {
   products: ProductModel = resetProducts();
+  product: ProductModel[] = [];
   itemlength = 0;
   itemsQuantity = 0;
+  productList: ProductModel[] = [];
+  currentIndex: number = 0;
+  itemsPerPage: number = 4;
+
 
   constructor(
     private productService: ProductService,
@@ -35,6 +40,10 @@ export class MerchandiseProductComponent implements OnInit {
             }
         }
     });});
+    this.productService.getAllProducts().subscribe(products => {
+      this.productList = products;
+      this.loadProducts();
+    });
   }
 
   addToCart(products: ProductModel, ItemAmount: number): void {
@@ -48,5 +57,27 @@ export class MerchandiseProductComponent implements OnInit {
       picturePath: products.productPicturePath
     } as CartItem;
     this.cartService.addToCart(item);
+  }
+
+  loadProducts(): void {
+    const endIndex = this.currentIndex + this.itemsPerPage;
+    this.product = this.productList.slice(this.currentIndex, endIndex);
+  }
+
+  loadNextProducts(): void {
+    const totalProducts = this.productList.length;
+    const nextIndex = this.currentIndex + 1;
+    if (nextIndex + this.itemsPerPage <= totalProducts) {
+      this.currentIndex = nextIndex;
+    }
+    this.loadProducts();
+  }
+
+  previousProducts(): void {
+    const prevIndex = this.currentIndex - 1;
+    if (prevIndex >= 0) {
+      this.currentIndex = prevIndex;
+    }
+    this.loadProducts();
   }
 }
