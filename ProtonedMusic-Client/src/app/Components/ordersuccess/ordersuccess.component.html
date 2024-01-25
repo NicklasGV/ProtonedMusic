@@ -16,13 +16,13 @@
           <tr *ngFor="let cart of cartItems">
             <td>
               <a *ngIf="cart.picturePath">
-                <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 40%; height: 10rem;">
+                <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 40%; height: 5rem;">
               </a>
             </td>
-            <td>{{ cart.name }}</td>
-            <td>{{ cart.quantity }}</td>
-            <td>{{ cart.price | currency:'DKK'}}</td>
-            <td>{{ cart.quantity * cart.price | currency:'DKK'}}</td>
+            <td class="align-middle">{{ cart.name }}</td>
+            <td class="align-middle">{{ cart.quantity }}</td>
+            <td class="align-middle">{{ cart.price | currency:'DKK'}}</td>
+            <td class="align-middle">{{ cart.quantity * cart.price | currency:'DKK'}}</td>
           </tr>
         </tbody>
       </table>
