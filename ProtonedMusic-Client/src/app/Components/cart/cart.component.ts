@@ -94,36 +94,46 @@ export class CartComponent implements OnInit {
 
   buyCartItems(): void {
     if (this.authService.currentUserValue.email === '') {
-      this.snackBar.openSnackBar('You must be logged in to purchase items.', '', 'warning');
+      this.snackBar.openSnackBar(
+        'You must be logged in to purchase items.',
+        '',
+        'warning'
+      );
     } else {
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
 
-    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map((item) => {
-      return {
-        name: item.name,
-        unitAmount: item.price,
-        quantity: item.quantity,
-        price: item.price,
-      };
-    });
-
-    this.paymentService.CreateCheckoutSession(stripeCheckoutItems, this.authService.currentUserValue.email).subscribe(
-      (response) => {
-        console.log('Session created:', response);
-        this.initiateStripeCheckout(response);
-      },
-      (error) => {
-        console.error('Error creating session:', error);
+    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map(
+      (item) => {
+        return {
+          name: item.name,
+          unitAmount: item.price,
+          quantity: item.quantity,
+          price: item.price,
+        };
       }
     );
-    setTimeout(() => {
-      this.cartService.clearCart();
-    }, 2000);
+
+    this.paymentService
+      .CreateCheckoutSession(
+        stripeCheckoutItems,
+        this.authService.currentUserValue.email
+      )
+      .subscribe(
+        (response) => {
+          console.log('Session created:', response);
+          this.initiateStripeCheckout(response);
+        },
+        (error) => {
+          console.error('Error creating session:', error);
+        }
+      );
   }
 
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
-    loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
+    loadStripe(
+      'pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q'
+    ).then((stripe) => {
       stripe?.redirectToCheckout({
         sessionId: checkoutData.sessionId,
       });
@@ -142,7 +152,6 @@ export class CartComponent implements OnInit {
         this.cartService.removeItemFromCart(item.id);
         this.snackBar.openSnackBar('Clearing successful.', '', 'success');
       } else {
-        // User canceled the operation
         this.snackBar.openSnackBar('Clearing canceled.', '', 'warning');
       }
     });
