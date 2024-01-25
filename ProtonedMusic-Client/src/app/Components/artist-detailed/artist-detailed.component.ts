@@ -12,6 +12,7 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LinkModel, resetLink } from 'src/app/Models/LinkModel';
 import { LinkService } from 'src/app/Services/link.service';
+import { MusicModel, resetMusic } from 'src/app/Models/MusicModel';
 
 
 
@@ -29,10 +30,13 @@ export class ArtistDetailedComponent implements OnInit {
   currentUserId: number = 0;
   artist: ArtistModel = resetArtist();
   link: LinkModel = resetLink();
+  song: MusicModel = resetMusic();
   checkEmpty: boolean = false;
   editMode: boolean = false;
   pictureChanged: boolean = false;
   linksChanged: boolean = false;
+  linkModal: boolean = false;
+  songModal: boolean = true;
   selectedFile: File | undefined;
   chosenLinkId: number = 0;
   cleanupLinkList: LinkModel[] = [];
@@ -52,7 +56,7 @@ export class ArtistDetailedComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.route.params.subscribe(params => { this.artistService.getById(params['id']).subscribe(artist => this.artist = artist); });
 
-    this.currentUserId = this.authService.currentUserValue.id;
+    this.currentUser = this.authService.currentUserValue;
 
     await this.delay(200);
     this.checkEmpty = this.checkIfEmpty();
@@ -72,6 +76,7 @@ export class ArtistDetailedComponent implements OnInit {
   editModeChange() {
     if (this.editMode) {
       this.editMode = false;
+      this.pictureChanged = false;
     }
     else {
       this.editMode = true;
@@ -84,11 +89,29 @@ export class ArtistDetailedComponent implements OnInit {
 
   }
 
+  onSongFileSelected(event: any): void {
+    const file = event.target.files[0];
+    this.song.songFile = file;
+  }
+
+  onPictureFileSelected(event: any): void {
+    const file = event.target.files[0];
+    this.song.pictureFile = file;
+  }
+
   chosenLink(chosenLink: LinkModel) {
+    this.linkModal = true;
     this.link = chosenLink;
   }
 
-  resetLink() {
+  chosenSong(chosenSong: MusicModel) {
+    this.songModal = true;
+    this.song = chosenSong;
+  }
+
+  async resetLink() {
+    await this.delay(150);
+    this.linkModal = false;
     this.link = resetLink();
   }
 
@@ -104,29 +127,20 @@ export class ArtistDetailedComponent implements OnInit {
 
     this.cleanupLinkList.forEach(link => {
       const linkFound = this.artist.links.find(x => x.id === link.id);
-        if (linkFound) {
-            commonLinks.push(link);
-        } else {
-            differingLinks.push(link);
-        }
+      if (linkFound) {
+        commonLinks.push(link);
+      } else {
+        differingLinks.push(link);
+      }
     });
 
     differingLinks.forEach(link => {
-      
+
       this.linkService.delete(link.id).subscribe(x => {
 
       });
     })
 
-}
-
-
-  addUpdateLink(link: LinkModel) {
-    if (!link.id) {
-      this.artist.links.push(link);
-    }
-    this.resetLink();
-    this.saveLink();
   }
 
   delete(): void {
@@ -147,21 +161,18 @@ export class ArtistDetailedComponent implements OnInit {
   }
 
   async cancel(): Promise<void> {
-    if(this.linksChanged)
-    {
+    if (this.linksChanged) {
       this.cleanupLinkList = this.artist.links;
     }
     this.artistService.getById(this.artist.id).subscribe(artist => this.artist = artist);
-    this.pictureChanged = false;
     this.snackBar.openSnackBar('Artist updating has been canceled.', '', 'info');
     this.editModeChange();
     await this.delay(200);
-    if (this.cleanupLinkList)
-    {
+    if (this.cleanupLinkList) {
       this.cleanupLinks();
     }
-    
-    
+
+
   }
 
   save(): void {
@@ -186,39 +197,56 @@ export class ArtistDetailedComponent implements OnInit {
 
   // Save Song
 
-  saveLink(): void {
+  saveLink(link: LinkModel): void {
     this.message = "";
-    if (this.artist.links) {
-      this.artist.links.forEach(link => {
-        if (link.id == 0) {
-          //create
-          this.linkService.create(link)
-            .subscribe({
-              next: (x) => {
-                this.artist.links = this.artist.links.filter(existingLink => existingLink.id !== link.id);
-                this.artist.links.push(x);
-              },
-              error: (err) => {
-                console.log(err);
-                this.message = Object.values(err.error.errors).join(", ");
-                this.snackBar.openSnackBar(this.message, '', 'error');
-              }
-            });
-        } else {
-          //update
-          this.linkService.update(link.id, link)
-            .subscribe({
-              error: (err) => {
-                this.message = Object.values(err.error.errors).join(", ");
-                this.snackBar.openSnackBar(this.message, '', 'error');
-              },
-              complete: () => {
-              }
-            });
-        }
-      }
-      );
+
+    if (link.id == 0) {
+      //create
+      this.linkService.create(link)
+        .subscribe({
+          next: (x) => {
+            this.artist.links = this.artist.links.filter(existingLink => existingLink.id !== link.id);
+            this.artist.links.push(x);
+          },
+          error: (err) => {
+            console.log(err);
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
+          }
+        });
+    } else {
+      //update
+      this.linkService.update(link.id, link)
+        .subscribe({
+          error: (err) => {
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
+          },
+          complete: () => {
+          }
+        });
     }
+
+    this.resetLink();
     this.linksChanged = true
+  }
+
+
+  deleteLink(link: LinkModel): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Delete Link", message: "Are you sure you want to delete this link? It will be permanent" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.linkService.delete(link.id).subscribe(x => {
+          this.artist.links = this.artist.links.filter(x => x.id != link.id);
+          this.resetLink();
+        });
+        this.snackBar.openSnackBar('Deletion successful.', '', 'success');
+      } else {
+        this.snackBar.openSnackBar('Deletion canceled.', '', 'warning');
+      }
+    });
   }
 }
