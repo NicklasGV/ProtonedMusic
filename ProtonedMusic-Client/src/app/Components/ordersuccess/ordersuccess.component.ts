@@ -14,13 +14,20 @@ import { ActivatedRoute } from '@angular/router';
 export class OrdersuccessComponent {
   cartItems: CartItem[] = [];
 
-  constructor(private cartService: CartService, private route: ActivatedRoute) {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     // Hent data fra localStorage, inklusive købte varer
-    this.cartItems = this.cartService.getFullCart();
+    const temporaryCartItems = this.cartService.getFullCart();
+    console.log('CartItems from localStorage:', temporaryCartItems);
 
+    // Opdater currentCartSubject med de midlertidige varer
+    this.cartService.currentCartSubject.next(temporaryCartItems);
 
+    // Tøm indkøbskurven efter at have hentet data
+    this.cartService.clearCart();
+
+    // Nu har du adgang til købte varer i temporaryCartItems
+    this.cartItems = temporaryCartItems;
   }
-
 }
