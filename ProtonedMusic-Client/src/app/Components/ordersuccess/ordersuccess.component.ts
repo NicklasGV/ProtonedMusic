@@ -23,10 +23,10 @@ export class OrdersuccessComponent {
     // Opdater currentCartSubject med de midlertidige varer
     this.cartService.currentCartSubject.next(temporaryCartItems);
 
-    // Tøm indkøbskurven efter at have hentet data
-     this.cartService.clearCart();
-
     // Nu har du adgang til købte varer i temporaryCartItems
     this.cartItems = temporaryCartItems;
+
+    // Tøm indkøbskurven efter at have hentet data
+    this.cartService.clearCart();
   }
 }
