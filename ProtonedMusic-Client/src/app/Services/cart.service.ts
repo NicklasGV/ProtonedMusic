@@ -19,7 +19,7 @@ export class CartService {
     );
     this.currentCart = this.currentCartSubject.asObservable();
   }
-//dthhdtg
+
   get currentBasketValue(): CartItem[] {
     return this.currentCartSubject.value;
   }
@@ -99,7 +99,6 @@ export class CartService {
     return 0; // or any default value
   }
   }
-  
 
   getCartTotal(): number {
     return this.currentCartSubject.value.reduce(

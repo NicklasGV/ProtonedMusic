@@ -62,7 +62,7 @@ export class CartComponent implements OnInit {
 
   formatCurrency(amount: number): string {
     return amount.toLocaleString('da-DK') + ' DKK';
-  } 
+  }
 
   updateCart(item: CartItem): void {
     const index = this.cartItems.findIndex(
@@ -117,6 +117,9 @@ export class CartComponent implements OnInit {
         console.error('Error creating session:', error);
       }
     );
+    setTimeout(() => {
+      this.cartService.clearCart();
+    }, 2000);
   }
 
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
