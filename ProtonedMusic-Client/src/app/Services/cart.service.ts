@@ -13,6 +13,7 @@ export class CartService {
   public itemLength = 0;
   itemTotal: any;
 
+
   constructor() {
     this.currentCartSubject = new BehaviorSubject<CartItem[]>(
       JSON.parse(localStorage.getItem(this.CartName) || "[]")
@@ -105,5 +106,22 @@ export class CartService {
       (total, item) => total + item.price * item.quantity,
       0
     );
+  }
+
+  getFullCart(): CartItem[] {
+    const cartItemString = localStorage.getItem(this.CartName);
+
+    if (cartItemString !== null) {
+      try {
+        const parsedCartItem = JSON.parse(cartItemString);
+        return Array.isArray(parsedCartItem) ? parsedCartItem : [];
+      } catch (error) {
+        console.error('Error parsing localStorage item:', error);
+        return [];
+      }
+    } else {
+      console.error('localStorage item is null or undefined');
+      return [];
+    }
   }
 }

@@ -2,6 +2,7 @@ import { CartService } from 'src/app/Services/cart.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartItem } from 'src/app/Models/CartModel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ordersuccess',
@@ -13,11 +14,13 @@ import { CartItem } from 'src/app/Models/CartModel';
 export class OrdersuccessComponent {
   cartItems: CartItem[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.currentBasketValue;
+    // Hent data fra localStorage, inklusive købte varer
+    this.cartItems = this.cartService.getFullCart();
 
-    this.cartService.clearCart();
+
   }
+
 }
