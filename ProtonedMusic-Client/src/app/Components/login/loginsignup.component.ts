@@ -16,8 +16,8 @@ import { StrongPasswordRegx } from 'src/app/Models/PasswordReqs';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DividerModule, PasswordModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './loginsignup.component.html',
+  styleUrls: ['./loginsignup.component.css']
 })
 export class LoginComponent implements OnInit {
   email: string = '';

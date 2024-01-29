@@ -14,7 +14,7 @@
                   <th></th>
               </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="checkoutSuccess">
               <tr *ngFor="let cart of cartItems">
                 <!--Skjuler billedet kun på telefonen-->
                   <td class="d-none d-md-table-cell">
@@ -50,7 +50,6 @@
     <button class="btn btn-sm btn-success float-start" [routerLink]="['/merchandise']">Back</button>
   </div>
 </div>
-
 <div class="container mt-5" *ngIf="!cartItems.length">
     <p class="text-center"> Your cart is empty
         <button class="btn btn-outline-success btn-sm " routerLink="/merchandise">Start Shopping</button>

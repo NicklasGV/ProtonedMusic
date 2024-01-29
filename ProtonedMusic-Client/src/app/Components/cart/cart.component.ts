@@ -29,6 +29,8 @@ export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
   products: ProductModel[] = [];
   amount: number = 1;
+  checkoutSuccess: boolean = false;
+  
   constructor(
     public cartService: CartService,
     private authService: AuthService,
@@ -39,12 +41,13 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartService.currentCart.subscribe((x) => (this.cartItems = x));
+    this.checkoutSuccess = false;
   }
 
   clearCart(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        title: 'Clear cart',
+        title: 'Clear cart',  
         message: 'Are you sure you want to clear your cart?',
       },
     });
@@ -87,14 +90,17 @@ export class CartComponent implements OnInit {
       });
     }
   }
+  
 
   buyCartItems(): void {
     if (this.authService.currentUserValue.email === '') {
       this.snackBar.openSnackBar('You must be logged in to purchase items.', '', 'warning');
     } else {
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
+      this.checkoutSuccess = true;
+      
     }
-
+    
     const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map((item) => {
       return {
         name: item.name,
@@ -114,6 +120,7 @@ export class CartComponent implements OnInit {
       }
     );
   }
+  
 
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
     loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
