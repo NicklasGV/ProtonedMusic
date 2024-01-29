@@ -70,7 +70,11 @@ export class ArtistPanelComponent implements OnInit {
     
     delete(artist: ArtistModel): void {
       const dialogRef = this.dialog.open(DialogComponent, {
-        data: { title: "Delete Artist", message: "Are you sure you want to delete this artist?" }
+        data: { title: "Delete Artist", 
+        message: "Are you sure you want to delete this artist?",
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
+      }
       });
   
       dialogRef.afterClosed().subscribe(result => {

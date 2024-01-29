@@ -47,7 +47,9 @@ editNews(anews: NewsModel): void {
   
   deleteNews(anews: NewsModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete News", message: "Are you sure you want to delete this news?" }
+      data: { title: "Delete News", message: "Are you sure you want to delete this news?",
+      confirmYes: 'Confirm',
+      confirmNo: 'Cancel' }
     });
 
     dialogRef.afterClosed().subscribe(result => {

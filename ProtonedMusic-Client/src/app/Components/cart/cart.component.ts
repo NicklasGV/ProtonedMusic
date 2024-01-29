@@ -46,6 +46,8 @@ export class CartComponent implements OnInit {
       data: {
         title: 'Clear cart',
         message: 'Are you sure you want to clear your cart?',
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
       },
     });
 
@@ -77,6 +79,8 @@ export class CartComponent implements OnInit {
         data: {
           title: 'Remove Item?',
           message: 'Are you sure you want to delete this item?',
+          confirmYes: 'Confirm',
+          confirmNo: 'Cancel'
         },
       });
       dialogRef.afterClosed().subscribe((result) => {
@@ -145,6 +149,8 @@ export class CartComponent implements OnInit {
       data: {
         title: 'Remove Item(s)?',
         message: 'Are you sure you want to delete the item(s)?',
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

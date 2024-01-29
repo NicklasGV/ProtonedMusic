@@ -35,7 +35,9 @@ export class CategoryPanelComponent implements OnInit {
 
   deleteCategory(category: CategoryModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Event", message: "Are you sure you want to delete this category?" }
+      data: { title: "Delete Event", message: "Are you sure you want to delete this category?",
+      confirmYes: 'Confirm',
+      confirmNo: 'Cancel' }
     });
 
     dialogRef.afterClosed().subscribe(result => {

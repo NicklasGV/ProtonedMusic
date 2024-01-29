@@ -48,6 +48,8 @@ export class UpcomingPanelComponent implements OnInit {
       data: {
         title: 'Delete Upcoming',
         message: 'Are you sure you want to delete this upcoming?',
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
       },
     });
 

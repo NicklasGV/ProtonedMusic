@@ -77,6 +77,8 @@ export class EventPanelComponent implements OnInit {
       data: {
         title: 'Delete Event',
         message: 'Are you sure you want to delete this event?',
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
       },
     });
 
