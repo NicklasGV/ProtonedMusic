@@ -36,7 +36,7 @@
         <div class="my-3 mb-2">
           <button class="form-control text-center" id="orderhistory" [routerLink]="['orderhistory']">Order History</button>
         </div>
-        <div class="my-3 mb-2">
+        <div class="my-3 mb-2" *ngIf="this.artist > 0">
             <button class="form-control text-center" id="orderhistory" [routerLink]="['/artist', artist]">Artist Profile</button>
           </div>
         <div class="my-3">
