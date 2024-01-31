@@ -88,7 +88,6 @@ export class ArtistService {
       });
     }
 
-  
     if (artist.pictureFile) {
       formData.append('pictureFile', artist.pictureFile, artist.pictureFile.name);
     }
