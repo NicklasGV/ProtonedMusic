@@ -113,4 +113,10 @@ export class ProfilmenuComponent implements OnInit {
     await this.delay(500);
     window.location.reload();
   }
+
+  async removeImage() {
+    this.userService.removeProfilePicture(this.user.id).subscribe();
+    await this.delay(500);
+    window.location.reload();
+  }
 }

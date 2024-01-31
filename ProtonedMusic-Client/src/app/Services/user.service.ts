@@ -158,4 +158,8 @@ export class UserService {
   uploadProfilePicture(userId: number, file: FormData): Observable<User> {
     return this.http.post<User>(this.apiUrl + '/upload-profile-picture/' + userId, file);
   }
+
+  removeProfilePicture(userId: number): Observable<User> {
+    return this.http.delete<User>(this.apiUrl + '/remove-picture/' + userId);
+  }
 }

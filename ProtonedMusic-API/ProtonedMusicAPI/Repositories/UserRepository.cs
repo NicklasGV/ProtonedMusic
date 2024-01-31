@@ -173,5 +173,22 @@ namespace ProtonedMusicAPI.Repositories
             }
             return user;
         }
+
+        public async Task<User?> RemoveProfilePicture(int userId)
+        {
+            var user = await FindByIdAsync(userId);
+
+            if (!string.IsNullOrEmpty(user.ProfilePicturePath))
+            {
+                await DeleteFileOnFtpAsync(user.ProfilePicturePath);
+            }
+            if (!string.IsNullOrEmpty(user.ProfilePicturePath))
+            {
+                user.ProfilePicturePath = "";
+                await _databaseContext.SaveChangesAsync();
+                user = await FindByIdAsync(user.Id);
+            }
+            return user;
+        }
     }
 }

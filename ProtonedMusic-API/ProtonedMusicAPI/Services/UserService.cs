@@ -222,5 +222,16 @@ namespace ProtonedMusicAPI.Services
 
             return null;
         }
+
+        public async Task<UserResponse> RemoveProfilePicture(int userId)
+        {
+            var user = await _userRepository.RemoveProfilePicture(userId);
+
+            if (user != null)
+            {
+                return MapUserToUserResponse(user);
+            }
+            return null;
+        }
     }
 }

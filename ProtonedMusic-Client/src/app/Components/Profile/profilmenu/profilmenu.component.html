@@ -60,6 +60,8 @@
                     accept="image/*" />
             </div>
             <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-danger" (click)="removeImage(); $event.stopPropagation()"
+                data-bs-dismiss="modal">Remove Image</button>
                 <button type="submit" class="btn btn-sm btn-success" (click)="uploadImage(); $event.stopPropagation()"
                     data-bs-dismiss="modal">Upload Image</button>
             </div>
