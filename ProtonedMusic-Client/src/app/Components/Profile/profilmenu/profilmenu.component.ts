@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { AvatarModule } from 'primeng/avatar';
+import { ArtistService } from 'src/app/Services/artist.service';
+import { ArtistModel } from 'src/app/Models/ArtistModel';
 
 @Component({
   selector: 'app-profilmenu',
@@ -22,11 +24,22 @@ export class ProfilmenuComponent implements OnInit {
   formData = new FormData();
   today: Date = new Date();
   currentDay: any;
-  constructor(private userService: UserService,private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: SnackBarService, private datePipe: DatePipe) {
-    this.WelcomeUser();
-  }
-  
-  ngOnInit(): void {
+  artists: ArtistModel[] = [];
+  artist: any;
+
+  constructor(private userService: UserService,
+    private router: Router, 
+    private authService: AuthService, 
+    private activatedRoute: ActivatedRoute, 
+    private snackBar: SnackBarService, 
+    private datePipe: DatePipe,
+    private artistService: ArtistService,
+    )
+    {
+      this.WelcomeUser();
+    }
+    
+    async ngOnInit(): Promise<void> {
     this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.user = x);
     this.activatedRoute.paramMap.subscribe( params => {
       if (this.authService.currentUserValue == null || this.authService.currentUserValue.id == 0 || this.authService.currentUserValue.id != Number(params.get('id')))
@@ -35,6 +48,16 @@ export class ProfilmenuComponent implements OnInit {
       }
       //Store user in variable
       this.user = this.authService.currentUserValue;
+    });
+
+    this.artistService.getAll().subscribe(x => this.artists = x);
+
+    await this.delay(200);
+    this.artists.forEach((artist) => {
+      if (artist.user?.id == this.user.id)
+      {
+        this.artist = artist.id;
+      }
     });
   }
   
