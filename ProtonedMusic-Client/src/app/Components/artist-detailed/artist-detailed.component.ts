@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LinkModel, resetLink } from 'src/app/Models/LinkModel';
 import { LinkService } from 'src/app/Services/link.service';
 import { MusicModel, resetMusic } from 'src/app/Models/MusicModel';
+import { MusicService } from 'src/app/Services/music/music.service';
 
 
 
@@ -47,6 +48,7 @@ export class ArtistDetailedComponent implements OnInit {
   constructor(
     private artistService: ArtistService,
     private linkService: LinkService,
+    private musicService: MusicService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private snackBar: SnackBarService,
@@ -195,7 +197,7 @@ export class ArtistDetailedComponent implements OnInit {
       });
   }
 
-  // Save Song
+  // Link Resources
 
   saveLink(link: LinkModel): void {
     this.message = "";
@@ -249,4 +251,71 @@ export class ArtistDetailedComponent implements OnInit {
       }
     });
   }
+
+  // Song Resources
+
+  editSong(music: MusicModel): void {
+    console.log(music)
+    Object.assign(this.song, music);
+  }
+
+  deleteSong(music: MusicModel): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: "Delete Song", message: "Are you sure you want to delete this song?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.musicService.delete(music.id).subscribe(x => {
+          this.artist.songs = this.artist.songs.filter(x => x.id != music.id);
+        });
+        this.snackBar.openSnackBar('Deletion successful.', '','success');
+      } else {
+        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
+      }
+    });
+  }
+
+  cancelSong(): void {
+    this.song = resetMusic();
+    this.snackBar.openSnackBar('Song creation canceled.', '','info');
+  }
+
+  saveSong(): void {
+    this.message = "";
+    this.song.artistIds = [this.artist.id];
+    if (this.song.id == 0) {
+      //create
+      this.musicService.create(this.song)
+      .subscribe({
+        next: (x) => {
+          this.artist.songs = this.artist.songs.filter(existingSong => existingSong.id !== this.song.id);
+          this.artist.songs.push(x);
+          this.song = resetMusic();
+          this.snackBar.openSnackBar("Song created", '', 'success');
+        },
+        error: (err) => {
+          console.log(err);
+          this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
+        }
+      });
+    } else {
+      //update
+      this.musicService.update(this.song)
+      .subscribe({
+        error: (err) => {
+          this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
+        },
+        complete: () => {
+          this.musicService.getAll().subscribe(x => this.artist.songs = x);
+          this.song = resetMusic();
+          this.snackBar.openSnackBar("Song updated", '', 'success');
+        }
+      });
+    }
+    this.song = resetMusic();
+  }
+
 }
