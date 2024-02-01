@@ -16,7 +16,6 @@ namespace ProtonedMusicAPI.Repositories
         {
             return await _context.Orders
                 .Include(p => p.ProductOrder)
-                .ThenInclude(pc => pc.Product)
                 .Where(p => p.CustomerId == customerId)
                 .ToListAsync();
         }
@@ -35,7 +34,6 @@ namespace ProtonedMusicAPI.Repositories
         {
             return await _context.Orders
                 .Include(o => o.ProductOrder)
-                .ThenInclude(i => i.Product)
                 .Where(o => o.CustomerId == customerId)
                 .ToListAsync();
         }

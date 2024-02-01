@@ -23,6 +23,7 @@ export class OrderHistoryComponent implements OnInit {
   order: OrderHistoryModel = resetOrderHistory();
   product: ProductModel = resetProducts();
   products: ProductModel[] = [];
+  totalAmount: number = 0;
 
   constructor(
     private userService: UserService,
@@ -45,10 +46,35 @@ export class OrderHistoryComponent implements OnInit {
     }
     });
     const specificId = this.user.id;
-    this.orderService.getOrderById(specificId).subscribe(orders => this.orders = orders);
+    this.orderService.getOrderById(specificId).subscribe({
+      next: (result) => {
+        this.orders = result;
+        if (result.length > 0){
+          this.orders.forEach((order) => {
+            if(order.products)
+            {
+              order.products.forEach((product) => {
+                product.beforePrice = product.price;
+                if (product.discountProcent > 0) {
+                  product.price = product.price - (product.price / 100 * product.discountProcent);
+                }
+              });
+            }
+          });
+        }
+      }});
   }
 
   formatCurrency(amount: number): string {
     return amount.toLocaleString('da-DK') + ' DKK';
+  }
+
+  formatCurrencyAndTotal(order: OrderHistoryModel): string {
+    let totalPrice = 0;
+  
+    order.products.forEach(product => {
+      totalPrice += product.price * product.quantity;
+    });
+    return totalPrice.toLocaleString('da-DK') + ' DKK';
   }
 }

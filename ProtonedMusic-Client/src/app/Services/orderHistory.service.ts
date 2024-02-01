@@ -24,7 +24,6 @@ export class OrderHistoryService {
     order.productIds.forEach(productId => {
       formData.append('productIds', productId.toString());
     });
-    formData.append('quantity', order.quantity.toString());
 
     return this.http.post<OrderHistoryModel>(this.url, formData);
   }

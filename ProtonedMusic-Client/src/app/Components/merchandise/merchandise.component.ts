@@ -51,7 +51,6 @@ export class MerchandiseComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.productService.getAllProducts().subscribe({
-      // This is the call to the service to get all products.
       next: (result) => {
         this.products = result;
         if (result.length > 0){
@@ -65,7 +64,7 @@ export class MerchandiseComponent implements OnInit {
         this.cart.forEach((element) => {
           this.itemlength += element.quantity;
         });
-      }, // This is the callback function that will be executed when the service returns the data.
+      },
     });
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
 

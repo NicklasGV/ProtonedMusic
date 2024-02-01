@@ -1,11 +1,12 @@
 import { ProductModel } from "./ProductModel";
+import { ProductOrderModel } from "./ProductOrderModel";
 
 export interface OrderHistoryModel{
   id: number;
   orderDate: Date;
-  products: ProductModel[];
+  products: ProductOrderModel[];
   productIds: number[];
-  quantity: number;
+  totalPrice: number;
 }
 export function resetOrderHistory() {
   return {
@@ -13,6 +14,6 @@ export function resetOrderHistory() {
     orderDate: new Date(),
     products: [],
     productIds: [],
-    quantity: 0,
+    totalPrice: 0,
   };
 }

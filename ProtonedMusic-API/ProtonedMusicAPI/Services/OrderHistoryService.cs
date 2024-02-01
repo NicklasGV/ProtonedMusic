@@ -19,17 +19,17 @@ namespace ProtonedMusicAPI.Services
             {
                 Id = order.Id,
                 OrderDate = order.OrderDate,
-                Quantity = order.Quantity
             };
-            if (order.ProductOrder.Count > 0)
+            if (order.ProductOrder.Capacity > 0)
             {
                 response.Products = order.ProductOrder.Select(x => new ProductOrderResponse
                 {
-                    Id = x.Product.Id,
-                    Name = x.Product.Name,
-                    Price = x.Product.Price,
-                    IsDiscounted = x.Product.IsDiscounted,
-                    DiscountProcent = x.Product.DiscountProcent,
+                    Id = x.ProductId,
+                    Name = x.Name,
+                    Price = x.Price,
+                    IsDiscounted = x.IsDiscounted,
+                    DiscountProcent = x.DiscountProcent,
+                    Quantity = x.Quantity,
                 }).ToList();
             }
             return response;
@@ -40,7 +40,6 @@ namespace ProtonedMusicAPI.Services
             {
                 CustomerId = orderRequest.CustomerId,
                 OrderDate = orderRequest.OrderDate,
-                Quantity = orderRequest.Quantity,
                 ProductOrder = orderRequest.ProductIds.Select(c => new ProductOrder
                 {
                     ProductId = c
