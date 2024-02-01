@@ -10,7 +10,6 @@
         [Column(TypeName = "nvarchar(50)")]
         public string Name { get; set; }
 
-        [Column(TypeName = "nvarchar(600)")]
         public string Info { get; set; }
 
         public string? PicturePath { get; set; }

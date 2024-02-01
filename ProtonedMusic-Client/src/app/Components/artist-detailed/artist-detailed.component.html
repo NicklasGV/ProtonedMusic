@@ -1,7 +1,6 @@
 <div class="container-fluid w-100  mt-5">
     <div class="row row-cols-auto row-cols-lg-1 g-4 m-2">
         <div class="">
-
             <div class="d-flex justify-content-between align-items-center">
                 <a type="button" class="bi bi-arrow-return-left btn btn-success" [routerLink]="['/upcoming']"></a>
                 <div
@@ -14,7 +13,6 @@
                     <a type="button" class="bi bi-floppy-fill btn btn-success" (click)="save()"></a>
                 </div>
             </div>
-
             <div class="d-flex row row-cols-auto row-cols-lg-2 align-items-center ms-5 me-5 mt-2 flex-shrink-0 mx-auto">
                 <div class="col-sm-6 col-md-4">
                     <div class="card text-bg-dark image-wrapper float-start" *ngIf="artist.picturePath">
@@ -34,7 +32,6 @@
                     </div>
                     <p *ngIf="pictureChanged">Picture will be changed when save is pressed</p>
                 </div>
-
                 <div class="col-xs-12 col-md-4 pull-left">
                     <div>
                         <p class="special-text display-6 mt-5 ms-1 me-1" *ngIf="!editMode">{{ artist.name }}</p>
@@ -68,12 +65,12 @@
                 <hr class="border-success border-2">
             </div>
 
+            <!-- Song Viewer -->
             <div class="container-fluid" *ngIf="!editMode">
-                <div class="row row-cols-auto justify-content-center g-4 m-5"
+                <div class="row row-cols-auto justify-content-center g-4 m-5" [routerLink]="['/music']"
                     style="overflow-x: auto; white-space: nowrap;">
                     <div *ngFor="let song of artist.songs" class="row-cols-lg-1" style="display: inline-block;">
-                        <div class="card border-success bg-dark mb-3" data-bs-toggle="modal" data-bs-target="#ModalSong"
-                            (click)="chosenSong(song)">
+                        <div class="card border-success bg-dark mb-3">
                             <div class="card-header d-flex justify-content-center border-secondary">
                                 <a *ngIf="song.songPicturePath">
                                     <img src="https://protonedmusic.com/{{ song.songPicturePath }}" class="rounded-2"
@@ -96,9 +93,6 @@
                             </div>
                         </div>
                     </div>
-                    <a type="button" class="bi bi-plus btn-l btn btn-success me-2 ms-3 mt-8 text-center"
-                        style="width: 10rem; height: 10rem; --bs-btn-font-size: 6rem;" *ngIf="editMode"
-                        data-bs-toggle="modal" data-bs-target="#ModalSong"></a>
                 </div>
                 <div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
                     <div class="card bg-dark text-light">
@@ -108,107 +102,90 @@
                     </div>
                 </div>
             </div>
+            <!-- Song Editor -->
             <div class="container " *ngIf="editMode">
-                <h1 class="m-2">Music Administration</h1>
-
-                <div class="row row-cols-auto justify-content-center g-4 m-5">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="container-fluid" data-bs-theme="dark">
-                            <div class="form-group row mb-3">
-                                <label class="col-12 col-sm-1 col-form-label">Song name</label>
-                                <div class="col-12 col-sm-6">
-                                    <input [(ngModel)]="song.songName" class="form-control w-75">
-                                </div>
-                            </div>                          
-
-                            <div class="form-group row mb-5">
-                                <label class="col-12 col-sm-1 col-form-label">Album</label>
-                                <div class="col-12 col-sm-6">
-                                    <input [(ngModel)]="song.album" class="form-control w-75">
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-3">
-                                <label class="col-12 col-sm-1 col-form-label">Song</label>
-                                <div class="col-12 col-sm-6">
-                                    <input (change)="onSongFileSelected($event)" class="form-control w-75" type="file"
-                                        accept="audio/*">
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-3">
-                                <label class="col-12 col-sm-1 col-form-label">Song Path</label>
-                                <div class="col-12 col-sm-6">
-                                    <input [(ngModel)]="song.songFilePath" class="form-control w-75">
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-3">
-                                <label class="col-12 col-sm-1 col-form-label">Picture</label>
-                                <div class="col-12 col-sm-6">
-                                    <input (change)="onPictureFileSelected($event)" class="form-control w-75"
-                                        type="file" accept="image/*">
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-3">
-                                <label class="col-12 col-sm-1 col-form-label">Song Picture Path</label>
-                                <div class="col-12 col-sm-6">
-                                    <input [(ngModel)]="song.songPicturePath" class="form-control w-75">
-                                </div>
-                            </div>
-
-                            <div class="d-flex mt-5 mx-0">
-                                <button (click)="saveSong()" class="btn bi-floppy-fill btn-sm btn-success me-1">
-                                    SAVE</button>
-                                <button (click)="cancelSong()" class="btn bi-trash-fill btn-sm btn-danger">
-                                    CANCEL</button>
-                            </div>
+                <h1 class="m-2">Music Administration</h1>             
+                <div class="container-fluid" data-bs-theme="dark">
+                    <div class="form-group row mb-3">
+                        <label class="col-12 col-sm-1 col-form-label">Song name</label>
+                        <div class="col-12 col-sm-6">
+                            <input [(ngModel)]="song.songName" class="form-control w-75">
                         </div>
                     </div>
 
-                    <div class="container-fluid col-sm-6 col-md-4" data-bs-theme="dark">
-                        <div class="table-responsive">
-                            <div class="table-wrapper">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="fw-medium">Actions</th>
-                                            <th class="fw-medium">Id</th>
-                                            <th class="fw-medium">Song Name</th>
-                                            <th class="fw-medium">Artist</th>
-                                            <th class="fw-medium">Album</th>
-                                            <th class="fw-medium">Song Path</th>
-                                            <th class="fw-medium">Picture Path</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-group-divider">
-                                        <tr *ngFor="let song of artist.songs">
-                                            <td>
-                                                <div class="d-flex justify-content-start">
-                                                    <button (click)="editSong(song)"
-                                                        class="btn bi-gear-fill btn-sm btn-success"> EDIT</button>
-                                                    <button (click)="deleteSong(song)"
-                                                        class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
-                                                </div>
-                                            </td>
-                                            <td>{{ song.id }}</td>
-                                            <td>{{ song.songName }}</td>
-                                            <td>
-                                                <table>
-                                                    <tr *ngFor="let art of song.artist;">
-                                                        <td class="name">
-                                                            {{art.name}}
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td>{{ song.album }}</td>
-                                            <td>{{ song.songFilePath }}</td>
-                                            <td>{{ song.songPicturePath }}</td>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="form-group row mb-5">
+                        <label class="col-12 col-sm-1 col-form-label">Album</label>
+                        <div class="col-12 col-sm-6">
+                            <input [(ngModel)]="song.album" class="form-control w-75">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label class="col-12 col-sm-1 col-form-label">Song</label>
+                        <div class="col-12 col-sm-6">
+                            <input (change)="onSongFileSelected($event)" class="form-control w-75" type="file"
+                                accept="audio/*">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label class="col-12 col-sm-1 col-form-label">Picture</label>
+                        <div class="col-12 col-sm-6">
+                            <input (change)="onPictureFileSelected($event)" class="form-control w-75" type="file"
+                                accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="d-flex mt-5 mx-0">
+                        <button (click)="saveSong()" class="btn bi-floppy-fill btn-sm btn-success me-1"> SAVE</button>
+                        <button (click)="cancelSong()" class="btn bi-trash-fill btn-sm btn-danger"> CANCEL</button>
+                    </div>
+                </div>
+
+                <div class="container mt-2 mb-2">
+                </div>
+
+                <div class="container-fluid" data-bs-theme="dark">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="fw-medium">Actions</th>
+                                        <th class="fw-medium">Id</th>
+                                        <th class="fw-medium">Song Name</th>
+                                        <th class="fw-medium">Artist</th>
+                                        <th class="fw-medium">Album</th>
+                                        <th class="fw-medium">Song Path</th>
+                                        <th class="fw-medium">Picture Path</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr *ngFor="let song of artist.songs">
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <button (click)="editSong(song)"
+                                                    class="btn bi-gear-fill btn-sm btn-success"> EDIT</button>
+                                                <button (click)="deleteSong(song)"
+                                                    class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
+                                            </div>
+                                        </td>
+                                        <td>{{ song.id }}</td>
+                                        <td>{{ song.songName }}</td>
+                                        <td>
+                                            <table>
+                                                <tr *ngFor="let art of song.artist;">
+                                                    <td class="name">
+                                                        {{art.name}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>{{ song.album }}</td>
+                                        <td>{{ song.songFilePath }}</td>
+                                        <td>{{ song.songPicturePath }}</td>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -276,53 +253,3 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal for Song upload/update -->
-    <div class="modal fade" id="ModalSong" tabindex="-1" role="dialog" aria-labelledby="ModalSongLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content bg-dark">
-                <div class="modal-header">
-                    <h5 class="modal-title fs-5" id="ModalSongLabel" *ngIf="song.id">Change Song</h5>
-                    <h5 class="modal-title fs-5" id="ModalSongLabel" *ngIf="!song.id">Add Song</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        (click)="resetLink();"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid" data-bs-theme="dark">
-                        <div class="form-group row mb-3">
-                            <label class="col-12 col-sm-1 col-form-label">Song name</label>
-                            <div class="col-12 col-sm-6">
-                                <input [(ngModel)]="song.songName" class="form-control w-75">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-5">
-                            <label class="col-12 col-sm-1 col-form-label">Album</label>
-                            <div class="col-12 col-sm-6">
-                                <input [(ngModel)]="song.album" class="form-control w-75">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-3">
-                            <label class="col-12 col-sm-1 col-form-label">Song</label>
-                            <div class="col-12 col-sm-6">
-                                <input (change)="onSongFileSelected($event)" class="form-control w-75" type="file"
-                                    accept="audio/*">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-3">
-                            <label class="col-12 col-sm-1 col-form-label">Picture</label>
-                            <div class="col-12 col-sm-6">
-                                <input (change)="onPictureFileSelected($event)" class="form-control w-75" type="file"
-                                    accept="image/*">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
