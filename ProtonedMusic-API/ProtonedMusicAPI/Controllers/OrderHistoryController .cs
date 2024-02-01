@@ -17,11 +17,11 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpGet("{customerId}")]
-        public async Task<ActionResult<OrderHistoryResponse>> GetOrdersByCustomerId(int customerId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int customerId)
         {
             try
             {
-                OrderHistoryResponse response = await _orderHistoryService.GetOrdersByCustomerIdAsync(customerId);
+                var response = await _orderHistoryService.FindByIdAsync(customerId);
 
                 if (response == null)
                 {
@@ -35,14 +35,17 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("Create")]
-        public async Task<IActionResult> CreateAsync([FromForm] OrderHistoryRequest newOrder)
+        [HttpPost("CreateOrder")]
+        public async Task<IActionResult> CreateOrder([FromBody] OrderHistoryRequest newOrder)
         {
             try
             {
                 OrderHistoryResponse response = await _orderHistoryService.CreateOrderAsync(newOrder);
 
+                if (response == null)
+                {
+                    return Problem("Is null");
+                }
                 return Ok(response);
             }
             catch (Exception ex)
@@ -50,5 +53,6 @@ namespace ProtonedMusicAPI.Controllers
                 return Problem(ex.Message);
             }
         }
+
     }
 }

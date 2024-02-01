@@ -98,7 +98,9 @@ export class MusicPanelComponent implements OnInit{
       
       delete(music: MusicModel): void {
         const dialogRef = this.dialog.open(DialogComponent, {
-          data: { title: "Delete Song", message: "Are you sure you want to delete this song?" }
+          data: { title: "Delete Song", message: "Are you sure you want to delete this song?",
+          confirmYes: 'Confirm',
+          confirmNo: 'Cancel' }
         });
     
         dialogRef.afterClosed().subscribe(result => {

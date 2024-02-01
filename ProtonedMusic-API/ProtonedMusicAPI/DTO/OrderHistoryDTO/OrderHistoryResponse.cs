@@ -3,20 +3,17 @@
     public class OrderHistoryResponse
     {
         public int Id { get; set; }
-        public string OrderNumber { get; set; }
-        public DateTime OrderDate { get; set; }
-        public List<OrderItemsResponse> Products { get; set; }
-        public int price { get; set; }
-        public int quantity { get; set; }
-
+        public DateTime OrderDate { get; set; } = DateTime.Now;
+        public List<ProductOrderResponse> Products { get; set; } = new();
     }
 
-    public class OrderItemsResponse
+    public class ProductOrderResponse
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
-        public int OrderId { get; set; }
-        public decimal price { get; set; }
-        public string ProductName { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public bool IsDiscounted { get; set; } = false;
+        public double DiscountProcent { get; set; } = 0;
+        public int Quantity { get; set; } = 0;
     }
 }

@@ -2,8 +2,6 @@ import { CalendarService } from 'src/app/Services/calendar.service';
 import { RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UpcomingService } from 'src/app/Services/upcoming.service';
-import { UpcomingModel } from 'src/app/Models/UpcomingModel';
 import { ArtistService } from 'src/app/Services/artist.service';
 import { ArtistModel } from 'src/app/Models/ArtistModel';
 import { CalendarModel } from 'src/app/Models/CalendarModel';
@@ -21,7 +19,7 @@ export class UpcomingComponent implements OnInit {
   artists: ArtistModel[] = [];
   checkEmpty: boolean = false;
 
-  constructor(private upcomingService: UpcomingService, private artistService: ArtistService, private calendarService: CalendarService) { }
+  constructor(private artistService: ArtistService, private calendarService: CalendarService) { }
 
   getUpcomingShows() {
     const currentTime = new Date();
@@ -42,8 +40,10 @@ export class UpcomingComponent implements OnInit {
     this.artistService.getAll().subscribe(x => this.artists = x);
 
 
-      await this.delay(200);
-      this.checkEmpty = this.checkIfEmpty();
+    await this.delay(200);
+    this.checkEmpty = this.checkIfEmpty();
+
+    console.log(this.artists)
   }
 
   delay(ms: number) {

@@ -90,7 +90,9 @@ uploadImage() {
   
   deleteProduct(product: ProductModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Product", message: "Are you sure you want to delete this product?" }
+      data: { title: "Delete Product", message: "Are you sure you want to delete this product?",
+      confirmYes: 'Confirm',
+      confirmNo: 'Cancel' }
     });
 
     dialogRef.afterClosed().subscribe(result => {

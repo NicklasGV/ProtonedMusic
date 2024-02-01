@@ -25,24 +25,26 @@
           <thead>
             <tr>
               <th>ORDRE NUMBER</th>
-              <th>PRODUCT</th>
-              <th>TOTAL QUANTITY</th>
-              <th>TOTAL</th>
+              <th>PRODUCT NAME</th>
+              <th>PRODUCT PRICE</th>
+              <th>Quantity</th>
+              <th>Total</th>
               <th>DATE</th>
             </tr>
           </thead>
-          <tbody *ngFor="let order of orderHistory">
+          <tbody *ngFor="let order of orders">
             <tr>
-              <td>{{ order.orderNumber }}</td>
+              <td>{{ order.id }}</td>
               <td>
-                <table>
-                  <tr *ngFor="let item of order.items;">
-                    <td>{{item.productName}}
-                  </tr>
-                </table>
+                <li *ngFor="let product of order.products">{{product.name}}</li>
               </td>
-              <td>{{ order.quantity }}</td>
-              <td>{{ order.price.toLocaleString('da-DK') }} DKK</td>
+              <td>
+                <li *ngFor="let product of order.products">{{formatCurrency(product.price)}}</li>
+              </td>
+              <td>
+                <li *ngFor="let product of order.products">{{product.quantity}}</li>
+              </td>
+              <td>{{formatCurrencyAndTotal(order)}}</td>
               <td>{{ order.orderDate | date: 'dd/MM/yyyy' }}</td>
             </tr>
           </tbody>

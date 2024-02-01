@@ -1,5 +1,4 @@
 ﻿using ProtonedMusicAPI.Database.Entities;
-using ProtonedMusicAPI.DTO.ArtistDTO;
 using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
 using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
@@ -11,102 +10,67 @@ namespace ProtonedMusicAPI.Services
 
         public OrderHistoryService(IOrderHistoryRepository orderHistoryRepository)
         {
-            _orderHistoryRepository = orderHistoryRepository ?? throw new ArgumentNullException(nameof(orderHistoryRepository));
+            _orderHistoryRepository = orderHistoryRepository;
+        }
+
+        private static OrderHistoryResponse MapOrderToOrderResponse(Order order)
+        {
+            OrderHistoryResponse response = new()
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+            };
+            if (order.ProductOrder.Capacity > 0)
+            {
+                response.Products = order.ProductOrder.Select(x => new ProductOrderResponse
+                {
+                    Id = x.ProductId,
+                    Name = x.Name,
+                    Price = x.Price,
+                    IsDiscounted = x.IsDiscounted,
+                    DiscountProcent = x.DiscountProcent,
+                    Quantity = x.Quantity,
+                }).ToList();
+            }
+            return response;
+        }
+        private static Order MapOrderRequestToOrder(OrderHistoryRequest orderRequest)
+        {
+            return new Order
+            {
+                CustomerId = orderRequest.CustomerId,
+                OrderDate = orderRequest.OrderDate,
+                ProductOrder = orderRequest.Products.Select(c => new ProductOrder
+                {
+                    ProductId = c.ProductId,
+                    Name = c.Name,
+                    Price = c.Price,
+                    IsDiscounted = c.IsDiscounted,
+                    DiscountProcent = c.DiscountProcent,
+                    Quantity = c.Quantity,
+                }).ToList(),
+            };
         }
 
         public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest newOrder)
         {
             var order = await _orderHistoryRepository.CreateOrder(MapOrderRequestToOrder(newOrder));
+
             if (order == null)
             {
                 throw new ArgumentNullException();
             }
-            return MapOrderToOrderHistoryResponse(order);
+            return MapOrderToOrderResponse(order);
         }
 
-        public async Task<OrderHistoryResponse> GetOrderByIdAsync(int orderId)
+        public async Task<List<OrderHistoryResponse?>> FindByIdAsync(int customerId)
         {
-            // Hent en bestemt ordre fra databasen
-            Order orderById = await _orderHistoryRepository.GetOrdersById(orderId);
-
-            // Lav en respons baseret på den hentede ordre
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(orderById);
-
-            return response;
-        }
-
-        public async Task<OrderHistoryResponse> GetOrdersByCustomerIdAsync(int customerId)
-        {
-            var order = await _orderHistoryRepository.FindByIdAsync(customerId);
-
-            if (order != null)
+            List<Order> orders = await _orderHistoryRepository.FindByIdAsync(customerId);
+            if (orders == null)
             {
-                return MapOrderToOrderHistoryResponse(order);
+                throw new ArgumentNullException();
             }
-
-            return null;
-        }
-
-
-        // Hjælpefunktion til at mappe en Order til en OrderHistoryResponse
-        public OrderHistoryResponse MapOrderToOrderHistoryResponse(Order order)
-        {
-            OrderHistoryResponse response = new OrderHistoryResponse
-            {
-                Id = order.Id,
-                OrderNumber = order.OrderNumber,
-                OrderDate = order.OrderDate,
-                quantity = order.quantity
-            };
-            if (order.Items.Count > 0)
-            {
-                response.Products = order.Items.Select(x => new OrderItemsResponse
-                {
-                    Id = x.product.Id,
-                    ProductName = x.product.Name,
-                    price = x.product.Price,
-                }).ToList();
-            }
-            return response;
-        }
-
-        private static Order MapOrderRequestToOrder(OrderHistoryRequest request)
-        {
-            Order order = new Order
-            {
-                Id = request.CustomerId,
-                OrderNumber = request.OrderNumber,
-                OrderDate = request.OrderDate,
-                Items = request.ProductId.Select(s => new ProductOrder
-                {
-                    ProductId = s
-                }).ToList(),
-                quantity = request.quantity,
-            };
-
-            return order;
-        }
-
-        // Hjælpefunktion til at beregne den samlede pris for alle elementer i en ordre
-        public int CalculateTotalPrice(List<ItemProduct> items)
-        {
-            if (items == null || items.Count == 0)
-            {
-                return 0;
-            }
-
-            return (int)items.Sum(item => item.Product.Price * item.quantity);
-        }
-
-        // Hjælpefunktion til at beregne den samlede mængde af alle elementer i en ordre
-        public int CalculateTotalQuantity(List<ItemProduct> items)
-        {
-            if (items == null || items.Count == 0)
-            {
-                return 0;
-            }
-
-            return items.Sum(item => item.quantity);
+            return orders.Select(MapOrderToOrderResponse).ToList();
         }
     }
 }

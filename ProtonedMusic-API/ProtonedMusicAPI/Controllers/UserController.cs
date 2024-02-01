@@ -231,6 +231,26 @@ namespace ProtonedMusicAPI.Controllers
             return BadRequest("No file was uploaded.");
         }
 
+        [HttpDelete]
+        [Route("remove-picture/{userId}")]
+        public async Task<IActionResult> RemoveProfilePicture([FromRoute] int userId)
+        {
+            try
+            {
+                UserResponse user = await _userService.RemoveProfilePicture(userId);
+
+                if (user != null)
+                {
+                    return Ok(user.ProfilePicturePath);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         [AllowAnnonymous]
         [HttpPost]
         [Route("Newsletter/Subscribe/{email}")]

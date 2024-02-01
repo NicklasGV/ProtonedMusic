@@ -1,3 +1,4 @@
+import { constAddonRoles } from 'src/app/Models/AddonRole';
 import { UserService } from './../../Services/user.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -89,17 +90,19 @@ export class NavbarComponent implements OnInit {
   avatarCheck(thisuser: User): string {
     if (thisuser.id > 0)
     {
-      if (thisuser.profilePicturePath == '') {
-        return 'Letter'
+      if (thisuser.profilePicturePath == '' || thisuser.profilePicturePath == null || thisuser.profilePicturePath == undefined)
+      {
+        if (thisuser.firstName != null)
+        {
+          return 'Letter'
+        }
+        else {
+          return 'Nothing'
+        }
       }
       else if (thisuser.profilePicturePath != '') {
         return 'PicPath'
       }
-      else if (thisuser.profilePicturePath == '' && thisuser.firstName == '')
-      {
-        return 'No name'
-      }
-      return 'Nothing'
     }
     return 'DontShow'
 

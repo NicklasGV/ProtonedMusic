@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User, resetUser } from 'src/app/Models/UserModel';
 import { UserService } from 'src/app/Services/user.service';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router, Route } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { OrderHistoryService } from 'src/app/Services/orderHistory.service';
-import { OrderHistory } from 'src/app/Models/OrderHistoryModel';
+import { OrderHistoryModel, resetOrderHistory } from 'src/app/Models/OrderHistoryModel';
+import { resetArtist } from 'src/app/Models/ArtistModel';
+import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 
 @Component({
   selector: 'app-order-history',
@@ -17,48 +19,62 @@ import { OrderHistory } from 'src/app/Models/OrderHistoryModel';
 export class OrderHistoryComponent implements OnInit {
   message: string = '';
   user: User = resetUser();
-  orderHistory: OrderHistory[] = [];
+  orders: OrderHistoryModel[] = [];
+  order: OrderHistoryModel = resetOrderHistory();
+  product: ProductModel = resetProducts();
+  products: ProductModel[] = [];
+  totalAmount: number = 0;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private orderHistoryService: OrderHistoryService
+    private orderService: OrderHistoryService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.userService
-      .findById(this.authService.currentUserValue.id)
-      .subscribe((x) => (this.user = x));
-
+    this.userService.findById(this.authService.currentUserValue.id).subscribe((x) => (this.user = x));
     this.activatedRoute.paramMap.subscribe((params) => {
-      if (
-        this.authService.currentUserValue == null ||
-        this.authService.currentUserValue.id == 0 ||
-        this.authService.currentUserValue.id != Number(params.get('id'))
-      ) {
-        this.router.navigate(['/']);
-      } else {
-        // Store user in variable
-        this.user = this.authService.currentUserValue;
-      }
-      this.orderHistoryService
-        .GetOrdersByCustomerId(this.user.id)
-        .subscribe((x) => {
-          console.log('Data fra tjenesten:', x);
-
-          if (Array.isArray(x)) {
-            this.orderHistory = x;
-          } else {
-            // Håndter fejlen eller juster din service, hvis x ikke er et array
-            console.error('Fejl: Forventede et array, men modtog:', x);
-          }
-        });
+      if ( this.authService.currentUserValue == null || this.authService.currentUserValue.id == 0 || this.authService.currentUserValue.id != Number(params.get('id'))) 
+    {
+      this.router.navigate(['/']);
+    } else
+    {
+      this.user = this.authService.currentUserValue;
+    }
     });
+    const specificId = this.user.id;
+    this.orderService.getOrderById(specificId).subscribe({
+      next: (result) => {
+        this.orders = result;
+        if (result.length > 0){
+          this.orders.forEach((order) => {
+            if(order.products)
+            {
+              order.products.forEach((product) => {
+                product.beforePrice = product.price;
+                if (product.discountProcent > 0) {
+                  product.price = product.price - (product.price / 100 * product.discountProcent);
+                }
+              });
+            }
+          });
+        }
+      }});
   }
 
   formatCurrency(amount: number): string {
     return amount.toLocaleString('da-DK') + ' DKK';
+  }
+
+  formatCurrencyAndTotal(order: OrderHistoryModel): string {
+    let totalPrice = 0;
+  
+    order.products.forEach(product => {
+      totalPrice += product.price * product.quantity;
+    });
+    return totalPrice.toLocaleString('da-DK') + ' DKK';
   }
 }

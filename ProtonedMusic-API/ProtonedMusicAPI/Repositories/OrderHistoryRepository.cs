@@ -1,4 +1,5 @@
-﻿using ProtonedMusicAPI.Database;
+using Microsoft.EntityFrameworkCore;
+using ProtonedMusicAPI.Database;
 using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
 namespace ProtonedMusicAPI.Repositories
@@ -9,35 +10,32 @@ namespace ProtonedMusicAPI.Repositories
 
         public OrderHistoryRepository(DatabaseContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context;
+        }
+        public async Task<List<Order?>> FindByIdAsync(int customerId)
+        {
+            return await _context.Orders
+                .Include(p => p.ProductOrder)
+                .Where(p => p.CustomerId == customerId)
+                .ToListAsync();
         }
 
         public async Task<Order> CreateOrder(Order newOrder)
         {
             _context.Orders.Add(newOrder);
+
             await _context.SaveChangesAsync();
-            newOrder = await FindByIdAsync(newOrder.Id);
+
             return newOrder;
         }
 
-        public async Task<Order> FindByIdAsync(int customerId)
-        {
-            return await _context.Orders.FirstOrDefaultAsync(u => u.CustomerId == customerId);
-        }
 
         public async Task<List<Order>> GetOrdersByCustomerId(int customerId)
         {
             return await _context.Orders
-                .Include(o => o.Items)
+                .Include(o => o.ProductOrder)
                 .Where(o => o.CustomerId == customerId)
                 .ToListAsync();
-        }
-
-        public async Task<Order> GetOrdersById(int orderId)
-        {
-            return await _context.Orders
-                .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.Id == orderId);
         }
     }
 }

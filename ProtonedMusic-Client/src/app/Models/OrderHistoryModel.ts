@@ -1,20 +1,17 @@
-import { ItemProduct } from "./ItemProductModel";
+import { ProductModel } from "./ProductModel";
+import { ProductOrderModel } from "./ProductOrderModel";
 
-export interface OrderHistory{
+export interface OrderHistoryModel{
   id: number;
-  orderNumber: number;
-  items: ItemProduct[];
-  price: number;
-  quantity: number;
   orderDate: Date;
+  products: ProductOrderModel[];
+  totalPrice: number;
 }
 export function resetOrderHistory() {
   return {
     id: 0,
-    orderNumber: 0,
-    items: [],
-    price: 0,
-    quantity: 0,
-    orderDate: new Date()
+    orderDate: new Date(),
+    products: [],
+    totalPrice: 0,
   };
 }
