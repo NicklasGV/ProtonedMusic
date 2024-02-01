@@ -46,23 +46,7 @@ export class OrderHistoryComponent implements OnInit {
     }
     });
     const specificId = this.user.id;
-    this.orderService.getOrderById(specificId).subscribe({
-      next: (result) => {
-        this.orders = result;
-        if (result.length > 0){
-          this.orders.forEach((order) => {
-            if(order.products)
-            {
-              order.products.forEach((product) => {
-                product.beforePrice = product.price;
-                if (product.discountProcent > 0) {
-                  product.price = product.price - (product.price / 100 * product.discountProcent);
-                }
-              });
-            }
-          });
-        }
-      }});
+    this.orderService.getOrderById(specificId).subscribe((x) => this.orders = x);
   }
 
   formatCurrency(amount: number): string {

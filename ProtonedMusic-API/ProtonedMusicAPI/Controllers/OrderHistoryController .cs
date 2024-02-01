@@ -21,7 +21,7 @@ namespace ProtonedMusicAPI.Controllers
         {
             try
             {
-                var response = await _orderHistoryService.FindByIdAsync(customerId);
+                var response = await _orderHistoryService.GetAllAsync(customerId);
 
                 if (response == null)
                 {
