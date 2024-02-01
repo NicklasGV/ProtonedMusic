@@ -5,7 +5,6 @@ export interface OrderHistoryModel{
   id: number;
   orderDate: Date;
   products: ProductOrderModel[];
-  productIds: number[];
   totalPrice: number;
 }
 export function resetOrderHistory() {
@@ -13,7 +12,6 @@ export function resetOrderHistory() {
     id: 0,
     orderDate: new Date(),
     products: [],
-    productIds: [],
     totalPrice: 0,
   };
 }

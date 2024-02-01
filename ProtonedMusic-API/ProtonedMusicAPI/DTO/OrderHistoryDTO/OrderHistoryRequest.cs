@@ -3,7 +3,7 @@
     public class OrderHistoryRequest
     {
         public int CustomerId { get; set; }
-        public List<int> ProductIds { get; set; } = new();
+        public List<ProductOrder> Products { get; set; } = new();
         public DateTime OrderDate { get; set; }
     }
 }

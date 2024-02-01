@@ -40,9 +40,14 @@ namespace ProtonedMusicAPI.Services
             {
                 CustomerId = orderRequest.CustomerId,
                 OrderDate = orderRequest.OrderDate,
-                ProductOrder = orderRequest.ProductIds.Select(c => new ProductOrder
+                ProductOrder = orderRequest.Products.Select(c => new ProductOrder
                 {
-                    ProductId = c
+                    ProductId = c.ProductId,
+                    Name = c.Name,
+                    Price = c.Price,
+                    IsDiscounted = c.IsDiscounted,
+                    DiscountProcent = c.DiscountProcent,
+                    Quantity = c.Quantity,
                 }).ToList(),
             };
         }

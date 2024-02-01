@@ -36,7 +36,7 @@ namespace ProtonedMusicAPI.Controllers
         }
 
         [HttpPost("CreateOrder")]
-        public async Task<IActionResult> CreateOrder([FromForm] OrderHistoryRequest newOrder)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderHistoryRequest newOrder)
         {
             try
             {
