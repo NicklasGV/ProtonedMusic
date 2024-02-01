@@ -51,6 +51,7 @@ export class ArtistDetailedComponent implements OnInit {
     private musicService: MusicService,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private router: Router, 
     private snackBar: SnackBarService,
     private dialog: MatDialog
   ) { }
@@ -147,13 +148,15 @@ export class ArtistDetailedComponent implements OnInit {
 
   delete(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Artist Profile", message: "Are you sure you want to delete your artist profile?" }
+      data: { title: "Delete Artist Profile", message: "Are you sure you want to delete your artist profile?" ,
+      confirmYes: 'Confirm',
+      confirmNo: 'Cancel' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.artistService.delete(this.artist.id).subscribe(x => {
-
+          this.router.navigate(['/upcoming']);
         });
         this.snackBar.openSnackBar('Deletion successful.', '', 'success');
       } else {
@@ -236,7 +239,9 @@ export class ArtistDetailedComponent implements OnInit {
 
   deleteLink(link: LinkModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Link", message: "Are you sure you want to delete this link? It will be permanent" }
+      data: { title: "Delete Link", message: "Are you sure you want to delete this link? It will be permanent" ,
+      confirmYes: 'Confirm',
+      confirmNo: 'Cancel' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -261,7 +266,9 @@ export class ArtistDetailedComponent implements OnInit {
 
   deleteSong(music: MusicModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Song", message: "Are you sure you want to delete this song?" }
+      data: { title: "Delete Song", message: "Are you sure you want to delete this song? It will be permanent" ,
+      confirmYes: 'Confirm',
+      confirmNo: 'Cancel' }
     });
 
     dialogRef.afterClosed().subscribe(result => {

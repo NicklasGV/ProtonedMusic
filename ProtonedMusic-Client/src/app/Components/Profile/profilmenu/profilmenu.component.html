@@ -36,6 +36,10 @@
         <div class="my-3 mb-2">
           <button class="form-control text-center" id="orderhistory" [routerLink]="['orderhistory']">Order History</button>
         </div>
+        <div class="my-3 mb-2" *ngIf="user.role == 'Family' && !this.artist">
+            <button class="form-control text-center nav-button" id="orderhistory" (click)="makeArtistPage()"  matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Creates a artist profile, that you can edit">
+                Make Your Artist Page</button>
+          </div>
         <div class="my-3 mb-2" *ngIf="this.artist > 0">
             <button class="form-control text-center" id="orderhistory" [routerLink]="['/artist', artist]">Artist Profile</button>
           </div>
