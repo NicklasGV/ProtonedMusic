@@ -156,8 +156,8 @@
                                         <th class="fw-medium">Song Name</th>
                                         <th class="fw-medium">Artist</th>
                                         <th class="fw-medium">Album</th>
-                                        <th class="fw-medium">Song Path</th>
-                                        <th class="fw-medium">Picture Path</th>
+                                        <th class="fw-medium">Song</th>
+                                        <th class="fw-medium">Picture</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
@@ -182,8 +182,10 @@
                                             </table>
                                         </td>
                                         <td>{{ song.album }}</td>
-                                        <td>{{ song.songFilePath }}</td>
-                                        <td>{{ song.songPicturePath }}</td>
+                                        <td *ngIf="song.songFilePath"> Song is uploadet</td>
+                                        <td *ngIf="!song.songFilePath"> No song is available</td>
+                                        <td *ngIf="song.songPicturePath"> Picture is uploadet</td>
+                                        <td *ngIf="!song.songPicturePath"> No picture is available</td>
                                 </tbody>
                             </table>
                         </div>
