@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
+import { CategoryService } from 'src/app/Services/category.service';
 
 @Component({
   selector: 'app-merchandise-product',
@@ -15,19 +16,19 @@ import { CartService } from 'src/app/Services/cart.service';
 })
 export class MerchandiseProductComponent implements OnInit {
   products: ProductModel = resetProducts();
-  //Nu jeg her
   product: ProductModel[] = [];
   itemlength = 0;
   itemsQuantity = 0;
-  //nu jeg der
   productList: ProductModel[] = [];
   currentIndex: number = 0;
   itemsPerPage: number = 4;
+  selectedCategory: number = 0;
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
@@ -40,9 +41,15 @@ export class MerchandiseProductComponent implements OnInit {
             product.price =
               product.price - (product.price / 100) * product.discountProcent;
           }
+
+          // Set the selected category based on the product's categories
+          if (product.categories.length > 0) {
+            this.selectedCategory = product.categories[0].id;
+          }
         },
       });
     });
+
     this.productService.getAllProducts().subscribe((products) => {
       this.productList = products;
       this.loadProducts();
@@ -63,21 +70,25 @@ export class MerchandiseProductComponent implements OnInit {
   }
 
   loadProducts(): void {
-    const totalProducts = this.productList.length;
+    const filteredProducts = this.productList.filter((product) =>
+      product.categories.some((category) => category.id === this.selectedCategory)
+    );
+
+    const totalProducts = filteredProducts.length;
     const startIndex = this.currentIndex;
     const endIndex = startIndex + this.itemsPerPage;
 
     if (endIndex <= totalProducts) {
-      this.product = this.productList.slice(startIndex, endIndex);
+      this.product = filteredProducts.slice(startIndex, endIndex);
     } else {
-      // Løkke
       const remainingItems = endIndex - totalProducts;
       this.product = [
-        ...this.productList.slice(startIndex, totalProducts),
-        ...this.productList.slice(0, remainingItems),
+        ...filteredProducts.slice(startIndex, totalProducts),
+        ...filteredProducts.slice(0, remainingItems),
       ];
     }
   }
+
   nextProducts(): void {
     this.currentIndex = (this.currentIndex + 1) % this.productList.length;
     this.loadProducts();
@@ -87,6 +98,12 @@ export class MerchandiseProductComponent implements OnInit {
     this.currentIndex =
       (this.currentIndex - 1 + this.productList.length) %
       this.productList.length;
+    this.loadProducts();
+  }
+
+  // Call this method when the selected category changes
+  onCategoryChange(categoryId: number): void {
+    this.selectedCategory = categoryId;
     this.loadProducts();
   }
 }
