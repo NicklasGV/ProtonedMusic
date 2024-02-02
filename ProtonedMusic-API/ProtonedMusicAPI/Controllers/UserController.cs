@@ -40,7 +40,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin, Role.Customer)]
+        [Authorize(Role.Admin, Role.Customer, Role.Family)]
         [HttpGet]
         [Route("{userId}")]
         public async Task<IActionResult> FindByIdAsync([FromRoute] int userId)
@@ -61,7 +61,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin, Role.Customer)]
+        [Authorize(Role.Admin, Role.Customer, Role.Family)]
         [HttpPut]
         [Route("{userId}")]
         public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromForm] UserRequest updateUser)
@@ -127,7 +127,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin, Role.Customer)]
+        [Authorize(Role.Admin, Role.Customer, Role.Family)]
         [HttpDelete]
         [Route("{userId}")]
         public async Task<IActionResult> DeleteByIdAsync([FromRoute] int userId)

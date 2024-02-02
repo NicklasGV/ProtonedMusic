@@ -7,12 +7,13 @@ import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { AvatarModule } from 'primeng/avatar';
 import { ArtistService } from 'src/app/Services/artist.service';
-import { ArtistModel } from 'src/app/Models/ArtistModel';
+import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-profilmenu',
   standalone: true,
-  imports: [CommonModule, RouterModule, AvatarModule],
+  imports: [CommonModule, RouterModule, AvatarModule, MatTooltipModule],
   templateUrl: './profilmenu.component.html',
   styleUrls: ['./profilmenu.component.css']
 })
@@ -26,6 +27,7 @@ export class ProfilmenuComponent implements OnInit {
   currentDay: any;
   artists: ArtistModel[] = [];
   artist: any;
+  newArtist: ArtistModel = resetArtist();
 
   constructor(private userService: UserService,
     private router: Router, 
@@ -118,5 +120,33 @@ export class ProfilmenuComponent implements OnInit {
     this.userService.removeProfilePicture(this.user.id).subscribe();
     await this.delay(500);
     window.location.reload();
+  }
+
+  makeArtistPage() {
+    if (this.user.firstName)
+    {
+      this.newArtist.name = this.user.firstName;
+    }
+    else
+    {
+      this.newArtist.name = "No Name Yet"
+    }
+    this.newArtist.info = "..."
+    this.newArtist.userId = this.user.id;
+    
+    this.artistService.create(this.newArtist)
+        .subscribe({
+          next: (x) => {
+            this.artists.push(x);
+            this.newArtist = resetArtist();
+            this.snackBar.openSnackBar("Artist page created", '', 'success');
+            this.router.navigate(['/artist/', x.id]);
+          },
+          error: (err) => {
+            console.log(err);
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
+          }
+        });
   }
 }
