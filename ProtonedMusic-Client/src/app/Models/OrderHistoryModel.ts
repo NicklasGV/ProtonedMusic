@@ -1,8 +1,9 @@
 import { ProductOrderModel } from "./ProductOrderModel";
 
 export interface OrderHistoryModel{
-  id?: number;
-  orderDate: Date;
+  id: number;
+  customerId?: number;
+  orderDate: any;
   products: ProductOrderModel[];
 }
 export function resetOrderHistory() {

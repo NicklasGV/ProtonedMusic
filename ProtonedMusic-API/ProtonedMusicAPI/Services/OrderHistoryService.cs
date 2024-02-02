@@ -41,7 +41,7 @@ namespace ProtonedMusicAPI.Services
             };
         }
 
-        private static Order MapProductOrderToOrder(int id , OrderHistoryRequest productOrderRequest)
+        private static Order MapProductOrderRequestToOrder(int id , OrderHistoryRequest productOrderRequest)
         {
             return new Order
             {
@@ -71,11 +71,12 @@ namespace ProtonedMusicAPI.Services
 
         public async Task<OrderHistoryResponse> UpdateProducts(int orderId, OrderHistoryRequest newProducts)
         {
-            Order order = await _orderHistoryRepository.UpdateProducts(orderId, newProducts);
+            var order1 = MapProductOrderRequestToOrder(orderId, newProducts);
+            Order order = await _orderHistoryRepository.UpdateProducts(orderId, order1);
 
             if (order != null)
             {
-                return MapProductOrderToOrder(orderId, order);
+                return MapOrderToOrderResponse(order);
             }
 
             return null;

@@ -35,8 +35,7 @@ namespace ProtonedMusicAPI.Repositories
             Order order = await FindByIdAsync(orderId);
             if (order != null)
             {
-                List<int> update = new List<int>(updateOrder.ProductOrder.Select(pc => pc.Id).ToList());
-                List<ProductOrder> ProductOrders = update.Select(i => new ProductOrder { OrderId = i }).ToList();
+                List<ProductOrder> ProductOrders = updateOrder.ProductOrder.Select(i => new ProductOrder { OrderId = orderId, Name = i.Name, Price = i.Price, Quantity = i.Quantity }).ToList();
                 _context.ProductOrders.AddRange(ProductOrders);
 
                 await _context.SaveChangesAsync();

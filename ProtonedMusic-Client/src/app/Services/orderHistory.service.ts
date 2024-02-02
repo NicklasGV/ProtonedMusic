@@ -17,6 +17,6 @@ export class OrderHistoryService {
   }
 
   public createOrder(order: OrderHistoryModel): Observable<OrderHistoryModel> {
-    return this.http.post<OrderHistoryModel>(this.url, order);
+    return this.http.post<OrderHistoryModel>(this.url + '/CreateOrder', order);
   }
 }

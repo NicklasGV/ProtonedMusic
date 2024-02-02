@@ -9,6 +9,7 @@ namespace ProtonedMusicAPI.Interfaces.IOrderHistory
         Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest request);
         Task<List<OrderHistoryResponse?>> GetAllAsync(int orderId);
         Task<OrderHistoryResponse?> FindByIdAsync(int customerId);
+        Task<OrderHistoryResponse?> UpdateProducts(int orderId, OrderHistoryRequest newProducts);
     }
 }
     
