@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, importProvidersFrom } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartItem } from 'src/app/Models/CartModel';
 import { OrdersuccessService } from 'src/app/Services/ordersuccess.service';
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentService } from 'src/app/Services/payment.service';
-
+import { Stripe } from '@stripe/stripe-js';
 
 
 
