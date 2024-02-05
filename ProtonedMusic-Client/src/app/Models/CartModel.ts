@@ -11,4 +11,5 @@ export interface CartItem {
     quantity: number;
     picturePath: string;
     productModel: ProductModel;
+    orderId: number;
 }

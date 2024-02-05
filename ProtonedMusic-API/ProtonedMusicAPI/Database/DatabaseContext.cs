@@ -1,4 +1,6 @@
-﻿namespace ProtonedMusicAPI.Database
+﻿using System.Diagnostics;
+
+namespace ProtonedMusicAPI.Database
 {
     public class DatabaseContext : DbContext
     {
@@ -24,6 +26,11 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.ProductOrder)
+                .WithOne(p => p.Order)
+                .HasForeignKey(p => p.OrderId);
+
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.ProductCategories)
                 .WithOne(pc => pc.Product)
@@ -66,7 +73,6 @@
 
 
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
-            modelBuilder.Entity<ProductOrder>().HasKey(pc => new { pc.ProductId, pc.OrderId });
 
             modelBuilder.Entity<CalendarContent>().HasData(new CalendarContent
             {

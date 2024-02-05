@@ -7,7 +7,7 @@ import { Cart,CartItem } from "../Models/CartModel";
 })
 
 export class CartService {
-  private CartName: string = "webshopProjectBasket";
+  private CartName: string = "UserCart";
   currentCartSubject: BehaviorSubject<CartItem[]>;
   currentCart: Observable<CartItem[]>;
   public itemLength = 0;

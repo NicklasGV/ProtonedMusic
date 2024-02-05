@@ -35,7 +35,14 @@
         </div>
         <div class="my-3 mb-2">
           <button class="form-control text-center" id="orderhistory" [routerLink]="['orderhistory']">Order History</button>
-      </div>
+        </div>
+        <div class="my-3 mb-2" *ngIf="user.role == 'Family' && !this.artist">
+            <button class="form-control text-center nav-button" id="orderhistory" (click)="makeArtistPage()"  matTooltipPosition="right" matTooltipClass="panel-tooltip" matTooltip="Creates a artist profile, that you can edit">
+                Make Your Artist Page</button>
+          </div>
+        <div class="my-3 mb-2" *ngIf="this.artist > 0">
+            <button class="form-control text-center" id="orderhistory" [routerLink]="['/artist', artist]">Artist Profile</button>
+          </div>
         <div class="my-3">
             <button type="password" class="form-control text-center" id="logud" (click)="Logout()">Log ud</button>
         </div>
@@ -57,6 +64,8 @@
                     accept="image/*" />
             </div>
             <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-danger" (click)="removeImage(); $event.stopPropagation()"
+                data-bs-dismiss="modal">Remove Image</button>
                 <button type="submit" class="btn btn-sm btn-success" (click)="uploadImage(); $event.stopPropagation()"
                     data-bs-dismiss="modal">Upload Image</button>
             </div>

@@ -9,6 +9,5 @@
         public User Customer { get; set; }
         public List<ProductOrder> ProductOrder { get; set; } = new();
         public DateTime OrderDate { get; set; }
-        public int Quantity { get; set; }
     }
 }

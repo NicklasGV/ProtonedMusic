@@ -44,10 +44,6 @@ namespace ProtonedMusicAPI.Services
             {
                 Title = linkRequest.Title,
                 LinkAddress = linkRequest.LinkAddress,
-                Artist = linkRequest.ArtistIds.Select(a => new ArtistLink
-                {
-                    ArtistId = a
-                }).ToList(),
             };
 
             return link;

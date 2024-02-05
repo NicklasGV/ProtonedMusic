@@ -23,6 +23,7 @@ export class OrderHistoryComponent implements OnInit {
   order: OrderHistoryModel = resetOrderHistory();
   product: ProductModel = resetProducts();
   products: ProductModel[] = [];
+  totalAmount: number = 0;
 
   constructor(
     private userService: UserService,
@@ -45,10 +46,19 @@ export class OrderHistoryComponent implements OnInit {
     }
     });
     const specificId = this.user.id;
-    this.orderService.getOrderById(specificId).subscribe(orders => this.orders = orders);
+    this.orderService.getOrderById(specificId).subscribe((x) => this.orders = x);
   }
 
   formatCurrency(amount: number): string {
     return amount.toLocaleString('da-DK') + ' DKK';
+  }
+
+  formatCurrencyAndTotal(order: OrderHistoryModel): string {
+    let totalPrice = 0;
+  
+    order.products.forEach(product => {
+      totalPrice += product.price * product.quantity;
+    });
+    return totalPrice.toLocaleString('da-DK') + ' DKK';
   }
 }
