@@ -83,6 +83,10 @@ export class MerchandiseComponent implements OnInit {
     }
     return false;
   }
+
+  formatCurrency(amount: number): string {
+    return amount.toLocaleString('da-DK') + ' DKK';
+  }
   
 
   CartTotal(): number {
@@ -95,7 +99,7 @@ export class MerchandiseComponent implements OnInit {
         title: 'Item added to cart',
         img: products.productPicturePath,
         message: products.name,
-        secondMessage: products.price,
+        secondMessage: this.formatCurrency(products.price),
         confirmYes: 'Go to cart',
         confirmNo: 'Keep shopping'
       },
