@@ -112,18 +112,20 @@ export class MerchandiseComponent implements OnInit {
       } as CartItem;
        this.cartService.addToCart(item);
        this.router.navigate(['/cart']);
-        this.snackbar.openSnackBar(products.name + ' added to cart','','success');
+        this.snackbar.openSnackBar(products.name + ' added to cart Go to cart','','success');
       }
-      this.itemlength += 1;
-      let item: CartItem = {
-        id: products.id,
-        price: products.price,
-        quantity: 1,
-        name: products.name,
-        picturePath: products.productPicturePath
-     } as CartItem;
-     this.cartService.addToCart(item);
-     this.snackbar.openSnackBar(products.name + ' added to cart','','success');
+      else {
+        this.itemlength += 1;
+        let item: CartItem = {
+          id: products.id,
+          price: products.price,
+          quantity: 1,
+          name: products.name,
+          picturePath: products.productPicturePath
+       } as CartItem;
+       this.cartService.addToCart(item);
+       this.snackbar.openSnackBar(products.name + ' added to cart Keep shopping','','success');
+      }
     });
   }
 
