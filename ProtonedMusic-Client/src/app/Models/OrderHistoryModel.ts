@@ -5,11 +5,13 @@ export interface OrderHistoryModel{
   customerId?: number;
   orderDate: any;
   products: ProductOrderModel[];
+  receiptLink: string;
 }
 export function resetOrderHistory() {
   return {
     id: 0,
     orderDate: new Date(),
     products: [],
+    receiptLink: '',
   };
 }

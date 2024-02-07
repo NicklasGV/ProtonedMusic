@@ -5,24 +5,26 @@
       <table class="table table-dark">
         <thead>
           <tr>
-            <th>Image</th>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
+            <th>Receipt</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cart of cartItems">
+          <tr *ngFor="let order of orders">
             <td>
-              <a *ngIf="cart.picturePath">
-                <img src="https://protonedmusic.com/{{ cart.picturePath }}" style="width: 40%; height: 5rem;">
-              </a>
+              <li *ngFor="let item of order.products">{{item.name}}</li>
             </td>
-            <td class="align-middle">{{ cart.name }}</td>
-            <td class="align-middle">{{ cart.quantity }}</td>
-            <td class="align-middle">{{ cart.price | currency:'DKK'}}</td>
-            <td class="align-middle">{{ cart.quantity * cart.price | currency:'DKK'}}</td>
+            <td>
+              <li *ngFor="let item of order.products">{{formatCurrency(item.price)}}</li>
+            </td>
+            <td>
+              <li *ngFor="let item of order.products">{{item.quantity}}</li>
+            </td>
+            <td>{{formatCurrencyAndTotal(order)}}</td>
+            <td><a href="{{receiptLink[0]}}" target="none"><button class="btn btn-sm btn-success">Receipt Download</button></a></td>
           </tr>
         </tbody>
       </table>
