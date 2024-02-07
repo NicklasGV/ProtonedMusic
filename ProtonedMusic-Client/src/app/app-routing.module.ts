@@ -40,7 +40,7 @@ const routes: Routes = [
 //#endregion
 
   //WIP
-  {path: 'order/success', loadComponent: () =>
+  {path: ':id/order/success', loadComponent: () =>
   import('./Components/ordersuccess/ordersuccess.component').then(it => it.OrdersuccessComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>
