@@ -42,9 +42,7 @@ export class OrdersuccessComponent {
 
     this.orderService.postWebhook(this.user.email).subscribe((x) => x.forEach((link) => {this.receiptLink.push(link)}));
     const specificId = this.user.id;
-    this.orderService.getOrderById(specificId).subscribe((x) => this.orders = x);
-
-    console.log(this.receiptLink)
+    this.orderService.getOrderById(specificId).subscribe((x) => this.orders = x.slice(-1));
   }
 
   delay(ms: number) {
