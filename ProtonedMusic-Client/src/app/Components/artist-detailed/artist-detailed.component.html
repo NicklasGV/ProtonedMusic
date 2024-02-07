@@ -104,7 +104,7 @@
             </div>
             <!-- Song Editor -->
             <div class="container " *ngIf="editMode">
-                <h1 class="m-2">Music Administration</h1>             
+                <h1 class="m-2">Music Administration</h1>
                 <div class="container-fluid" data-bs-theme="dark">
                     <div class="form-group row mb-3">
                         <label class="col-12 col-sm-1 col-form-label">Song name</label>
@@ -134,10 +134,11 @@
                             <div class="modal-body">
                                 <input class="form-control" type="file" name="fileInput" accept="image/*"
                                     (change)="fileSongChangeEvent($event)" />
-                
-                                <image-cropper class="cropper" [imageChangedEvent]="imageSongChangedEvent" [maintainAspectRatio]="true"
-                                    [aspectRatio]="3 / 3" format="png" (imageCropped)="imageSongCropped($event)"
-                                    (imageLoaded)="imageSongLoaded($event)" (cropperReady)="cropperSongReady()"
+
+                                <image-cropper class="cropper" [imageChangedEvent]="imageSongChangedEvent"
+                                    [maintainAspectRatio]="true" [aspectRatio]="3 / 3" format="png"
+                                    (imageCropped)="imageSongCropped($event)" (imageLoaded)="imageSongLoaded($event)"
+                                    (cropperReady)="cropperSongReady()"
                                     (loadImageFailed)="loadImageFailed()"></image-cropper>
                             </div>
                         </div>

@@ -54,7 +54,7 @@ export class ArtistDetailedComponent implements OnInit {
     private musicService: MusicService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router, 
+    private router: Router,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer
@@ -146,9 +146,11 @@ export class ArtistDetailedComponent implements OnInit {
 
   delete(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Artist Profile", message: "Are you sure you want to delete your artist profile?" ,
-      confirmYes: 'Confirm',
-      confirmNo: 'Cancel' }
+      data: {
+        title: "Delete Artist Profile", message: "Are you sure you want to delete your artist profile?",
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -241,9 +243,11 @@ export class ArtistDetailedComponent implements OnInit {
 
   deleteLink(link: LinkModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Link", message: "Are you sure you want to delete this link? It will be permanent" ,
-      confirmYes: 'Confirm',
-      confirmNo: 'Cancel' }
+      data: {
+        title: "Delete Link", message: "Are you sure you want to delete this link? It will be permanent",
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -268,9 +272,11 @@ export class ArtistDetailedComponent implements OnInit {
 
   deleteSong(music: MusicModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: "Delete Song", message: "Are you sure you want to delete this song? It will be permanent" ,
-      confirmYes: 'Confirm',
-      confirmNo: 'Cancel' }
+      data: {
+        title: "Delete Song", message: "Are you sure you want to delete this song? It will be permanent",
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -278,16 +284,16 @@ export class ArtistDetailedComponent implements OnInit {
         this.musicService.delete(music.id).subscribe(x => {
           this.artist.songs = this.artist.songs.filter(x => x.id != music.id);
         });
-        this.snackBar.openSnackBar('Deletion successful.', '','success');
+        this.snackBar.openSnackBar('Deletion successful.', '', 'success');
       } else {
-        this.snackBar.openSnackBar('Deletion canceled.', '','warning');
+        this.snackBar.openSnackBar('Deletion canceled.', '', 'warning');
       }
     });
   }
 
   cancelSong(): void {
     this.song = resetMusic();
-    this.snackBar.openSnackBar('Song creation canceled.', '','info');
+    this.snackBar.openSnackBar('Song creation canceled.', '', 'info');
   }
 
   saveSong(): void {
@@ -297,91 +303,86 @@ export class ArtistDetailedComponent implements OnInit {
     if (this.song.id == 0) {
       //create
       this.musicService.create(this.song)
-      .subscribe({
-        next: (x) => {
-          this.artist.songs = this.artist.songs.filter(existingSong => existingSong.id !== this.song.id);
-          this.artist.songs.push(x);
-          this.song = resetMusic();
-          this.resetFileSongChangeEvent();
-          this.snackBar.openSnackBar("Song created", '', 'success');
-        },
-        error: (err) => {
-          console.log(err);
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, '', 'error');
-        }
-      });
+        .subscribe({
+          next: (x) => {
+            this.artist.songs = this.artist.songs.filter(existingSong => existingSong.id !== this.song.id);
+            this.artist.songs.push(x);
+            this.song = resetMusic();
+            this.resetFileSongChangeEvent();
+            this.snackBar.openSnackBar("Song created", '', 'success');
+          },
+          error: (err) => {
+            console.log(err);
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
+          }
+        });
     } else {
       //update
       this.musicService.update(this.song)
-      .subscribe({
-        error: (err) => {
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, '', 'error');
-        },
-        complete: () => {
-          this.musicService.getAll().subscribe(x => this.artist.songs = x);
-          this.song = resetMusic();
-          this.resetFileSongChangeEvent();
-          this.snackBar.openSnackBar("Song updated", '', 'success');
-        }
-      });
+        .subscribe({
+          error: (err) => {
+            this.message = Object.values(err.error.errors).join(", ");
+            this.snackBar.openSnackBar(this.message, '', 'error');
+          },
+          complete: () => {
+            this.musicService.getAll().subscribe(x => this.artist.songs = x);
+            this.song = resetMusic();
+            this.resetFileSongChangeEvent();
+            this.snackBar.openSnackBar("Song updated", '', 'success');
+          }
+        });
     }
     this.song = resetMusic();
   }
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
-}
-fileSongChangeEvent(event: any): void {
-  this.imageSongChangedEvent = event;
-}
-resetFileChangeEvent(): void {
-  this.imageChangedEvent = null;
-}
-resetFileSongChangeEvent(): void {
-  this.imageSongChangedEvent = null;
-}
-
-imageCropped(event: ImageCroppedEvent) {
-  if (event.objectUrl)
-  {
-    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
-    if(event.blob)
-    {
-      this.blobFile = new File([event.blob], this.imageChangedEvent.target.files[0].name, { type: 'image/png' });
-
-    }
   }
-  
-  // event.blob can be used to upload the cropped image
-}
-imageSongCropped(event: ImageCroppedEvent) {
-  if (event.objectUrl)
-  {
-    console.log(this.imageSongChangedEvent)
-    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
-    if(event.blob)
-    {
-      this.blobSongFile = new File([event.blob], this.imageSongChangedEvent.target.files[0].name, { type: 'image/png' });
-    }
+  fileSongChangeEvent(event: any): void {
+    this.imageSongChangedEvent = event;
   }
-  
-  // event.blob can be used to upload the cropped image
-}
-imageLoaded(image: LoadedImage) {
+  resetFileChangeEvent(): void {
+    this.imageChangedEvent = null;
+  }
+  resetFileSongChangeEvent(): void {
+    this.imageSongChangedEvent = null;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    if (event.objectUrl) {
+      this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      if (event.blob) {
+        this.blobFile = new File([event.blob], this.imageChangedEvent.target.files[0].name, { type: 'image/png' });
+
+      }
+    }
+
+    // event.blob can be used to upload the cropped image
+  }
+  imageSongCropped(event: ImageCroppedEvent) {
+    if (event.objectUrl) {
+      this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      if (event.blob) {
+        this.blobSongFile = new File([event.blob], this.imageSongChangedEvent.target.files[0].name, { type: 'image/png' });
+      }
+    }
+
+    // event.blob can be used to upload the cropped image
+  }
+  imageLoaded(image: LoadedImage) {
     // show cropper
-}
-imageSongLoaded(image: LoadedImage) {
-  // show cropper
-}
-cropperReady() {
+  }
+  imageSongLoaded(image: LoadedImage) {
+    // show cropper
+  }
+  cropperReady() {
     // cropper ready
-}
-cropperSongReady() {
-  // cropper ready
-}
-loadImageFailed() {
+  }
+  cropperSongReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
     // show message
-}
+  }
 }
