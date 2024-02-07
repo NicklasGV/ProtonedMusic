@@ -131,8 +131,15 @@
                     <div class="form-group row mb-3">
                         <label class="col-12 col-sm-1 col-form-label">Picture</label>
                         <div class="col-12 col-sm-6">
-                            <input (change)="onPictureFileSelected($event)" class="form-control w-75" type="file"
-                                accept="image/*">
+                            <div class="modal-body">
+                                <input class="form-control" type="file" name="fileInput" accept="image/*"
+                                    (change)="fileSongChangeEvent($event)" />
+                
+                                <image-cropper class="cropper" [imageChangedEvent]="imageSongChangedEvent" [maintainAspectRatio]="true"
+                                    [aspectRatio]="3 / 3" format="png" (imageCropped)="imageSongCropped($event)"
+                                    (imageLoaded)="imageSongLoaded($event)" (cropperReady)="cropperSongReady()"
+                                    (loadImageFailed)="loadImageFailed()"></image-cropper>
+                            </div>
                         </div>
                     </div>
 
@@ -206,8 +213,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input class="form-control" type="file" (change)="onFileSelected($event)" name="fileInput"
-                    accept="image/*" />
+                <input class="form-control" type="file" name="fileInput" accept="image/*"
+                    (change)="fileChangeEvent($event)" />
+
+                <image-cropper class="cropper" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                    [aspectRatio]="3 / 3" format="png" (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()"></image-cropper>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-sm btn-success" (click)="uploadImage(); $event.stopPropagation()"

@@ -9,11 +9,15 @@ import { AvatarModule } from 'primeng/avatar';
 import { ArtistService } from 'src/app/Services/artist.service';
 import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ImageCroppedEvent, ImageCropperModule, LoadedImage } from 'ngx-image-cropper';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-profilmenu',
   standalone: true,
-  imports: [CommonModule, RouterModule, AvatarModule, MatTooltipModule],
+  imports: [CommonModule, RouterModule, AvatarModule, MatTooltipModule, ImageCropperModule],
+  providers: [],
   templateUrl: './profilmenu.component.html',
   styleUrls: ['./profilmenu.component.css']
 })
@@ -21,13 +25,15 @@ export class ProfilmenuComponent implements OnInit {
   message: string = "";
   user: User = resetUser();
   msg: string = '';
-  selectedFile: File | undefined;
   formData = new FormData();
   today: Date = new Date();
   currentDay: any;
   artists: ArtistModel[] = [];
   artist: any;
   newArtist: ArtistModel = resetArtist();
+  imageChangedEvent: any;
+  croppedImage: any;
+  blobFile: any;
 
   constructor(private userService: UserService,
     private router: Router, 
@@ -36,6 +42,7 @@ export class ProfilmenuComponent implements OnInit {
     private snackBar: SnackBarService, 
     private datePipe: DatePipe,
     private artistService: ArtistService,
+    private sanitizer: DomSanitizer
     )
     {
       this.WelcomeUser();
@@ -97,18 +104,14 @@ export class ProfilmenuComponent implements OnInit {
     this.snackBar.openSnackBar('Logged out','','info');
     window.location.reload();
   }
-  
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
+
   
   
   
   async uploadImage() {
-    if (this.selectedFile) {
-      console.log(this.selectedFile)
+    if (this.blobFile) {
       const formData = new FormData();
-      formData.append('file', this.selectedFile);
+      formData.append('file', this.blobFile);
     
       this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe();
     }
@@ -149,4 +152,31 @@ export class ProfilmenuComponent implements OnInit {
           }
         });
   }
+
+  
+    
+    fileChangeEvent(event: any): void {
+        this.imageChangedEvent = event;
+    }
+    imageCropped(event: ImageCroppedEvent) {
+      if (event.objectUrl)
+      {
+        this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+        if(event.blob)
+        {
+          this.blobFile = new File([event.blob], this.imageChangedEvent.target.files[0].name, { type: 'image/png' });
+        }
+      }
+      
+      // event.blob can be used to upload the cropped image
+    }
+    imageLoaded(image: LoadedImage) {
+        // show cropper
+    }
+    cropperReady() {
+        // cropper ready
+    }
+    loadImageFailed() {
+        // show message
+    }
 }

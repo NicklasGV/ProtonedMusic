@@ -14,13 +14,15 @@ import { LinkModel, resetLink } from 'src/app/Models/LinkModel';
 import { LinkService } from 'src/app/Services/link.service';
 import { MusicModel, resetMusic } from 'src/app/Models/MusicModel';
 import { MusicService } from 'src/app/Services/music/music.service';
+import { ImageCroppedEvent, ImageCropperModule, LoadedImage } from 'ngx-image-cropper';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
 @Component({
   selector: 'app-artist-detailed',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ImageCropperModule],
   templateUrl: './artist-detailed.component.html',
   styleUrl: './artist-detailed.component.css'
 })
@@ -38,12 +40,13 @@ export class ArtistDetailedComponent implements OnInit {
   linksChanged: boolean = false;
   linkModal: boolean = false;
   songModal: boolean = true;
-  selectedFile: File | undefined;
   chosenLinkId: number = 0;
   cleanupLinkList: LinkModel[] = [];
-
-
-
+  imageChangedEvent: any;
+  imageSongChangedEvent: any;
+  croppedImage: any;
+  blobFile: any;
+  blobSongFile: any;
 
   constructor(
     private artistService: ArtistService,
@@ -53,7 +56,8 @@ export class ArtistDetailedComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, 
     private snackBar: SnackBarService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -86,12 +90,6 @@ export class ArtistDetailedComponent implements OnInit {
     }
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.artist.pictureFile = file;
-
-  }
-
   onSongFileSelected(event: any): void {
     const file = event.target.files[0];
     this.song.songFile = file;
@@ -119,7 +117,7 @@ export class ArtistDetailedComponent implements OnInit {
   }
 
   uploadImage() {
-    if (this.artist.pictureFile) {
+    if (this.blobFile) {
       this.pictureChanged = true;
     }
   }
@@ -182,6 +180,9 @@ export class ArtistDetailedComponent implements OnInit {
 
   save(): void {
     this.message = "";
+    if (this.blobFile) {
+      this.artist.pictureFile = this.blobFile;
+    }
     if (this.artist.user) {
       this.artist.userId = this.artist.user?.id;
     }
@@ -195,6 +196,7 @@ export class ArtistDetailedComponent implements OnInit {
         complete: () => {
           this.artistService.getById(this.artist.id).subscribe(artist => this.artist = artist);
           this.editModeChange();
+          this.resetFileChangeEvent();
           this.snackBar.openSnackBar("Your Artist page is updated", '', 'success');
         }
       });
@@ -291,6 +293,7 @@ export class ArtistDetailedComponent implements OnInit {
   saveSong(): void {
     this.message = "";
     this.song.artistIds = [this.artist.id];
+    this.song.pictureFile = this.blobSongFile;
     if (this.song.id == 0) {
       //create
       this.musicService.create(this.song)
@@ -299,6 +302,7 @@ export class ArtistDetailedComponent implements OnInit {
           this.artist.songs = this.artist.songs.filter(existingSong => existingSong.id !== this.song.id);
           this.artist.songs.push(x);
           this.song = resetMusic();
+          this.resetFileSongChangeEvent();
           this.snackBar.openSnackBar("Song created", '', 'success');
         },
         error: (err) => {
@@ -318,6 +322,7 @@ export class ArtistDetailedComponent implements OnInit {
         complete: () => {
           this.musicService.getAll().subscribe(x => this.artist.songs = x);
           this.song = resetMusic();
+          this.resetFileSongChangeEvent();
           this.snackBar.openSnackBar("Song updated", '', 'success');
         }
       });
@@ -325,4 +330,58 @@ export class ArtistDetailedComponent implements OnInit {
     this.song = resetMusic();
   }
 
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+}
+fileSongChangeEvent(event: any): void {
+  this.imageSongChangedEvent = event;
+}
+resetFileChangeEvent(): void {
+  this.imageChangedEvent = null;
+}
+resetFileSongChangeEvent(): void {
+  this.imageSongChangedEvent = null;
+}
+
+imageCropped(event: ImageCroppedEvent) {
+  if (event.objectUrl)
+  {
+    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+    if(event.blob)
+    {
+      this.blobFile = new File([event.blob], this.imageChangedEvent.target.files[0].name, { type: 'image/png' });
+
+    }
+  }
+  
+  // event.blob can be used to upload the cropped image
+}
+imageSongCropped(event: ImageCroppedEvent) {
+  if (event.objectUrl)
+  {
+    console.log(this.imageSongChangedEvent)
+    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+    if(event.blob)
+    {
+      this.blobSongFile = new File([event.blob], this.imageSongChangedEvent.target.files[0].name, { type: 'image/png' });
+    }
+  }
+  
+  // event.blob can be used to upload the cropped image
+}
+imageLoaded(image: LoadedImage) {
+    // show cropper
+}
+imageSongLoaded(image: LoadedImage) {
+  // show cropper
+}
+cropperReady() {
+    // cropper ready
+}
+cropperSongReady() {
+  // cropper ready
+}
+loadImageFailed() {
+    // show message
+}
 }

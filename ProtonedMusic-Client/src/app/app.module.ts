@@ -13,6 +13,7 @@ import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     MatSnackBarModule,
     MatDialogModule,
     SnackBarComponent,
-    ScrollTopModule
+    ScrollTopModule,
+    ImageCropperModule
   ],
   providers: [
     {
