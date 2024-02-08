@@ -23,7 +23,6 @@ export class OrderHistoryComponent implements OnInit {
   order: OrderHistoryModel = resetOrderHistory();
   product: ProductModel = resetProducts();
   products: ProductModel[] = [];
-  totalAmount: number = 0;
 
   constructor(
     private userService: UserService,
@@ -31,7 +30,6 @@ export class OrderHistoryComponent implements OnInit {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private orderService: OrderHistoryService,
-    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
