@@ -11,7 +11,6 @@ import { OrderHistoryModel, resetOrderHistory } from 'src/app/Models/OrderHistor
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { OrdersuccessService } from 'src/app/Services/ordersuccess.service';
 import { CartService } from 'src/app/Services/cart.service';
-import { AuthService } from 'src/app/Services/auth.service';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentService } from 'src/app/Services/payment.service';
