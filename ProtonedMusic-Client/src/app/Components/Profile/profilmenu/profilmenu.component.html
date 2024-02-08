@@ -77,8 +77,7 @@
                 (imageLoaded)="imageLoaded($event)"
                 (cropperReady)="cropperReady()"
                 (loadImageFailed)="loadImageFailed()"
-                [onlyScaleDown]="true"
-                [autoCrop]="false"></image-cropper>
+                [onlyScaleDown]="true"></image-cropper>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-sm btn-danger" (click)="removeImage(); $event.stopPropagation()"
