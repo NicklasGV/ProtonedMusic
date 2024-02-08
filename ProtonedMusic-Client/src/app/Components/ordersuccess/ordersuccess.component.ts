@@ -22,7 +22,7 @@ import { Stripe } from '@stripe/stripe-js';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './ordersuccess.component.html',
-  styleUrl: './ordersuccess.component.css'
+  styleUrl: './ordersuccess.component.css',
 })
 export class OrdersuccessComponent implements OnInit {
   cartItems: CartItem[] = [];
@@ -61,7 +61,7 @@ export class OrdersuccessComponent implements OnInit {
 
   formatCurrencyAndTotal(cart: OrderHistoryModel): string {
     let totalPrice = 0;
-  
+
     cart.products.forEach(product => {
       totalPrice += product.price * product.quantity;
     });
