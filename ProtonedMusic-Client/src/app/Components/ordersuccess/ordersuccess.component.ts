@@ -11,7 +11,6 @@ import { OrderHistoryModel, resetOrderHistory } from 'src/app/Models/OrderHistor
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { OrdersuccessService } from 'src/app/Services/ordersuccess.service';
 import { CartService } from 'src/app/Services/cart.service';
-import { AuthService } from 'src/app/Services/auth.service';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentService } from 'src/app/Services/payment.service';
@@ -23,7 +22,7 @@ import { Stripe } from '@stripe/stripe-js';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './ordersuccess.component.html',
-  styleUrl: './ordersuccess.component.css'
+  styleUrl: './ordersuccess.component.css',
 })
 export class OrdersuccessComponent implements OnInit {
   cartItems: CartItem[] = [];
@@ -62,7 +61,7 @@ export class OrdersuccessComponent implements OnInit {
 
   formatCurrencyAndTotal(cart: OrderHistoryModel): string {
     let totalPrice = 0;
-  
+
     cart.products.forEach(product => {
       totalPrice += product.price * product.quantity;
     });

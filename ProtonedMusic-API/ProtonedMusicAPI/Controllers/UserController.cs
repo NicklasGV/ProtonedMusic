@@ -40,7 +40,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin, Role.Customer, Role.Family)]
+        //[Authorize(Role.Admin, Role.Customer, Role.Family)]
         [HttpGet]
         [Route("{userId}")]
         public async Task<IActionResult> FindByIdAsync([FromRoute] int userId)
@@ -148,7 +148,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin)]
+        //[Authorize(Role.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
