@@ -24,7 +24,7 @@
               <li *ngFor="let item of order.products">{{item.quantity}}</li>
             </td>
             <td>{{formatCurrencyAndTotal(order)}}</td>
-            <td><a href="{{receiptLink[0]}}" target="none"><button class="btn btn-sm btn-success">Receipt Download</button></a></td>
+            <td><a href="{{receiptLink[1]}}" target="none"><button class="btn btn-sm btn-success">Receipt Download</button></a></td>
           </tr>
         </tbody>
       </table>
