@@ -121,9 +121,15 @@ export class ProfilmenuComponent implements OnInit {
   }
 
   async removeImage() {
-    this.userService.removeProfilePicture(this.user.id).subscribe();
-    await this.delay(500);
-    window.location.reload();
+    this.userService.removeProfilePicture(this.user.id).subscribe({
+      error: (err) => {
+        this.message = Object.values(err.error.errors).join(", ");
+        this.snackBar.openSnackBar(this.message, '', 'error');
+      },
+      complete: () => {
+        window.location.reload();
+      }
+    });
   }
 
   makeArtistPage() {
