@@ -86,6 +86,30 @@ namespace ProtonedMusicAPI.Repositories
             return user;
         }
 
+        public async Task<User> UpdateByIdNoPassword(int userId, User updateUser)
+        {
+            User user = await FindByIdAsync(userId);
+            if (user != null)
+            {
+                user.FirstName = updateUser.FirstName;
+                user.LastName = updateUser.LastName;
+                user.Email = updateUser.Email;
+                user.Role = updateUser.Role;
+                user.AddonRoles = updateUser.AddonRoles;
+                user.PhoneNumber = updateUser.PhoneNumber;
+                user.Address = updateUser.Address;
+                user.City = updateUser.City;
+                user.Postal = updateUser.Postal;
+                user.Country = updateUser.Country;
+                user.ProfilePicturePath = updateUser.ProfilePicturePath;
+
+                await _databaseContext.SaveChangesAsync();
+
+                user = await FindByIdAsync(user.Id);
+            }
+            return user;
+        }
+
         public async Task<User?> UploadProfilePicture(int userId, IFormFile file)
         {
             string ftpUrl = "ftp://protonedmusic.com:EmanB65wrAdhcpekGH2F@nt7.unoeuro.com/public_html/assets/uploads/";
@@ -145,6 +169,23 @@ namespace ProtonedMusicAPI.Repositories
 
                 await _databaseContext.SaveChangesAsync();
 
+                user = await FindByIdAsync(user.Id);
+            }
+            return user;
+        }
+
+        public async Task<User?> RemoveProfilePicture(int userId)
+        {
+            var user = await FindByIdAsync(userId);
+
+            if (!string.IsNullOrEmpty(user.ProfilePicturePath))
+            {
+                await DeleteFileOnFtpAsync(user.ProfilePicturePath);
+            }
+            if (!string.IsNullOrEmpty(user.ProfilePicturePath))
+            {
+                user.ProfilePicturePath = "";
+                await _databaseContext.SaveChangesAsync();
                 user = await FindByIdAsync(user.Id);
             }
             return user;

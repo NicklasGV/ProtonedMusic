@@ -34,12 +34,12 @@ namespace ProtonedMusicAPI.Repositories
 
         public async Task<CalendarContent?> FindCalendarById(int calendarId)
         {
-            return await _context.CalendarContent.FirstOrDefaultAsync(c => c.Id == calendarId);
+            return await _context.CalendarContent.Include(a => a.Artist).FirstOrDefaultAsync(c => c.Id == calendarId);
         }
 
         public async Task<List<CalendarContent>> GetAllAsync()
         {
-            return await _context.CalendarContent.ToListAsync();
+            return await _context.CalendarContent.Include(a => a.Artist).ToListAsync();
         }
 
         public async Task<CalendarContent?> UpdateCalendarById(int calendarId, CalendarContent updateCalendar)
@@ -51,7 +51,7 @@ namespace ProtonedMusicAPI.Repositories
                 contents.Title = updateCalendar.Title;
                 contents.Content = updateCalendar.Content;
                 contents.Date = updateCalendar.Date;
-                contents.FamilyMember = updateCalendar.FamilyMember;
+                contents.ArtistId = updateCalendar.ArtistId;
 
                 await _context.SaveChangesAsync();
                 contents = await FindCalendarById(calendarId);

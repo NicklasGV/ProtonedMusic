@@ -1,4 +1,5 @@
 ﻿using ProtonedMusicAPI.Database.Entities;
+using ProtonedMusicAPI.DTO.ArtistDTO;
 using ProtonedMusicAPI.DTO.EmailDTO;
 using ProtonedMusicAPI.DTO.LinkDTO;
 using ProtonedMusicAPI.Interfaces.ILink;
@@ -24,16 +25,15 @@ namespace ProtonedMusicAPI.Services
                 LinkAddress = link.LinkAddress,
                 
             };
-            if (link.Artist != null)
+            if (link.Artist.Count > 0)
             {
-                response.Artist = new LinkArtistResponse
+                response.Artist = link.Artist.Select(x => new LinkArtistResponse
                 {
-                    Id = link.Artist.Id,
-                    Name = link.Artist.Name,
-                    Info = link.Artist.Info,
-                    PicturePath = link.Artist.PicturePath,
-
-                };
+                    Id = x.Artist.Id,
+                    Name = x.Artist.Name,
+                    Info = x.Artist.Info,
+                    PicturePath = x.Artist.PicturePath,
+                }).ToList();
             }
             return response;
         }
@@ -44,7 +44,6 @@ namespace ProtonedMusicAPI.Services
             {
                 Title = linkRequest.Title,
                 LinkAddress = linkRequest.LinkAddress,
-                ArtistId = linkRequest.ArtistId
             };
 
             return link;

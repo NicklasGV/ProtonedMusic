@@ -9,9 +9,9 @@ export class DialogService {
   
   constructor(private dialog:MatDialog) { }
 
-  openDialog(title:string, message: string) {
+  openDialog(title:string, message: string, img: File, secondMessage: string, confirmYes:string | 'Confirm', confirmNo: string) {
     this.dialog.open(DialogComponent, {
-      data: { title: title, message: message }
+      data: { title: title, message: message, img: img, secondMessage: secondMessage, confirmYes: confirmYes, confirmNo: confirmNo }
     });
   }
 }

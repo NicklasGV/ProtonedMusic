@@ -5,13 +5,12 @@
         [StringLength(32, ErrorMessage = "Name cannot be longer than 32 chars")]
         public string Name { get; set; }
 
-        [StringLength(50, ErrorMessage = "Info line one cannot be longer than 50 chars")]
         public string Info { get; set; }
 
         public IFormFile? PictureFile { get; set; }
         public string? PicturePath { get; set; }
 
-        public int User { get; set; } = new();
+        public int UserId { get; set; } = new();
         public List<int> SongIds { get; set; } = new();
         public List<int> LinksIds { get; set; } = new();
 

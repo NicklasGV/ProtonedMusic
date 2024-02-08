@@ -1,4 +1,6 @@
-﻿using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
+﻿using ProtonedMusicAPI.Database.Entities;
+using ProtonedMusicAPI.DTO.IOrderHistoryDTO;
+using ProtonedMusicAPI.Interfaces.IOrderHistory;
 
 namespace ProtonedMusicAPI.Services
 {
@@ -8,82 +10,93 @@ namespace ProtonedMusicAPI.Services
 
         public OrderHistoryService(IOrderHistoryRepository orderHistoryRepository)
         {
-            _orderHistoryRepository = orderHistoryRepository ?? throw new ArgumentNullException(nameof(orderHistoryRepository));
+            _orderHistoryRepository = orderHistoryRepository;
         }
 
-        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest request)
+        private static OrderHistoryResponse MapOrderToOrderResponse(Order order)
         {
-            // Opret en ny ordre og gem den i databasen
-            int customerId = Convert.ToInt32(request.CustomerId); // Konverter customerId fra string til int
-            Order newOrder = await _orderHistoryRepository.CreateOrder(customerId, request.Items, request.OrderNumber);
-
-            // Lav en respons baseret på den oprettede ordre
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(newOrder);
-
-            return response;
-        }
-
-        public async Task<OrderHistoryResponse> GetOrderByIdAsync(int orderId)
-        {
-            // Hent en bestemt ordre fra databasen
-            Order orderById = await _orderHistoryRepository.GetOrdersById(orderId);
-
-            // Lav en respons baseret på den hentede ordre
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(orderById);
-
-            return response;
-        }
-
-        public async Task<OrderHistoryResponse> GetOrdersByCustomerIdAsync(string customerId)
-        {
-            // Hent alle ordrer for en bestemt kunde fra databasen
-            Order customerOrders = await _orderHistoryRepository.GetOrdersByCustomerId(customerId);
-
-            // Lav en respons baseret på de hentede ordrer
-            OrderHistoryResponse response = MapOrderToOrderHistoryResponse(customerOrders);
-
-            return response;
-        }
-
-
-        // Hjælpefunktion til at mappe en Order til en OrderHistoryResponse
-        public OrderHistoryResponse MapOrderToOrderHistoryResponse(Order order)
-        {
-            if (order == null)
-            {
-                return null;
-            }
-
-            return new OrderHistoryResponse
+            OrderHistoryResponse response = new()
             {
                 Id = order.Id,
-                OrderNumber = order.OrderNumber,
-                Items = order.Items, // Dette kan også kræve en separat mapping af ItemProduct til ItemProductResponse
-                price = CalculateTotalPrice(order.Items),
-                quantity = CalculateTotalQuantity(order.Items)
+                OrderDate = order.OrderDate,
+            };
+            if (order.ProductOrder.Capacity > 0)
+            {
+                response.Products = order.ProductOrder.Select(x => new ProductOrderResponse
+                {
+                    OrderId = x.OrderId,
+                    Name = x.Name,
+                    Price = x.Price,
+                    Quantity = x.Quantity,
+                }).ToList();
+            }
+            return response;
+        }
+        private static Order MapOrderRequestToOrder(OrderHistoryRequest orderRequest)
+        {
+            return new Order
+            {
+                CustomerId = orderRequest.CustomerId,
+                OrderDate = orderRequest.OrderDate,
             };
         }
 
-        // Hjælpefunktion til at beregne den samlede pris for alle elementer i en ordre
-        public int CalculateTotalPrice(List<ItemProduct> items)
+        private static Order MapProductOrderRequestToOrder(int id , OrderHistoryRequest productOrderRequest)
         {
-            if (items == null || items.Count == 0)
+            return new Order
             {
-                return 0;
-            }
-
-            return (int)items.Sum(item => item.Product.Price * item.quantity);
+                CustomerId = productOrderRequest.CustomerId,
+                OrderDate = productOrderRequest.OrderDate,
+                ProductOrder = productOrderRequest.Products.Select(c => new ProductOrder
+                {
+                    Id = c.Id,
+                    OrderId = id,
+                    Name = c.Name,
+                    Price = c.Price,
+                    Quantity = c.Quantity,
+                }).ToList(),
+            };
         }
 
-        // Hjælpefunktion til at beregne den samlede mængde af alle elementer i en ordre
-        public int CalculateTotalQuantity(List<ItemProduct> items)
+        public async Task<OrderHistoryResponse> CreateOrderAsync(OrderHistoryRequest newOrder)
         {
-            if (items == null || items.Count == 0)
+            var order = await _orderHistoryRepository.CreateOrder(MapOrderRequestToOrder(newOrder));
+
+            if (order == null)
             {
-                return 0;
+                throw new ArgumentNullException();
+            }
+            return MapOrderToOrderResponse(order);
+        }
+
+        public async Task<OrderHistoryResponse> UpdateProducts(int orderId, OrderHistoryRequest newProducts)
+        {
+            var order1 = MapProductOrderRequestToOrder(orderId, newProducts);
+            Order order = await _orderHistoryRepository.UpdateProducts(orderId, order1);
+
+            if (order != null)
+            {
+                return MapOrderToOrderResponse(order);
             }
 
-            return items.Sum(item => item.quantity);
+            return null;
         }
+
+        public async Task<List<OrderHistoryResponse?>> GetAllAsync(int customerId)
+        {
+            List<Order> orders = await _orderHistoryRepository.GetAllAsync(customerId);
+            if (orders == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return orders.Select(MapOrderToOrderResponse).ToList();
+        }
+
+        public Task<OrderHistoryResponse?> FindByIdAsync(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

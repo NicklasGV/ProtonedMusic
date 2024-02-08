@@ -1,0 +1,15 @@
+#offcanvasScrolling {
+    margin-top: 75px;
+    margin-bottom: 270px;
+    z-index: 1050;
+  }
+
+  .offcanvas-end {
+    right: 0;
+  }
+  .bi {
+    color: #fff;
+    font-size: 1.5rem;
+    position: relative;
+    top: -12px;
+  }

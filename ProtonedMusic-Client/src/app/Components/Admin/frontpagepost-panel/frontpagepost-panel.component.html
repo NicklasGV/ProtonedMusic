@@ -64,11 +64,11 @@
               <th class="fw-medium">Banner</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="table-group-divider">
             <tr *ngFor="let post of frontpagePosts">
               <td>
                 <div class="d-flex justify-content-start">
-                  <button (click)="edit(post)" class="btn bi-gear-fill btn-sm btn-success"> EDIT</button>
+                  <button (click)="edit(post)" class="btn bi-gear-fill btn-sm btn-success me-1"> EDIT</button>
                   <button (click)="delete(post)" class="btn bi-trash-fill btn-sm btn-danger"> DELETE</button>
                 </div>
               </td>

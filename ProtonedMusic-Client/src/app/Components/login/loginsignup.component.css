@@ -28,3 +28,7 @@ p {
     color: var(--back-button-color);
     font-weight: bold;
   }
+
+  .alert-bg {
+    background-color: rgba(0, 0, 0, 0.158);
+  }

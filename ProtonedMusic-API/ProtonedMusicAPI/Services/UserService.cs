@@ -89,6 +89,25 @@ namespace ProtonedMusicAPI.Services
             return user;
         }
 
+        private static User MapUserRequestToUserNoPassowrd(UserRequestNoPassword userRequest)
+        {
+            User user = new User
+            {
+                FirstName = userRequest.FirstName,
+                LastName = userRequest.LastName,
+                Email = userRequest.Email.ToLower(),
+                Role = userRequest.Role,
+                AddonRoles = userRequest.AddonRoles,
+                PhoneNumber = userRequest.PhoneNumber,
+                Address = userRequest.Address,
+                Country = userRequest.Country,
+                City = userRequest.City,
+                Postal = userRequest.Postal,
+                ProfilePicturePath = userRequest.ProfilePicturePath ?? string.Empty,
+            };
+            return user;
+        }
+
         public async Task<List<UserResponse>> GetAllAsync()
         {
             List<User> users = await _userRepository.GetAllAsync();
@@ -146,6 +165,19 @@ namespace ProtonedMusicAPI.Services
             return null;
         }
 
+        public async Task<UserResponse> UpdateByIdNoPassword(int userId, UserRequestNoPassword updateUser)
+        {
+            var user = MapUserRequestToUserNoPassowrd(updateUser);
+            var insertedUser = await _userRepository.UpdateByIdNoPassword(userId, user);
+
+            if (insertedUser != null)
+            {
+                return MapUserToUserResponse(insertedUser);
+            }
+
+            return null;
+        }
+
         public async Task<UserResponse> UploadProfilePicture(int userId, IFormFile file)
         {
             User user = await _userRepository.UploadProfilePicture(userId, file);
@@ -188,6 +220,17 @@ namespace ProtonedMusicAPI.Services
                 return MapUserToUserResponse(user);
             }
 
+            return null;
+        }
+
+        public async Task<UserResponse> RemoveProfilePicture(int userId)
+        {
+            var user = await _userRepository.RemoveProfilePicture(userId);
+
+            if (user != null)
+            {
+                return MapUserToUserResponse(user);
+            }
             return null;
         }
     }

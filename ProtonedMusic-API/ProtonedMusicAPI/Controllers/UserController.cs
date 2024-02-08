@@ -40,7 +40,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin, Role.Customer)]
+        [Authorize(Role.Admin, Role.Customer, Role.Family)]
         [HttpGet]
         [Route("{userId}")]
         public async Task<IActionResult> FindByIdAsync([FromRoute] int userId)
@@ -61,7 +61,7 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin, Role.Customer)]
+        [Authorize(Role.Admin, Role.Customer, Role.Family)]
         [HttpPut]
         [Route("{userId}")]
         public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromForm] UserRequest updateUser)
@@ -94,7 +94,40 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        [Authorize(Role.Admin, Role.Customer)]
+        //[Authorize(Role.Admin, Role.Customer)]
+        [HttpPost]
+        [Route("Update/{userId}")]
+        public async Task<IActionResult> UpdateByIdNoPassword([FromRoute] int userId, [FromForm] UserRequestNoPassword updateUser)
+        {
+            try
+            {
+                var userResponse = await _userService.UpdateByIdNoPassword(userId, updateUser);
+
+                if (updateUser.PictureFile != null)
+                {
+                    UserResponse userPicture = await _userService.UploadProfilePicture(userResponse.Id, updateUser.PictureFile);
+
+                    if (userPicture != null)
+                    {
+                        userResponse = userPicture;
+                    }
+
+                }
+
+                if (userResponse == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(userResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [Authorize(Role.Admin, Role.Customer, Role.Family)]
         [HttpDelete]
         [Route("{userId}")]
         public async Task<IActionResult> DeleteByIdAsync([FromRoute] int userId)
@@ -196,6 +229,26 @@ namespace ProtonedMusicAPI.Controllers
             }
 
             return BadRequest("No file was uploaded.");
+        }
+
+        [HttpDelete]
+        [Route("remove-picture/{userId}")]
+        public async Task<IActionResult> RemoveProfilePicture([FromRoute] int userId)
+        {
+            try
+            {
+                UserResponse user = await _userService.RemoveProfilePicture(userId);
+
+                if (user != null)
+                {
+                    return Ok(user.ProfilePicturePath);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
 
         [AllowAnnonymous]

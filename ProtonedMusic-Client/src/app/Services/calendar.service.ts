@@ -16,14 +16,30 @@ export class CalendarService {
     return this.http.get<CalendarModel[]>(this.url);
   }
 
-  public createEvent(contents: CalendarModel): Observable<CalendarModel> {
-    return this.http.post<CalendarModel>(this.url + '/', contents);
+  public create(calendarContent: CalendarModel): Observable<CalendarModel> {
+    const formData = new FormData();
+  
+    formData.append('id', calendarContent.id.toString());
+    formData.append('title', calendarContent.title);
+    formData.append('content', calendarContent.content);
+    formData.append('date', calendarContent.date);
+    formData.append('artistId', calendarContent.artistId.toString());
+
+    return this.http.post<CalendarModel>(this.url, formData);
   }
 
-  public updateEvent(calendarId:number, contents: CalendarModel): Observable<CalendarModel> {
-    return this.http.put<CalendarModel>(this.url + '/' + calendarId, contents);
-  }
+  public update(calendarId:number, calendarContent: CalendarModel): Observable<CalendarModel> {
+    const formData = new FormData();
   
+    formData.append('id', calendarContent.id.toString());
+    formData.append('title', calendarContent.title);
+    formData.append('content', calendarContent.content);
+    formData.append('date', calendarContent.date);
+    formData.append('artistId', calendarContent.artistId.toString());
+
+    return this.http.put<CalendarModel>(this.url + '/' + calendarId, formData);
+  }
+
   public deleteEvent(calendarId: number): Observable<CalendarModel> {
     return this.http.delete<CalendarModel>(this.url + '/' + calendarId);
   }

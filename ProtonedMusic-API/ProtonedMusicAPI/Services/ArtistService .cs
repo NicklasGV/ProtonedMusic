@@ -47,20 +47,18 @@ namespace ProtonedMusicAPI.Services
                 {
                     Id = x.Music.Id,
                     SongName = x.Music.SongName,
-                    Artist = x.Artist.Name,
                     Album = x.Music.Album,
                     SongPicturePath = x.Music.SongPicturePath,
-                    SongFilePath = x.Music.SongPicturePath
+                    SongFilePath = x.Music.SongFilePath
                 }).ToList();
             }
             if (artist.Links.Count > 0)
             {
                 response.Links = artist.Links.Select(x => new ArtistLinkResponse
                 {
-                    Id = x.Id,
-                    ArtistId = x.ArtistId,
-                    Title    = x.Title,
-                    LinkAddress = x.LinkAddress
+                    Id = x.Link.Id,
+                    Title = x.Link.Title,
+                    LinkAddress = x.Link.LinkAddress
                 }).ToList();
             }
             return response;
@@ -73,14 +71,14 @@ namespace ProtonedMusicAPI.Services
                 Name = artistRequest.Name,
                 Info = artistRequest.Info,
                 PicturePath = artistRequest.PicturePath,
-                UserId = artistRequest.User,
+                UserId = artistRequest.UserId,
                 Songs = artistRequest.SongIds.Select(s => new ArtistSong
                 {
                     MusicId = s
                 }).ToList(),
-                Links = artistRequest.LinksIds.Select(l => new Link
+                Links = artistRequest.LinksIds.Select(l => new ArtistLink
                 {
-                    Id = l
+                    LinkId = l
                 }).ToList(),
             };
 

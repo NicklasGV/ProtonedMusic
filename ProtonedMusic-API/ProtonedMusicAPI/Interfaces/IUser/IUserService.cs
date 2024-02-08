@@ -7,8 +7,10 @@
         Task<UserResponse?> FindByIdAsync(int userId);
         Task<UserResponse> CreateAsync(UserRequest newUser);
         Task<UserResponse?> UpdateByIdAsync(int userId, UserRequest updateUser);
+        Task<UserResponse?> UpdateByIdNoPassword(int userId, UserRequestNoPassword updateUser);
         Task<UserResponse> DeleteByIdAsync(int userId);
         Task<UserResponse> UploadProfilePicture(int userId, IFormFile file);
+        Task<UserResponse> RemoveProfilePicture(int userId);
         Task<UserResponse> SubscribeNewsletter(string email, AddonRoles updateNewsletter);
         Task<UserResponse> FindByEmailAsync(string email);
     }

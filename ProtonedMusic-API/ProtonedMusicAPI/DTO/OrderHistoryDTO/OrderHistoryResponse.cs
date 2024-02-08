@@ -3,11 +3,15 @@
     public class OrderHistoryResponse
     {
         public int Id { get; set; }
-        public string OrderNumber { get; set; }
+        public DateTime OrderDate { get; set; } = DateTime.Now;
+        public List<ProductOrderResponse> Products { get; set; } = new();
+    }
 
-        public List<ItemProduct> Items { get; set; }
-        public int price { get; set; }
-        public int quantity { get; set; }
-
+    public class ProductOrderResponse
+    {
+        public int OrderId { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; } = 0;
     }
 }

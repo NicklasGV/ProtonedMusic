@@ -63,14 +63,12 @@
                             <button *ngIf="this.showPassword == true" class="btn btn-outline-secondary bi-eye-slash-fill" (click)="togglePasswordVisibility()" type="button"></button>
                         </div>
                     </div>
-                    <div class="card bg-dark text-danger border-2" *ngIf="passwordFormField?.dirty">
+                    <div class="alert alert-bg text-danger" role="alert" *ngIf="passwordFormField?.dirty">
                         <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('^(?=.*[A-Z])')}">At least uppercase letter.</span>
 
                         <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('(?=.*[a-z])')}">At least one lowercase letter.</span>
 
                         <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('(.*[0-9].*)')}">At least one digit.</span>
-
-                        <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('(?=.*[!@#$%^&*])')}">At least one special character.</span>
 
                         <span class="block" [ngClass]="{'text-success': passwordFormField?.value?.match('.{8,}')}">At least 8 characters long.</span>
                     </div>

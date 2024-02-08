@@ -30,6 +30,7 @@
         {
             _databaseContext.Music.Add(newMusic);
             await _databaseContext.SaveChangesAsync();
+            newMusic = await FindByIdAsync(newMusic.Id);
             return newMusic;
         }
 

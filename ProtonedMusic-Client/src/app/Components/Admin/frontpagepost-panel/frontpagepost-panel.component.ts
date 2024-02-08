@@ -44,7 +44,9 @@ export class FrontpagepostPanelComponent implements OnInit {
 
     delete(frontpagepost: FrontpagePost): void {
       const dialogRef = this.dialog.open(DialogComponent, {
-        data: { title: "Delete page", message: "Are you sure you want to delete this page?" }
+        data: { title: "Delete page", message: "Are you sure you want to delete this page?",
+        confirmYes: 'Confirm',
+        confirmNo: 'Cancel' }
       });
   
       dialogRef.afterClosed().subscribe(result => {
