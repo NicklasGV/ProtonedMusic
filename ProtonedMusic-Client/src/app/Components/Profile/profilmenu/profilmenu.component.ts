@@ -10,13 +10,13 @@ import { ArtistService } from 'src/app/Services/artist.service';
 import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ImageCroppedEvent, ImageCropperModule, LoadedImage } from 'ngx-image-cropper';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, HammerModule } from '@angular/platform-browser';
 
 
 @Component({
   selector: 'app-profilmenu',
   standalone: true,
-  imports: [CommonModule, RouterModule, AvatarModule, MatTooltipModule, ImageCropperModule],
+  imports: [CommonModule, RouterModule, AvatarModule, MatTooltipModule, ImageCropperModule, HammerModule],
   providers: [],
   templateUrl: './profilmenu.component.html',
   styleUrls: ['./profilmenu.component.css']

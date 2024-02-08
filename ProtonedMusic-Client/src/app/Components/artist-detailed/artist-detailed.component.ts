@@ -15,14 +15,14 @@ import { LinkService } from 'src/app/Services/link.service';
 import { MusicModel, resetMusic } from 'src/app/Models/MusicModel';
 import { MusicService } from 'src/app/Services/music/music.service';
 import { ImageCroppedEvent, ImageCropperModule, LoadedImage } from 'ngx-image-cropper';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, HammerModule } from '@angular/platform-browser';
 
 
 
 @Component({
   selector: 'app-artist-detailed',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ImageCropperModule],
+  imports: [CommonModule, RouterModule, FormsModule, ImageCropperModule, HammerModule],
   templateUrl: './artist-detailed.component.html',
   styleUrl: './artist-detailed.component.css'
 })
