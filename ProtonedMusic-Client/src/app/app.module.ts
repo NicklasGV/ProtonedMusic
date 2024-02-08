@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import 'hammerjs'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './Shared/navbar/navbar.component';
@@ -31,7 +31,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MatDialogModule,
     SnackBarComponent,
     ScrollTopModule,
-    ImageCropperModule
+    ImageCropperModule,
+    HammerModule
   ],
   providers: [
     {
