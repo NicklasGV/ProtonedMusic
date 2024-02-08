@@ -9,7 +9,7 @@ const routes: Routes = [
 
 //#region Navbar
   {path: 'login', loadComponent: () =>
-  import('./Components/login/login.component').then(it => it.LoginComponent)},
+  import('./Components/login/loginsignup.component').then(it => it.LoginComponent)},
 
   {path: 'music', loadComponent: () =>
   import('./Components/musicplayer/musicplayer.component').then(it => it.MusicplayerComponent)},
