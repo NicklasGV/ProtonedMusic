@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import 'hammerjs'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './Shared/navbar/navbar.component';
@@ -13,6 +13,7 @@ import { SnackBarComponent } from './Shared/snack-bar/snack-bar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 @NgModule({
@@ -29,7 +30,9 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     MatSnackBarModule,
     MatDialogModule,
     SnackBarComponent,
-    ScrollTopModule
+    ScrollTopModule,
+    ImageCropperModule,
+    HammerModule
   ],
   providers: [
     {

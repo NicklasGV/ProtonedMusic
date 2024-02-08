@@ -155,7 +155,7 @@ namespace ProtonedMusicAPI.Services
             var customerOptions = new CustomerCreateOptions
             {
                 Email = email,
-                Description = "Guest customer",
+                Description = "GU",
                 
             };
 
