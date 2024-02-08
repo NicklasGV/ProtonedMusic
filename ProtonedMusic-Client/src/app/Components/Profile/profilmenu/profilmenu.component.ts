@@ -158,9 +158,11 @@ export class ProfilmenuComponent implements OnInit {
         this.blobFile = new File([event.blob], this.imageChangedEvent.target.files[0].name, { type: 'image/png' });
       }
     }
+    
 
     // event.blob can be used to upload the cropped image
   }
+  
   imageLoaded(image: LoadedImage) {
     // show cropper
   }
