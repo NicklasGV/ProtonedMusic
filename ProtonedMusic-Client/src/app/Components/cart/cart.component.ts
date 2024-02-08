@@ -58,7 +58,7 @@ export class CartComponent implements OnInit {
   clearCart(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        title: 'Clear cart',
+        title: 'Clear cart',  
         message: 'Are you sure you want to clear your cart?',
         confirmYes: 'Confirm',
         confirmNo: 'Cancel'
@@ -109,6 +109,7 @@ export class CartComponent implements OnInit {
       });
     }
   }
+  
 
   buyCartItems(): void {
     if (this.authService.currentUserValue.email === '') {
@@ -116,7 +117,7 @@ export class CartComponent implements OnInit {
     } else {
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
-
+    
     const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map((item) => {
       return {
         name: item.name,
@@ -136,6 +137,7 @@ export class CartComponent implements OnInit {
       }
     );
   }
+  
 
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
     loadStripe('pk_test_51MawfMFFxCTt81aXOvpKeSzT34kMWgpEgfkaCwX3EJqE3nEtp0z9qUDQbgd3yTIKppstc2xGKsV3pXIlb33p92eJ00N01PxT3Q').then((stripe) => {
