@@ -108,10 +108,16 @@ export class ProfilmenuComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.blobFile);
 
-      this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe();
-    }
-    await this.delay(500);
-    window.location.reload();
+      this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe({
+        error: (err) => {
+          this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
+        },
+        complete: () => {
+          window.location.reload();
+        }
+      });
+    }    
   }
 
   async removeImage() {
