@@ -12,82 +12,36 @@ import { SnackBarService } from 'src/app/Services/snack-bar.service';
 @Component({
   selector: 'app-editprofil',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, MatSlideToggleModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './editprofile.component.html',
-  styleUrls: ['./editprofile.component.scss']
+  styleUrls: ['./editprofile.component.css']
 })
 export class EditprofilComponent{
   user: User = resetUser();
-  addonRoles: AddonRoles[] = [];
   message: string = "";
-  roleChecker: string = 'Newsletter';
 
   constructor(private userService: UserService, private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar:SnackBarService) { }
 
-  ngOnInit(user: User): void {
+  ngOnInit(): void {
     this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.user = x);
     this.activatedRoute.paramMap.subscribe( params => {
       if (this.authService.currentUserValue == null || this.authService.currentUserValue.id == 0 || this.authService.currentUserValue.id != Number(params.get('id')))
       {
         this.router.navigate(['/']);
       }
-      //Store user in variable
       this.user = this.authService.currentUserValue;
     });
-    Object.assign(this.user, user);
-
-    this.addonRoles = constAddonRoles;
   }
 
   errorOnChanges() {
     this.router.navigate(['../../../profilmenu', this.user.id, 'editprofil']);
   }
 
-  resetPassword(): User {
-    return resetUser();
-  }
-
-  roleCheck(): boolean {
-    if (this.user.role == this.roleChecker) {
-      return true;
-    }
-    return false;
-  }
-
   save(): void {
     this.message = "";
-    // if (this.user.id != 0) {
-    //   //update
-    //   this.userService.update(this.user)
-    //   .subscribe({
-    //     error: (err) => {
-    //       this.message = Object.values(err.error.errors).join(", ");
-    //       this.snackBar.openSnackBar(this.message, "","error");
-    //       this.errorOnChanges();
-    //     },
-    //     complete: () => {
-    //       this.user = this.resetPassword();
-    //       this.snackBar.openSnackBar("Profile updated", "","success")
-    //     }
-    //   });
-    // }
-    if (this.user.password != '')
-        {
-          this.userService.update(this.user)
-          .subscribe({
-            error: (err) => {
-              this.message = Object.values(err.error.errors).join(", ");
-              this.snackBar.openSnackBar(this.message, '', 'error');
-            },
-            complete: () => {
-              this.user = resetUser();
-              this.snackBar.openSnackBar("Profile updated", '', 'success');
-            }
-          });
-        }
-        else if (this.user.password == '')
-        {
-          this.userService.updateNoPassword(this.user)
+    if (this.user.password != undefined)
+      {
+        this.userService.update(this.user)
         .subscribe({
           error: (err) => {
             this.message = Object.values(err.error.errors).join(", ");
@@ -95,10 +49,24 @@ export class EditprofilComponent{
           },
           complete: () => {
             this.user = resetUser();
-            this.snackBar.openSnackBar("Profile updated", '', 'success');
+            this.snackBar.openSnackBar("User updated with password", '', 'success');
           }
         });
+      }
+      else if (this.user.password == undefined)
+      {
+        this.userService.updateNoPassword(this.user)
+      .subscribe({
+        error: (err) => {
+          this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
+        },
+        complete: () => {
+          this.user = resetUser();
+          this.snackBar.openSnackBar("User updated without password", '', 'success');
         }
+      });
+    }
     this.router.navigate(['../../../profilmenu', this.user.id]);
   }
 }

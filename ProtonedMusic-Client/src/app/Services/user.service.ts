@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../Models/UserModel';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { User } from '../Models/UserModel';
 export class UserService {
 
   private readonly apiUrl = environment.apiUrl + 'User';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getAll(): Observable<User[]>{
     return this.http.get<User[]>(this.apiUrl);
@@ -109,10 +110,17 @@ export class UserService {
 
   updateNoPassword(user: User): Observable<User> {
     const formData = new FormData();
-  
-    formData.append('firstName', user.firstName);
-    formData.append('lastName', user.lastName);
+    if (user.firstName != null)
+    {
+      formData.append('firstName', user.firstName);
+    }
+    if (user.lastName != null)
+    {
+      formData.append('lastName', user.lastName);
+    }
+
     formData.append('email', user.email);
+    
     if (user.role != null) {
       formData.append('role', user.role); 
     }

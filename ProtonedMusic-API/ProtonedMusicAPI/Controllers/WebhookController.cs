@@ -117,7 +117,7 @@ namespace ProtonedMusicAPI.Controllers
             var customerService = new CustomerService();
             var customer = customerService.List(new CustomerListOptions { Email = email });
 
-            return customer.First();
+            return customer.Last();
         }
 
     }

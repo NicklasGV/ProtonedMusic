@@ -110,6 +110,7 @@ export class CartComponent implements OnInit {
     }
   }
 
+
   buyCartItems(): void {
     if (this.authService.currentUserValue.email === '') {
       this.snackBar.openSnackBar(
@@ -121,16 +122,14 @@ export class CartComponent implements OnInit {
       this.snackBar.openSnackBar('Buying successful.', '', 'success');
     }
 
-    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map(
-      (item) => {
-        return {
-          name: item.name,
-          unitAmount: item.price,
-          quantity: item.quantity,
-          price: item.price,
-        };
-      }
-    );
+    const stripeCheckoutItems: StripeChekoutModel[] = this.cartItems.map((item) => {
+      return {
+        name: item.name,
+        unitAmount: item.price,
+        quantity: item.quantity,
+        price: item.price,
+      };
+    });
 
     this.paymentService
       .CreateCheckoutSession(
@@ -147,6 +146,7 @@ export class CartComponent implements OnInit {
         }
       );
   }
+
 
   private initiateStripeCheckout(checkoutData: CheckoutModel): void {
     loadStripe(

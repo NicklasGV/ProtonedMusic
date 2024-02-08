@@ -1,5 +1,4 @@
-import { CartService } from 'src/app/Services/cart.service';
-import { Component } from '@angular/core';
+import { Component, OnInit, importProvidersFrom } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartItem } from 'src/app/Models/CartModel';
 import { HttpClient } from '@angular/common/http';
@@ -10,6 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderHistoryService } from 'src/app/Services/orderHistory.service';
 import { OrderHistoryModel, resetOrderHistory } from 'src/app/Models/OrderHistoryModel';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
+import { OrdersuccessService } from 'src/app/Services/ordersuccess.service';
+import { CartService } from 'src/app/Services/cart.service';
+import { SnackBarService } from 'src/app/Services/snack-bar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentService } from 'src/app/Services/payment.service';
+import { Stripe } from '@stripe/stripe-js';
 
 
 @Component({
@@ -19,7 +24,7 @@ import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
   templateUrl: './ordersuccess.component.html',
   styleUrl: './ordersuccess.component.css',
 })
-export class OrdersuccessComponent {
+export class OrdersuccessComponent implements OnInit {
   cartItems: CartItem[] = [];
   user: User = resetUser();
   receiptLink: any[] = [];
@@ -62,5 +67,4 @@ export class OrdersuccessComponent {
     });
     return totalPrice.toLocaleString('da-DK') + ' DKK';
   }
-
 }

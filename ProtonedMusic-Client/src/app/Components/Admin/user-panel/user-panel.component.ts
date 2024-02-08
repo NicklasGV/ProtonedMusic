@@ -102,7 +102,7 @@ export class UserPanelComponent implements OnInit {
             complete: () => {
               this.userService.getAll().subscribe(x => this.users = x);
               this.user = resetUser();
-              this.snackBar.openSnackBar("User updated", '', 'success');
+              this.snackBar.openSnackBar("User updated with", '', 'success');
             }
           });
         }
@@ -117,7 +117,7 @@ export class UserPanelComponent implements OnInit {
           complete: () => {
             this.userService.getAll().subscribe(x => this.users = x);
             this.user = resetUser();
-            this.snackBar.openSnackBar("User updated", '', 'success');
+            this.snackBar.openSnackBar("User updated wihtout", '', 'success');
           }
         });
         }
