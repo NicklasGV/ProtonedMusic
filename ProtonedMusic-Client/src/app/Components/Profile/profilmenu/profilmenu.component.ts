@@ -9,11 +9,15 @@ import { AvatarModule } from 'primeng/avatar';
 import { ArtistService } from 'src/app/Services/artist.service';
 import { ArtistModel, resetArtist } from 'src/app/Models/ArtistModel';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ImageCroppedEvent, ImageCropperModule, LoadedImage } from 'ngx-image-cropper';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-profilmenu',
   standalone: true,
-  imports: [CommonModule, RouterModule, AvatarModule, MatTooltipModule],
+  imports: [CommonModule, RouterModule, AvatarModule, MatTooltipModule, ImageCropperModule],
+  providers: [],
   templateUrl: './profilmenu.component.html',
   styleUrls: ['./profilmenu.component.css']
 })
@@ -21,31 +25,32 @@ export class ProfilmenuComponent implements OnInit {
   message: string = "";
   user: User = resetUser();
   msg: string = '';
-  selectedFile: File | undefined;
   formData = new FormData();
   today: Date = new Date();
   currentDay: any;
   artists: ArtistModel[] = [];
   artist: any;
   newArtist: ArtistModel = resetArtist();
+  imageChangedEvent: any;
+  croppedImage: any;
+  blobFile: any;
 
   constructor(private userService: UserService,
-    private router: Router, 
-    private authService: AuthService, 
-    private activatedRoute: ActivatedRoute, 
-    private snackBar: SnackBarService, 
+    private router: Router,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: SnackBarService,
     private datePipe: DatePipe,
     private artistService: ArtistService,
-    )
-    {
-      this.WelcomeUser();
-    }
-    
-    async ngOnInit(): Promise<void> {
+    private sanitizer: DomSanitizer
+  ) {
+    this.WelcomeUser();
+  }
+
+  async ngOnInit(): Promise<void> {
     this.userService.findById(this.authService.currentUserValue.id).subscribe(x => this.user = x);
-    this.activatedRoute.paramMap.subscribe( params => {
-      if (this.authService.currentUserValue == null || this.authService.currentUserValue.id == 0 || this.authService.currentUserValue.id != Number(params.get('id')))
-      {
+    this.activatedRoute.paramMap.subscribe(params => {
+      if (this.authService.currentUserValue == null || this.authService.currentUserValue.id == 0 || this.authService.currentUserValue.id != Number(params.get('id'))) {
         this.router.navigate(['/']);
       }
       //Store user in variable
@@ -56,60 +61,53 @@ export class ProfilmenuComponent implements OnInit {
 
     await this.delay(200);
     this.artists.forEach((artist) => {
-      if (artist.user?.id == this.user.id)
-      {
+      if (artist.user?.id == this.user.id) {
         this.artist = artist.id;
       }
     });
   }
-  
+
   delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
-  
+
   avatarLetterCheck(userName: string) {
     if (userName != null) {
       return userName.charAt(0)
     }
     return userName;
   }
-  
+
   transformDate(date: any) {
     return this.datePipe.transform(date, 'HH:mm');
   }
   WelcomeUser() {
     this.currentDay = this.transformDate(this.today);
-    if (this.currentDay >= '04:59' && this.currentDay <= '11:59')
-    {
+    if (this.currentDay >= '04:59' && this.currentDay <= '11:59') {
       return this.msg = "Good Morning"
     }
-    else if (this.currentDay >= '12:00' && this.currentDay <= '15:59')
-    {
+    else if (this.currentDay >= '12:00' && this.currentDay <= '15:59') {
       return this.msg = "Good Afternoon"
     }
     return this.msg = "Good Evening"
   }
-  
+
   async Logout(): Promise<void> {
     this.authService.logout();
     window.location.reload();
     this.router.navigate(['/login']);
-    this.snackBar.openSnackBar('Logged out','','info');
+    this.snackBar.openSnackBar('Logged out', '', 'info');
     window.location.reload();
   }
-  
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
-  
-  
-  
+
+
+
+
   async uploadImage() {
-    if (this.selectedFile) {
-      console.log(this.selectedFile)
+    if (this.blobFile) {
       const formData = new FormData();
-      formData.append('file', this.selectedFile);
-    
+      formData.append('file', this.blobFile);
+
       this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe();
     }
     await this.delay(500);
@@ -123,30 +121,53 @@ export class ProfilmenuComponent implements OnInit {
   }
 
   makeArtistPage() {
-    if (this.user.firstName)
-    {
+    if (this.user.firstName) {
       this.newArtist.name = this.user.firstName;
     }
-    else
-    {
+    else {
       this.newArtist.name = "No Name Yet"
     }
     this.newArtist.info = "..."
     this.newArtist.userId = this.user.id;
-    
+
     this.artistService.create(this.newArtist)
-        .subscribe({
-          next: (x) => {
-            this.artists.push(x);
-            this.newArtist = resetArtist();
-            this.snackBar.openSnackBar("Artist page created", '', 'success');
-            this.router.navigate(['/artist/', x.id]);
-          },
-          error: (err) => {
-            console.log(err);
-            this.message = Object.values(err.error.errors).join(", ");
-            this.snackBar.openSnackBar(this.message, '', 'error');
-          }
-        });
+      .subscribe({
+        next: (x) => {
+          this.artists.push(x);
+          this.newArtist = resetArtist();
+          this.snackBar.openSnackBar("Artist page created", '', 'success');
+          this.router.navigate(['/artist/', x.id]);
+        },
+        error: (err) => {
+          console.log(err);
+          this.message = Object.values(err.error.errors).join(", ");
+          this.snackBar.openSnackBar(this.message, '', 'error');
+        }
+      });
+  }
+
+
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    if (event.objectUrl) {
+      this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+      if (event.blob) {
+        this.blobFile = new File([event.blob], this.imageChangedEvent.target.files[0].name, { type: 'image/png' });
+      }
+    }
+
+    // event.blob can be used to upload the cropped image
+  }
+  imageLoaded(image: LoadedImage) {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
   }
 }
