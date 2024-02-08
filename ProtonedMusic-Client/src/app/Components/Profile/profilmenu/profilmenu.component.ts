@@ -105,16 +105,13 @@ export class ProfilmenuComponent implements OnInit {
 
   async uploadImage() {
     if (this.blobFile) {
-      const formData = new FormData();
-      formData.append('file', this.blobFile);
+      this.user.pictureFile = this.blobFile;
 
-      this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe({
-        error: (err) => {
-          this.message = Object.values(err.error.errors).join(", ");
-          this.snackBar.openSnackBar(this.message, '', 'error');
-        },
-        complete: () => {
+      this.userService.updateNoPassword(this.user)
+      .subscribe({
+        next: () => {
           window.location.reload();
+          this.snackBar.openSnackBar('Profile picture updated', '', 'success')
         }
       });
     }    
