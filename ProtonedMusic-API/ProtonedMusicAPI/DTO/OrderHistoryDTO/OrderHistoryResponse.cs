@@ -9,11 +9,9 @@
 
     public class ProductOrderResponse
     {
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public bool IsDiscounted { get; set; } = false;
-        public double DiscountProcent { get; set; } = 0;
         public int Quantity { get; set; } = 0;
     }
 }

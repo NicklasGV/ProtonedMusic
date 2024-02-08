@@ -9,7 +9,7 @@ const routes: Routes = [
 
 //#region Navbar
   {path: 'login', loadComponent: () =>
-  import('./Components/login/login.component').then(it => it.LoginComponent)},
+  import('./Components/login/loginsignup.component').then(it => it.LoginComponent)},
 
   {path: 'music', loadComponent: () =>
   import('./Components/musicplayer/musicplayer.component').then(it => it.MusicplayerComponent)},
@@ -40,7 +40,7 @@ const routes: Routes = [
 //#endregion
 
   //WIP
-  {path: 'order/success', loadComponent: () =>
+  {path: ':id/order/success', loadComponent: () =>
   import('./Components/ordersuccess/ordersuccess.component').then(it => it.OrdersuccessComponent)},
 
   {path: 'merchandiseProduct/:id', loadComponent: () =>

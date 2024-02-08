@@ -24,11 +24,9 @@ namespace ProtonedMusicAPI.Services
             {
                 response.Products = order.ProductOrder.Select(x => new ProductOrderResponse
                 {
-                    Id = x.ProductId,
+                    OrderId = x.OrderId,
                     Name = x.Name,
                     Price = x.Price,
-                    IsDiscounted = x.IsDiscounted,
-                    DiscountProcent = x.DiscountProcent,
                     Quantity = x.Quantity,
                 }).ToList();
             }
@@ -40,13 +38,21 @@ namespace ProtonedMusicAPI.Services
             {
                 CustomerId = orderRequest.CustomerId,
                 OrderDate = orderRequest.OrderDate,
-                ProductOrder = orderRequest.Products.Select(c => new ProductOrder
+            };
+        }
+
+        private static Order MapProductOrderRequestToOrder(int id , OrderHistoryRequest productOrderRequest)
+        {
+            return new Order
+            {
+                CustomerId = productOrderRequest.CustomerId,
+                OrderDate = productOrderRequest.OrderDate,
+                ProductOrder = productOrderRequest.Products.Select(c => new ProductOrder
                 {
-                    ProductId = c.ProductId,
+                    Id = c.Id,
+                    OrderId = id,
                     Name = c.Name,
                     Price = c.Price,
-                    IsDiscounted = c.IsDiscounted,
-                    DiscountProcent = c.DiscountProcent,
                     Quantity = c.Quantity,
                 }).ToList(),
             };
@@ -63,14 +69,34 @@ namespace ProtonedMusicAPI.Services
             return MapOrderToOrderResponse(order);
         }
 
-        public async Task<List<OrderHistoryResponse?>> FindByIdAsync(int customerId)
+        public async Task<OrderHistoryResponse> UpdateProducts(int orderId, OrderHistoryRequest newProducts)
         {
-            List<Order> orders = await _orderHistoryRepository.FindByIdAsync(customerId);
+            var order1 = MapProductOrderRequestToOrder(orderId, newProducts);
+            Order order = await _orderHistoryRepository.UpdateProducts(orderId, order1);
+
+            if (order != null)
+            {
+                return MapOrderToOrderResponse(order);
+            }
+
+            return null;
+        }
+
+        public async Task<List<OrderHistoryResponse?>> GetAllAsync(int customerId)
+        {
+            List<Order> orders = await _orderHistoryRepository.GetAllAsync(customerId);
             if (orders == null)
             {
                 throw new ArgumentNullException();
             }
             return orders.Select(MapOrderToOrderResponse).ToList();
         }
+
+        public Task<OrderHistoryResponse?> FindByIdAsync(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

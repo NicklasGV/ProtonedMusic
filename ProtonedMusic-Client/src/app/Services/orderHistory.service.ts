@@ -17,6 +17,10 @@ export class OrderHistoryService {
   }
 
   public createOrder(order: OrderHistoryModel): Observable<OrderHistoryModel> {
-    return this.http.post<OrderHistoryModel>(this.url, order);
+    return this.http.post<OrderHistoryModel>(this.url + '/CreateOrder', order);
+  }
+
+  public postWebhook(customerEmail: string): Observable<any[]> {
+    return this.http.get<any[]>('https://api.protonedmusic.com/api/Webhook/charges/' + customerEmail)
   }
 }

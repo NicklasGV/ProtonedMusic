@@ -42,8 +42,9 @@ namespace ProtonedMusicAPI.Services
                 PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "http://localhost:4200/#/order/success",
-                CancelUrl = "http://localhost:4200/#/cart",
+
+                SuccessUrl = "http://protonedmusic.com/#/order/success",
+                CancelUrl = "http://protonedmusic.com/#/cart",
                 Locale = "auto",
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions
                 {
@@ -104,22 +105,36 @@ namespace ProtonedMusicAPI.Services
                         }
                     }
                 },
-                CustomerEmail = customerEmail,  // Tilføjet for at inkludere kundens e-mail
+                CustomerEmail = customerEmail,
             };
 
             var service = new SessionService();
             var sessionId = service.Create(options).Id;
 
             // Opret faktura
+            var invoiceService = new InvoiceService();
+
+            foreach (var item in cartItems)
+            {
+                var invoiceItemOptions = new InvoiceItemCreateOptions
+                {
+                    Customer = _customer.Id,
+                    UnitAmountDecimal = (item.Price * 100),
+                    Currency = "dkk",
+                    Quantity = item.Quantity,
+                };
+
+                // Create an invoice item
+                new InvoiceItemService().Create(invoiceItemOptions);
+            }
+
             var invoiceOptions = new InvoiceCreateOptions
             {
                 Customer = _customer.Id,
                 CollectionMethod = "send_invoice",
                 DueDate = DateTime.Now,
-                
             };
 
-            var invoiceService = new InvoiceService();
             var invoice = invoiceService.Create(invoiceOptions);
 
             var sentInvoice = invoiceService.SendInvoice(invoice.Id);
@@ -140,7 +155,7 @@ namespace ProtonedMusicAPI.Services
             var customerOptions = new CustomerCreateOptions
             {
                 Email = email,
-                Description = "Guest customer",
+                Description = "GU",
                 
             };
 

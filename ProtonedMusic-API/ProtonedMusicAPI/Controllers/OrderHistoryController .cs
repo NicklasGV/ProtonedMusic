@@ -21,7 +21,7 @@ namespace ProtonedMusicAPI.Controllers
         {
             try
             {
-                var response = await _orderHistoryService.FindByIdAsync(customerId);
+                var response = await _orderHistoryService.GetAllAsync(customerId);
 
                 if (response == null)
                 {
@@ -42,9 +42,14 @@ namespace ProtonedMusicAPI.Controllers
             {
                 OrderHistoryResponse response = await _orderHistoryService.CreateOrderAsync(newOrder);
 
-                if (response == null)
+                if (newOrder.Products.Count > 0)
                 {
-                    return Problem("Is null");
+                    OrderHistoryResponse updateProducts = await _orderHistoryService.UpdateProducts(response.Id, newOrder);
+
+                    if (updateProducts != null)
+                    {
+                        response = updateProducts;
+                    }
                 }
                 return Ok(response);
             }
