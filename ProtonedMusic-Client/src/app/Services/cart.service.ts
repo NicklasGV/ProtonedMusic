@@ -13,13 +13,14 @@ export class CartService {
   public itemLength = 0;
   itemTotal: any;
 
+
   constructor() {
     this.currentCartSubject = new BehaviorSubject<CartItem[]>(
       JSON.parse(localStorage.getItem(this.CartName) || "[]")
     );
     this.currentCart = this.currentCartSubject.asObservable();
   }
-//dthhdtg
+
   get currentBasketValue(): CartItem[] {
     return this.currentCartSubject.value;
   }
@@ -99,12 +100,28 @@ export class CartService {
     return 0; // or any default value
   }
   }
-  
 
   getCartTotal(): number {
     return this.currentCartSubject.value.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
+  }
+
+  getFullCart(): CartItem[] {
+    const cartItemString = localStorage.getItem(this.CartName);
+
+    if (cartItemString !== null) {
+      try {
+        const parsedCartItem = JSON.parse(cartItemString);
+        return Array.isArray(parsedCartItem) ? parsedCartItem : [];
+      } catch (error) {
+        console.error('Error parsing localStorage item:', error);
+        return [];
+      }
+    } else {
+      console.error('localStorage item is null or undefined');
+      return [];
+    }
   }
 }
