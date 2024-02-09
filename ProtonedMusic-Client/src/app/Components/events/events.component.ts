@@ -27,10 +27,12 @@ export class EventsComponent implements OnInit {
   constructor(private eventService: EventService, private cartService:CartService, private snackbar:SnackBarService) { }
 
   async ngOnInit(): Promise<void> {
-    this.eventService.getAllEvents().subscribe(x => this.events = x);
-
-    await this.delay(200);
-    this.checkEmpty = this.checkIfEmpty();
+    this.eventService.getAllEvents().subscribe({
+      next: (result) => {
+        this.events = result;
+        this.checkEmpty = this.checkIfEmpty();
+      },
+    });
   }
 
   delay(ms: number) {
