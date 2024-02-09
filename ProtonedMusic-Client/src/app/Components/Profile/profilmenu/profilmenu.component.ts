@@ -105,13 +105,16 @@ export class ProfilmenuComponent implements OnInit {
 
   async uploadImage() {
     if (this.blobFile) {
-      const formData = new FormData();
-      formData.append('file', this.blobFile);
+      this.user.pictureFile = this.blobFile;
 
-      this.userService.uploadProfilePicture(this.authService.currentUserValue.id, formData).subscribe();
-    }
-    await this.delay(500);
-    window.location.reload();
+      this.userService.updateNoPassword(this.user)
+      .subscribe({
+        next: () => {
+          window.location.reload();
+          this.snackBar.openSnackBar('Profile picture updated', '', 'success')
+        }
+      });
+    }    
   }
 
   async removeImage() {
@@ -158,9 +161,11 @@ export class ProfilmenuComponent implements OnInit {
         this.blobFile = new File([event.blob], this.imageChangedEvent.target.files[0].name, { type: 'image/png' });
       }
     }
+    
 
     // event.blob can be used to upload the cropped image
   }
+  
   imageLoaded(image: LoadedImage) {
     // show cropper
   }
