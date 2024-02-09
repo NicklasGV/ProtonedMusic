@@ -126,6 +126,7 @@ namespace ProtonedMusicAPI.Services
                     UnitAmountDecimal = (item.Price * 100),
                     Currency = "dkk",
                     Quantity = item.Quantity,
+                    Description = item.Description,
                 };
 
                 // Create an invoice item
