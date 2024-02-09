@@ -64,12 +64,10 @@ export class MerchandiseComponent implements OnInit {
         this.cart.forEach((element) => {
           this.itemlength += element.quantity;
         });
+        this.checkEmpty = this.checkIfEmpty();
       },
     });
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
-
-    await this.delay(200);
-    this.checkEmpty = this.checkIfEmpty();
   }
 
   delay(ms: number) {

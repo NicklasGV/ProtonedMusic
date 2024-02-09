@@ -61,12 +61,15 @@ export class ArtistDetailedComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.route.params.subscribe(params => { this.artistService.getById(params['id']).subscribe(artist => this.artist = artist); });
+    this.route.params.subscribe(params => { this.artistService.getById(params['id']).subscribe({
+      next: (value) => {
+        this.artist = value
+        this.checkEmpty = this.checkIfEmpty();
+      },
+    })
+  });
 
     this.currentUser = this.authService.currentUserValue;
-
-    await this.delay(200);
-    this.checkEmpty = this.checkIfEmpty();
   }
 
   delay(ms: number) {
