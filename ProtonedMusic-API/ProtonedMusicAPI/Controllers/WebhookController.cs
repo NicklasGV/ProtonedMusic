@@ -85,37 +85,37 @@ namespace ProtonedMusicAPI.Controllers
             }
         }
 
-        //[HttpGet("payments/{customerEmail}")]
-        //public IActionResult GetPaymentsByCustomer(string customerEmail)
-        //{
-        //    StripeConfiguration.ApiKey = _stripeSecretKey;
+        [HttpGet("success/{customerEmail}")]
+        public IActionResult GetChargeSuccessByCustomer(string customerEmail)
+        {
+            StripeConfiguration.ApiKey = _stripeSecretKey;
 
-        //    _customer = GetOrCreateCustomer(customerEmail);
+            var _customer = GetOrCreateCustomer(customerEmail);
 
-        //    if (_customer == null)
-        //    {
-        //        return NotFound("Customer not found");
-        //    }
+            if (_customer == null)
+            {
+                return NotFound("Customer not found");
+            }
 
-        //    var service = new PaymentIntentService();
-        //    try
-        //    {
-        //        var options = new PaymentIntentPaymentMethodOptions
-        //        {
-        //             = _customer.Id,
-        //        };
-        //        var charges = service.List(options);
+            try
+            {
+                var options = new ChargeListOptions
+                {
+                    Limit = 200,
+                    Customer = _customer.Id,
+                };
+                var service = new ChargeService();
+                var charges = service.List(options);
 
-        //        var receiptUrls = charges.Select(charge => charge.ReceiptUrl).ToList();
 
-        //        return Ok(receiptUrls);
-        //    }
-        //    catch (StripeException e)
-        //    {
-        //        // Handle Stripe API errors
-        //        return StatusCode(500, e.Message);
-        //    }
-        //}
+                return Ok();
+            }
+            catch (StripeException e)
+            {
+                // Handle Stripe API errors
+                return StatusCode(500, e.Message);
+            }
+        }
 
         private Customer GetOrCreateCustomer(string email)
         {
