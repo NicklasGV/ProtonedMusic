@@ -94,10 +94,10 @@ export class OrdersuccessComponent implements OnInit {
         }
     }));
 
+    const specificId = this.user.id;
     this.orderService.postWebhook(this.user.email).subscribe((x) => x.forEach((link) => {this.receiptLink.push(link)}));
     
     await this.delay(500)
-      const specificId = this.user.id;
       this.orderService.getOrderById(specificId).subscribe((x) => this.orders = x.slice(-1));
   }
 
