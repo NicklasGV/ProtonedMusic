@@ -6,10 +6,9 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Quantity</th>
             <th>Price</th>
+            <th>Quantity</th>
             <th>Total</th>
-            <th>Receipt</th>
           </tr>
         </thead>
         <tbody>
@@ -24,7 +23,7 @@
               <li *ngFor="let item of order.products">{{item.quantity}}</li>
             </td>
             <td>{{formatCurrencyAndTotal(order)}}</td>
-            <td><a href="{{receiptLink[1]}}" target="none"><button class="btn btn-sm btn-success">Receipt Download</button></a></td>
+            <!-- <td><a href="{{receiptLink[1]}}" target="none"><button class="btn btn-sm btn-success">Receipt Download</button></a></td> -->
           </tr>
         </tbody>
       </table>
