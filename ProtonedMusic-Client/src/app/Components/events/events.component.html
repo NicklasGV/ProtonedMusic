@@ -30,7 +30,7 @@
       <div class="card bg-dark text-light cardbody" [routerLink]="['/events', event.id]"
         style="grid-template-rows: auto 1fr; min-width: 300px;">
         <div class="row g-0">
-          <div class="col">
+          <div class="col-md-4">
             <a *ngIf="event.eventPicturePath">
               <img src="https://protonedmusic.com/{{ event.eventPicturePath }}" class="img-fluid rounded-start" style="height: 15.5rem;">
           </a>
