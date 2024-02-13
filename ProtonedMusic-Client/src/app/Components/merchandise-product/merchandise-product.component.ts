@@ -20,7 +20,7 @@ export class MerchandiseProductComponent implements OnInit {
   itemlength = 0;
   itemsQuantity = 0;
   productList: ProductModel[] = [];
-  currentIndex: number = 0;
+  currentIndex: number = 1;
   itemsPerPage: number = 4;
   selectedCategory: number = 0;
 
@@ -70,8 +70,10 @@ export class MerchandiseProductComponent implements OnInit {
   }
 
   loadProducts(): void {
-    const filteredProducts = this.productList.filter((product) =>
-      product.categories.some((category) => category.id === this.selectedCategory)
+    const filteredProducts = this.productList.filter(
+      (product) =>
+        product.id !== this.products.id && // Exclude the current product
+        product.categories.some((category) => category.id === this.selectedCategory)
     );
 
     const totalProducts = filteredProducts.length;
