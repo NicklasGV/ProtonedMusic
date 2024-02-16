@@ -90,6 +90,7 @@ export class MerchandiseProductComponent implements OnInit {
       ];
     }
   }
+  //GingersDontHaveSouls
 
   nextProducts(): void {
     this.currentIndex = (this.currentIndex + 1) % this.productList.length;
