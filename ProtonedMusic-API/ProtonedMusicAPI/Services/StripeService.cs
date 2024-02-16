@@ -160,8 +160,7 @@ namespace ProtonedMusicAPI.Services
             var customerOptions = new CustomerCreateOptions
             {
                 Email = email,
-                Description = "GU",
-                
+                Description = "Guest customer",               
             };
 
             var customerService = new CustomerService();
