@@ -4,6 +4,7 @@ import { FooterModel, resetFooter } from 'src/app/Models/FooterModel';
 import { FooterService } from 'src/app/Services/footer.service';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer-panel',
@@ -18,7 +19,7 @@ export class FooterPanelComponent {
   footer: FooterModel = resetFooter();
   formData = new FormData();
 
-  constructor(private footerService: FooterService, private snackBar: SnackBarService) { }
+  constructor(private footerService: FooterService, private snackBar: SnackBarService, private router: Router) { }
 
   ngOnInit(): void {
     this.footerService.getById(1).subscribe({
@@ -36,7 +37,7 @@ export class FooterPanelComponent {
   }
 
   cancel(): void {
-    this.refresh();
+    this.router.navigate(['/admin']);
     this.snackBar.openSnackBar('Footer creation canceled.', '','info');
   }
 
