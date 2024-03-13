@@ -43,14 +43,14 @@
   </div>
   <!--carrousel-->
   <div class="fs-3 text-center">SOMETHING YOU MIGHT LIKE</div>
-  <div class="container-fluid">
+  <div class="container-fluid ">
     <hr class="text-success border-1">
     <div id="carouselExample" class="carousel slide ">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <div class="container">
             <div class="row">
-              <div *ngFor="let product of product" class="col">
+              <div *ngFor="let product of product" class="col-md-4 col-lg-3">
                 <div class="card" [routerLink]="['/merchandiseProduct', product.id]" style="width: 19rem;" data-bs-theme="dark">
                   <a *ngIf="product.productPicturePath">
                     <img src="https://protonedmusic.com/{{ product.productPicturePath }}" class="card-img-top" alt="..."

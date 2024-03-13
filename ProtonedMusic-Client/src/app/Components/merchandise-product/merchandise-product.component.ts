@@ -45,15 +45,15 @@ export class MerchandiseProductComponent implements OnInit {
           // Set the selected category based on the product's categories
           if (product.categories.length > 0) {
             this.selectedCategory = product.categories[0].id;
+            this.productService.getAllProducts().subscribe((products) => {
+              this.productList = products;
+              this.loadProducts();
+            });
           }
         },
       });
     });
 
-    this.productService.getAllProducts().subscribe((products) => {
-      this.productList = products;
-      this.loadProducts();
-    });
   }
 
   addToCart(products: ProductModel, ItemAmount: number): void {
@@ -80,7 +80,7 @@ export class MerchandiseProductComponent implements OnInit {
     const startIndex = this.currentIndex;
     const endIndex = startIndex + this.itemsPerPage;
 
-    if (endIndex <= totalProducts) {
+    if (endIndex <= totalProducts || startIndex == 0) {
       this.product = filteredProducts.slice(startIndex, endIndex);
     } else {
       const remainingItems = endIndex - totalProducts;
@@ -90,19 +90,18 @@ export class MerchandiseProductComponent implements OnInit {
       ];
     }
   }
-  //GingersDontHaveSouls
+
 
   nextProducts(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.productList.length;
+    this.currentIndex = (this.currentIndex + 1) % Math.ceil(this.productList.length / this.itemsPerPage);
     this.loadProducts();
-  }
+}
 
   previousProducts(): void {
-    this.currentIndex =
-      (this.currentIndex - 1 + this.productList.length) %
-      this.productList.length;
-    this.loadProducts();
+      this.currentIndex = (this.currentIndex - 1 + Math.ceil(this.productList.length / this.itemsPerPage)) % Math.ceil(this.productList.length / this.itemsPerPage);
+      this.loadProducts();
   }
+
 
   // Call this method when the selected category changes
   onCategoryChange(categoryId: number): void {
