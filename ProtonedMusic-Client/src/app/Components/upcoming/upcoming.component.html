@@ -2,7 +2,9 @@
     <div class="d-flex justify-content-around col-md-12">
       <div class="display-4 fw-medium mt-4">UPCOMING</div>
     </div>
-    <button class="btn btn-outline-success float-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Our Artists</button>
+    <div class="container-fluid">
+      <button class="btn btn-outline-success float-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Our Artists</button>
+    </div>
 
 </div>
 <div class="container-fluid mt-5">
@@ -52,7 +54,7 @@
           <div class="card-body" style="display: flex; flex-direction: column; min-width: 20px;">
               <div class="align-items-start">
                 <h2>{{artist.name}}</h2>
-                  
+
                   <h4 class="text-truncate" style="max-width: 200px;">{{artist.info}}</h4>
                   <div class="float">
                     <a class="text fw-bold me-2" *ngFor="let link of artist.links" href="{{link.linkAddress}}" target="_blank" (click)="$event.stopPropagation()">{{link.title}}</a>
@@ -61,7 +63,7 @@
                   <div class="d-flex">
                     <p class="text-success fw-bold me-2" *ngFor="let song of artist.songs">{{ song.songName }}</p>
                   </div>
-                </div>                
+                </div>
               </div>
           </div>
       </div>
