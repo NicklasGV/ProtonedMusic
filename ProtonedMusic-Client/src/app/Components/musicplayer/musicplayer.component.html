@@ -3,6 +3,54 @@
     <div class="display-4 fw-medium mt-2">MUSIC PLAYER</div>
   </div>
 </div>
+
+<div class="m-5 text-center">
+  <button class="btn btn-sm btn-outline-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" 
+  aria-controls="offcanvasScrolling">Artists <i class="bi bi-music-note-list" style="font-size: 1.6rem;"></i></button>
+</div>
+
+<!--Offcanvas artists-->
+<div class="offcanvas offcanvas-end bg-dark rounded" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+  id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <h2 class="offcanvas-title" id="offcanvasScrollingLabel">Artist list</h2>
+    <h3></h3>
+  </div>
+  <div class="offcanvas-body">
+    <div *ngFor="let artist of artists">
+      <div class="card h-10 w-auto bg-dark text-light" [routerLink]="['/artist', artist.id]"
+        style="display: grid; grid-template-rows: auto 1fr; max-width: 400px; cursor: pointer !important;">
+        <div class="card-header d-flex justify-content-center">
+          <a *ngIf="artist.picturePath">
+            <img src="https://protonedmusic.com/{{ artist.picturePath }}" class="rounded-2"
+              style="width: 20rem; height: 20rem">
+          </a>
+          <a *ngIf="!artist.picturePath">
+            <img src="../../../assets/img/Error.jpg" class="rounded-2" style="width: 20rem; height: 20rem">
+          </a>
+        </div>
+        <div class="card-body" style="display: flex; flex-direction: column; min-width: 20px;">
+          <div class="align-items-start">
+            <h2>{{artist.name}}</h2>
+
+            <h4 class="text-truncate" style="max-width: 200px;">{{artist.info}}</h4>
+            <div class="float">
+              <a class="text fw-bold me-2" *ngFor="let link of artist.links" href="{{link.linkAddress}}" target="_blank"
+                (click)="$event.stopPropagation()">{{link.title}}</a>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div class="d-flex">
+                <p class="text-success fw-bold me-2" *ngFor="let song of artist.songs">{{ song.songName }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container-fluid" *ngIf="this.files.length > 0">
   <div class="d-flex justify-content-center">
     <div class="card-body">
@@ -35,6 +83,7 @@
     </div>
   </div>
 </div>
+
 <div class="container-fluid" data-bs-theme="dark" *ngIf="this.files.length > 0">
   <div class="table-responsive">
     <div class="table-wrapper">
@@ -69,6 +118,8 @@
     </div>
   </div>
 </div>
+
+
 <div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
   <div class="card bg-dark text-light">
     <div class="card-body text-center">

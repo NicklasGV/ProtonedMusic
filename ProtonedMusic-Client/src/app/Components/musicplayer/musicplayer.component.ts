@@ -9,11 +9,14 @@ import { StreamState } from 'src/app/Models/stream-state';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MusicService } from 'src/app/Services/music/music.service';
 import { MusicModel } from 'src/app/Models/MusicModel';
+import { RouterModule } from '@angular/router';
+import { ArtistModel } from 'src/app/Models/ArtistModel';
+import { ArtistService } from 'src/app/Services/artist.service';
 
 @Component({
   selector: 'app-musicplayer',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatSliderModule, MatToolbarModule],
+  imports: [CommonModule, FormsModule, MatSliderModule, MatToolbarModule, RouterModule],
   templateUrl: './musicplayer.component.html',
   styleUrls: ['./musicplayer.component.scss']
 })
@@ -27,11 +30,13 @@ export class MusicplayerComponent implements OnInit{
   currentPicture: string = "../../../assets/img/1.png";
   volume: number = 50;
   checkEmpty: boolean = false;
+  artists: ArtistModel[] = [];
 
-  constructor(private audioService: AudioService, private musicService: MusicService, public auth: AuthService) { }
+  constructor(private audioService: AudioService, private musicService: MusicService, public auth: AuthService,private artistService: ArtistService) { }
     
     async ngOnInit(): Promise<void> {
       this.musicService.getAll().subscribe(x => this.files = x);
+      this.artistService.getAll().subscribe(x => this.artists = x);
       
 
 
