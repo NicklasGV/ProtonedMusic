@@ -35,12 +35,12 @@ export class NewsComponent implements OnInit {
     this.newsService.getAllNews().subscribe({
       next: (result) => {
         this.news = result;
-        this.filterAndSortNews();
         this.checkEmpty = this.checkIfEmpty();
+        this.filterAndSortNews();
       },
     });
 
-    this.currentUserId = this.authService.currentUserValue.id;   
+    this.currentUserId = this.authService.currentUserValue.id;
   }
 
   delay(ms: number) {
@@ -48,7 +48,7 @@ export class NewsComponent implements OnInit {
   }
 
   checkIfEmpty() {
-    if (this.news.length <= 0)
+    if (this.news == null || this.news.length <= 0)
     {
       return true;
     }

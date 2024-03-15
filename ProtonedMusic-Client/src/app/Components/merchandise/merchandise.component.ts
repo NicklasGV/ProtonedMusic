@@ -26,6 +26,7 @@ export class MerchandiseComponent implements OnInit {
   itemsQuantity = 0;
   checkEmpty: boolean = false;
 
+
   @Input()
   get carts(): Cart {
     return this._cart;
@@ -38,7 +39,7 @@ export class MerchandiseComponent implements OnInit {
       .map((item) => item.quantity)
       .reduce((prev, current) => prev + current, 0);
   }
-  
+
 
   constructor(
     private productService: ProductService,
@@ -53,6 +54,7 @@ export class MerchandiseComponent implements OnInit {
     this.productService.getAllProducts().subscribe({
       next: (result) => {
         this.products = result;
+        this.checkEmpty = this.checkIfEmpty();
         if (result.length > 0){
           result.forEach((product) => {
             product.beforePrice = product.price;
@@ -75,7 +77,7 @@ export class MerchandiseComponent implements OnInit {
   }
 
   checkIfEmpty() {
-    if (this.products.length <= 0)
+    if (this.products == null || this.products.length <= 0)
     {
       return true;
     }
@@ -85,7 +87,7 @@ export class MerchandiseComponent implements OnInit {
   formatCurrency(amount: number): string {
     return amount.toLocaleString('da-DK') + ' DKK';
   }
-  
+
 
   CartTotal(): number {
     return this.cartService.getCartTotal();
