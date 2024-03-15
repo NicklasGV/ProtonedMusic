@@ -15,13 +15,6 @@ namespace ProtonedMusicAPI.Controllers
         const string endpointSecret = "whsec_UvmXZFPvh8CXbjaJuYM3C9Z1EiTiwe0m";
         public required Customer _customer;
 
-        public class ChargeInfo
-        {
-            public string Id { get; set; }
-            public string receiptUrl { get; set; }
-            public string Status { get; set; }
-        }
-
         [HttpPost]
         public async Task<IActionResult> Index()
         {
@@ -67,18 +60,55 @@ namespace ProtonedMusicAPI.Controllers
                 return NotFound("Customer not found");
             }
 
-            var service = new ChargeService();
             try
             {
                 var options = new ChargeListOptions
                 {
+                    Limit = 200,
                     Customer = _customer.Id,
                 };
+                var service = new ChargeService();
                 var charges = service.List(options);
 
-                var receiptUrls = charges.Select(charge => charge.ReceiptUrl).ToList();
+                var paymentDetails = charges.Data.Select(charge => new
+                {
+                    Items = charge.Description,
+                    ReceiptUrl = charge.ReceiptUrl
+                }).ToList();
 
-                return Ok(receiptUrls);
+                return Ok(paymentDetails);
+            }
+            catch (StripeException e)
+            {
+                // Handle Stripe API errors
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("success/{customerEmail}")]
+        public IActionResult GetChargeSuccessByCustomer(string customerEmail)
+        {
+            StripeConfiguration.ApiKey = _stripeSecretKey;
+
+            var _customer = GetOrCreateCustomer(customerEmail);
+
+            if (_customer == null)
+            {
+                return NotFound("Customer not found");
+            }
+
+            try
+            {
+                var options = new ChargeListOptions
+                {
+                    Limit = 200,
+                    Customer = _customer.Id,
+                };
+                var service = new ChargeService();
+                var charges = service.List(options);
+
+
+                return Ok();
             }
             catch (StripeException e)
             {
@@ -93,7 +123,7 @@ namespace ProtonedMusicAPI.Controllers
 
             if (existingCustomer != null)
             {
-                return existingCustomer;
+                return existingCustomer.FirstOrDefault();
             }
 
             var customerOptions = new CustomerCreateOptions
@@ -107,7 +137,7 @@ namespace ProtonedMusicAPI.Controllers
             return customerService.Create(customerOptions);
         }
 
-        private Customer FindCustomerByEmail(string email)
+        private List<Customer> FindCustomerByEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
             {
@@ -115,10 +145,21 @@ namespace ProtonedMusicAPI.Controllers
             }
 
             var customerService = new CustomerService();
-            var customer = customerService.List(new CustomerListOptions { Email = email });
+            var customer = customerService.List(new CustomerListOptions { Email = email});
 
-            return customer.Last();
+            return customer.Data;
         }
+
+        //public async Task<List<UserResponse>> GetAllAsync()
+        //{
+        //    List<User> users = await _userRepository.GetAllAsync();
+
+        //    if (users == null)
+        //    {
+        //        throw new ArgumentException();
+        //    }
+        //    return users.Select(MapUserToUserResponse).ToList();
+        //}
 
     }
 }

@@ -18,6 +18,11 @@ namespace ProtonedMusicAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.ConfigureKestrel((context, options) =>
+            {
+                options.Limits.MaxRequestBodySize = 1024 * 1024 * 1024; // 1 GB
+            });
+
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));

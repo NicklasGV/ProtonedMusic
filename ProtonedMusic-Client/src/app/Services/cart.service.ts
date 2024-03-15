@@ -96,7 +96,7 @@ export class CartService {
     }
   } else {
     // Handle the case where the localStorage item is null
-    console.error('localStorage item is null or undefined');
+    // console.error('localStorage item is null or undefined');
     return 0; // or any default value
   }
   }

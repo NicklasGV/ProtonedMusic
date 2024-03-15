@@ -20,7 +20,7 @@ export class MerchandiseProductComponent implements OnInit {
   itemlength = 0;
   itemsQuantity = 0;
   productList: ProductModel[] = [];
-  currentIndex: number = 0;
+  currentIndex: number = 1;
   itemsPerPage: number = 4;
   selectedCategory: number = 0;
 
@@ -45,15 +45,15 @@ export class MerchandiseProductComponent implements OnInit {
           // Set the selected category based on the product's categories
           if (product.categories.length > 0) {
             this.selectedCategory = product.categories[0].id;
+            this.productService.getAllProducts().subscribe((products) => {
+              this.productList = products;
+              this.loadProducts();
+            });
           }
         },
       });
     });
 
-    this.productService.getAllProducts().subscribe((products) => {
-      this.productList = products;
-      this.loadProducts();
-    });
   }
 
   addToCart(products: ProductModel, ItemAmount: number): void {
@@ -70,15 +70,17 @@ export class MerchandiseProductComponent implements OnInit {
   }
 
   loadProducts(): void {
-    const filteredProducts = this.productList.filter((product) =>
-      product.categories.some((category) => category.id === this.selectedCategory)
+    const filteredProducts = this.productList.filter(
+      (product) =>
+        product.id !== this.products.id && // Exclude the current product
+        product.categories.some((category) => category.id === this.selectedCategory)
     );
 
     const totalProducts = filteredProducts.length;
     const startIndex = this.currentIndex;
     const endIndex = startIndex + this.itemsPerPage;
 
-    if (endIndex <= totalProducts) {
+    if (endIndex <= totalProducts || startIndex == 0) {
       this.product = filteredProducts.slice(startIndex, endIndex);
     } else {
       const remainingItems = endIndex - totalProducts;
@@ -89,17 +91,17 @@ export class MerchandiseProductComponent implements OnInit {
     }
   }
 
+
   nextProducts(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.productList.length;
+    this.currentIndex = (this.currentIndex + 1) % Math.ceil(this.productList.length / this.itemsPerPage);
     this.loadProducts();
-  }
+}
 
   previousProducts(): void {
-    this.currentIndex =
-      (this.currentIndex - 1 + this.productList.length) %
-      this.productList.length;
-    this.loadProducts();
+      this.currentIndex = (this.currentIndex - 1 + Math.ceil(this.productList.length / this.itemsPerPage)) % Math.ceil(this.productList.length / this.itemsPerPage);
+      this.loadProducts();
   }
+
 
   // Call this method when the selected category changes
   onCategoryChange(categoryId: number): void {

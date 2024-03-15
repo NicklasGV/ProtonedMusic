@@ -69,10 +69,15 @@
                 <input class="form-control" type="file" name="fileInput" accept="image/*"
                     (change)="fileChangeEvent($event)" />
 
-                <image-cropper class="cropper" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                    [aspectRatio]="3 / 3" format="png" (imageCropped)="imageCropped($event)"
-                    (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
-                    (loadImageFailed)="loadImageFailed()"></image-cropper>
+                <image-cropper class="cropper"
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="3 / 3" format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded($event)"
+                (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"
+                [onlyScaleDown]="true"></image-cropper>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-sm btn-danger" (click)="removeImage(); $event.stopPropagation()"

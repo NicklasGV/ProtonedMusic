@@ -8,3 +8,19 @@
 .card{
   cursor: pointer;
 }
+
+/* CSS for phones */
+@media (max-width: 575.98px) {
+  .carousel-item .container .row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+  .carousel-item .container .row .col-md-4 {
+    flex: 0 0 auto;
+    width: auto;
+    margin-right: 0.5rem; /* Adjust spacing between items */
+  }
+}

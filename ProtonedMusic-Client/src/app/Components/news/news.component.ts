@@ -36,13 +36,11 @@ export class NewsComponent implements OnInit {
       next: (result) => {
         this.news = result;
         this.filterAndSortNews();
+        this.checkEmpty = this.checkIfEmpty();
       },
     });
 
-    this.currentUserId = this.authService.currentUserValue.id;
-
-    await this.delay(200);
-    this.checkEmpty = this.checkIfEmpty();
+    this.currentUserId = this.authService.currentUserValue.id;   
   }
 
   delay(ms: number) {
