@@ -1,28 +1,21 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
 .LeftBanner{
     height: 750px;
     background-position: center ;
     background-size: cover;
   }
-  
+
   .RightBanner{
     height: 750px;
     background-position: center ;
     background-size: cover;
   }
-  
+
   .MiddleBanner{
     height: 750px;
     background-position: center ;
     background-size: cover;
   }
-  
+
   .LeftBanner h1{
     color: #fff;
     font-size: 50px;
@@ -31,7 +24,7 @@ body, html {
     position: relative;
     margin-left: 10%;
   }
-  
+
   .RightBanner h1{
     color: #fff;
     font-size: 50px;
@@ -42,7 +35,7 @@ body, html {
     position: relative;
     line-height: 1;
   }
-  
+
   .MiddleBanner h1{
     color: #fff;
     font-size: 50px;
@@ -56,7 +49,7 @@ body, html {
   .video-container {
     position: relative;
     width: 100%;
-    height: 1200px; /* Height could need changing */
+    height: 1200px;
     overflow: hidden;
 }
 
@@ -80,10 +73,11 @@ body, html {
   color: white;
   z-index: 1;
 }
-  
+
   .step h1{
     color: green;
-    font-size: 50px;
+
+ font-size: 50px;
     font-weight: bold;
     text-align: center;
     position: relative;

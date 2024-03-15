@@ -1,7 +1,9 @@
 <div *ngFor="let post of frontpagePosts">
   <div class="sm-col {{post.banner}}"
     style="background-image: url('https://protonedmusic.com/{{ post.frontpagePicturePath }}');">
-    <h1>{{post.text}}</h1>
+    <div class="{{post.banner}}" *ngIf="post.text">
+      <h1>{{post.text}}</h1>
+    </div>
   </div>
   <!-- <div class="video-container">
         <video [muted]="'muted'" autoplay="autoplay" loop>
