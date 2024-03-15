@@ -23,4 +23,8 @@ export class OrderHistoryService {
   public postWebhook(customerEmail: string): Observable<any[]> {
     return this.http.get<any[]>('https://api.protonedmusic.com/api/Webhook/charges/' + customerEmail)
   }
+
+  public getStatusCode(customerEmail: string): Observable<any[]> {
+    return this.http.get<any[]>('https://api.protonedmusic.com/api/Webhook/success/' + customerEmail)
+  }
 }

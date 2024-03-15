@@ -1,4 +1,6 @@
 ﻿using ProtonedMusicAPI.Database.NonDatabaseEntities;
+using ProtonedMusicAPI.Interfaces.IUser;
+using ProtonedMusicAPI.Repositories;
 using Stripe;
 using Stripe.Checkout;
 
@@ -6,16 +8,18 @@ namespace ProtonedMusicAPI.Services
 {
     public class StripeService
     {
+        private readonly IUserService _userService;
         private readonly string _stripeSecretKey;
         private Customer _customer;
 
-        public StripeService(string stripeSecretKey)
+        public StripeService(IUserService userService,string stripeSecretKey)
         {
+            _userService = userService;
             _stripeSecretKey = stripeSecretKey;
             StripeConfiguration.ApiKey = _stripeSecretKey;
         }
 
-        public string CreateCheckoutSession(List<CartItemData> cartItems, string customerEmail)
+        public string CreateCheckoutSession(List<CartItemData> cartItems, string customerEmail, int userId)
         {
             // Opret kunden (kun hvis den ikke allerede er oprettet)
             if (_customer == null || !string.Equals(_customer.Email, customerEmail, StringComparison.OrdinalIgnoreCase))
@@ -43,7 +47,7 @@ namespace ProtonedMusicAPI.Services
                 LineItems = lineItems,
                 Mode = "payment",
 
-                SuccessUrl = "http://protonedmusic.com/#/order/success",
+                SuccessUrl = $"http://protonedmusic.com/#/{userId}/order/success",
                 CancelUrl = "http://protonedmusic.com/#/cart",
                 Locale = "auto",
                 ShippingAddressCollection = new SessionShippingAddressCollectionOptions
@@ -122,6 +126,7 @@ namespace ProtonedMusicAPI.Services
                     UnitAmountDecimal = (item.Price * 100),
                     Currency = "dkk",
                     Quantity = item.Quantity,
+                    Description = item.Description,
                 };
 
                 // Create an invoice item
@@ -149,21 +154,20 @@ namespace ProtonedMusicAPI.Services
 
             if (existingCustomer != null)
             {
-                return existingCustomer;
+                return existingCustomer.FirstOrDefault();
             }
 
             var customerOptions = new CustomerCreateOptions
             {
                 Email = email,
-                Description = "GU",
-                
+                Description = "Guest customer",               
             };
 
             var customerService = new CustomerService();
             return customerService.Create(customerOptions);
         }
 
-        private Customer FindCustomerByEmail(string email)
+        private List<Customer> FindCustomerByEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
             {
@@ -173,7 +177,7 @@ namespace ProtonedMusicAPI.Services
             var customerService = new CustomerService();
             var customers = customerService.List(new CustomerListOptions { Email = email });
 
-            return customers.FirstOrDefault();
+            return customers.Data;
         }
     }
 }
