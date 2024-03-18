@@ -16,3 +16,11 @@
         </div>
     </div> -->
 </div>
+
+<script>
+  // Check if the current URL has a hash fragment
+if (window.location.hash !== "") {
+    // If there's a hash fragment, remove it and reload the page
+    window.location.replace(window.location.href.split('#')[0]);
+}
+</script>
