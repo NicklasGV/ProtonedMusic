@@ -9,13 +9,13 @@
   align-items: center;
 }
 
-
 @media only screen and (max-width: 768px) {
   .LeftBanner {
-    background-size: 100% 100%;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 200px; /* Increase the height to fit the image better */
+    background-color: black; /* Slagger løsning! */
+    height: 400px;
     width: 100%;
   }
 }
