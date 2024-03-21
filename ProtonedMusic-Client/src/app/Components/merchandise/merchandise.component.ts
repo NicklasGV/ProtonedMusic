@@ -6,10 +6,10 @@ import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/Services/snack-bar.service';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 import { DialogComponent } from 'src/app/Shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { PriceService } from 'src/app/Services/Price.Service';
 
 @Component({
   selector: 'app-merchandise',
@@ -19,13 +19,12 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./merchandise.component.css']
 })
 export class MerchandiseComponent implements OnInit {
-  products: ProductModel[] = []; // This is the array of products that will be displayed on the page.
+  products: ProductModel[] = [];
   cart: CartItem[] = [];
   private _cart: Cart = { items: [] };
   itemlength = 0;
   itemsQuantity = 0;
   checkEmpty: boolean = false;
-
 
   @Input()
   get carts(): Cart {
@@ -40,10 +39,10 @@ export class MerchandiseComponent implements OnInit {
       .reduce((prev, current) => prev + current, 0);
   }
 
-
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private priceService: PriceService, // Indsæt PriceService her
     private route: ActivatedRoute,
     private router: Router,
     private snackbar: SnackBarService,
@@ -53,9 +52,10 @@ export class MerchandiseComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.productService.getAllProducts().subscribe({
       next: (result) => {
+        console.log('Products:', result);
         this.products = result;
         this.checkEmpty = this.checkIfEmpty();
-        if (result.length > 0){
+        if (result.length > 0) {
           result.forEach((product) => {
             product.beforePrice = product.price;
             if (product.discountProcent > 0) {
@@ -68,17 +68,35 @@ export class MerchandiseComponent implements OnInit {
         });
         this.checkEmpty = this.checkIfEmpty();
       },
+      error: (error) => {
+        console.error('Error getting products:', error);
+      }
     });
+
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
+
+    // Convert prices to user's currency
+    this.convertPricesToUserCurrency();
+  }
+
+  async convertPricesToUserCurrency(): Promise<void> {
+    try {
+      for (const product of this.products) {
+        console.log('Converting price for product:', product);
+        product.price = await this.priceService.getPriceInLocalCurrency(product);
+      }
+      console.log('Products after price conversion:', this.products);
+    } catch (error) {
+      console.error('Error converting prices to local currency:', error);
+    }
   }
 
   delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   checkIfEmpty() {
-    if (this.products == null || this.products.length <= 0)
-    {
+    if (this.products == null || this.products.length <= 0) {
       return true;
     }
     return false;
@@ -87,7 +105,6 @@ export class MerchandiseComponent implements OnInit {
   formatCurrency(amount: number): string {
     return amount.toLocaleString('da-DK') + ' DKK';
   }
-
 
   CartTotal(): number {
     return this.cartService.getCartTotal();
@@ -108,15 +125,15 @@ export class MerchandiseComponent implements OnInit {
       if (result) {
         this.itemlength += 1;
         let item: CartItem = {
-        id: products.id,
-        price: products.price,
-        quantity: 1,
-        name: products.name,
-        picturePath: products.productPicturePath
-      } as CartItem;
-       this.cartService.addToCart(item);
-       this.router.navigate(['/cart']);
-        this.snackbar.openSnackBar(products.name + ' added to cart Go to cart','','success');
+          id: products.id,
+          price: products.price,
+          quantity: 1,
+          name: products.name,
+          picturePath: products.productPicturePath
+        } as CartItem;
+        this.cartService.addToCart(item);
+        this.router.navigate(['/cart']);
+        this.snackbar.openSnackBar(products.name + ' added to cart Go to cart', '', 'success');
       }
       else {
         this.itemlength += 1;
@@ -126,11 +143,10 @@ export class MerchandiseComponent implements OnInit {
           quantity: 1,
           name: products.name,
           picturePath: products.productPicturePath
-       } as CartItem;
-       this.cartService.addToCart(item);
-       this.snackbar.openSnackBar(products.name + ' added to cart Keep shopping','','success');
+        } as CartItem;
+        this.cartService.addToCart(item);
+        this.snackbar.openSnackBar(products.name + ' added to cart Keep shopping', '', 'success');
       }
     });
   }
-
 }
