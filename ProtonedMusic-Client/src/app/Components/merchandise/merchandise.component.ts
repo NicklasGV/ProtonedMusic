@@ -26,7 +26,7 @@ export class MerchandiseComponent implements OnInit {
   itemlength = 0;
   itemsQuantity = 0;
   checkEmpty: boolean = false;
-  userCurrency: string = 'DKK'; // Default currency
+  userCurrency: string = ''; // Default currency
 
   @Input()
   get carts(): Cart {
