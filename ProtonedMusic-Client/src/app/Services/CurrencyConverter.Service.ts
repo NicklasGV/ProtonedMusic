@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CurrencyConverterService {
   private apiUrl = 'https://v6.exchangerate-api.com/v6/1c48a0f7d9240414fb6caca0/latest/DKK'; // API til at hente valutakurser for DKK
+  //https://app.exchangerate-api.com/dashboard
   public exchangeRates: any; // Opbevarer valutakurserne her
 
   constructor(private http: HttpClient) {}
