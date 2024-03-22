@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/Product.service';
 import { CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 import { CategoryService } from 'src/app/Services/category.service';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/Product.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { Cart, CartItem } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';

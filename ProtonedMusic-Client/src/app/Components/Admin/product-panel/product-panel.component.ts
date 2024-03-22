@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductModel, resetProducts } from 'src/app/Models/ProductModel';
 import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/Product.service';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from 'src/app/Services/category.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,7 +25,7 @@ export class ProductPanelComponent implements OnInit {
   selected: number[] = [];
   selectedFile: File | undefined;
   formData = new FormData();
-  
+
   constructor(private productService: ProductService, private categoryService:CategoryService, private snackBar: SnackBarService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class ProductPanelComponent implements OnInit {
   this.categories.map(category => category.checked = false);
   this.selected.length = 0;
 }
-  
+
 editProduct(product: ProductModel): void {
   this.resetCheckboxes();
   Object.assign(this.product, product);
@@ -87,7 +87,7 @@ uploadImage() {
     );
   }
 }
-  
+
   deleteProduct(product: ProductModel): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { title: "Delete Product", message: "Are you sure you want to delete this product?",
