@@ -22,7 +22,7 @@ import { TagModule } from 'primeng/tag';
 export class EventsComponent implements OnInit {
   events: EventModel[] = [];
   checkEmpty: boolean = false;
-  
+
 
   constructor(private eventService: EventService, private cartService:CartService, private snackbar:SnackBarService) { }
 
@@ -40,7 +40,7 @@ export class EventsComponent implements OnInit {
   }
 
   checkIfEmpty() {
-    if (this.events.length <= 0)
+    if (this.events == null || this.events.length <= 0)
     {
       return true;
     }

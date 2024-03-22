@@ -1,15 +1,8 @@
 <div class="container">
     <h1 class="m-2">Music Administration</h1>
   </div>
-  
   <div class="container-fluid" data-bs-theme="dark">
-    <div class="form-group row mb-3">
-      <label class="col-12 col-sm-1 col-form-label">Song name</label>
-      <div class="col-12 col-sm-6">
-        <input [(ngModel)]="song.songName" class="form-control w-75">
-      </div>
-    </div>
-  
+
     <div class="form-group row  mb-3">
       <label class="col-12 col-sm-1 col-form-label">Artist</label>
       <div class="col-12 col-sm-6">
@@ -22,9 +15,16 @@
         </ul>
       </div>
     </div>
+
+    <div class="form-group row mb-3">
+      <label class="col-12 col-sm-1 col-form-label">Song name</label>
+      <div class="col-12 col-sm-6">
+        <input [(ngModel)]="song.songName" class="form-control w-75">
+      </div>
+    </div>  
   
     <div class="form-group row mb-5">
-      <label class="col-12 col-sm-1 col-form-label">Album</label>
+      <label class="col-12 col-sm-1 col-form-label">Track Name</label>
       <div class="col-12 col-sm-6">
         <input [(ngModel)]="song.album" class="form-control w-75">
       </div>

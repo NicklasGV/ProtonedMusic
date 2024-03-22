@@ -9,7 +9,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { CartItem, Cart } from 'src/app/Models/CartModel';
 import { CartService } from 'src/app/Services/cart.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/Product.service';
 
 @Component({
   selector: 'app-navbar',
@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
   }
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private userService:UserService,
     private cartService: CartService,
     private productService: ProductService

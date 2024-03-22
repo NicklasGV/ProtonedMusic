@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryModel, resetCategory } from 'src/app/Models/CategoryModel';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/Product.service';
 import { CategoryService } from 'src/app/Services/category.service';
 import { ProductModel } from 'src/app/Models/ProductModel';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +21,7 @@ export class CategoryPanelComponent implements OnInit {
   products: ProductModel[] = [];
   category: CategoryModel = resetCategory();
   categories: CategoryModel[] = [];
-  
+
   constructor(private productService: ProductService, private categoryService:CategoryService, private snackBar:SnackBarService, private dialog:MatDialog) { }
 
   ngOnInit(): void {

@@ -24,41 +24,69 @@
   </p-carousel>
 </div>
 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="row row-cols-auto row-cols-lg-2 g-4 m-2">
-    <div *ngFor="let event of events">
-      <div class="card bg-dark text-light cardbody" [routerLink]="['/events', event.id]"
-        style="grid-template-rows: auto 1fr; min-width: 300px;">
+    <div *ngFor="let event of events" class="col">
+      <div class="card bg-dark text-light">
         <div class="row g-0">
           <div class="col-md-4">
             <a *ngIf="event.eventPicturePath">
-              <img src="https://protonedmusic.com/{{ event.eventPicturePath }}" class="img-fluid rounded-start" style="height: 15.5rem;">
-          </a>
-          <a *ngIf="!event.eventPicturePath">
-              <img src="../../../assets/img/Error.jpg" class="img-fluid rounded-start" style="height: 15.5rem;">
-          </a>
-        </div>
-        <div class="col-md-8">
-          <div class="card-header">
-            <h2 class="card-title">{{ event.title }}</h2>
+              <img src="https://protonedmusic.com/{{ event.eventPicturePath }}" class="img-fluid w-100 rounded-start event-image" alt="Event Image">
+            </a>
+            <a *ngIf="!event.eventPicturePath">
+              <img src="../../../assets/img/Error.jpg" class="img-fluid w-100 rounded-start event-image" alt="Default Image">
+            </a>
           </div>
-          <div class="card-body" style="min-width: 300px;">
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 class="card-title">{{ event.title }}</h2>
+              <h5>Description: </h5>
+              <p class="card-text text-truncate">{{ event.description }}</p>
+            </div>
+            <div class="card-footer">
+              <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
+              <h5 class="badge text-black bg-success mx-2 align-middle float-end">{{ event.price | currency: 'DKK ' }}</h5>
+              <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3 float-end" (click)="addToCart(event); $event.stopPropagation()"> Purchase</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container-fluid">
+  <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
+    <div *ngFor="let event of events" class="col">
+      <div class="card bg-dark text-white" [routerLink]="['/events', event.id]">
+        <a *ngIf="event.eventPicturePath">
+          <img src="https://protonedmusic.com/{{ event.eventPicturePath }}" class="img-fluid w-100 event-image" alt="Event Image" style="height: 15rem;">
+        </a>
+        <a *ngIf="!event.eventPicturePath">
+          <img src="../../../assets/img/Error.jpg" class="img-fluid w-100 rounded-start event-image" alt="Default Image">
+        </a>
+        <div class="col">
+          <div class="card-body">
+            <h2 class="card-title">{{ event.title }}</h2>
             <h5>Description: </h5>
-            <p class="card-text text-truncate">{{event.description}}</p>
+            <p class="card-text text-truncate">{{ event.description }}</p>
           </div>
           <div class="card-footer">
-            <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}
-            </h5>
-            <h5 class="badge text-black bg-success mx-2 align-middle float-end">{{ event.price | currency: 'DKK '}}
-            </h5>
-            <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3 float-end"
-              (click)="addToCart(event); $event.stopPropagation()"> Purchase</button>
+            <h5 class="card-subtitle small mt-3 me-3">Event Date: {{ event.timeofEvent | date: 'dd MMM yyyy, HH:mm' }}</h5>
+            <h5 class="badge text-black bg-success mx-2 align-middle float-end">{{ event.price | currency: 'DKK ' }}</h5>
+            <button class="btn bi-bag-check-fill btn-sm btn-outline-success me-1 mx-3 float-end" (click)="addToCart(event); $event.stopPropagation()"> Purchase</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
 <div class="g-4 m-5 align-content-center" *ngIf="this.checkEmpty == true">
   <div class="card bg-dark text-light">
     <div class="card-body text-center">

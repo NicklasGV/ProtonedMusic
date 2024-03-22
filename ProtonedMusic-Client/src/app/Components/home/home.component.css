@@ -1,56 +1,109 @@
-.LeftBanner{
-    height: 750px;
-    background-position: center ;
-    background-size: cover;
+.LeftBanner {
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .LeftBanner {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black; /* Slagger løsning! */
+    height: 400px;
+    width: 100%;
   }
-  
-  .RightBanner{
-    height: 750px;
-    background-position: center ;
-    background-size: cover;
+}
+
+@media only screen and (min-width: 768px) {
+  .LeftBanner {
+    height: 650px;
   }
-  
-  .MiddleBanner{
-    height: 750px;
-    background-position: center ;
-    background-size: cover;
-  }
-  
-  .LeftBanner h1{
-    color: #fff;
-    font-size: 50px;
-    font-weight: bold;
-    top: 20%;
-    position: relative;
-    margin-left: 10%;
-  }
-  
-  .RightBanner h1{
-    color: #fff;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: right;
-    margin-right: 2%;
-    top: 20%;
-    position: relative;
-    line-height: 1;
-  }
-  
-  .MiddleBanner h1{
-    color: #fff;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    position: relative;
-    top: 20%;
-    line-height: 1;
-  }
-  
-  .step h1{
-    color: green;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    position: relative;
-    margin-top: 1%;
-  }
+}
+
+.RightBanner {
+  height: 750px;
+  background-position: center;
+  background-size: cover;
+  filter: blur(0) !important;
+}
+
+.MiddleBanner {
+  height: 750px;
+  background-position: center;
+  background-size: cover;
+  filter: blur(0) !important;
+}
+
+.LeftBanner h1 {
+  color: #fff;
+  font-size: 50px;
+  font-weight: bold;
+  top: 20%;
+  position: relative;
+  margin-left: 10%;
+
+}
+
+.RightBanner h1 {
+  color: #fff;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 2%;
+  top: 20%;
+  position: relative;
+  line-height: 1;
+}
+
+.MiddleBanner h1 {
+  color: #fff;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: 20%;
+  line-height: 1;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 1200px;
+  overflow: hidden;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 100%;
+  min-width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  color: white;
+  z-index: 1;
+}
+
+.step h1 {
+  color: green;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  margin-top: 1%;
+}
