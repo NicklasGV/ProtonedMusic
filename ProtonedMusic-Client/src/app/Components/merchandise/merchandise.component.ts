@@ -19,12 +19,14 @@ import { PriceService } from 'src/app/Services/Price.Service';
   styleUrls: ['./merchandise.component.css']
 })
 export class MerchandiseComponent implements OnInit {
+
   products: ProductModel[] = [];
   cart: CartItem[] = [];
   private _cart: Cart = { items: [] };
   itemlength = 0;
   itemsQuantity = 0;
   checkEmpty: boolean = false;
+  userCurrency: string = 'DKK'; // Default currency
 
   @Input()
   get carts(): Cart {
@@ -42,7 +44,7 @@ export class MerchandiseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private priceService: PriceService, // Indsæt PriceService her
+    private priceService: PriceService,
     private route: ActivatedRoute,
     private router: Router,
     private snackbar: SnackBarService,
@@ -75,12 +77,16 @@ export class MerchandiseComponent implements OnInit {
 
     this.cartService.currentCart.subscribe((x) => (this.cart = x));
 
-    // Convert prices to user's currency
+    // Get user's local currency and convert prices
     this.convertPricesToUserCurrency();
   }
 
   async convertPricesToUserCurrency(): Promise<void> {
     try {
+      const geoLocation = await this.priceService.getGeolocation().toPromise(); // Fetch user's geolocation
+      const localCurrency = this.priceService.getCountryCurrency(geoLocation.countryCode); // Fetch user's local currency
+      this.userCurrency = localCurrency;
+
       for (const product of this.products) {
         console.log('Converting price for product:', product);
         product.price = await this.priceService.getPriceInLocalCurrency(product);
@@ -90,6 +96,7 @@ export class MerchandiseComponent implements OnInit {
       console.error('Error converting prices to local currency:', error);
     }
   }
+
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -103,7 +110,7 @@ export class MerchandiseComponent implements OnInit {
   }
 
   formatCurrency(amount: number): string {
-    return amount.toLocaleString('da-DK') + ' DKK';
+    return amount.toLocaleString('da-DK') + ' ' + this.userCurrency;
   }
 
   CartTotal(): number {

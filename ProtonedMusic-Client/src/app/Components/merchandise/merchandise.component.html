@@ -40,8 +40,9 @@
                   <div class="card-footer d-flex justify-content-between">
                       <a type="button" class="btn btn-sm bi-bag-check-fill btn-outline-success  me-4" (click)="addToCart(product); $event.stopPropagation()"> Add to cart</a>
                       <div class="badge text-black bg-success d-flex justify-content-center align-items-center" style="width: 5rem; font-size: 0.8rem;">
-                        {{ product.price | currency }} <!-- Viser prisen med brugerens aktuelle valutaformat -->
+                        {{ product.price | currency:userCurrency }}
                       </div>
+
 
                   </div>
               </div>
